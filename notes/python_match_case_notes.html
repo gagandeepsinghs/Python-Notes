@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Match-Case & eval() Complete Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .syntax-box {
+            background-color: rgb(243, 244, 246);
+            border-left: 4px solid var(--accent-color);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+            margin: 1rem 0;
+            color: rgb(31, 41, 55);
+        }
+
+        .note-box {
+            background-color: rgb(254, 243, 199);
+            border-left: 4px solid rgb(245, 158, 11);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            color: rgb(120, 53, 15);
+        }
+
+        .note-box h3 {
+            color: rgb(180, 83, 9);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Match-Case & eval() Guide</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-what')">1. What is Match-Case?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-syntax')">2. Basic Syntax</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-examples')">3. Match-Case Examples</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-menu')">4. Menu-Driven System</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-eval-note')">5. SPECIAL NOTE: eval() Purpose</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-match-eval')">6. Match-Case with eval()</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-revision')">7. Quick Revision Summary</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Control Flow: Match-Case & eval()</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search concepts...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Python Match–Case Statements & eval() Notes</h1>
+                <p>Master Pattern Matching (Match-Case) in Python along with a deep-dive breakdown of the eval() function, syntax, and real-life examples.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- SECTION 1: What is Match-Case? -->
+            <div class="section-card" id="sec-what">
+                <h2 class="section-title">1. What is Match-Case in Python?</h2>
+                <div class="concept-box">
+                    <p>The <span class="code-snippet">match-case</span> statement is used to match a variable's value against multiple potential case patterns. When a matching pattern is found, the corresponding code block executes.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Pattern Matching:</strong> Evaluates a target variable and branches execution based on matching value.</li>
+                            <li><strong>Replaces If-Elif:</strong> Cleaner and more readable alternative to long <span class="code-snippet">if-elif-else</span> chains.</li>
+                            <li><strong>Default Catch-all:</strong> Uses <span class="code-snippet">case _</span> as the fallback default block.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Match-Case Ka Use:</strong> Match-case ka use ek variable ko multiple values se match karne ke liye hota hai.</li>
+                            <li><strong>Execution:</strong> Jo value match hoti hai, uska code run ho jata hai.</li>
+                            <li><strong>Default Case:</strong> Agar koi value match na ho, to <span class="code-snippet">case _</span> (default case) run hota hai.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Basic Syntax -->
+            <div class="section-card" id="sec-syntax">
+                <h2 class="section-title">2. Basic Syntax of Match-Case</h2>
+                
+                <div class="syntax-box">
+match variable:
+    case value1:
+        code
+    case value2:
+        code
+    case value3:
+        code
+    case _:
+        default_code
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Keyword Roles</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">match</span>: Evaluates the variable.</li>
+                            <li><span class="code-snippet">case</span>: Checks specific target value.</li>
+                            <li><span class="code-snippet">case _</span>: Default fallback case when no earlier case matches.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Role Explanation</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">match</span> → variable check karta hai.</li>
+                            <li><span class="code-snippet">case</span> → specific value match karta hai.</li>
+                            <li><span class="code-snippet">case _</span> → default case (agar koi match na ho).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Examples -->
+            <div class="section-card" id="sec-examples">
+                <h2 class="section-title">3. Practical Match-Case Examples</h2>
+                
+                <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Example 1: Day Checking</h3>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Day Checker</div>
+                    <pre>day = 1
+
+match day:
+    case 1:
+        print("Monday")
+    case 2:
+        print("Tuesday")
+    case 3:
+        print("Wednesday")
+    case _:
+        print("Invalid day")</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Monday</div>
+
+                <h3 style="color: var(--accent-color); margin-top: 1.5rem; margin-bottom: 0.5rem;">Example 2: Activity Tracker</h3>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Activity Tracker</div>
+                    <pre>activity_choice = 2
+
+match activity_choice:
+    case 1:
+        print("yes padhai kr rhe hai")
+    case 2:
+        print("game khel rhe hai")
+    case 3:
+        print("movie dekh rhe hai")
+    case 4:
+        print("ghumne gye hai")
+    case _:
+        print("velle bethe hue")</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>game khel rhe hai</div>
+            </div>
+
+            <!-- SECTION 4: Menu System -->
+            <div class="section-card" id="sec-menu">
+                <h2 class="section-title">4. Real-World Example: Menu Selection System</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Menu System</div>
+                    <pre>print("1. Tea")
+print("2. Coffee")
+print("3. Juice")
+
+choice = 2
+
+match choice:
+    case 1:
+        print("Tea selected")
+    case 2:
+        print("Coffee selected")
+    case 3:
+        print("Juice selected")
+    case _:
+        print("Invalid item selected")</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Coffee selected</div>
+            </div>
+
+            <!-- SECTION 5: SPECIAL DEEP DIVE NOTE ON eval() -->
+            <div class="section-card" id="sec-eval-note">
+                <h2 class="section-title">5. SPECIAL DEEP DIVE: What is the Purpose of eval() in Python?</h2>
+                
+                <div class="note-box">
+                    <h3>Note on eval() Function</h3>
+                    <p><strong>Definition:</strong> The <span class="code-snippet">eval()</span> function stands for <strong>"Evaluate"</strong>. It evaluates a string argument dynamically as a Python expression and returns the calculated result.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Why Use eval()? (Purpose)</h4>
+                        <ul class="list-styled">
+                            <li><strong>Auto Type Parsing:</strong> When taking user input via <span class="code-snippet">input()</span>, Python returns a string. Using <span class="code-snippet">eval(input())</span> automatically parses numeric strings into integers or floats without needing explicit <span class="code-snippet">int()</span> or <span class="code-snippet">float()</span> conversion!</li>
+                            <li><strong>Dynamic Math Evaluation:</strong> Can evaluate math expressions stored as strings, e.g. <span class="code-snippet">eval("10 + 20")</span> returns <span class="code-snippet">30</span>.</li>
+                            <li><strong>Convenience:</strong> Handles integers, floats, lists, and tuples dynamically from string inputs.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>eval() ka Purpose (Simple Words me)</h4>
+                        <ul class="list-styled">
+                            <li><strong>Auto Conversion:</strong> <span class="code-snippet">input()</span> hamesha String data deta hai. Agar hum <span class="code-snippet">eval(input())</span> use karte hain, to Python automatically integer ("10" -> 10) ya float ("10.5" -> 10.5) samajh kar convert kar deta hai.</li>
+                            <li><strong>Calculation:</strong> Direct string math expression ko solve kar deta hai (jaise <span class="code-snippet">eval("5 * 4")</span> -> <span class="code-snippet">20</span>).</li>
+                            <li><strong>No int/float hassle:</strong> Alag se <span class="code-snippet">int()</span> ya <span class="code-snippet">float()</span> nahi likhna padta.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Demonstration of eval()</div>
+                    <pre>expr_result = eval("10 + 20 * 2")
+print("Evaluated Expression:", expr_result)
+
+val = eval("45")
+print("Parsed Value:", val, "Type:", type(val))</pre>
+                </div>
+
+                <div class="output-box"><div class="output-label">Output</div>Evaluated Expression: 50<br>Parsed Value: 45 Type: &lt;class 'int'&gt;</div>
+            </div>
+
+            <!-- SECTION 6: Match-Case with eval() -->
+            <div class="section-card" id="sec-match-eval">
+                <h2 class="section-title">6. Match-Case Combined with eval() Input</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Match-Case using eval()</div>
+                    <pre>num = eval("2")
+
+match num:
+    case 1:
+        print("You entered One")
+    case 2:
+        print("You entered Two")
+    case 3:
+        print("You entered Three")
+    case _:
+        print("Invalid number")</pre>
+                </div>
+
+                <div class="output-box"><div class="output-label">Output</div>You entered Two</div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">num = eval("2")</span></td>
+                            <td>Evaluates the string "2" and converts it automatically to integer <span class="code-snippet">2</span>.</td>
+                            <td><span class="code-snippet">eval()</span> string "2" ko automatic int value 2 banata hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">3</td>
+                            <td><span class="code-snippet">match num:</span></td>
+                            <td>Begins pattern matching on variable <span class="code-snippet">num</span>.</td>
+                            <td>Variable <span class="code-snippet">num</span> par matching start hoti hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">6-7</td>
+                            <td><span class="code-snippet">case 2: print("You entered Two")</span></td>
+                            <td>Matches value 2 and prints "You entered Two".</td>
+                            <td>Case 2 match hote hi "You entered Two" print karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 7: Quick Revision -->
+            <div class="section-card" id="sec-revision">
+                <h2 class="section-title">7. Quick Revision Summary</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Summary Points</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">match</span>: Evaluates the target variable.</li>
+                            <li><span class="code-snippet">case</span>: Defines value pattern and action.</li>
+                            <li><span class="code-snippet">case _</span>: Default fallback option.</li>
+                            <li><span class="code-snippet">eval()</span>: Evaluates string expressions and auto-parses numbers.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Quick Summary</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">match</span> → check karta hai.</li>
+                            <li><span class="code-snippet">case</span> → action perform karta hai.</li>
+                            <li><span class="code-snippet">case _</span> → default fallback option.</li>
+                            <li><span class="code-snippet">eval()</span> → string data ko evaluate aur auto-convert karta hai.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Control Flow Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Unabridged Master Notes (Chapters 1 to 18) - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(9, 9, 11);
+            --bg-secondary: rgb(24, 24, 27);
+            --text-primary: rgb(244, 244, 245);
+            --text-muted: rgb(161, 161, 170);
+            --accent-color: rgb(59, 130, 246);
+            --accent-hover: rgb(37, 99, 235);
+            --code-bg: rgb(24, 24, 27);
+            --code-border: rgb(39, 39, 42);
+            --code-text: rgb(244, 244, 245);
+            --border-color: rgb(39, 39, 42);
+            --box-blue-bg: rgb(30, 58, 138);
+            --box-blue-border: rgb(30, 64, 175);
+            --box-blue-text: rgb(219, 234, 254);
+            --box-green-bg: rgb(6, 78, 59);
+            --box-green-border: rgb(6, 95, 70);
+            --box-green-text: rgb(209, 250, 229);
+            --box-red-bg: rgb(127, 29, 29);
+            --box-red-border: rgb(153, 27, 27);
+            --box-red-text: rgb(254, 226, 226);
+            --output-bg: rgb(18, 18, 20);
+            --output-border: rgb(39, 39, 42);
+            --sidebar-width: 320px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: rgb(18, 18, 20);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(161, 161, 170);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(63, 63, 70);
+            background-color: rgb(24, 24, 27);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            color: rgb(212, 212, 216);
+            text-decoration: none;
+            font-size: 0.86rem;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1150px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(24, 24, 27) 0%, rgb(39, 39, 42) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-card h1 {
+            font-size: 2.3rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: rgb(255, 255, 255);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 28px;
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.45rem;
+            color: rgb(255, 255, 255);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-title {
+            font-size: 1.15rem;
+            color: rgb(147, 197, 253);
+            margin-top: 22px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .box-blue {
+            background-color: var(--box-blue-bg);
+            border: 1px solid var(--box-blue-border);
+            color: var(--box-blue-text);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .box-green {
+            background-color: var(--box-green-bg);
+            border: 1px solid var(--box-green-border);
+            color: var(--box-green-text);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .box-red {
+            background-color: var(--box-red-bg);
+            border: 1px solid var(--box-red-border);
+            color: var(--box-red-text);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .box-blue h4, .box-green h4, .box-red h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* Dark Code Container */
+        .code-container {
+            background-color: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .code-header {
+            background-color: rgb(39, 39, 42);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            border-bottom: 1px solid rgb(63, 63, 70);
+        }
+
+        .code-header .lang-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgb(212, 212, 216);
+            font-weight: 600;
+        }
+
+        .code-header .copy-btn {
+            background: none;
+            border: none;
+            color: rgb(161, 161, 170);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            color: rgb(244, 244, 245);
+            padding: 18px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.92rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+        }
+
+        /* Syntax Highlighting Colors */
+        .kw { color: rgb(236, 72, 153); font-weight: bold; } /* Keywords PINK */
+        .fn { color: rgb(96, 165, 250); } /* Functions BLUE */
+        .str { color: rgb(52, 211, 153); } /* Strings GREEN */
+        .type { color: rgb(192, 132, 252); } /* Types PURPLE */
+        .num { color: rgb(251, 146, 60); } /* Numbers ORANGE */
+        .cm { color: rgb(113, 113, 122); font-style: italic; } /* Comments GREY */
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 14px 18px;
+            margin-top: 10px;
+            border-radius: 0 8px 8px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(224, 231, 255);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: rgb(161, 161, 170);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(39, 39, 42);
+            color: rgb(147, 197, 253);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(63, 63, 70);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Python Programming Notes</h2>
+        <span class="author-tag">Complete Unabridged Guide (365 Pages) &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search topic or keyword..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch1')">Chapter 1. Python Overview & Intro</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch2')">Chapter 2. Environment Setup</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch3')">Chapter 3. Python Syntax Basics</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch4')">Chapter 4. Data Types in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch5')">Chapter 5. Operators in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch6')">Chapter 6. String Operations</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch7')">Chapter 7. Control Flow</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch8')">Chapter 8. Loops and Iteration</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch9-1')">Chapter 9.1 Lists in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch9-2')">Chapter 9.2 Tuples in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch9-3')">Chapter 9.3 Dictionaries in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch9-4')">Chapter 9.4 Sets in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch9-5')">Chapter 9.5 Collections Module</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch10')">Chapter 10. Functions in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch11')">Chapter 11. Advanced Functions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch12')">Chapter 12. Scope and Namespaces</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch13')">Chapter 13. Modules and Packages</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch14')">Chapter 14. Object-Oriented Programming</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch15')">Chapter 15. Advanced OOP in Python</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch16')">Chapter 16. File & Exception Handling</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch17')">Chapter 17. Advanced Python Concepts</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch18')">Chapter 18. Concurrency & Async</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Python Programming Complete Unabridged Master Notes</h1>
+            <p>Full 365-Page PDF Study Guide covering every single section, sub-section, code block, output, table, flowchart, and warning rule from Chapter 1 to Chapter 18.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- CHAPTER 1 -->
+        <div class="section-card" id="sec-ch1">
+            <h2 class="section-title">Chapter 1: Python Overview & Introduction</h2>
+            
+            <h3 class="sub-title">1.1 History of Python</h3>
+            <p>Python was created by <strong>Guido van Rossum</strong>. He started working on Python in the late 1980s, and Python was first released in <strong>1991</strong>.</p>
+            <p>The language was designed to be simple, readable, and easy to use. Guido wanted Python code to look clean and understandable, so programmers could focus more on solving problems instead of writing complicated syntax.</p>
+            <p>Python’s name does not come from the snake. It was inspired by a British comedy show called <em>"Monty Python’s Flying Circus."</em></p>
+            <p>Over time, Python became popular because it was easy for beginners and powerful for professionals. Today, Python is used in many fields like:</p>
+            <ul class="list-styled">
+                <li>Web development</li>
+                <li>Automation</li>
+                <li>Data science</li>
+                <li>Artificial intelligence</li>
+                <li>Machine learning</li>
+                <li>Testing</li>
+                <li>Scripting</li>
+                <li>Backend development</li>
+            </ul>
+
+            <h3 class="sub-title">1.2 What is Python?</h3>
+            <p>Python is a high-level, general-purpose programming language. It is used to write programs for automation, web development, data handling, artificial intelligence, machine learning, scripting, testing, and many other tasks. Python is popular because its syntax is simple and easy to read.</p>
+
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="fn">print</span>(<span class="str">"Hello, World!"</span>)</pre>
+            </div>
+            <div class="output-box"><div class="output-label">Output</div>Hello, World!</div>
+            <p>Python files are saved with the <code>.py</code> extension. Example: <code>main.py</code>, <code>app.py</code>, <code>hello.py</code>.</p>
+
+            <h3 class="sub-title">1.3 Why Learn Python?</h3>
+            <p>Python is easy to start with and powerful enough for real-world projects. Python is useful because:</p>
+            <ul class="list-styled">
+                <li>It is beginner-friendly.</li>
+                <li>It is used in many industries.</li>
+                <li>It has simple syntax.</li>
+                <li>It has many libraries.</li>
+                <li>It is good for automation.</li>
+                <li>It is widely used in AI, data science, and backend development.</li>
+            </ul>
+
+            <h3 class="sub-title">1.4 Main Features of Python</h3>
+            <table class="table-custom">
+                <thead><tr><th>Feature</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Easy syntax</strong></td><td>Python code is simple and readable</td></tr>
+                    <tr><td><strong>High-level</strong></td><td>We do not need to deal directly with machine-level details</td></tr>
+                    <tr><td><strong>Interpreted</strong></td><td>Python code runs using the Python interpreter</td></tr>
+                    <tr><td><strong>Dynamically typed</strong></td><td>No need to declare variable type manually</td></tr>
+                    <tr><td><strong>Object-oriented</strong></td><td>Supports classes and objects</td></tr>
+                    <tr><td><strong>Cross-platform</strong></td><td>Runs on Windows, macOS, and Linux</td></tr>
+                    <tr><td><strong>Large library support</strong></td><td>Many built-in and external libraries are available</td></tr>
+                    <tr><td><strong>Open-source</strong></td><td>Free to use</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">1.5 Python Version</h3>
+            <p>For modern learning, use <strong>Python 3</strong>. Python 2 is old and should not be used for new learning.</p>
+            <p>To check Python version, use:</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; TERMINAL</span><button class="copy-btn">Copy</button></div>
+                <pre>python --version  <span class="cm">-- or: python3 --version</span></pre>
+            </div>
+            <div class="output-box"><div class="output-label">Example Output</div>Python 3.12.5</div>
+
+            <h3 class="sub-title">1.6 How Python Code Runs</h3>
+            <div class="box-blue">
+                <h4>Basic Flow</h4>
+                <p>Python Code &rarr; Python Interpreter &rarr; Output</p>
+                <h4 style="margin-top: 10px;">More Accurate Flow</h4>
+                <p>Source Code &rarr; Bytecode &rarr; Python Virtual Machine (PVM) &rarr; Output</p>
+            </div>
+            <p>For now, remember:</p>
+            <ul class="list-styled">
+                <li>Python code is written in <code>.py</code> files.</li>
+                <li>Python interpreter reads and runs the code.</li>
+                <li>Python runs code from top to bottom.</li>
+                <li>Output is shown on the screen.</li>
+            </ul>
+
+            <h3 class="sub-title">1.7 Compiler vs Interpreter Basics</h3>
+            <p>Before code runs, it must be translated into a form the computer can understand. There are two common translators:</p>
+            <ul class="list-styled">
+                <li>Compiler</li>
+                <li>Interpreter</li>
+            </ul>
+            <p><strong>Compiler:</strong> A compiler translates the whole program before running it. Flow: <code>Source Code &rarr; Compiler &rarr; Executable File &rarr; Run Program</code>. Examples: C, C++, Go, Rust.</p>
+            <p><strong>Interpreter:</strong> An interpreter runs code more directly line by line. Flow: <code>Source Code &rarr; Interpreter &rarr; Output</code>. Python is commonly called an interpreted language.</p>
+            <table class="table-custom">
+                <thead><tr><th>Point</th><th>Compiler</th><th>Interpreter</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Translation</strong></td><td>Translates full code before running</td><td>Runs code more directly line-by-line</td></tr>
+                    <tr><td><strong>Speed</strong></td><td>Usually faster after compilation</td><td>Usually slower</td></tr>
+                    <tr><td><strong>Error checking</strong></td><td>Many errors found before running</td><td>Errors can appear while running</td></tr>
+                    <tr><td><strong>Examples</strong></td><td>C, C++, Go, Rust</td><td>Python, JavaScript, Ruby</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CHAPTER 2 -->
+        <div class="section-card" id="sec-ch2">
+            <h2 class="section-title">Chapter 2: Environment Setup</h2>
+            <p>Environment setup means preparing your computer so you can write, run, and manage Python programs properly.</p>
+            
+            <h3 class="sub-title">2.1 Installing Python</h3>
+            <p>The safest way is to download Python from the official Python website (python.org).</p>
+            <div class="box-green">
+                <h4>Important Installation Step for Windows</h4>
+                <p>Always tick: <strong>Add python.exe to PATH</strong>. This option allows you to run Python from any command prompt or terminal window.</p>
+            </div>
+
+            <h3 class="sub-title">2.4 Terminal and Command Line Basics</h3>
+            <table class="table-custom">
+                <thead><tr><th>Task</th><th>Windows Command</th><th>macOS/Linux Command</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td>Check current folder</td><td><span class="code-snippet">pwd</span></td><td><span class="code-snippet">pwd</span></td><td>Shows current folder/location in terminal</td></tr>
+                    <tr><td>List files and folders</td><td><span class="code-snippet">dir</span></td><td><span class="code-snippet">ls</span></td><td>Shows files inside current folder</td></tr>
+                    <tr><td>Change folder</td><td><span class="code-snippet">cd folder_name</span></td><td><span class="code-snippet">cd folder_name</span></td><td>Moves into a folder</td></tr>
+                    <tr><td>Go back one folder</td><td><span class="code-snippet">cd ..</span></td><td><span class="code-snippet">cd ..</span></td><td>Moves one level back</td></tr>
+                    <tr><td>Create folder</td><td><span class="code-snippet">mkdir python-notes</span></td><td><span class="code-snippet">mkdir python-notes</span></td><td>Creates a new folder named python-notes</td></tr>
+                    <tr><td>Clear terminal</td><td><span class="code-snippet">cls</span></td><td><span class="code-snippet">clear</span></td><td>Clears the terminal screen</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">2.6 Python REPL</h3>
+            <p>REPL stands for: <strong>R</strong>ead, <strong>E</strong>valuate, <strong>P</strong>rint, <strong>L</strong>oop. It allows us to run Python code line by line for quick testing.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; TERMINAL</span><button class="copy-btn">Copy</button></div>
+                <pre>python  <span class="cm">-- or: py or python3</span>
+<span class="cm">-- Prompt appears: &gt;&gt;&gt;</span>
+&gt;&gt;&gt; 10 + 20
+30
+&gt;&gt;&gt; print("Hello")
+Hello
+&gt;&gt;&gt; name = "Aman"
+&gt;&gt;&gt; name
+'Aman'</pre>
+            </div>
+            <p>Exiting REPL: Use <code>exit()</code> or press <code>Ctrl + Z</code> then Enter on Windows, <code>Ctrl + D</code> on macOS/Linux.</p>
+
+            <h3 class="sub-title">2.8 Virtual Environments Using venv</h3>
+            <p>A virtual environment is an isolated environment for a Python project. It keeps project packages separate from other projects so package version conflicts do not happen.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; TERMINAL</span><button class="copy-btn">Copy</button></div>
+                <pre>python -m venv venv</pre>
+            </div>
+
+            <h3 class="sub-title">2.9 Installing Packages Using pip</h3>
+            <p><code>pip</code> is Python’s package installer used to install external libraries from PyPI.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; TERMINAL</span><button class="copy-btn">Copy</button></div>
+                <pre>python -m pip install requests
+python -m pip list</pre>
+            </div>
+
+            <h3 class="sub-title">2.10 requirements.txt</h3>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; TERMINAL</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="cm">-- Create requirements.txt</span>
+python -m pip freeze > requirements.txt
+
+<span class="cm">-- Install from requirements.txt</span>
+python -m pip install -r requirements.txt</pre>
+            </div>
+        </div>
+
+        <!-- CHAPTER 3 -->
+        <div class="section-card" id="sec-ch3">
+            <h2 class="section-title">Chapter 3: Python Syntax Basics</h2>
+            
+            <h3 class="sub-title">3.1 First Python Code</h3>
+            <table class="table-custom">
+                <thead><tr><th>Part</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-snippet">print</span></td><td>Built-in Python function used to display output</td></tr>
+                    <tr><td><span class="code-snippet">()</span></td><td>Parentheses used to pass data to the function</td></tr>
+                    <tr><td><span class="code-snippet">"Hello, World!"</span></td><td>Text value, also called a string</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">3.4 Indentation Rules</h3>
+            <p>Indentation means spaces at the beginning of a line. Python uses indentation to define code blocks instead of curly braces <code>{}</code>.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="kw">if</span> <span class="num">10</span> > <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">"10 is greater than 5"</span>) <span class="cm">-- 4 spaces indentation</span></pre>
+            </div>
+
+            <h3 class="sub-title">3.5 Variables</h3>
+            <p>A variable is a name used to store data. Basic syntax: <code>variable_name = value</code>.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre>name = <span class="str">"Rahul"</span>
+age = <span class="num">21</span>
+height = <span class="num">5.8</span>
+<span class="fn">print</span>(name)
+<span class="fn">print</span>(age)
+<span class="fn">print</span>(height)</pre>
+            </div>
+
+            <h3 class="sub-title">3.6 Naming Conventions</h3>
+            <table class="table-custom">
+                <thead><tr><th>Naming Style</th><th>Example 1</th><th>Example 2</th><th>Usage</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>snake_case</strong></td><td>student_name</td><td>total_marks</td><td>Variables & Functions in Python</td></tr>
+                    <tr><td><strong>camelCase</strong></td><td>studentName</td><td>totalMarks</td><td>Common in JS/Java</td></tr>
+                    <tr><td><strong>PascalCase</strong></td><td>StudentName</td><td>TotalMarks</td><td>Classes in Python</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">3.8 Print Statements (sep & end)</h3>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="fn">print</span>(<span class="str">"Python"</span>, <span class="str">"Java"</span>, <span class="str">"C++"</span>, sep=<span class="str">" | "</span>)
+<span class="fn">print</span>(<span class="str">"Hello"</span>, end=<span class="str">" "</span>)
+<span class="fn">print</span>(<span class="str">"Python"</span>)</pre>
+            </div>
+            <div class="output-box"><div class="output-label">Output</div>Python | Java | C++<br>Hello Python</div>
+
+            <h3 class="sub-title">3.9 Input from Users</h3>
+            <p>The <code>input()</code> function always returns data as a <strong>string</strong>. Convert with <code>int()</code> or <code>float()</code> for numbers.</p>
+
+            <h3 class="sub-title">3.11 Common Syntax Errors</h3>
+            <ul class="list-styled">
+                <li>Missing Parentheses in <code>print()</code></li>
+                <li>Missing Colon <code>:</code> after statements (if, else, for, while, def, class, try, except, finally)</li>
+                <li>Wrong Indentation</li>
+                <li>Using Keyword as Variable Name</li>
+                <li>Variable Used Before Assignment (NameError)</li>
+                <li>Missing Quotes Around String</li>
+                <li>Mismatched Quotes</li>
+                <li>Invalid Variable Name</li>
+                <li>Type Conversion Error (ValueError)</li>
+                <li>Unclosed Parentheses</li>
+                <li>Extra Closing Bracket</li>
+            </ul>
+        </div>
+
+        <!-- CHAPTER 4 -->
+        <div class="section-card" id="sec-ch4">
+            <h2 class="section-title">Chapter 4: Data Types in Python</h2>
+            
+            <h3 class="sub-title">4.1 Numbers</h3>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre>age = <span class="num">21</span>               <span class="cm">-- int</span>
+price = <span class="num">99.50</span>          <span class="cm">-- float</span>
+num_complex = <span class="num">3</span> + <span class="num">4j</span>   <span class="cm">-- complex (j is imaginary unit)</span>
+
+<span class="fn">print</span>(num_complex.real) <span class="cm">-- 3.0</span>
+<span class="fn">print</span>(num_complex.imag) <span class="cm">-- 4.0</span></pre>
+            </div>
+
+            <h3 class="sub-title">4.7 Mutable vs Immutable Data Types</h3>
+            <table class="table-custom">
+                <thead><tr><th>Type</th><th>Mutable or Immutable</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-snippet">int</span></td><td>Immutable</td><td>Cannot be changed after creation</td></tr>
+                    <tr><td><span class="code-snippet">float</span></td><td>Immutable</td><td>Cannot be changed after creation</td></tr>
+                    <tr><td><span class="code-snippet">complex</span></td><td>Immutable</td><td>Cannot be changed after creation</td></tr>
+                    <tr><td><span class="code-snippet">str</span></td><td>Immutable</td><td>Strings cannot be changed character by character</td></tr>
+                    <tr><td><span class="code-snippet">bool</span></td><td>Immutable</td><td>Cannot be changed after creation</td></tr>
+                    <tr><td><span class="code-snippet">NoneType</span></td><td>Immutable</td><td>Cannot be changed after creation</td></tr>
+                    <tr><td><span class="code-snippet">tuple</span></td><td>Immutable</td><td>Fixed ordered sequence</td></tr>
+                    <tr><td><span class="code-snippet">list</span></td><td>Mutable</td><td>Can add, update, remove items</td></tr>
+                    <tr><td><span class="code-snippet">dict</span></td><td>Mutable</td><td>Key-value pairs can be modified</td></tr>
+                    <tr><td><span class="code-snippet">set</span></td><td>Mutable</td><td>Elements can be added or removed</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CHAPTER 5 -->
+        <div class="section-card" id="sec-ch5">
+            <h2 class="section-title">Chapter 5: Operators in Python</h2>
+            
+            <h3 class="sub-title">5.1 Arithmetic Operators</h3>
+            <table class="table-custom">
+                <thead><tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-snippet">+</span></td><td>Addition</td><td><span class="code-snippet">10 + 5</span></td><td>15</td></tr>
+                    <tr><td><span class="code-snippet">-</span></td><td>Subtraction</td><td><span class="code-snippet">10 - 5</span></td><td>5</td></tr>
+                    <tr><td><span class="code-snippet">*</span></td><td>Multiplication</td><td><span class="code-snippet">10 * 5</span></td><td>50</td></tr>
+                    <tr><td><span class="code-snippet">/</span></td><td>Division</td><td><span class="code-snippet">10 / 5</span></td><td>2.0 (Always float)</td></tr>
+                    <tr><td><span class="code-snippet">//</span></td><td>Floor division</td><td><span class="code-snippet">10 // 3</span></td><td>3</td></tr>
+                    <tr><td><span class="code-snippet">%</span></td><td>Modulus</td><td><span class="code-snippet">10 % 3</span></td><td>1</td></tr>
+                    <tr><td><span class="code-snippet">**</span></td><td>Exponentiation</td><td><span class="code-snippet">2 ** 3</span></td><td>8</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">5.7 Bitwise Operators</h3>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre>a = <span class="num">5</span>  <span class="cm">-- 101</span>
+b = <span class="num">3</span>  <span class="cm">-- 011</span>
+<span class="fn">print</span>(a & b)   <span class="cm">-- AND: 1</span>
+<span class="fn">print</span>(a | b)   <span class="cm">-- OR: 7</span>
+<span class="fn">print</span>(a ^ b)   <span class="cm">-- XOR: 6</span>
+<span class="fn">print</span>(~a)      <span class="cm">-- NOT: -(5 + 1) = -6</span>
+<span class="fn">print</span>(a &lt;&lt; <span class="num">1</span>)  <span class="cm">-- Left Shift: 10</span>
+<span class="fn">print</span>(a &gt;&gt; <span class="num">1</span>)  <span class="cm">-- Right Shift: 2</span></pre>
+            </div>
+
+            <h3 class="sub-title">5.8 Operator Precedence</h3>
+            <ol class="list-styled">
+                <li><code>()</code> Parentheses</li>
+                <li><code>**</code> Power</li>
+                <li><code>+x, -x, ~x</code> Unary plus, minus, bitwise NOT</li>
+                <li><code>*, /, //, %</code> Multiplication, division, floor div, modulus</li>
+                <li><code>+, -</code> Addition, subtraction</li>
+                <li><code>&lt;&lt;, &gt;&gt;</code> Bitwise shifts</li>
+                <li><code>&amp;</code> Bitwise AND</li>
+                <li><code>^</code> Bitwise XOR</li>
+                <li><code>|</code> Bitwise OR</li>
+                <li><code>==, !=, &gt;, &lt;, &gt;=, &lt;=</code> Comparisons</li>
+                <li><code>not</code> Logical NOT</li>
+                <li><code>and</code> Logical AND</li>
+                <li><code>or</code> Logical OR</li>
+            </ol>
+        </div>
+
+        <!-- CHAPTER 6 -->
+        <div class="section-card" id="sec-ch6">
+            <h2 class="section-title">Chapter 6: String Operations</h2>
+            
+            <h3 class="sub-title">6.4 String Methods Reference</h3>
+            <table class="table-custom">
+                <thead><tr><th>Method</th><th>Description</th><th>Example Result</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-snippet">lower() / upper()</span></td><td>Case conversion</td><td><span class="code-snippet">"Python".upper() &rarr; "PYTHON"</span></td></tr>
+                    <tr><td><span class="code-snippet">strip()</span></td><td>Removes spaces from ends</td><td><span class="code-snippet">" hi ".strip() &rarr; "hi"</span></td></tr>
+                    <tr><td><span class="code-snippet">replace(old, new)</span></td><td>Replaces substring</td><td><span class="code-snippet">"I like Java".replace("Java","Python")</span></td></tr>
+                    <tr><td><span class="code-snippet">split(sep)</span></td><td>Splits into list</td><td><span class="code-snippet">"a,b,c".split(",") &rarr; ['a','b','c']</span></td></tr>
+                    <tr><td><span class="code-snippet">join(iterable)</span></td><td>Joins elements into string</td><td><span class="code-snippet">"-".join(['A','B']) &rarr; "A-B"</span></td></tr>
+                    <tr><td><span class="code-snippet">find() / index()</span></td><td>Finds position</td><td><span class="code-snippet">"Python".find("th") &rarr; 2</span></td></tr>
+                    <tr><td><span class="code-snippet">startswith() / endswith()</span></td><td>Prefix/suffix check</td><td><span class="code-snippet">"Python".startswith("Py") &rarr; True</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CHAPTER 7 -->
+        <div class="section-card" id="sec-ch7">
+            <h2 class="section-title">Chapter 7: Control Flow</h2>
+            
+            <h3 class="sub-title">7.5 Ternary Operator</h3>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre>status = <span class="str">"Adult"</span> <span class="kw">if</span> age &gt;= <span class="num">18</span> <span class="kw">else</span> <span class="str">"Minor"</span></pre>
+            </div>
+
+            <h3 class="sub-title">7.6 match-case</h3>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="kw">match</span> day:
+    <span class="kw">case</span> <span class="num">1</span>: <span class="fn">print</span>(<span class="str">"Monday"</span>)
+    <span class="kw">case</span> <span class="num">2</span>: <span class="fn">print</span>(<span class="str">"Tuesday"</span>)
+    <span class="kw">case</span> _: <span class="fn">print</span>(<span class="str">"Other Day"</span>)</pre>
+            </div>
+        </div>
+
+        <!-- CHAPTER 8 -->
+        <div class="section-card" id="sec-ch8">
+            <h2 class="section-title">Chapter 8: Loops and Iteration</h2>
+            
+            <h3 class="sub-title">8.3 break, 8.4 continue, 8.5 pass</h3>
+            <table class="table-custom">
+                <thead><tr><th>Statement</th><th>Meaning</th><th>Effect on Loop</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>break</strong></td><td>Stop the loop</td><td>Exits loop completely</td></tr>
+                    <tr><td><strong>continue</strong></td><td>Skip current round</td><td>Moves to next iteration immediately</td></tr>
+                    <tr><td><strong>pass</strong></td><td>Do nothing</td><td>No effect (temporary placeholder)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">8.6 else with Loops</h3>
+            <p>The <code>else</code> block attached to a loop executes ONLY when the loop finishes naturally without encountering a <code>break</code> statement.</p>
+        </div>
+
+        <!-- CHAPTER 9 -->
+        <div class="section-card" id="sec-ch9-1">
+            <h2 class="section-title">Chapter 9: Data Structures in Python</h2>
+            
+            <h3 class="sub-title">9.1 Lists in Python</h3>
+            <p>Ordered, mutable sequences storing multiple values. Methods: <code>append()</code>, <code>extend()</code>, <code>insert()</code>, <code>remove()</code>, <code>pop()</code>, <code>clear()</code>, <code>sort()</code>, <code>reverse()</code>, <code>copy()</code>.</p>
+            <div class="box-blue">
+                <h4>Shallow Copy vs Deep Copy</h4>
+                <p>Shallow copy (<code>l.copy()</code>) clones outer list, but inner nested lists are still shared. Deep copy (<code>copy.deepcopy(l)</code>) creates fully independent copies of outer and inner nested structures.</p>
+            </div>
+
+            <h3 class="sub-title" id="sec-ch9-2">9.2 Tuples in Python</h3>
+            <p>Ordered, immutable sequences. Single element tuple must use trailing comma: <code>(10,)</code>.</p>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre>numbers = (<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>)
+first, *middle, last = numbers
+<span class="fn">print</span>(middle) <span class="cm">-- [20, 30, 40]</span></pre>
+            </div>
+
+            <h3 class="sub-title" id="sec-ch9-3">9.3 Dictionaries in Python</h3>
+            <p>Key-value mappings. Keys must be unique and immutable. Methods: <code>get()</code>, <code>keys()</code>, <code>values()</code>, <code>items()</code>, <code>update()</code>, <code>pop()</code>, <code>popitem()</code>.</p>
+
+            <h3 class="sub-title" id="sec-ch9-4">9.4 Sets in Python</h3>
+            <p>Unordered unique immutable values. Set operations: Union (<code>|</code>), Intersection (<code>&amp;</code>), Difference (<code>-</code>), Symmetric Difference (<code>^</code>).</p>
+
+            <h3 class="sub-title" id="sec-ch9-5">9.5 Collections Module</h3>
+            <table class="table-custom">
+                <thead><tr><th>Tool</th><th>Main Use</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Counter</strong></td><td>Counting frequency of items</td></tr>
+                    <tr><td><strong>defaultdict</strong></td><td>Dictionary that automatically creates default value for missing keys</td></tr>
+                    <tr><td><strong>OrderedDict</strong></td><td>Dictionary managing element order with <span class="code-snippet">move_to_end()</span></td></tr>
+                    <tr><td><strong>deque</strong></td><td>Double-ended queue with fast append/pop from left and right</td></tr>
+                    <tr><td><strong>ChainMap</strong></td><td>Combines multiple dictionaries into one single view</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CHAPTER 10 -->
+        <div class="section-card" id="sec-ch10">
+            <h2 class="section-title">Chapter 10: Functions in Python</h2>
+            <div class="box-red">
+                <h4>Function Parameter Order Rule</h4>
+                <p>1. Normal parameters &rarr; 2. Default parameters &rarr; 3. <code>*args</code> &rarr; 4. <code>**kwargs</code></p>
+            </div>
+        </div>
+
+        <!-- CHAPTER 11 -->
+        <div class="section-card" id="sec-ch11">
+            <h2 class="section-title">Chapter 11: Advanced Functions</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="kw">from</span> functools <span class="kw">import</span> reduce
+
+nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>]
+squares = <span class="type">list</span>(<span class="fn">map</span>(<span class="kw">lambda</span> x: x*x, nums))
+evens = <span class="type">list</span>(<span class="fn">filter</span>(<span class="kw">lambda</span> x: x%<span class="num">2</span>==<span class="num">0</span>, nums))
+sum_all = reduce(<span class="kw">lambda</span> a, b: a+b, nums)</pre>
+            </div>
+        </div>
+
+        <!-- CHAPTER 12 -->
+        <div class="section-card" id="sec-ch12">
+            <h2 class="section-title">Chapter 12: Scope and Namespaces</h2>
+            <div class="box-blue">
+                <h4>LEGB Variable Lookup Rule</h4>
+                <p><strong>Local</strong> &rarr; <strong>Enclosing</strong> &rarr; <strong>Global</strong> &rarr; <strong>Built-in</strong></p>
+            </div>
+        </div>
+
+        <!-- CHAPTER 13 -->
+        <div class="section-card" id="sec-ch13">
+            <h2 class="section-title">Chapter 13: Modules and Packages</h2>
+            <p>Modules are single <code>.py</code> files; Packages are folders containing <code>__init__.py</code> and multiple modules.</p>
+        </div>
+
+        <!-- CHAPTER 14 -->
+        <div class="section-card" id="sec-ch14">
+            <h2 class="section-title">Chapter 14: Object-Oriented Programming (OOP)</h2>
+            <h3 class="sub-title">Magic / Dunder Methods Reference</h3>
+            <table class="table-custom">
+                <thead><tr><th>Dunder Method</th><th>Triggered By</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="code-snippet">__init__</span></td><td><span class="code-snippet">ClassName()</span></td><td>Initializes object attributes</td></tr>
+                    <tr><td><span class="code-snippet">__str__</span></td><td><span class="code-snippet">print(obj), str(obj)</span></td><td>User-friendly string representation</td></tr>
+                    <tr><td><span class="code-snippet">__repr__</span></td><td><span class="code-snippet">repr(obj)</span></td><td>Developer debugging representation</td></tr>
+                    <tr><td><span class="code-snippet">__len__</span></td><td><span class="code-snippet">len(obj)</span></td><td>Returns object length</td></tr>
+                    <tr><td><span class="code-snippet">__getitem__</span></td><td><span class="code-snippet">obj[key]</span></td><td>Indexing & slicing</td></tr>
+                    <tr><td><span class="code-snippet">__add__</span></td><td><span class="code-snippet">obj1 + obj2</span></td><td>Addition operator overloading</td></tr>
+                    <tr><td><span class="code-snippet">__enter__ &amp; __exit__</span></td><td><span class="code-snippet">with obj:</span></td><td>Context managers</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CHAPTER 15 -->
+        <div class="section-card" id="sec-ch15">
+            <h2 class="section-title">Chapter 15: Advanced OOP & Data Classes</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass, field
+
+<span class="type">@dataclass</span>(frozen=<span class="kw">True</span>)
+<span class="kw">class</span> <span class="type">Point</span>:
+    x: <span class="type">int</span>
+    y: <span class="type">int</span>
+    tags: <span class="type">list</span> = field(default_factory=<span class="type">list</span>)</pre>
+            </div>
+        </div>
+
+        <!-- CHAPTER 16 -->
+        <div class="section-card" id="sec-ch16">
+            <h2 class="section-title">Chapter 16: File Handling and Error Management</h2>
+            <div class="code-container">
+                <div class="code-header"><span class="lang-tag">&lt;/&gt; PYTHON</span><button class="copy-btn">Copy</button></div>
+                <pre><span class="kw">try</span>:
+    <span class="kw">with</span> <span class="fn">open</span>(<span class="str">"data.txt"</span>, <span class="str">"r"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
+        data = f.<span class="fn">read</span>()
+<span class="kw">except</span> <span class="type">FileNotFoundError</span>:
+    <span class="fn">print</span>(<span class="str">"File not found!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"File read successfully!"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="str">"Completed!"</span>)</pre>
+            </div>
+        </div>
+
+        <!-- CHAPTER 17 -->
+        <div class="section-card" id="sec-ch17">
+            <h2 class="section-title">Chapter 17: Advanced Python Concepts</h2>
+            <p>Covers Decorators (<code>@wraps</code>, multiple decorators), Generators & Iterators (<code>yield</code>, <code>yield from</code>, <code>itertools</code>), Context Managers (<code>@contextmanager</code>), and Regular Expressions (<code>re</code> module).</p>
+        </div>
+
+        <!-- CHAPTER 18 -->
+        <div class="section-card" id="sec-ch18">
+            <h2 class="section-title">Chapter 18: Concurrent and Asynchronous Programming</h2>
+            <table class="table-custom">
+                <thead><tr><th>Feature</th><th>Threading</th><th>Multiprocessing</th><th>Asyncio</th></tr></thead>
+                <tbody>
+                    <tr><td>Unit</td><td>Thread</td><td>Process</td><td>Coroutine / Task</td></tr>
+                    <tr><td>Memory</td><td>Shared</td><td>Separate</td><td>Single-thread Event Loop</td></tr>
+                    <tr><td>Best For</td><td>I/O-bound blocking tasks</td><td>CPU-bound heavy computations</td><td>I/O-bound non-blocking network tasks</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Python Programming Complete Master Notes (Chapters 1 - 18) &bull; <strong>Created by Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

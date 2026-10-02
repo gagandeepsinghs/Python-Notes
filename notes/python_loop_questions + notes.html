@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Loop Practice Questions by Gagan Sir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper: rgb(238, 241, 244);
+  --card: rgb(255, 255, 255);
+  --ink: rgb(22, 32, 42);
+  --ink-soft: rgb(76, 90, 102);
+  --rule: rgb(211, 218, 225);
+  --accent: rgb(15, 111, 99);
+  --accent-soft: rgb(226, 239, 236);
+  --amber: rgb(154, 106, 22);
+  --amber-soft: rgb(246, 238, 220);
+  --code-bg: rgb(19, 32, 42);
+  --code-ink: rgb(220, 230, 236);
+  --code-key: rgb(127, 209, 193);
+  --code-str: rgb(229, 192, 123);
+  --code-com: rgb(122, 140, 153);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper: rgb(16, 23, 29);
+    --card: rgb(22, 31, 39);
+    --ink: rgb(228, 234, 239);
+    --ink-soft: rgb(157, 174, 187);
+    --rule: rgb(40, 52, 62);
+    --accent: rgb(92, 194, 178);
+    --accent-soft: rgb(22, 48, 45);
+    --amber: rgb(214, 172, 99);
+    --amber-soft: rgb(42, 37, 25);
+    --code-bg: rgb(11, 18, 24);
+  }
+}
+:root[data-theme="dark"]{
+  --paper: rgb(16, 23, 29);
+  --card: rgb(22, 31, 39);
+  --ink: rgb(228, 234, 239);
+  --ink-soft: rgb(157, 174, 187);
+  --rule: rgb(40, 52, 62);
+  --accent: rgb(92, 194, 178);
+  --accent-soft: rgb(22, 48, 45);
+  --amber: rgb(214, 172, 99);
+  --amber-soft: rgb(42, 37, 25);
+  --code-bg: rgb(11, 18, 24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif}
+code,pre,kbd{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:var(--accent);cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--card);
+  border-bottom:1px solid var(--rule);
+  padding:clamp(2.5rem,6vw,4.5rem) 1.25rem 2.75rem;
+}
+.hero-inner{max-width:1120px;margin:0 auto;display:grid;gap:2.25rem;grid-template-columns:1fr}
+@media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr;align-items:center;gap:3rem}}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,3.6rem);
+  line-height:1.03;
+  font-weight:600;
+  letter-spacing:-.02em;
+  margin:0 0 .5rem;
+}
+.hero p{margin:0 0 1rem;color:var(--ink-soft);max-width:34em}
+.hero .lede{font-size:1.12rem;color:var(--ink)}
+.meta{font-family:"IBM Plex Sans",sans-serif;font-size:.85rem;color:var(--ink-soft);margin-top:1.5rem}
+.meta span{display:inline-block;margin-right:1.25rem}
+
+/* hero terminal */
+.demo{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--code-bg);box-shadow:0 18px 40px -28px rgba(10,30,40,.8)}
+.demo .file{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.78rem;color:var(--code-com);
+  padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.demo pre{margin:0;padding:1.1rem .9rem;color:var(--code-ink);font-size:.86rem;line-height:1.7;overflow-x:auto}
+.demo .out{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:.8rem .9rem;font-family:"IBM Plex Sans",sans-serif;font-size:.83rem;color:rgb(157,179,190);
+  display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;
+}
+.demo .out b{color:rgb(255,255,255);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--code-key);display:inline-block}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem;display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media(min-width:960px){.wrap{grid-template-columns:230px minmax(0,1fr);gap:3.5rem;align-items:start}}
+
+nav.toc{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.88rem;
+  padding:2rem 0 0;
+}
+@media(min-width:960px){nav.toc{position:sticky;top:0;max-height:100vh;overflow-y:auto;padding:2.5rem 0 3rem}}
+nav.toc h2{font-size:.8rem;font-weight:600;color:var(--ink-soft);margin:0 0 .85rem;letter-spacing:.04em}
+nav.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+nav.toc li{counter-increment:toc}
+nav.toc a{
+  display:flex;gap:.6rem;text-decoration:none;color:var(--ink-soft);
+  padding:.3rem 0 .3rem .85rem;margin-left:-1px;border-left:2px solid transparent;line-height:1.35;
+}
+nav.toc a:hover{color:var(--ink)}
+nav.toc a::before{content:counter(toc);font-variant-numeric:tabular-nums;font-size:.75rem;opacity:.65;padding-top:.15em}
+nav.toc ol{counter-reset:toc}
+nav.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+
+main{padding:2.5rem 0 5rem;max-width:74ch}
+section{scroll-margin-top:1.5rem;padding-bottom:2.75rem}
+section+section{border-top:1px solid var(--rule);padding-top:2.75rem}
+h2.ch{font-size:1.8rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem;line-height:1.2}
+.chno{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--accent);display:block;margin-bottom:.4rem}
+h3{font-size:1.12rem;font-weight:600;margin:2rem 0 .5rem;letter-spacing:-.005em}
+p{margin:0 0 1rem}
+ul,ol.body{margin:0 0 1rem;padding-left:1.25rem}
+li{margin-bottom:.35rem}
+strong{font-weight:600}
+main code{
+  background:var(--accent-soft);color:var(--ink);padding:.1em .35em;border-radius:3px;font-size:.87em;
+}
+
+/* code blocks */
+figure.code{margin:1.25rem 0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--code-bg)}
+figure.code figcaption{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.76rem;color:var(--code-com);
+  padding:.5rem .85rem;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+figure.code pre{
+  margin:0;padding:1rem .85rem;overflow-x:auto;color:var(--code-ink);
+  font-size:.84rem;line-height:1.7;
+}
+figure.code button{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.72rem;color:var(--code-com);
+  background:transparent;border:1px solid rgba(255,255,255,.16);border-radius:4px;
+  padding:.18rem .5rem;cursor:pointer;flex:none;
+}
+figure.code button:hover{color:rgb(255,255,255);border-color:rgba(255,255,255,.4)}
+figure.code button.done{color:var(--code-key);border-color:var(--code-key)}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.c{color:var(--code-com);font-style:italic}
+
+.note{
+  background:var(--accent-soft);border-left:3px solid var(--accent);
+  padding:.85rem 1rem;margin:1.25rem 0;font-size:.95rem;border-radius:0 5px 5px 0;
+}
+.warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.note p:last-child{margin-bottom:0}
+.note b{font-family:"IBM Plex Sans",sans-serif;font-size:.82rem;font-weight:600;display:block;margin-bottom:.2rem;color:var(--ink-soft)}
+
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-family:"IBM Plex Sans",sans-serif;min-width:420px}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;font-size:.82rem;color:var(--ink-soft)}
+td code{background:var(--accent-soft);padding:.1em .3em;border-radius:3px;font-size:.85em}
+
+.tree{font-size:.84rem;line-height:1.65;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:1rem;overflow-x:auto;margin:1.25rem 0;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);background:var(--card);padding:2.5rem 1.25rem 3.5rem}
+footer .fin{max-width:1120px;margin:0 auto;font-family:"IBM Plex Sans",sans-serif;font-size:.9rem;color:var(--ink-soft)}
+footer a{margin-right:1.1rem;white-space:nowrap}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Python Loop Practice Questions</h1>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:1.2rem;font-weight:600;color:var(--accent);margin:0 0 1rem;">By Gagan Sir</p>
+      <p class="lede">A comprehensive collection of practice questions on Python loops, star patterns, Fibonacci series, and number patterns with complete solutions.</p>
+      <p>Covers basic iterations, prime checks, factorials, break/continue control, 11 star patterns, 10 Fibonacci problems, and number pyramid patterns.</p>
+      <div class="meta">
+        <span>By Gagan Sir</span><span>42 Problems</span><span>5 Parts</span><span>Beginner to Advanced</span>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="file">fibonacci_demo.py</div>
+<pre><span class="k">first</span>, <span class="k">second</span> = <span class="s">0</span>, <span class="s">1</span>
+<span class="k">for</span> i <span class="k">in</span> range(<span class="s">6</span>):
+    <span class="k">print</span>(first, end=<span class="s">" "</span>)
+    first, second = second, first + second</pre>
+      <div class="out"><span class="dot"></span><b>python fibonacci_demo.py</b> &rarr; 0 1 1 2 3 5</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Chapters">
+  <h2>Parts</h2>
+  <ol>
+    <li><a data-target="part1" onclick="document.getElementById('part1').scrollIntoView({behavior:'smooth'})">Part 1 - Basic Loop Problems (Q1-Q15)</a></li>
+    <li><a data-target="part2" onclick="document.getElementById('part2').scrollIntoView({behavior:'smooth'})">Part 2 - Star Pattern Problems (Q16-Q26)</a></li>
+    <li><a data-target="part3" onclick="document.getElementById('part3').scrollIntoView({behavior:'smooth'})">Part 3 - Fibonacci Series (Q27-Q36)</a></li>
+    <li><a data-target="part4" onclick="document.getElementById('part4').scrollIntoView({behavior:'smooth'})">Part 4 - Number & Mixed Patterns (Q37-Q42)</a></li>
+    <li><a data-target="part5" onclick="document.getElementById('part5').scrollIntoView({behavior:'smooth'})">Part 5 - Core Logic & Concepts Reference</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="part1">
+<span class="chno">Part 1</span>
+<h2 class="ch">Basic Loop Problems (Questions 1 &ndash; 15)</h2>
+
+<h3>Question 1 &ndash; Print Numbers 1 to 10</h3>
+<figure class="code"><figcaption>q01_print_1_to_10.py</figcaption><pre>for i in range(1, 11):
+    print(i)</pre></figure>
+
+<h3>Question 2 &ndash; Print Even Numbers 1 to 20</h3>
+<figure class="code"><figcaption>q02_even_1_to_20.py</figcaption><pre>for i in range(1, 21):
+    if i % 2 == 0:
+        print(i)</pre></figure>
+
+<h3>Question 3 &ndash; Print Odd Numbers 1 to 20</h3>
+<figure class="code"><figcaption>q03_odd_1_to_20.py</figcaption><pre>for i in range(1, 21):
+    if i % 2 != 0:
+        print(i)</pre></figure>
+
+<h3>Question 4 &ndash; Print Numbers 10 to 1 in Reverse</h3>
+<figure class="code"><figcaption>q04_reverse_10_to_1.py</figcaption><pre>for i in range(10, 0, -1):
+    print(i)</pre></figure>
+
+<h3>Question 5 &ndash; Sum of Numbers from 1 to 100</h3>
+<figure class="code"><figcaption>q05_sum_1_to_100.py</figcaption><pre>total = 0
+for i in range(1, 101):
+    total = total + i
+
+print("Sum =", total)</pre></figure>
+<div class="note"><b>Output:</b> <p>Sum = 5050</p></div>
+
+<h3>Question 6 &ndash; Multiplication Table</h3>
+<figure class="code"><figcaption>q06_table.py</figcaption><pre>num = int(input("Enter a number: "))
+
+for i in range(1, 11):
+    print(num, "x", i, "=", num * i)</pre></figure>
+
+<h3>Question 7 &ndash; Factorial of a Number</h3>
+<figure class="code"><figcaption>q07_factorial.py</figcaption><pre>num = int(input("Enter a number: "))
+fact = 1
+
+for i in range(1, num + 1):
+    fact = fact * i
+
+print("Factorial =", fact)</pre></figure>
+
+<h3>Question 8 &ndash; Numbers Divisible by 3 Between 1 and 50</h3>
+<figure class="code"><figcaption>q08_divisible_by_3.py</figcaption><pre>for i in range(1, 51):
+    if i % 3 == 0:
+        print(i)</pre></figure>
+
+<h3>Question 9 &ndash; Sum of Even Numbers Between 1 and 100</h3>
+<figure class="code"><figcaption>q09_sum_even_100.py</figcaption><pre>total = 0
+
+for i in range(1, 101):
+    if i % 2 == 0:
+        total = total + i
+
+print("Sum =", total)</pre></figure>
+<div class="note"><b>Output:</b> <p>Sum = 2550</p></div>
+
+<h3>Question 10 &ndash; Prime Number Check</h3>
+<figure class="code"><figcaption>q10_prime_check.py</figcaption><pre>num = int(input("Enter a number: "))
+count = 0
+
+for i in range(1, num + 1):
+    if num % i == 0:
+        count = count + 1
+
+if count == 2:
+    print("Prime number")
+else:
+    print("Not a prime number")</pre></figure>
+
+<h3>Question 11 &ndash; Basic Increasing Star Pattern</h3>
+<figure class="code"><figcaption>q11_star_basic.py</figcaption><pre>for i in range(1, 6):
+    print("*" * i)</pre></figure>
+
+<h3>Question 12 &ndash; Reverse Star Pattern</h3>
+<figure class="code"><figcaption>q12_star_reverse.py</figcaption><pre>for i in range(5, 0, -1):
+    print("*" * i)</pre></figure>
+
+<h3>Question 13 &ndash; Square Star Block</h3>
+<figure class="code"><figcaption>q13_square_stars.py</figcaption><pre>for i in range(5):
+    print("*****")</pre></figure>
+
+<h3>Question 14 &ndash; Skip Number 5 using continue</h3>
+<figure class="code"><figcaption>q14_continue.py</figcaption><pre>for i in range(1, 21):
+    if i == 5:
+        continue
+    print(i)</pre></figure>
+
+<h3>Question 15 &ndash; Stop Loop at 10 using break</h3>
+<figure class="code"><figcaption>q15_break.py</figcaption><pre>for i in range(1, 21):
+    if i == 10:
+        break
+    print(i)</pre></figure>
+</section>
+
+<section id="part2">
+<span class="chno">Part 2</span>
+<h2 class="ch">Star Pattern Problems (Questions 16 &ndash; 26)</h2>
+
+<h3>Question 16 &ndash; Nested Loop Square Star Pattern</h3>
+<figure class="code"><figcaption>q16_nested_square.py</figcaption><pre>n = 5
+for i in range(n):
+    for j in range(n):
+        print("*", end="")
+    print()</pre></figure>
+<div class="note">
+<b>Explanation of end=""</b>
+<p><code>print("*", end="")</code> outputs the star without advancing to a new line, keeping characters together until <code>print()</code> is called for the next row.</p>
+</div>
+
+<h3>Question 17 &ndash; Right-Angled Triangle</h3>
+<figure class="code"><figcaption>q17_right_triangle.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    for j in range(i):
+        print("*", end="")
+    print()</pre></figure>
+
+<h3>Question 18 &ndash; Inverted Right-Angled Triangle</h3>
+<figure class="code"><figcaption>q18_inverted_right_triangle.py</figcaption><pre>n = 5
+for i in range(n, 0, -1):
+    for j in range(i):
+        print("*", end="")
+    print()</pre></figure>
+
+<h3>Question 19 &ndash; Right-Aligned Triangle</h3>
+<figure class="code"><figcaption>q19_right_aligned_triangle.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    print(" " * (n - i) + "*" * i)</pre></figure>
+
+<h3>Question 20 &ndash; Pyramid Star Pattern</h3>
+<figure class="code"><figcaption>q20_pyramid.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    spaces = n - i
+    stars = 2 * i - 1
+    print(" " * spaces + "*" * stars)</pre></figure>
+
+<h3>Question 21 &ndash; Inverted Pyramid</h3>
+<figure class="code"><figcaption>q21_inverted_pyramid.py</figcaption><pre>n = 5
+for i in range(n, 0, -1):
+    spaces = n - i
+    stars = 2 * i - 1
+    print(" " * spaces + "*" * stars)</pre></figure>
+
+<h3>Question 22 &ndash; Diamond Star Pattern</h3>
+<figure class="code"><figcaption>q22_diamond.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    spaces = n - i
+    stars = 2 * i - 1
+    print(" " * spaces + "*" * stars)
+
+for i in range(n - 1, 0, -1):
+    spaces = n - i
+    stars = 2 * i - 1
+    print(" " * spaces + "*" * stars)</pre></figure>
+
+<h3>Question 23 &ndash; Hollow Right Triangle</h3>
+<figure class="code"><figcaption>q23_hollow_right_triangle.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    for j in range(1, i + 1):
+        if j == 1 or j == i or i == n:
+            print("*", end="")
+        else:
+            print(" ", end="")
+    print()</pre></figure>
+
+<h3>Question 24 &ndash; Hollow Pyramid</h3>
+<figure class="code"><figcaption>q24_hollow_pyramid.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    spaces = n - i
+    print(" " * spaces, end="")
+    for j in range(1, 2 * i):
+        if j == 1 or j == 2 * i - 1 or i == n:
+            print("*", end="")
+        else:
+            print(" ", end="")
+    print()</pre></figure>
+
+<h3>Question 25 &ndash; X Star Pattern</h3>
+<figure class="code"><figcaption>q25_x_pattern.py</figcaption><pre>n = 5
+for i in range(n):
+    for j in range(n):
+        if j == i or j == n - i - 1:
+            print("*", end="")
+        else:
+            print(" ", end="")
+    print()</pre></figure>
+
+<h3>Question 26 &ndash; Star and Space Pattern</h3>
+<figure class="code"><figcaption>q26_star_space.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    for j in range(i):
+        print("*", end=" ")
+    print()</pre></figure>
+</section>
+
+<section id="part3">
+<span class="chno">Part 3</span>
+<h2 class="ch">Fibonacci Series Problems (Questions 27 &ndash; 36)</h2>
+<p>Fibonacci Series ek aisi number series hai jisme har next number, usse pehle ke do numbers ko add karke banta hai:</p>
+<p><code>0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89...</code></p>
+
+<h3>Question 27 &ndash; First 10 Fibonacci Numbers (For Loop)</h3>
+<figure class="code"><figcaption>q27_fib_10.py</figcaption><pre>n = 10
+first = 0
+second = 1
+
+for i in range(n):
+    print(first, end=" ")
+    next_number = first + second
+    first = second
+    second = next_number</pre></figure>
+<div class="note"><b>Output:</b> <p>0 1 1 2 3 5 8 13 21 34</p></div>
+
+<h3>Question 28 &ndash; Fibonacci Series Using While Loop</h3>
+<figure class="code"><figcaption>q28_fib_while.py</figcaption><pre>n = 8
+first = 0
+second = 1
+count = 0
+
+while count < n:
+    print(first, end=" ")
+    next_number = first + second
+    first = second
+    second = next_number
+    count += 1</pre></figure>
+
+<h3>Question 29 &ndash; Fibonacci Terms from User Input</h3>
+<figure class="code"><figcaption>q29_fib_user_input.py</figcaption><pre>n = int(input("Enter number of terms: "))
+first = 0
+second = 1
+
+for i in range(n):
+    print(first, end=" ")
+    next_number = first + second
+    first = second
+    second = next_number</pre></figure>
+
+<h3>Question 30 &ndash; Fibonacci Up To a Limit (Up to 50)</h3>
+<figure class="code"><figcaption>q30_fib_limit.py</figcaption><pre>limit = 50
+first = 0
+second = 1
+
+while first <= limit:
+    print(first, end=" ")
+    next_number = first + second
+    first = second
+    second = next_number</pre></figure>
+<div class="note"><b>Output:</b> <p>0 1 1 2 3 5 8 13 21 34</p></div>
+
+<h3>Question 31 &ndash; Sum of First 6 Fibonacci Numbers</h3>
+<figure class="code"><figcaption>q31_fib_sum.py</figcaption><pre>n = 6
+first = 0
+second = 1
+total = 0
+
+for i in range(n):
+    total = total + first
+    next_number = first + second
+    first = second
+    second = next_number
+
+print("Sum =", total)</pre></figure>
+<div class="note"><b>Output:</b> <p>Sum = 12</p></div>
+
+<h3>Question 32 &ndash; Even Fibonacci Numbers</h3>
+<figure class="code"><figcaption>q32_fib_even.py</figcaption><pre>n = 10
+first = 0
+second = 1
+
+for i in range(n):
+    if first % 2 == 0:
+        print(first, end=" ")
+    next_number = first + second
+    first = second
+    second = next_number</pre></figure>
+<div class="note"><b>Output:</b> <p>0 2 8 34</p></div>
+
+<h3>Question 33 &ndash; Odd Fibonacci Numbers</h3>
+<figure class="code"><figcaption>q33_fib_odd.py</figcaption><pre>n = 10
+first = 0
+second = 1
+
+for i in range(n):
+    if first % 2 != 0:
+        print(first, end=" ")
+    next_number = first + second
+    first = second
+    second = next_number</pre></figure>
+<div class="note"><b>Output:</b> <p>1 1 3 5 13 21</p></div>
+
+<h3>Question 34 &ndash; Check if Number is in Fibonacci Series</h3>
+<figure class="code"><figcaption>q34_fib_check.py</figcaption><pre>number = 13
+first = 0
+second = 1
+
+while first < number:
+    next_number = first + second
+    first = second
+    second = next_number
+
+if first == number:
+    print(number, "is a Fibonacci number")
+else:
+    print(number, "is not a Fibonacci number")</pre></figure>
+
+<h3>Question 35 &ndash; Find 7th Fibonacci Number</h3>
+<figure class="code"><figcaption>q35_nth_fib.py</figcaption><pre>n = 7
+first = 0
+second = 1
+
+for i in range(n):
+    next_number = first + second
+    first = second
+    second = next_number
+
+print("Fibonacci number =", first)</pre></figure>
+
+<h3>Question 36 &ndash; Fibonacci Function Definition</h3>
+<figure class="code"><figcaption>q36_fib_func.py</figcaption><pre>def fibonacci(n):
+    first = 0
+    second = 1
+    for i in range(n):
+        print(first, end=" ")
+        next_number = first + second
+        first = second
+        second = next_number
+
+fibonacci(7)</pre></figure>
+</section>
+
+<section id="part4">
+<span class="chno">Part 4</span>
+<h2 class="ch">Number & Mixed Patterns (Questions 37 &ndash; 42)</h2>
+
+<h3>Question 37 &ndash; Number Triangle Pattern</h3>
+<p>Prints 1, 12, 123, 1234, 12345.</p>
+<figure class="code"><figcaption>q37_num_triangle.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    for j in range(1, i + 1):
+        print(j, end="")
+    print()</pre></figure>
+
+<h3>Question 38 &ndash; Same Number Pattern</h3>
+<p>Prints 1, 22, 333, 4444, 55555.</p>
+<figure class="code"><figcaption>q38_same_num.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    for j in range(i):
+        print(i, end="")
+    print()</pre></figure>
+
+<h3>Question 39 &ndash; Alternating 0 and 1 Pattern</h3>
+<p>Prints 1, 01, 101, 0101, 10101.</p>
+<figure class="code"><figcaption>q39_alt_binary.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    for j in range(i):
+        if (i + j) % 2 == 0:
+            print(1, end="")
+        else:
+            print(0, end="")
+    print()</pre></figure>
+
+<h3>Question 40 &ndash; String Number Pattern</h3>
+<figure class="code"><figcaption>q40_str_num_pyramid.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    print(str(i) * i)</pre></figure>
+
+<h3>Question 41 &ndash; Increasing Star Line</h3>
+<figure class="code"><figcaption>q41_increasing_stars.py</figcaption><pre>n = 5
+for i in range(1, n + 1):
+    print("*" * i)</pre></figure>
+
+<h3>Question 42 &ndash; Decreasing Star Line</h3>
+<figure class="code"><figcaption>q42_decreasing_stars.py</figcaption><pre>n = 5
+for i in range(n, 0, -1):
+    print("*" * i)</pre></figure>
+</section>
+
+<section id="part5">
+<span class="chno">Part 5</span>
+<h2 class="ch">Core Logic & Concepts Reference</h2>
+
+<div class="note">
+<b>Star Patterns Logic Breakdown</b>
+<ul>
+  <li><code>for loop</code> and nested loops manage rows and columns.</li>
+  <li><code>end=""</code> prevents adding default newline breaks between printed characters in a row.</li>
+  <li>Increasing patterns increase stars by 1 or 2 per row.</li>
+  <li>Pyramid patterns compute spaces as <code>n - i</code> and stars as <code>2 * i - 1</code>.</li>
+</ul>
+</div>
+
+<div class="note">
+<b>Fibonacci Sequence Formula Breakdown</b>
+<ul>
+  <li>Initial values: <code>first = 0</code>, <code>second = 1</code>.</li>
+  <li>Step calculation: <code>next_number = first + second</code>.</li>
+  <li>Shift update: <code>first = second</code>, <code>second = next_number</code>.</li>
+</ul>
+</div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <div class="fin">
+    <p>42 Loop Practice Problems Reference Sheet &bull; By Gagan Sir</p>
+    <p>
+      <a href="https://docs.python.org/3/tutorial/controlflow.html">Python Official Docs</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('figure.code').forEach(function (fig) {
+  var cap = fig.querySelector('figcaption');
+  if (!cap) return;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = 'Copy';
+  btn.addEventListener('click', function () {
+    var text = fig.querySelector('pre').innerText;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+    }, function () { btn.textContent = 'Press Ctrl+C'; });
+  });
+  cap.appendChild(btn);
+});
+
+var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+var byId = {};
+links.forEach(function (a) {
+  var targetId = a.getAttribute('data-target');
+  if (targetId) { byId[targetId] = a; }
+});
+
+if ('IntersectionObserver' in window) {
+  var visible = new Set();
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { visible.add(e.target.id); } else { visible.delete(e.target.id); }
+    });
+    var order = Object.keys(byId);
+    var first = order.find(function (id) { return visible.has(id); });
+    links.forEach(function (a) { a.classList.remove('on'); });
+    if (first && byId[first]) { byId[first].classList.add('on'); }
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+  document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+}
+</script>
+</body>
+</html>

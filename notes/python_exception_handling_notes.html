@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Exception Handling Complete Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .syntax-box {
+            background-color: rgb(243, 244, 246);
+            border-left: 4px solid var(--accent-color);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+            margin: 1rem 0;
+            color: rgb(31, 41, 55);
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .flowchart-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid rgb(203, 213, 225);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: monospace;
+            text-align: center;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Exception Handling Guide</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-intro')">1. What is Exception Handling?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-structure')">2. Structure & Flowchart</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ex1')">3. Division Error Example</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ex2')">4. User Input Error Example</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ex3')">5. Specific Exceptions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ex4')">6. try–except–else Block</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ex5')">7. try–except–finally Block</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-summary')">8. Four-Block Summary</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Exception Handling (try, except, else, finally)</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search concepts...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Python Exception Handling Notes</h1>
+                <p>Master Exception Handling in Python: learn try, except, else, and finally blocks to write crash-proof Python applications.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- SECTION 1: Intro -->
+            <div class="section-card" id="sec-intro">
+                <h2 class="section-title">1. What is Exception Handling & Why Use It?</h2>
+                <div class="concept-box">
+                    <p>Exception Handling allows a program to deal with runtime errors gracefully. Instead of terminating abnormally (crashing), Python redirects execution to an error-handling block.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>try block:</strong> Contains risky code that might throw an error.</li>
+                            <li><strong>except block:</strong> Executes if an error occurs inside the try block to handle it.</li>
+                            <li><strong>else block:</strong> Executes ONLY if NO error occurs in the try block.</li>
+                            <li><strong>finally block:</strong> ALWAYS executes regardless of whether an error occurred or not.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>try:</strong> Iska use tab hota hai jab code me error aane ka chance ho. Program crash hone se bach jata hai.</li>
+                            <li><strong>except:</strong> Jab try block me error aata hai, to except block run ho kar error handle karta hai.</li>
+                            <li><strong>else:</strong> else tab run hota hai jab try block me koi error na aaye.</li>
+                            <li><strong>finally:</strong> finally hamesha run hota hai (chahe error aaye ya na aaye).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="syntax-box">
+Basic Syntax:
+try:
+    risky_statement()
+except:
+    error_handling_statement()
+                </div>
+            </div>
+
+            <!-- SECTION 2: Structure & Flowchart -->
+            <div class="section-card" id="sec-structure">
+                <h2 class="section-title">2. Exception Handling Structure & Control Flow</h2>
+                
+                <div class="flowchart-box">
+                    <strong>CONTROL FLOW DIAGRAM</strong><br><br>
+                    [ try block ]<br>
+                    &darr;<br>
+                    Was there an Error?<br>
+                    &swarr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &searr;<br>
+                    (YES) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (NO)<br>
+                    &darr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &darr;<br>
+                    [ except block ] &nbsp;&nbsp;&nbsp;&nbsp; [ else block ]<br>
+                    &searr; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &swarr;<br>
+                    &darr;<br>
+                    [ finally block (ALWAYS RUNS) ]
+                </div>
+            </div>
+
+            <!-- SECTION 3: Example 1 - Division Error -->
+            <div class="section-card" id="sec-ex1">
+                <h2 class="section-title">3. Example 1: Handling Division by Zero</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Division Error Handling</div>
+                    <pre>try:
+    a = 10
+    b = 0
+    print(a / b)
+except:
+    print("Cannot divide by zero")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Cannot divide by zero</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1-4</td>
+                            <td><span class="code-snippet">try: print(a / b)</span></td>
+                            <td>Attempts to divide 10 by 0, which triggers a ZeroDivisionError.</td>
+                            <td>10 ko 0 se divide karne par error aata hai, to control sidhe except block me jata hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">5-6</td>
+                            <td><span class="code-snippet">except: print(...)</span></td>
+                            <td>Catches the division error and prints user-friendly error message instead of crashing.</td>
+                            <td>Program crash nahi hua, iski jagah custom user-friendly message print ho gaya.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 4: Example 2 - User Input Error -->
+            <div class="section-card" id="sec-ex2">
+                <h2 class="section-title">4. Example 2: Handling User Input Error (ValueError)</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Input Validation</div>
+                    <pre>try:
+    num = int("abc")
+    print(num)
+except ValueError:
+    print("Invalid input! Please enter a valid number.")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Invalid input! Please enter a valid number.</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">int("abc")</span></td>
+                            <td>Converting non-numeric string "abc" to int raises a ValueError.</td>
+                            <td>String "abc" ko integer me convert karte hi ValueError generate hota hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">4-5</td>
+                            <td><span class="code-snippet">except ValueError:</span></td>
+                            <td>Catches specifically ValueError and displays validation prompt.</td>
+                            <td>Specifically ValueError ko catch karke invalid input alert show karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 5: Specific Exceptions -->
+            <div class="section-card" id="sec-ex3">
+                <h2 class="section-title">5. Example 3: Handling Specific Exceptions</h2>
+                <div class="concept-box">
+                    <p>In Python, you can specify exact exception types like <span class="code-snippet">ZeroDivisionError</span>, <span class="code-snippet">ValueError</span>, or <span class="code-snippet">TypeError</span> to handle different errors distinctly.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Specific Exception Types</div>
+                    <pre>try:
+    a = 10
+    b = 0
+    print(a / b)
+except ZeroDivisionError:
+    print("Division by zero error caught specifically!")
+except ValueError:
+    print("Value error caught!")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Division by zero error caught specifically!</div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: try-except-else -->
+            <div class="section-card" id="sec-ex4">
+                <h2 class="section-title">6. Example 4: The try–except–else Block</h2>
+                <div class="concept-box">
+                    <p>The <span class="code-snippet">else</span> block runs ONLY when the <span class="code-snippet">try</span> block completes smoothly without any error.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - try-except-else</div>
+                    <pre>try:
+    num = int("100")
+except ValueError:
+    print("Invalid input")
+else:
+    print("Successfully entered number:", num)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Successfully entered number: 100</div>
+                </div>
+            </div>
+
+            <!-- SECTION 7: try-except-finally -->
+            <div class="section-card" id="sec-ex5">
+                <h2 class="section-title">7. Example 5: The try–except–finally Block</h2>
+                <div class="concept-box">
+                    <p>The <span class="code-snippet">finally</span> block ALWAYS executes regardless of whether an exception was raised or handled.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - try-except-finally</div>
+                    <pre>try:
+    print(12 / 0)
+except ZeroDivisionError:
+    print("Division Error caught!")
+finally:
+    print("Program finished execution (Finally block always runs).")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Division Error caught!<br>Program finished execution (Finally block always runs).</div>
+                </div>
+            </div>
+
+            <!-- SECTION 8: Four-Block Summary -->
+            <div class="section-card" id="sec-summary">
+                <h2 class="section-title">8. Summary of All Four Exception Blocks</h2>
+                
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Block Name</th>
+                            <th>Purpose & Role</th>
+                            <th>When Does It Run?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="code-snippet">try</span></td>
+                            <td>Contains risky code that might raise an error</td>
+                            <td>Runs first</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">except</span></td>
+                            <td>Handles the error if one occurs</td>
+                            <td>Runs ONLY if an error occurs in <span class="code-snippet">try</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">else</span></td>
+                            <td>Executes success code when no error occurs</td>
+                            <td>Runs ONLY if NO error occurs in <span class="code-snippet">try</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">finally</span></td>
+                            <td>Performs cleanup operations (e.g. closing files)</td>
+                            <td>ALWAYS runs (error or no error)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Exception Handling Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

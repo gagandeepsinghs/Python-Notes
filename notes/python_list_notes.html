@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python List Complete Roadmap (Part 1 - 50) Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(148, 163, 184);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(30, 41, 59);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 7px 10px;
+            color: rgb(203, 213, 225);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(226, 232, 240);
+        }
+
+        .part-badge {
+            display: inline-block;
+            background-color: rgb(224, 231, 255);
+            color: rgb(67, 56, 202);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border: 1px solid var(--english-border);
+            color: var(--english-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border: 1px solid var(--hinglish-border);
+            color: var(--hinglish-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-english h4, .box-hinglish h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            color: var(--code-text);
+            padding: 15px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--output-border);
+            padding: 12px 16px;
+            margin-top: 10px;
+            border-radius: 0 6px 6px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(30, 41, 59);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(203, 213, 225);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Python Lists Roadmap</h2>
+        <span class="author-tag">Complete Parts 1 - 50 &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search topic or method..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-intro')">1-5. Intro & Key Features</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-add')">6-9. Changing & Adding Items</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-remove')">10-13. Removing Items</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-search')">14-16. Length, Search & Slicing</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ops')">17-23. Operations & Sorting</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-comprehension')">24-27. Nested & Comprehension</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-unpacking')">28-35. Unpacking & Built-ins</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-advanced')">36-41. filter, zip, enumerate & Funcs</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-copy-memory')">42-46. Copies, Aliasing & Memory</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-practice-project')">47-50. Errors, Practice & Project</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Python Lists: Complete 50-Part Roadmap Notes</h1>
+            <p>Master Python Lists from zero to advanced concepts with dual-language explanations, feature breakdowns, code syntax, memory concepts, errors, practice questions, and a real-world shopping cart project.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- SECTION 1: Parts 1 to 5 - Definition, Features & Indexing -->
+        <div class="section-card" id="sec-intro">
+            <h2 class="section-title">Parts 1 - 5: List Introduction, 14 Features & Indexing</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>English Definition & Interview Answer</h4>
+                    <p>A <strong>List</strong> is an ordered, mutable collection in Python enclosed in square brackets <code>[]</code> that allows duplicate values and can store elements of different data types (heterogeneous).</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Explanation</h4>
+                    <p>List Python mein ek <strong>ordered</strong> aur <strong>mutable</strong> collection hoti hai jise square brackets <code>[]</code> ke andar banaya jata hai. Isme hum different data types ki duplicate values ko bhi store kar sakte hain.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">14 Important Features of Python Lists</h3>
+            <ul class="list-styled" style="margin-top: 10px;">
+                <li><span class="part-badge">1</span><strong>Ordered:</strong> Maintains the exact insertion order of items.</li>
+                <li><span class="part-badge">2</span><strong>Mutable:</strong> Items can be modified, added, or removed after creation.</li>
+                <li><span class="part-badge">3</span><strong>Allows Duplicates:</strong> Can store identical elements multiple times.</li>
+                <li><span class="part-badge">4</span><strong>Heterogeneous Data:</strong> Can mix integers, floats, strings, booleans, and objects.</li>
+                <li><span class="part-badge">5</span><strong>Positive Indexing:</strong> Access items starting from index 0 from left to right.</li>
+                <li><span class="part-badge">6</span><strong>Negative Indexing:</strong> Access items starting from index -1 from right to left.</li>
+                <li><span class="part-badge">7</span><strong>Slicing Support:</strong> Extract portions using <code>[start:stop:step]</code>.</li>
+                <li><span class="part-badge">8</span><strong>Dynamic Size:</strong> Automatically grows or shrinks at runtime.</li>
+                <li><span class="part-badge">9</span><strong>Can Store Lists:</strong> Supports nested lists inside lists.</li>
+                <li><span class="part-badge">10</span><strong>Can Store Objects:</strong> Class instances can be stored as elements.</li>
+                <li><span class="part-badge">11</span><strong>Zero-Based Indexing:</strong> First element is strictly at index 0.</li>
+                <li><span class="part-badge">12</span><strong>Iterable:</strong> Can loop over elements using <code>for</code> or <code>while</code> loops.</li>
+                <li><span class="part-badge">13</span><strong>Multi-Level Nesting:</strong> Allows lists inside lists to arbitrary depths.</li>
+                <li><span class="part-badge">14</span><strong>Rich Built-in Methods:</strong> Provides <code>append()</code>, <code>pop()</code>, <code>sort()</code>, etc.</li>
+            </ul>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Creating Lists & Accessing Elements</div>
+                <pre>empty_list = []
+numbers = [10, 20, 30, 40]
+mixed = [10, "Gagan", 5.9, True]
+
+print("First element (index 0):", mixed[0])
+print("Second element (index 1):", mixed[1])
+print("Last element (index -1):", mixed[-1])
+print("Second last (index -2):", mixed[-2])</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>First element (index 0): 10<br>Second element (index 1): Gagan<br>Last element (index -1): True<br>Second last (index -2): 5.9</div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Parts 6 to 9 - Changing & Adding Items -->
+        <div class="section-card" id="sec-add">
+            <h2 class="section-title">Parts 6 - 9: Changing & Adding Items (append, insert, extend)</h2>
+            
+            <p>Because lists are mutable, we can update item values or insert new items using three main methods:</p>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Syntax</th>
+                        <th>Behavior</th>
+                        <th>Example Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Index Update</strong></td>
+                        <td><code>list[idx] = val</code></td>
+                        <td>Replaces item at index <code>idx</code></td>
+                        <td><code>[10, 20] &rarr; [100, 20]</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>append()</strong></td>
+                        <td><code>list.append(val)</code></td>
+                        <td>Adds single item to the end</td>
+                        <td><code>[1, 2].append(3) &rarr; [1, 2, 3]</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>insert()</strong></td>
+                        <td><code>list.insert(idx, val)</code></td>
+                        <td>Inserts item at specified index</td>
+                        <td><code>[10, 30].insert(1, 20) &rarr; [10, 20, 30]</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>extend()</strong></td>
+                        <td><code>list.extend(iterable)</code></td>
+                        <td>Appends individual elements from iterable</td>
+                        <td><code>[1, 2].extend([3, 4]) &rarr; [1, 2, 3, 4]</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>append() vs extend() Comparison</h4>
+                    <p><code>append([4, 5])</code> adds the list as a single nested element <code>[1, 2, 3, [4, 5]]</code>.</p>
+                    <p><code>extend([4, 5])</code> unpacks and adds individual numbers <code>[1, 2, 3, 4, 5]</code>.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Comparison</h4>
+                    <p><code>append()</code> poori list ko ek single element banakar add karta hai.</p>
+                    <p><code>extend()</code> iterable ke saare elements ko alag-alag nikal kar add karta hai.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Changing & Adding Items</div>
+                <pre>names = ["Gagan", "Lokesh"]
+names[1] = "Aman"
+names.append("Rajat")
+names.insert(1, "Rahul")
+
+nums = [1, 2]
+nums.extend([3, 4])
+
+print("Names List:", names)
+print("Extended Nums:", nums)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Names List: ['Gagan', 'Rahul', 'Aman', 'Rajat']<br>Extended Nums: [1, 2, 3, 4]</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Parts 10 to 13 - Removing Items -->
+        <div class="section-card" id="sec-remove">
+            <h2 class="section-title">Parts 10 - 13: Removing Items (remove, pop, del, clear)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>4 Ways to Remove Elements</h4>
+                    <ol class="list-styled">
+                        <li><strong>remove(val):</strong> Removes first occurrence of specified value.</li>
+                        <li><strong>pop(idx):</strong> Removes & returns item at index (default: last item).</li>
+                        <li><strong>del list[idx]:</strong> Deletes element(s) or entire variable.</li>
+                        <li><strong>clear():</strong> Removes all elements, leaving an empty list <code>[]</code>.</li>
+                    </ol>
+                </div>
+                <div class="box-hinglish">
+                    <h4>clear() vs del Difference</h4>
+                    <p><code>clear()</code> list ke saare elements ko remove karta hai lekin list object memory mein rehta hai (empty list <code>[]</code>).</p>
+                    <p><code>del list_name</code> poore variable reference ko delete kar deta hai.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Removing Elements</div>
+                <pre>items = [10, 20, 30, 40, 50, 20]
+items.remove(20)
+removed_val = items.pop(2)
+del items[0]
+
+print("Remaining items:", items)
+print("Popped value:", removed_val)
+
+items.clear()
+print("After clear():", items)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Remaining items: [30, 50, 20]<br>Popped value: 40<br>After clear(): []</div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Parts 14 to 16 - Length, Search & Slicing -->
+        <div class="section-card" id="sec-search">
+            <h2 class="section-title">Parts 14 - 16: List Length, Membership & Advanced Slicing</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>List Length & Membership Operators</h4>
+                    <p><code>len(list)</code> returns total number of elements.</p>
+                    <p><code>in</code> / <code>not in</code> checks if value exists, returning <code>True</code> or <code>False</code>.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Slicing Syntax: [start : stop : step]</h4>
+                    <p><strong>start:</strong> Included index (default 0).</p>
+                    <p><strong>stop:</strong> Excluded index.</p>
+                    <p><strong>step:</strong> Jump rate (negative step reverses list).</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Slicing & Membership Check</div>
+                <pre>numbers = [10, 20, 30, 40, 50, 60]
+
+print("Total elements:", len(numbers))
+print("Is 30 in list?", 30 in numbers)
+print("Is 100 not in list?", 100 not in numbers)
+
+print("Slice [1:4]:", numbers[1:4])
+print("Slice [:3]:", numbers[:3])
+print("Slice [2:]:", numbers[2:])
+print("Step 2 [::2]:", numbers[::2])
+print("Reversed [::-1]:", numbers[::-1])</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Total elements: 6<br>Is 30 in list? True<br>Is 100 not in list? True<br>Slice [1:4]: [20, 30, 40]<br>Slice [:3]: [10, 20, 30]<br>Slice [2:]: [30, 40, 50, 60]<br>Step 2 [::2]: [10, 30, 50]<br>Reversed [::-1]: [60, 50, 40, 30, 20, 10]</div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Parts 17 to 23 - Operations, Looping, Sorting & Reversing -->
+        <div class="section-card" id="sec-ops">
+            <h2 class="section-title">Parts 17 - 23: Concatenation, Repetition, Looping, Sorting & Reversing</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Operation / Method</th>
+                        <th>Syntax</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Concatenation</strong></td>
+                        <td><code>list1 + list2</code></td>
+                        <td>Combines two lists into a new list</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Repetition</strong></td>
+                        <td><code>list * n</code></td>
+                        <td>Repeats list items <code>n</code> times</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Looping</strong></td>
+                        <td><code>for item in list:</code></td>
+                        <td>Iterates through items one by one</td>
+                    </tr>
+                    <tr>
+                        <td><strong>index()</strong></td>
+                        <td><code>list.index(val)</code></td>
+                        <td>Returns index of first matching value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>count()</strong></td>
+                        <td><code>list.count(val)</code></td>
+                        <td>Returns total occurrences of value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>sort()</strong></td>
+                        <td><code>list.sort(reverse=True)</code></td>
+                        <td>Modifies original list in-place</td>
+                    </tr>
+                    <tr>
+                        <td><strong>sorted()</strong></td>
+                        <td><code>new_l = sorted(list)</code></td>
+                        <td>Returns new sorted list (original unchanged)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>reverse()</strong></td>
+                        <td><code>list.reverse()</code></td>
+                        <td>Reverses elements in-place</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Operations, Sorting & Reversing</div>
+                <pre>list1 = [1, 2]
+list2 = [3, 4]
+combined = list1 + list2
+repeated = list1 * 3
+
+nums = [40, 10, 50, 20, 10]
+print("Count of 10:", nums.count(10))
+print("Index of 50:", nums.index(50))
+
+nums.sort()
+print("Sorted Ascending:", nums)
+
+nums.sort(reverse=True)
+print("Sorted Descending:", nums)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Count of 10: 2<br>Index of 50: 2<br>Sorted Ascending: [10, 10, 20, 40, 50]<br>Sorted Descending: [50, 40, 20, 10, 10]</div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: Parts 24 to 27 - Nested Lists & List Comprehension -->
+        <div class="section-card" id="sec-comprehension">
+            <h2 class="section-title">Parts 24 - 27: Copying, Nested Lists & List Comprehension</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>What is List Comprehension?</h4>
+                    <p>List Comprehension provides a concise, readable one-liner syntax to create new lists based on existing iterables.</p>
+                    <p><strong>Syntax:</strong> <code>[expression for item in iterable if condition]</code></p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Nested Lists Accessing</h4>
+                    <p>Nested list ke andar values ko access karne ke liye multiple square brackets use karte hain. Example: <code>students[0][0]</code> for first element of first row.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Nested Lists & List Comprehension</div>
+                <pre>students = [["Gagan", 22], ["Rajat", 21]]
+print("First student name:", students[0][0])
+print("First student age:", students[0][1])
+
+squares = [x ** 2 for x in range(1, 6)]
+evens = [x for x in range(1, 11) if x % 2 == 0]
+labels = ["Even" if x % 2 == 0 else "Odd" for x in range(1, 6)]
+
+print("Squares:", squares)
+print("Evens:", evens)
+print("Labels:", labels)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>First student name: Gagan<br>First student age: 22<br>Squares: [1, 4, 9, 16, 25]<br>Evens: [2, 4, 6, 8, 10]<br>Labels: ['Odd', 'Even', 'Odd', 'Even', 'Odd']</div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: Parts 28 to 35 - Types, Unpacking & Built-ins -->
+        <div class="section-card" id="sec-unpacking">
+            <h2 class="section-title">Parts 28 - 35: Specific List Types, Unpacking & Math Built-ins</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>List Unpacking & * Operator</h4>
+                    <p>Assigning list items to individual variables directly: <code>a, b, c = [10, 20, 30]</code>.</p>
+                    <p>Using <code>*</code> to capture remaining items: <code>first, *middle, last = [10, 20, 30, 40, 50]</code>.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Math & Boolean Functions</h4>
+                    <p><code>min()</code>, <code>max()</code>, <code>sum()</code> Math calculations perform karte hain.</p>
+                    <p><code>any()</code>: Returns True if any item is True.</p>
+                    <p><code>all()</code>: Returns True only if all items are True.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Unpacking & Built-in Functions</div>
+                <pre>nums = [10, 20, 30, 40, 50]
+first, *middle, last = nums
+
+print("First:", first)
+print("Middle:", middle)
+print("Last:", last)
+
+print("Sum:", sum(nums))
+print("Max:", max(nums))
+print("Min:", min(nums))
+print("Any True:", any([0, False, 5]))
+print("All True:", all([1, True, 5]))</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>First: 10<br>Middle: [20, 30, 40]<br>Last: 50<br>Sum: 150<br>Max: 50<br>Min: 10<br>Any True: True<br>All True: True</div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Parts 36 to 41 - Advanced Iteration & Functions -->
+        <div class="section-card" id="sec-advanced">
+            <h2 class="section-title">Parts 36 - 41: filter, zip, enumerate & Function Integration</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Syntax</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>filter()</strong></td>
+                        <td><code>list(filter(func, iterable))</code></td>
+                        <td>Filters items based on condition function returning True</td>
+                    </tr>
+                    <tr>
+                        <td><strong>zip()</strong></td>
+                        <td><code>list(zip(l1, l2))</code></td>
+                        <td>Pairs corresponding elements from multiple lists</td>
+                    </tr>
+                    <tr>
+                        <td><strong>enumerate()</strong></td>
+                        <td><code>enumerate(iterable, start=0)</code></td>
+                        <td>Provides index and value pairs during iteration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>*args Unpacking</strong></td>
+                        <td><code>func(*my_list)</code></td>
+                        <td>Unpacks list elements as separate function arguments</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - filter, zip, enumerate & Functions</div>
+                <pre>numbers = [1, 2, 3, 4, 5, 6]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+
+names = ["Aman", "Rahul", "Simran"]
+marks = [80, 90, 85]
+paired = list(zip(names, marks))
+
+print("Filtered Evens:", evens)
+print("Paired Data:", paired)
+
+for index, name in enumerate(names, start=1):
+    print("Rank", index, ":", name)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Filtered Evens: [2, 4, 6]<br>Paired Data: [('Aman', 80), ('Rahul', 90), ('Simran', 85)]<br>Rank 1 : Aman<br>Rank 2 : Rahul<br>Rank 3 : Simran</div>
+            </div>
+        </div>
+
+        <!-- SECTION 9: Parts 42 to 46 - Copying, Memory Architecture & Aliasing -->
+        <div class="section-card" id="sec-copy-memory">
+            <h2 class="section-title">Parts 42 - 46: Shallow Copy, Deep Copy, Aliasing & Memory Architecture</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>Aliasing vs Shallow vs Deep Copy</h4>
+                    <p><strong>Aliasing (b = a):</strong> Both variables refer to exact same memory object.</p>
+                    <p><strong>Shallow Copy (b = a.copy()):</strong> Creates new outer list, but inner nested lists are shared references.</p>
+                    <p><strong>Deep Copy (b = copy.deepcopy(a)):</strong> Creates completely independent copies of outer and nested objects.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Memory Concept & 'is' Operator</h4>
+                    <p>Python variables hold <strong>references</strong> to objects in memory. <code>is</code> operator checks if two variables point to the exact same memory address (<code>id(a) == id(b)</code>).</p>
+                </div>
+            </div>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Code Example</th>
+                        <th>Same Memory Object?</th>
+                        <th>Nested Items Shared?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Aliasing</strong></td>
+                        <td><code>b = a</code></td>
+                        <td>Yes (True)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Shallow Copy</strong></td>
+                        <td><code>b = a.copy()</code></td>
+                        <td>No (False)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deep Copy</strong></td>
+                        <td><code>b = copy.deepcopy(a)</code></td>
+                        <td>No (False)</td>
+                        <td>No (Independent)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Shallow vs Deep Copy Demonstration</div>
+                <pre>import copy
+
+orig = [[1, 2], [3, 4]]
+shallow = orig.copy()
+deep = copy.deepcopy(orig)
+
+shallow[0].append(99)
+
+print("Original after shallow edit:", orig)
+print("Shallow copy:", shallow)
+
+deep[1].append(100)
+print("Original after deep edit:", orig)
+print("Deep copy:", deep)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Original after shallow edit: [[1, 2, 99], [3, 4]]<br>Shallow copy: [[1, 2, 99], [3, 4]]<br>Original after deep edit: [[1, 2, 99], [3, 4]]<br>Deep copy: [[1, 2], [3, 4, 100]]</div>
+            </div>
+        </div>
+
+        <!-- SECTION 10: Parts 47 to 50 - Errors, Real-World Examples, Practice & Project -->
+        <div class="section-card" id="sec-practice-project">
+            <h2 class="section-title">Parts 47 - 50: Common Errors, Practice Questions & Mini Project</h2>
+            
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-bottom: 10px;">Common List Errors & Causes</h3>
+            <ul class="list-styled">
+                <li><strong>IndexError: list index out of range:</strong> Attempting to access an index that doesn't exist (e.g. <code>[10, 20][5]</code>).</li>
+                <li><strong>ValueError: list.remove(x): x not in list:</strong> Calling <code>remove()</code> on a item not present in list.</li>
+                <li><strong>TypeError: unsupported operand types:</strong> Adding non-list types to list without list conversion (e.g. <code>[1, 2] + 5</code>).</li>
+                <li><strong>AttributeError: 'list' object has no attribute 'upper':</strong> Calling string methods on list object directly.</li>
+            </ul>
+
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 25px; margin-bottom: 10px;">10 Quick Practice Questions & Answers</h3>
+            <div class="code-container">
+                <div class="code-header">Python Code - Practice Solutions (Q1 - Q10)</div>
+                <pre>nums = [10, 50, 20, 80, 30]
+print("Q1 Largest:", max(nums))
+
+print("Q2 Evens:", [x for x in nums if x % 2 == 0])
+
+dups = [1, 2, 2, 3, 4, 4, 5]
+unique = list(set(dups))
+print("Q3 Unique:", unique)
+
+print("Q4 Squares:", [x**2 for x in range(1, 6)])
+
+unique_sorted = sorted(list(set(nums)))
+print("Q5 Second Largest:", unique_sorted[-2])
+
+names = ["Aman", "Rahul", "Priyanka", "Raj"]
+longest = max(names, key=len)
+print("Q6 Longest Name:", longest)</pre>
+            </div>
+
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 25px; margin-bottom: 10px;">Real-Life Mini Project: Shopping Cart System</h3>
+            <div class="code-container">
+                <div class="code-header">Python Code - Shopping Cart Program</div>
+                <pre>products = ["Laptop", "Mouse", "Keyboard"]
+prices = [50000, 1000, 2000]
+
+print("------ SHOPPING CART ------")
+for product, price in zip(products, prices):
+    print(product, "=", price)
+
+total = sum(prices)
+discount = total * 0.10 if total >= 50000 else 0
+final_price = total - discount
+
+print("Total Price:", total)
+print("Discount Applied:", discount)
+print("Final Payable Amount:", final_price)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>------ SHOPPING CART ------<br>Laptop = 50000<br>Mouse = 1000<br>Keyboard = 2000<br>Total Price: 53000<br>Discount Applied: 5300.0<br>Final Payable Amount: 47700.0</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python List Complete 50-Part Roadmap Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

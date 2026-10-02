@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Functions Complete Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-box {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Python Functions Guide</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-intro')">1. What is a Function?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-syntax')">2. Syntax & Simple Function</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-params')">3. Parameters vs Arguments</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-math')">4. Multiple Parameters & Math</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-return')">5. Print vs Return Statement</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-argtypes')">6. Types of Arguments</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-args-kwargs')">7. *args and **kwargs</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-datastruct')">8. Functions with Lists & Dicts</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-logic')">9. Logic & Validation Functions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-advanced')">10. Lambda, Map & Filter</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-scope')">11. Variable Scope & Global</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-practice')">12. Practice Questions (1-25)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-projects')">13. Real World & Mini Projects</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Functions Documentation</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search concepts...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Python Functions Complete Notes</h1>
+                <p>Master functions in Python with concept breakdowns, line-by-line code explanations in Easy English and Hinglish, and real-world projects.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- SECTION 1: Intro -->
+            <div class="section-card" id="sec-intro">
+                <h2 class="section-title">1. What is a Function & Why Use It?</h2>
+                <div class="concept-box">
+                    <p>A function is a reusable block of code designed to perform a specific task. Instead of writing the same code multiple times, you group it inside a function and call it whenever needed.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Reusability:</strong> Write code once, use it multiple times.</li>
+                            <li><strong>Avoid Repetition:</strong> Eliminates duplicate code in your project.</li>
+                            <li><strong>Readability:</strong> Makes code cleaner and easier to understand.</li>
+                            <li><strong>Maintainability:</strong> Easy to fix bugs in one central location.</li>
+                            <li><strong>Modularity:</strong> Divides large programs into small manageable modules.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Function ka Matlab:</strong> Code ka ek aisa block jise hum ek baar bana kar baar-baar use kar sakte hain.</li>
+                            <li><strong>Kyu Use Kare:</strong> Agar hume 10 baar same kaam karna hai, to 10 baar code likhne ke bajaye ek function bana kar use call karte hain.</li>
+                            <li><strong>Fayde:</strong> Time bachta hai, code neat rehta hai aur debugging easy ho jaati hai.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Syntax & Simple Function -->
+            <div class="section-card" id="sec-syntax">
+                <h2 class="section-title">2. Basic Function Syntax & Simple Example</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Basic Function</div>
+                    <pre>def namste():
+    print("Hello Gagan")
+
+namste()</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Hello Gagan</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">def namste():</span></td>
+                            <td>Defines a function named <span class="code-snippet">namste</span> using keyword <span class="code-snippet">def</span>. Parentheses () are for parameters, and colon : starts the function body.</td>
+                            <td><span class="code-snippet">def</span> keyword se <span class="code-snippet">namste</span> naam ka function create kar rahe hain. Colon : batata hai ki block start ho gaya hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">print("Hello Gagan")</span></td>
+                            <td>Indented code block inside the function that prints text to the screen when executed.</td>
+                            <td>Function ke andar indented line. Jab function chalega to screen par "Hello Gagan" print hoga.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">4</td>
+                            <td><span class="code-snippet">namste()</span></td>
+                            <td>Function Call: Executes the code inside the function <span class="code-snippet">namste</span>.</td>
+                            <td>Function Call: Function ko execute karne ke liye uska naam () ke saath likhte hain.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 3: Parameters vs Arguments -->
+            <div class="section-card" id="sec-params">
+                <h2 class="section-title">3. Parameters vs Arguments</h2>
+                <div class="concept-box">
+                    <p><strong>Parameter:</strong> A variable declared in the function definition to accept input values.</p>
+                    <p><strong>Argument:</strong> The actual value passed to the function when calling it.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Parameters and Arguments</div>
+                    <pre>def greet(name):
+    print(f"Hello {name}")
+
+greet("Gagan")
+greet("Rajat")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Hello Gagan<br>Hello Rajat</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">def greet(name):</span></td>
+                            <td>Function header with a parameter named <span class="code-snippet">name</span>. It acts as a placeholder for incoming data.</td>
+                            <td>Function definition me <span class="code-snippet">name</span> variable ek <strong>Parameter</strong> hai jo value receive karega.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">print(f"Hello {name}")</span></td>
+                            <td>Uses formatted string (f-string) to embed the value of <span class="code-snippet">name</span> into the printed message.</td>
+                            <td>f-string ka use karke variable <span class="code-snippet">name</span> ki value message me insert kar ke print kar raha hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">4</td>
+                            <td><span class="code-snippet">greet("Gagan")</span></td>
+                            <td>Calls <span class="code-snippet">greet</span> with the string argument <span class="code-snippet">"Gagan"</span>.</td>
+                            <td>Function call ke time pass ki gayi actual value <span class="code-snippet">"Gagan"</span> ek <strong>Argument</strong> hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">5</td>
+                            <td><span class="code-snippet">greet("Rajat")</span></td>
+                            <td>Calls <span class="code-snippet">greet</span> with another argument <span class="code-snippet">"Rajat"</span>.</td>
+                            <td>Doosri call me <span class="code-snippet">"Rajat"</span> argument pass ho raha hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 4: Multiple Parameters & Math -->
+            <div class="section-card" id="sec-math">
+                <h2 class="section-title">4. Multiple Parameters & All-in-One Calculator Function</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Calculator Function</div>
+                    <pre>def calculator(a, b):
+    print(f"Addition = {a + b}")
+    print(f"Subtraction = {a - b}")
+    print(f"Multiplication = {a * b}")
+    print(f"Division = {a / b}")
+    print(f"Floor Division = {a // b}")
+    print(f"Modulus = {a % b}")
+
+calculator(17, 4)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Addition = 21<br>Subtraction = 13<br>Multiplication = 68<br>Division = 4.25<br>Floor Division = 4<br>Modulus = 1</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">def calculator(a, b):</span></td>
+                            <td>Defines a function taking two parameters <span class="code-snippet">a</span> and <span class="code-snippet">b</span>.</td>
+                            <td>Do parameters <span class="code-snippet">a</span> aur <span class="code-snippet">b</span> lene wala calculator function define kiya.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">2-7</td>
+                            <td><span class="code-snippet">print(...)</span></td>
+                            <td>Performs arithmetic operations (+, -, *, /, //, %) and prints results directly.</td>
+                            <td>Saare arithmetic operations perform kar ke results screen par print karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">9</td>
+                            <td><span class="code-snippet">calculator(17, 4)</span></td>
+                            <td>Calls function passing 17 for <span class="code-snippet">a</span> and 4 for <span class="code-snippet">b</span>.</td>
+                            <td>17 aur 4 arguments pass kar ke calculator function call kiya.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 5: Print vs Return Statement -->
+            <div class="section-card" id="sec-return">
+                <h2 class="section-title">5. Print vs Return Statement (Very Important)</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>print()</h4>
+                        <p>Only displays output on the screen. It returns <span class="code-snippet">None</span> and cannot be used in further calculations or stored for later logic.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>return</h4>
+                        <p>Value ko function se bahar bhejta hai taaki usko variable me store kiya ja sake ya aage calculation me use kiya ja sake.</p>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Return Statement & Multiple Returns</div>
+                    <pre>def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print(result * 2)
+
+def calculate(a, b):
+    addition = a + b
+    subtraction = a - b
+    multiplication = a * b
+    return addition, subtraction, multiplication
+
+res = calculate(20, 5)
+print(res)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>60<br>(25, 15, 100)</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">return a + b</span></td>
+                            <td>Sends the sum of <span class="code-snippet">a</span> and <span class="code-snippet">b</span> back to the caller site.</td>
+                            <td>Sum ki value ko caller side par return kar raha hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">4</td>
+                            <td><span class="code-snippet">result = add(10, 20)</span></td>
+                            <td>Stores returned value (30) in variable <span class="code-snippet">result</span>.</td>
+                            <td>Function se aayi return value (30) ko <span class="code-snippet">result</span> variable me save kiya.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">5</td>
+                            <td><span class="code-snippet">print(result * 2)</span></td>
+                            <td>Uses stored result in further math (30 * 2 = 60).</td>
+                            <td>Saved result ko supercharge karke agle formula me use kiya.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">11</td>
+                            <td><span class="code-snippet">return addition, subtraction, multiplication</span></td>
+                            <td>Returns multiple values as a Tuple <span class="code-snippet">(25, 15, 100)</span>.</td>
+                            <td>Multiple values ko ek saath Tuple ke roop me return kar raha hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 6: Types of Arguments -->
+            <div class="section-card" id="sec-argtypes">
+                <h2 class="section-title">6. Types of Arguments</h2>
+                
+                <div class="concept-box">
+                    <ul class="list-styled">
+                        <li><strong>Default Parameter:</strong> Value used if no argument is passed during function call.</li>
+                        <li><strong>Positional Arguments:</strong> Arguments matched in exact order of parameters.</li>
+                        <li><strong>Keyword Arguments:</strong> Arguments matched explicitly by parameter names (order does not matter).</li>
+                    </ul>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Default & Keyword Arguments</div>
+                    <pre>def greet(name="Gagan"):
+    print(f"Hello {name}")
+
+greet("Aman")
+greet()
+
+def student(name, age):
+    print(f"Name = {name}, Age = {age}")
+
+student(age=22, name="Gagan")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Hello Aman<br>Hello Gagan<br>Name = Gagan, Age = 22</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">def greet(name="Gagan"):</span></td>
+                            <td>Sets default parameter <span class="code-snippet">name="Gagan"</span>.</td>
+                            <td>Default value set ki agar koi argument na paas kare to "Gagan" use ho.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">5</td>
+                            <td><span class="code-snippet">greet()</span></td>
+                            <td>Called without argument, so default value "Gagan" is used.</td>
+                            <td>Bina argument call kiya, to default value "Gagan" chalegi.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">10</td>
+                            <td><span class="code-snippet">student(age=22, name="Gagan")</span></td>
+                            <td>Keyword argument call: assigns 22 to age and "Gagan" to name regardless of position.</td>
+                            <td>Keyword arguments: Naam ke saath value di, isliye position change karne se koi farak nahi padta.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 7: *args and **kwargs -->
+            <div class="section-card" id="sec-args-kwargs">
+                <h2 class="section-title">7. Arbitrary Arguments: *args and **kwargs</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>*args (Arbitrary Positional Arguments)</h4>
+                        <p>Receives variable number of positional arguments as a <strong>Tuple</strong>.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>**kwargs (Arbitrary Keyword Arguments)</h4>
+                        <p>Receives variable number of keyword arguments as a <strong>Dictionary</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - *args and **kwargs</div>
+                    <pre>def add_numbers(*numbers):
+    total = 0
+    for number in numbers:
+        total = total + number
+    return total
+
+print(add_numbers(10, 20, 30))
+
+def student_info(**details):
+    print(details)
+
+student_info(name="Gagan", age=22, city="Chandigarh")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>60<br>{'name': 'Gagan', 'age': 22, 'city': 'Chandigarh'}</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">def add_numbers(*numbers):</span></td>
+                            <td><span class="code-snippet">*numbers</span> captures all incoming positional arguments into a single tuple.</td>
+                            <td><span class="code-snippet">*numbers</span> jitne bhi numbers bhejoge unko ek tuple banakar le leta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">3-4</td>
+                            <td><span class="code-snippet">for number in numbers:</span></td>
+                            <td>Iterates over each number in tuple and calculates cumulative sum.</td>
+                            <td>Tuple ke har ek number par loop chala kar unka sum calculate karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">9</td>
+                            <td><span class="code-snippet">def student_info(**details):</span></td>
+                            <td><span class="code-snippet">**details</span> captures key=value pairs into a single dictionary.</td>
+                            <td><span class="code-snippet">**details</span> keyword arguments ko key-value pairs wali dictionary bana kar accept karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 8: Functions with Lists & Dicts -->
+            <div class="section-card" id="sec-datastruct">
+                <h2 class="section-title">8. Functions with Data Structures (Lists & Dictionaries)</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - List & Dictionary in Functions</div>
+                    <pre>def print_names(names):
+    for name in names:
+        print(name)
+
+students = ["Gagan", "Rajat", "Lokesh"]
+print_names(students)
+
+def show_student(student):
+    print(f"Name = {student['name']}")
+    print(f"Age = {student['age']}")
+
+st_dict = {"name": "Gagan", "age": 22}
+show_student(st_dict)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Gagan<br>Rajat<br>Lokesh<br>Name = Gagan<br>Age = 22</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1-3</td>
+                            <td><span class="code-snippet">def print_names(names):</span></td>
+                            <td>Receives a list as parameter and iterates through it using a for loop.</td>
+                            <td>List ko parameter me receive karta hai aur for loop se saare names print karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">8-10</td>
+                            <td><span class="code-snippet">def show_student(student):</span></td>
+                            <td>Receives a dictionary and accesses its values using key names like <span class="code-snippet">student['name']</span>.</td>
+                            <td>Dictionary pass hone par uske keys (name, age) ko read karke formatted text dikhata hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 9: Logic & Validation Functions -->
+            <div class="section-card" id="sec-logic">
+                <h2 class="section-title">9. Logic Building & Mathematical Functions</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Even/Odd, Max, Geometry</div>
+                    <pre>def check_even_odd(number):
+    if number % 2 == 0:
+        return "Even"
+    else:
+        return "Odd"
+
+def largest(a, b, c):
+    if a >= b and a >= c:
+        return a
+    elif b >= a and b >= c:
+        return b
+    else:
+        return c
+
+def circle_area(radius):
+    return 3.14 * radius * radius
+
+print(check_even_odd(10))
+print(largest(10, 50, 15))
+print(circle_area(5))</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Even<br>50<br>78.5</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">if number % 2 == 0:</span></td>
+                            <td>Checks if number divided by 2 leaves remainder zero (Even condition).</td>
+                            <td>Remainder 0 hai ya nahi check karta hai (Even/Odd test).</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">7-12</td>
+                            <td><span class="code-snippet">if a >= b and a >= c:</span></td>
+                            <td>Uses logical AND to determine maximum among three numbers.</td>
+                            <td>3 numbers me se maximum nikalne ke liye logical conditions check karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">15</td>
+                            <td><span class="code-snippet">return 3.14 * radius * radius</span></td>
+                            <td>Calculates circle area using formula pi * r^2 and returns float.</td>
+                            <td>Circle ke area ka formula pi * r square lagakar result return karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 10: Advanced Concepts -->
+            <div class="section-card" id="sec-advanced">
+                <h2 class="section-title">10. Lambda, Map & Filter Functions</h2>
+                
+                <div class="concept-box">
+                    <p><strong>Lambda Function:</strong> A small anonymous function written in a single line. Syntax: <span class="code-snippet">lambda arguments: expression</span></p>
+                    <p><strong>map():</strong> Applies a function to every item in an iterable.</p>
+                    <p><strong>filter():</strong> Filters elements from an iterable based on a boolean condition function.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Lambda, Map, Filter</div>
+                    <pre>square = lambda x: x * x
+print(square(5))
+
+numbers = [1, 2, 3, 4, 5]
+doubled = list(map(lambda x: x * 2, numbers))
+print(doubled)
+
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>25<br>[2, 4, 6, 8, 10]<br>[2, 4]</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">square = lambda x: x * x</span></td>
+                            <td>Creates a one-line anonymous function that squares its argument <span class="code-snippet">x</span>.</td>
+                            <td>Lambda se ek single line function banaya jo input x ka square nikalta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">5</td>
+                            <td><span class="code-snippet">map(lambda x: x * 2, numbers)</span></td>
+                            <td>Applies the lambda (multiply by 2) to each number in the list.</td>
+                            <td>List ke har element ko 2 se multiply karne ke liye map function lagaya.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">8</td>
+                            <td><span class="code-snippet">filter(lambda x: x % 2 == 0, numbers)</span></td>
+                            <td>Keeps only elements where the lambda evaluates to True (Even numbers).</td>
+                            <td>Wahi elements filter karta hai jo condition (even) ko satisfy karte hain.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 11: Scope & Global Keyword -->
+            <div class="section-card" id="sec-scope">
+                <h2 class="section-title">11. Variable Scope & Global Keyword</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Scope and global keyword</div>
+                    <pre>count = 0
+
+def increase():
+    global count
+    count = count + 1
+
+increase()
+increase()
+print(count)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>2</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">count = 0</span></td>
+                            <td>Global variable declared outside function.</td>
+                            <td>Function ke bahar banaya gaya Global Variable.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">4</td>
+                            <td><span class="code-snippet">global count</span></td>
+                            <td>Declares inside function that <span class="code-snippet">count</span> refers to the global variable.</td>
+                            <td><span class="code-snippet">global</span> keyword batata hai ki hum bahar wale count ko update karna chahte hain.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">5</td>
+                            <td><span class="code-snippet">count = count + 1</span></td>
+                            <td>Modifies the global counter variable.</td>
+                            <td>Global count me 1 increment karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 12: Practice Questions -->
+            <div class="section-card" id="sec-practice">
+                <h2 class="section-title">12. 25 Practice Questions with Full Solutions</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Practice Questions 1 - 25 Code Solutions</div>
+                    <pre>def q1():
+    print("Hello World")
+
+def q2(name):
+    print(f"Hello {name}")
+
+def q3(a, b):
+    return a + b
+
+def q4(a, b):
+    return a - b
+
+def q5(a, b):
+    return a * b
+
+def q6(a, b):
+    return a / b if b != 0 else "Error"
+
+def q7(n):
+    return "Even" if n % 2 == 0 else "Odd"
+
+def q8(n):
+    if n > 0: return "Positive"
+    elif n < 0: return "Negative"
+    else: return "Zero"
+
+def q9(a, b, c):
+    return max(a, b, c)
+
+def q10(l, w):
+    return l * w
+
+def q11(r):
+    return 3.14 * r * r
+
+def q12(b, h):
+    return 0.5 * b * h
+
+def q13(a, b):
+    return (a + b) / 2
+
+def q14(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+def q15(numbers):
+    return sum(1 for x in numbers if x % 2 == 0)
+
+def q16(text):
+    return text[::-1]
+
+def q17(text):
+    return text == text[::-1]
+
+import re
+def q18(email):
+    pattern = r"^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}"
+    return "Valid Email" if re.fullmatch(pattern, email) else "Invalid Email"
+
+def q19(phone):
+    return "Valid Phone" if re.fullmatch(r"^\d{10}$", phone) else "Invalid Phone"
+
+def q20(marks):
+    if marks >= 90: return "A+"
+    elif marks >= 80: return "A"
+    elif marks >= 70: return "B"
+    elif marks >= 60: return "C"
+    elif marks >= 40: return "D"
+    else: return "Fail"
+
+def q21(age):
+    return "Eligible" if age >= 18 else "Not Eligible"
+
+def q22(price, discount):
+    return price - (price * discount / 100)
+
+def q23(p, r, t):
+    return (p * r * t) / 100
+
+def q24(*args):
+    return sum(args)
+
+def q25(**kwargs):
+    for key, val in kwargs.items():
+        print(f"{key}: {val}")</pre>
+                </div>
+            </div>
+
+            <!-- SECTION 13: Real World Projects -->
+            <div class="section-card" id="sec-projects">
+                <h2 class="section-title">13. Real-World Applications & Mini Projects</h2>
+                
+                <h3 style="margin-bottom: 0.8rem; color: var(--accent-color);">Mini Project 1: Calculator using Functions</h3>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Calculator Project</div>
+                    <pre>def add(a, b): return a + b
+def subtract(a, b): return a - b
+def multiply(a, b): return a * b
+def divide(a, b): return a / b if b != 0 else "Cannot divide by zero"
+
+num1 = 20.0
+num2 = 5.0
+
+print(f"Addition = {add(num1, num2)}")
+print(f"Subtraction = {subtract(num1, num2)}")
+print(f"Multiplication = {multiply(num1, num2)}")
+print(f"Division = {divide(num1, num2)}")</pre>
+                </div>
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Addition = 25.0<br>Subtraction = 15.0<br>Multiplication = 100.0<br>Division = 4.0</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Mini Project 2: Shopping Bill with Discount</h3>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Shopping Bill</div>
+                    <pre>def calculate_total(price, quantity):
+    return price * quantity
+
+def calculate_discount(total, discount_percent):
+    return total - (total * discount_percent / 100)
+
+price = 500.0
+quantity = 3
+discount = 10.0
+
+total = calculate_total(price, quantity)
+final_amount = calculate_discount(total, discount)
+
+print(f"Total Bill = {total}")
+print(f"Final Amount after Discount = {final_amount}")</pre>
+                </div>
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Total Bill = 1500.0<br>Final Amount after Discount = 1350.0</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Functions Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

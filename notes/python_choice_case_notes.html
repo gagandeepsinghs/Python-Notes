@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Choice Case & Menu Driven Programs Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .syntax-box {
+            background-color: rgb(243, 244, 246);
+            border-left: 4px solid var(--accent-color);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+            margin: 1rem 0;
+            color: rgb(31, 41, 55);
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Choice Case & Menu Programs</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-concept')">1. What is Choice Case?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-beverage')">2. Beverage Menu Example</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-calculator')">3. Choice Calculator</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-evenodd')">4. Even/Odd Choice Program</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-maxmin')">5. Max/Min Choice Program</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-delivery')">6. Delivery Charge Calculator</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-matplotlib')">7. Matplotlib Bar Graph Intro</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-summary')">8. Summary & Key Points</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Choice Case & Menu Driven Programming</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search topics...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Python Choice Case & Menu-Driven Programs</h1>
+                <p>Learn how to design interactive menu programs, choice-based calculators, nested delivery logic, and Matplotlib data visualization.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- SECTION 1: Concept -->
+            <div class="section-card" id="sec-concept">
+                <h2 class="section-title">1. What is Choice Case / Menu-Driven Programming?</h2>
+                <div class="concept-box">
+                    <p>A <strong>Choice Case / Menu-Driven Program</strong> presents a numbered menu of options to the user, takes the user's selected choice, and executes the corresponding code branch using <span class="code-snippet">if-elif-else</span> or <span class="code-snippet">match-case</span>.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>User Control:</strong> User selects one option from a list (e.g. 1, 2, 3).</li>
+                            <li><strong>Interactive Flow:</strong> Execution branches dynamically based on choice.</li>
+                            <li><strong>Common Use Cases:</strong> ATM machines, Calculators, Order Menus, Game options.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Choice Case ka Matlab:</strong> User multiple options me se koi ek option select karta hai.</li>
+                            <li><strong>Execution:</strong> Jo choice user type karta hai, wahi code branch execute hota hai.</li>
+                            <li><strong>Use Cases:</strong> Menu programs, Calculators, Billing systems me mainly use hota hai.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Beverage Menu -->
+            <div class="section-card" id="sec-beverage">
+                <h2 class="section-title">2. Example 1: Beverage Selection Menu</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Beverage Selector</div>
+                    <pre>choice = 1
+
+if choice == 1:
+    print("You selected Tea")
+elif choice == 2:
+    print("You selected Coffee")
+elif choice == 3:
+    print("You selected Juice")
+else:
+    print("Invalid choice")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>You selected Tea</div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Choice Calculator -->
+            <div class="section-card" id="sec-calculator">
+                <h2 class="section-title">3. Example 2: Choice-Based Calculator</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Calculator with Operations & Operator Display</div>
+                    <pre>print("1. Addition")
+print("2. Subtraction")
+print("3. Multiplication")
+print("4. Division")
+
+choice = 1
+a = 15
+b = 5
+
+if choice == 1:
+    print("you have choosen = (+ , a+b)")
+    print("Result =", a + b)
+elif choice == 2:
+    print("you have choosen = (- , a-b)")
+    print("Result =", a - b)
+elif choice == 3:
+    print("you have choosen = (* , a*b)")
+    print("Result =", a * b)
+elif choice == 4:
+    print("you have choosen = (/ , a/b)")
+    print("Result =", a / b)
+else:
+    print("Invalid choice")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>you have choosen = (+ , a+b)<br>Result = 20</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1-4</td>
+                            <td><span class="code-snippet">print("1. Addition"...)</span></td>
+                            <td>Displays numbered options menu to user.</td>
+                            <td>User ko choices dikhane ke liye menu print karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">6-8</td>
+                            <td><span class="code-snippet">choice, a, b</span></td>
+                            <td>Takes user choice and two input numbers for calculation.</td>
+                            <td>User ki selected choice aur calculation ke liye 2 numbers lene ka setup.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">10-12</td>
+                            <td><span class="code-snippet">if choice == 1: print(...)</span></td>
+                            <td>If choice is 1, prints operator notification and calculates sum <span class="code-snippet">a + b</span>.</td>
+                            <td>Agar choice 1 hai to addition ka result (a + b = 20) print karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 4: Even/Odd Choice -->
+            <div class="section-card" id="sec-evenodd">
+                <h2 class="section-title">4. Example 3: Choice-Based Even / Odd Checker</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Choice Even/Odd</div>
+                    <pre>print("1. Check Even")
+print("2. Check Odd")
+
+choice = 1
+num = 14
+
+if choice == 1:
+    if num % 2 == 0:
+        print("Even number")
+    else:
+        print("Not even")
+elif choice == 2:
+    if num % 2 != 0:
+        print("Odd number")
+    else:
+        print("Not odd")
+else:
+    print("Invalid choice")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Even number</div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: Max/Min Choice -->
+            <div class="section-card" id="sec-maxmin">
+                <h2 class="section-title">5. Example 4: Maximum or Minimum of Two Numbers</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Max/Min Selector</div>
+                    <pre>print("1. Maximum of two numbers")
+print("2. Minimum of two numbers")
+
+choice = 1
+a = 25
+b = 40
+
+if choice == 1:
+    if a > b:
+        print(a, "is maximum")
+    else:
+        print(b, "is maximum")
+elif choice == 2:
+    if a < b:
+        print(a, "is minimum")
+    else:
+        print(b, "is minimum")
+else:
+    print("Invalid choice")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>40 is maximum</div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: E-Commerce Delivery Charge Calculator -->
+            <div class="section-card" id="sec-delivery">
+                <h2 class="section-title">6. Real-Life Problem: E-Commerce Delivery Charge Calculator</h2>
+                
+                <div class="concept-box">
+                    <p><strong>Rules:</strong> Purchase amount must be greater than 150. Based on item count (&le; 5 or &ge; 6) and delivery speed choice (1 = Same Day, 2 = Next Day), delivery charges are calculated dynamically.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Delivery Charge Calculator</div>
+                    <pre>amount = 200.0
+items = 4
+days = 1
+
+if amount > 150:
+    if items <= 5:
+        if days == 1:
+            deliver_charge = 8.0
+            total_cost = deliver_charge + amount
+            print(f"Total cost is {total_cost}")
+        elif days == 2:
+            deliver_charge = items * 1.5
+            total_cost = deliver_charge + amount
+            print(f"Total cost is {total_cost}")
+    elif items >= 6:
+        if days == 1:
+            deliver_charge = items * 2.50
+            total_cost = deliver_charge + amount
+            print(f"Total cost is {total_cost}")
+        elif days == 2:
+            deliver_charge = items * 1.20
+            total_cost = deliver_charge + amount
+            print(f"Total cost is {total_cost}")
+    else:
+        print("Invalid input")
+else:
+    print("Err: purchase amount is less than 150")</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Total cost is 208.0</div>
+                </div>
+            </div>
+
+            <!-- SECTION 7: Matplotlib Bar Graph Intro -->
+            <div class="section-card" id="sec-matplotlib">
+                <h2 class="section-title">7. Data Visualization: Matplotlib Bar Graph Introduction</h2>
+                
+                <div class="concept-box">
+                    <p>Python's <span class="code-snippet">matplotlib.pyplot</span> library allows plotting bar graphs using <span class="code-snippet">plt.bar(x, y)</span>.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Matplotlib Bar Graph</div>
+                    <pre>import matplotlib.pyplot as plt
+
+students = ["Aman", "Rahul", "Priya", "Simran", "Gagan"]
+marks = [75, 85, 65, 90, 80]
+
+plt.bar(students, marks)
+
+plt.title("Student Marks")
+plt.xlabel("Students")
+plt.ylabel("Marks")
+
+plt.show()</pre>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">import matplotlib.pyplot as plt</span></td>
+                            <td>Imports plotting module with alias <span class="code-snippet">plt</span>.</td>
+                            <td>Graph banana ke liye <span class="code-snippet">matplotlib</span> library import ki.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">6</td>
+                            <td><span class="code-snippet">plt.bar(students, marks)</span></td>
+                            <td>Plots vertical bars for each student's marks.</td>
+                            <td>Har student ke marks ke liye vertical bar chart banata hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">8-10</td>
+                            <td><span class="code-snippet">plt.title(), xlabel(), ylabel()</span></td>
+                            <td>Adds title and axis labels to the chart.</td>
+                            <td>Graph ka main title aur X/Y axis labels set karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 8: Summary -->
+            <div class="section-card" id="sec-summary">
+                <h2 class="section-title">8. Summary & Key Points</h2>
+                
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Meaning</th>
+                            <th>Primary Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Choice</strong></td>
+                            <td>User's selected numeric or string option</td>
+                            <td>Menu-driven user input</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Menu System</strong></td>
+                            <td>Numbered list of options displayed to user</td>
+                            <td>Calculators, Food ordering, Banking menus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Implementation</strong></td>
+                            <td>Built using <span class="code-snippet">if-elif-else</span> or <span class="code-snippet">match-case</span></td>
+                            <td>Branching control flow dynamically</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Choice Case Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

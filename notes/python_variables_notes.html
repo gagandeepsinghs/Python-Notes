@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Variables - Complete Notes by Gagan Sir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper: rgb(238, 241, 244);
+  --card: rgb(255, 255, 255);
+  --ink: rgb(22, 32, 42);
+  --ink-soft: rgb(76, 90, 102);
+  --rule: rgb(211, 218, 225);
+  --accent: rgb(15, 111, 99);
+  --accent-soft: rgb(226, 239, 236);
+  --amber: rgb(154, 106, 22);
+  --amber-soft: rgb(246, 238, 220);
+  --code-bg: rgb(19, 32, 42);
+  --code-ink: rgb(220, 230, 236);
+  --code-key: rgb(127, 209, 193);
+  --code-str: rgb(229, 192, 123);
+  --code-com: rgb(122, 140, 153);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper: rgb(16, 23, 29);
+    --card: rgb(22, 31, 39);
+    --ink: rgb(228, 234, 239);
+    --ink-soft: rgb(157, 174, 187);
+    --rule: rgb(40, 52, 62);
+    --accent: rgb(92, 194, 178);
+    --accent-soft: rgb(22, 48, 45);
+    --amber: rgb(214, 172, 99);
+    --amber-soft: rgb(42, 37, 25);
+    --code-bg: rgb(11, 18, 24);
+  }
+}
+:root[data-theme="dark"]{
+  --paper: rgb(16, 23, 29);
+  --card: rgb(22, 31, 39);
+  --ink: rgb(228, 234, 239);
+  --ink-soft: rgb(157, 174, 187);
+  --rule: rgb(40, 52, 62);
+  --accent: rgb(92, 194, 178);
+  --accent-soft: rgb(22, 48, 45);
+  --amber: rgb(214, 172, 99);
+  --amber-soft: rgb(42, 37, 25);
+  --code-bg: rgb(11, 18, 24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif}
+code,pre,kbd{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:var(--accent);cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--card);
+  border-bottom:1px solid var(--rule);
+  padding:clamp(2.5rem,6vw,4.5rem) 1.25rem 2.75rem;
+}
+.hero-inner{max-width:1120px;margin:0 auto;display:grid;gap:2.25rem;grid-template-columns:1fr}
+@media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr;align-items:center;gap:3rem}}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,3.6rem);
+  line-height:1.03;
+  font-weight:600;
+  letter-spacing:-.02em;
+  margin:0 0 .5rem;
+}
+.hero p{margin:0 0 1rem;color:var(--ink-soft);max-width:34em}
+.hero .lede{font-size:1.12rem;color:var(--ink)}
+.meta{font-family:"IBM Plex Sans",sans-serif;font-size:.85rem;color:var(--ink-soft);margin-top:1.5rem}
+.meta span{display:inline-block;margin-right:1.25rem}
+
+/* hero terminal */
+.demo{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--code-bg);box-shadow:0 18px 40px -28px rgba(10,30,40,.8)}
+.demo .file{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.78rem;color:var(--code-com);
+  padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.demo pre{margin:0;padding:1.1rem .9rem;color:var(--code-ink);font-size:.86rem;line-height:1.7;overflow-x:auto}
+.demo .out{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:.8rem .9rem;font-family:"IBM Plex Sans",sans-serif;font-size:.83rem;color:rgb(157,179,190);
+  display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;
+}
+.demo .out b{color:rgb(255,255,255);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--code-key);display:inline-block}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem;display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media(min-width:960px){.wrap{grid-template-columns:230px minmax(0,1fr);gap:3.5rem;align-items:start}}
+
+nav.toc{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.88rem;
+  padding:2rem 0 0;
+}
+@media(min-width:960px){nav.toc{position:sticky;top:0;max-height:100vh;overflow-y:auto;padding:2.5rem 0 3rem}}
+nav.toc h2{font-size:.8rem;font-weight:600;color:var(--ink-soft);margin:0 0 .85rem;letter-spacing:.04em}
+nav.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+nav.toc li{counter-increment:toc}
+nav.toc a{
+  display:flex;gap:.6rem;text-decoration:none;color:var(--ink-soft);
+  padding:.3rem 0 .3rem .85rem;margin-left:-1px;border-left:2px solid transparent;line-height:1.35;
+}
+nav.toc a:hover{color:var(--ink)}
+nav.toc a::before{content:counter(toc);font-variant-numeric:tabular-nums;font-size:.75rem;opacity:.65;padding-top:.15em}
+nav.toc ol{counter-reset:toc}
+nav.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+
+main{padding:2.5rem 0 5rem;max-width:74ch}
+section{scroll-margin-top:1.5rem;padding-bottom:2.75rem}
+section+section{border-top:1px solid var(--rule);padding-top:2.75rem}
+h2.ch{font-size:1.8rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem;line-height:1.2}
+.chno{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--accent);display:block;margin-bottom:.4rem}
+h3{font-size:1.12rem;font-weight:600;margin:2rem 0 .5rem;letter-spacing:-.005em}
+p{margin:0 0 1rem}
+ul,ol.body{margin:0 0 1rem;padding-left:1.25rem}
+li{margin-bottom:.35rem}
+strong{font-weight:600}
+main code{
+  background:var(--accent-soft);color:var(--ink);padding:.1em .35em;border-radius:3px;font-size:.87em;
+}
+
+/* code blocks */
+figure.code{margin:1.25rem 0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--code-bg)}
+figure.code figcaption{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.76rem;color:var(--code-com);
+  padding:.5rem .85rem;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+figure.code pre{
+  margin:0;padding:1rem .85rem;overflow-x:auto;color:var(--code-ink);
+  font-size:.84rem;line-height:1.7;
+}
+figure.code button{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.72rem;color:var(--code-com);
+  background:transparent;border:1px solid rgba(255,255,255,.16);border-radius:4px;
+  padding:.18rem .5rem;cursor:pointer;flex:none;
+}
+figure.code button:hover{color:rgb(255,255,255);border-color:rgba(255,255,255,.4)}
+figure.code button.done{color:var(--code-key);border-color:var(--code-key)}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.c{color:var(--code-com);font-style:italic}
+
+.note{
+  background:var(--accent-soft);border-left:3px solid var(--accent);
+  padding:.85rem 1rem;margin:1.25rem 0;font-size:.95rem;border-radius:0 5px 5px 0;
+}
+.warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.note p:last-child{margin-bottom:0}
+.note b{font-family:"IBM Plex Sans",sans-serif;font-size:.82rem;font-weight:600;display:block;margin-bottom:.2rem;color:var(--ink-soft)}
+
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-family:"IBM Plex Sans",sans-serif;min-width:420px}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;font-size:.82rem;color:var(--ink-soft)}
+td code{background:var(--accent-soft);padding:.1em .3em;border-radius:3px;font-size:.85em}
+
+.tree{font-size:.84rem;line-height:1.65;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:1rem;overflow-x:auto;margin:1.25rem 0;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);background:var(--card);padding:2.5rem 1.25rem 3.5rem}
+footer .fin{max-width:1120px;margin:0 auto;font-family:"IBM Plex Sans",sans-serif;font-size:.9rem;color:var(--ink-soft)}
+footer a{margin-right:1.1rem;white-space:nowrap}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Python Variables</h1>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:1.2rem;font-weight:600;color:var(--accent);margin:0 0 1rem;">By Gagan Sir</p>
+      <p class="lede">A variable is a name used to store data in memory. Variable ek container ya name hota hai jo values ko store karta hai.</p>
+      <p>This comprehensive guide covers Python variable rules, data types (string, int, float, bool), user inputs, string formatting with f-strings, variable swapping, and practice questions with solutions.</p>
+      <div class="meta">
+        <span>By Gagan Sir</span><span>7 chapters</span><span>Python 3.x</span><span>Beginner to Advanced</span>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="file">variables.py</div>
+<pre><span class="k">name</span> = <span class="s">"Gagan"</span>
+<span class="k">age</span> = <span class="s">18</span>
+
+<span class="k">print</span>(<span class="s">f"Mera naam {name} hai aur meri age {age} hai"</span>)</pre>
+      <div class="out"><span class="dot"></span><b>python variables.py</b> &rarr; Mera naam Gagan hai aur meri age 18 hai</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Chapters">
+  <h2>Chapters</h2>
+  <ol>
+    <li><a data-target="what" onclick="document.getElementById('what').scrollIntoView({behavior:'smooth'})">What is a Variable</a></li>
+    <li><a data-target="rules" onclick="document.getElementById('rules').scrollIntoView({behavior:'smooth'})">Naming Rules & Conditions</a></li>
+    <li><a data-target="types" onclick="document.getElementById('types').scrollIntoView({behavior:'smooth'})">Data Types in Python</a></li>
+    <li><a data-target="input" onclick="document.getElementById('input').scrollIntoView({behavior:'smooth'})">Taking User Input</a></li>
+    <li><a data-target="fstrings" onclick="document.getElementById('fstrings').scrollIntoView({behavior:'smooth'})">F-Strings Formatting</a></li>
+    <li><a data-target="swap" onclick="document.getElementById('swap').scrollIntoView({behavior:'smooth'})">Variable Swapping</a></li>
+    <li><a data-target="questions" onclick="document.getElementById('questions').scrollIntoView({behavior:'smooth'})">Practice Questions & Solutions</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="what">
+<span class="chno">Chapter 1</span>
+<h2 class="ch">What is a Variable</h2>
+<p>A variable is a named container used to store data in memory. Program execution dynamic values handling ke liye memory spaces refer karti hai jise variable kehte hain.</p>
+<p>Basic syntax for declaring a variable is:</p>
+<figure class="code"><figcaption>Syntax</figcaption><pre>variable_name = value</pre></figure>
+
+<h3>Basic Examples</h3>
+<figure class="code"><figcaption>examples.py</figcaption><pre>full_name = <span class="s">"gagan"</span>
+print(full_name)
+
+laptop = <span class="s">"asus"</span>
+print(laptop)
+
+gagan = <span class="s">"teacher"</span>
+print(gagan)</pre></figure>
+
+<div class="note">
+<b>Key Takeaway</b>
+<p>Variables serve as pointers to data stored in computer memory. Whenever you call a variable name, Python retrieves its assigned value.</p>
+</div>
+</section>
+
+<section id="rules">
+<span class="chno">Chapter 2</span>
+<h2 class="ch">Naming Rules & Conditions</h2>
+<p>Python variables standard syntax rules follow karte hain. In rules ko disregard karne par syntax errors arise hote hain:</p>
+<ol class="body">
+  <li><strong>Cannot start with a number:</strong> Variable names number se start nahi ho sakte (e.g. <code>1x</code> invalid syntax par <code>x1</code> valid hai).</li>
+  <li><strong>No special characters except underscore (_):</strong> Variable names me special characters (like <code>!</code>, <code>@</code>, <code>$</code>, <code>-</code>, or spaces) allowed nahi hote. Faqat underscore (<code>_</code>) allowed hai (e.g. <code>first_name</code> valid, <code>last name</code> invalid).</li>
+  <li><strong>Case-Sensitive:</strong> Python case-sensitive language hai. <code>name</code> aur <code>Name</code> do completely different variables treat hote hain.</li>
+</ol>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Variable Name</th><th>Status</th><th>Reason / Description</th></tr></thead>
+<tbody>
+<tr><td><code>first_name</code></td><td>Valid</td><td>Uses underscore correctly</td></tr>
+<tr><td><code>1x</code></td><td>Invalid</td><td>Starts with a digit</td></tr>
+<tr><td><code>last name</code></td><td>Invalid</td><td>Contains space</td></tr>
+<tr><td><code>gender_male</code></td><td>Valid</td><td>Standard snake_case format</td></tr>
+<tr><td><code>Name</code> vs <code>name</code></td><td>Valid</td><td>Case-sensitive: both exist separately</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="types">
+<span class="chno">Chapter 3</span>
+<h2 class="ch">Data Types in Python</h2>
+<p>Variables multiple types of values store kar sakte hain. Python auto-detects variable data types based on the value assigned:</p>
+<ul>
+  <li><strong>String (<code>str</code>):</strong> Sequence of characters enclosed in single quotes (' ') or double quotes (" ").</li>
+  <li><strong>Integer (<code>int</code>):</strong> Whole numbers without decimal points.</li>
+  <li><strong>Float (<code>float</code>):</strong> Decimal numbers.</li>
+  <li><strong>Boolean (<code>bool</code>):</strong> Stores only two truth values: <code>True</code> or <code>False</code>.</li>
+</ul>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Variable Name</th><th>Value</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>meri_city</code></td><td><code>"Chandigarh"</code></td><td>string</td><td>Enclosed in quotes</td></tr>
+<tr><td><code>gagan_ki_age</code></td><td><code>18</code></td><td>integer</td><td>Whole number</td></tr>
+<tr><td><code>mere_marks</code></td><td><code>98.9</code></td><td>float</td><td>Decimal point value</td></tr>
+<tr><td><code>gender_male</code></td><td><code>True</code></td><td>boolean</td><td>Holds True or False</td></tr>
+<tr><td><code>salary</code></td><td><code>"2220"</code></td><td>string</td><td>Numbers in quotes become strings</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="code"><figcaption>datatypes.py</figcaption><pre>meri_city = <span class="s">"Chandigarh"</span>
+mera_naam = <span class="s">"gagan"</span>
+mere_marks = <span class="s">98.9</span>
+gender_male = <span class="k">True</span>
+salary = <span class="s">"2220"</span>
+
+print(f<span class="s">"meri city ka naam {meri_city}, mera naam hai {mera_naam} aur mera marks {mere_marks} mera gender male hai = {gender_male} aur mera salary hai {salary}"</span>)</pre></figure>
+</section>
+
+<section id="input">
+<span class="chno">Chapter 4</span>
+<h2 class="ch">Taking User Input</h2>
+<p>Python me user se dynamic values fetch karne ke liye <code>input()</code> function use hota hai. Default behavior me <code>input()</code> hamesha string return karta hai. Numerical input ke liye type casting (<code>int()</code> ya <code>float()</code>) perform ki jaati hai.</p>
+
+<figure class="code"><figcaption>user_input.py</figcaption><pre>Name = input(<span class="s">"apna naam dalo = "</span>)
+age = int(input(<span class="s">"apni age dalo = "</span>))
+print(f<span class="s">"Mera naam {Name} hai aur meri age {age} hai"</span>)</pre></figure>
+
+<figure class="code"><figcaption>addition_input.py</figcaption><pre>a = int(input(<span class="s">"enter the first number = "</span>))
+b = int(input(<span class="s">"enter the second number = "</span>))
+print(f<span class="s">"the output of a and b = {a + b}"</span>)</pre></figure>
+</section>
+
+<section id="fstrings">
+<span class="chno">Chapter 5</span>
+<h2 class="ch">F-Strings Formatting</h2>
+<p>An f-string (formatted string literal) is used to insert variables or expressions inside a string using curly braces <code>{}</code>.</p>
+<p>Syntax: <code>f"sentence {variable}"</code></p>
+
+<figure class="code"><figcaption>fstrings.py</figcaption><pre>name = <span class="s">"lokesh"</span>
+gagan_ki_age = <span class="s">18</span>
+height = <span class="s">5.9</span>
+
+print(f<span class="s">"ludhiana wale ka naam {name} aur gagan ki age hai {gagan_ki_age} aur uski height hai {height}"</span>)</pre></figure>
+
+<div class="note">
+<b>Expression evaluation inside f-strings</b>
+<p>F-strings accept valid Python math operations inside curly braces directly: <code>f"Cost = {price * quantity}"</code>.</p>
+</div>
+</section>
+
+<section id="swap">
+<span class="chno">Chapter 6</span>
+<h2 class="ch">Variable Swapping</h2>
+<p>Python single line tuple unpacking mechanism se without temporary variable value swap support karta hai.</p>
+
+<figure class="code"><figcaption>swapping.py</figcaption><pre>a = <span class="s">10</span>
+b = <span class="s">20</span>
+
+a, b = b, a
+
+print(<span class="s">"a ="</span>, a)
+print(<span class="s">"b ="</span>, b)</pre></figure>
+</section>
+
+<section id="questions">
+<span class="chno">Chapter 7</span>
+<h2 class="ch">Practice Questions & Solutions</h2>
+<p>Comprehensive set of practice problems with solutions:</p>
+
+<h3>1. Print Name using F-String</h3>
+<figure class="code"><figcaption>sol_01.py</figcaption><pre>name = <span class="s">"Ali"</span>
+print(f<span class="s">"My name is {name}"</span>)</pre></figure>
+
+<h3>2. Name and City</h3>
+<figure class="code"><figcaption>sol_02.py</figcaption><pre>name = <span class="s">"Ali"</span>
+city = <span class="s">"Delhi"</span>
+print(f<span class="s">"My name is {name} and I live in {city}"</span>)</pre></figure>
+
+<h3>3. Sum / Subtraction of Two Numbers</h3>
+<figure class="code"><figcaption>sol_03.py</figcaption><pre>a = <span class="s">10</span>
+b = <span class="s">5</span>
+print(f<span class="s">"inka minu = {a - b}"</span>)</pre></figure>
+
+<h3>4. Area of Rectangle</h3>
+<figure class="code"><figcaption>sol_04.py</figcaption><pre>length = <span class="s">10</span>
+width = <span class="s">5</span>
+print(f<span class="s">"Area of rectangle is {length * width}"</span>)</pre></figure>
+
+<h3>5. Total Cost Calculation</h3>
+<figure class="code"><figcaption>sol_05.py</figcaption><pre>price = <span class="s">50</span>
+quantity = <span class="s">3</span>
+print(f<span class="s">"Total cost = {price * quantity}"</span>)</pre></figure>
+
+<h3>6. Age Example</h3>
+<figure class="code"><figcaption>sol_06.py</figcaption><pre>age = <span class="s">21</span>
+print(f<span class="s">"I am {age} years old"</span>)</pre></figure>
+
+<h3>7. Mathematical Operations</h3>
+<figure class="code"><figcaption>sol_07.py</figcaption><pre>a = <span class="s">20</span>
+b = <span class="s">4</span>
+print(f<span class="s">"Addition = {a + b}"</span>)
+print(f<span class="s">"Subtraction = {a - b}"</span>)
+print(f<span class="s">"Multiplication = {a * b}"</span>)
+print(f<span class="s">"Division = {a / b}"</span>)</pre></figure>
+
+<h3>8. Student Marks from User Input</h3>
+<figure class="code"><figcaption>sol_08.py</figcaption><pre>name = input(<span class="s">"enter your name = "</span>)
+marks = int(input(<span class="s">"enter your marks "</span>))
+print(f<span class="s">"Student ka naam {name} kya hai iska scored {marks} marks"</span>)</pre></figure>
+
+<h3>9. Area of Triangle</h3>
+<figure class="code"><figcaption>sol_09.py</figcaption><pre>base = <span class="s">10</span>
+height = <span class="s">5</span>
+print(f<span class="s">"Area of triangle = {base * height}"</span>)</pre></figure>
+
+<h3>10. Average of Two Numbers</h3>
+<figure class="code"><figcaption>sol_10.py</figcaption><pre>num1 = int(input(<span class="s">"enter the first number = "</span>))
+num2 = int(input(<span class="s">"enter the second number = "</span>))
+print(f<span class="s">"Average = {(num1 + num2) / 2}"</span>)</pre></figure>
+
+<h3>11. Sum of Two Inputs</h3>
+<figure class="code"><figcaption>sol_11.py</figcaption><pre>num1 = int(input(<span class="s">"enter the first number = "</span>))
+num2 = int(input(<span class="s">"enter the second number = "</span>))
+print(f<span class="s">"sum of num and num2 = {num1 + num2}"</span>)</pre></figure>
+
+<h3>12. Rectangle Area from Input</h3>
+<figure class="code"><figcaption>sol_12.py</figcaption><pre>length = int(input(<span class="s">"Enter the length "</span>))
+breadth = int(input(<span class="s">"Enter the breadth "</span>))
+print(f<span class="s">"area of recatngle is {length * breadth}"</span>)</pre></figure>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <div class="fin">
+    <p>Python Variables & Basics Reference Sheet &bull; By Gagan Sir</p>
+    <p>
+      <a href="https://docs.python.org/3/tutorial/introduction.html">Python Official Docs</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('figure.code').forEach(function (fig) {
+  var cap = fig.querySelector('figcaption');
+  if (!cap) return;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = 'Copy';
+  btn.addEventListener('click', function () {
+    var text = fig.querySelector('pre').innerText;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+    }, function () { btn.textContent = 'Press Ctrl+C'; });
+  });
+  cap.appendChild(btn);
+});
+
+var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+var byId = {};
+links.forEach(function (a) {
+  var targetId = a.getAttribute('data-target');
+  if (targetId) { byId[targetId] = a; }
+});
+
+if ('IntersectionObserver' in window) {
+  var visible = new Set();
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { visible.add(e.target.id); } else { visible.delete(e.target.id); }
+    });
+    var order = Object.keys(byId);
+    var first = order.find(function (id) { return visible.has(id); });
+    links.forEach(function (a) { a.classList.remove('on'); });
+    if (first && byId[first]) { byId[first].classList.add('on'); }
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+  document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+}
+</script>
+</body>
+</html>

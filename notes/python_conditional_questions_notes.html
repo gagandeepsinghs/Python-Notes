@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Conditional Statements: 37 Practice Questions by Gagan Sir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper: rgb(238, 241, 244);
+  --card: rgb(255, 255, 255);
+  --ink: rgb(22, 32, 42);
+  --ink-soft: rgb(76, 90, 102);
+  --rule: rgb(211, 218, 225);
+  --accent: rgb(15, 111, 99);
+  --accent-soft: rgb(226, 239, 236);
+  --amber: rgb(154, 106, 22);
+  --amber-soft: rgb(246, 238, 220);
+  --code-bg: rgb(19, 32, 42);
+  --code-ink: rgb(220, 230, 236);
+  --code-key: rgb(127, 209, 193);
+  --code-str: rgb(229, 192, 123);
+  --code-com: rgb(122, 140, 153);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper: rgb(16, 23, 29);
+    --card: rgb(22, 31, 39);
+    --ink: rgb(228, 234, 239);
+    --ink-soft: rgb(157, 174, 187);
+    --rule: rgb(40, 52, 62);
+    --accent: rgb(92, 194, 178);
+    --accent-soft: rgb(22, 48, 45);
+    --amber: rgb(214, 172, 99);
+    --amber-soft: rgb(42, 37, 25);
+    --code-bg: rgb(11, 18, 24);
+  }
+}
+:root[data-theme="dark"]{
+  --paper: rgb(16, 23, 29);
+  --card: rgb(22, 31, 39);
+  --ink: rgb(228, 234, 239);
+  --ink-soft: rgb(157, 174, 187);
+  --rule: rgb(40, 52, 62);
+  --accent: rgb(92, 194, 178);
+  --accent-soft: rgb(22, 48, 45);
+  --amber: rgb(214, 172, 99);
+  --amber-soft: rgb(42, 37, 25);
+  --code-bg: rgb(11, 18, 24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif}
+code,pre,kbd{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:var(--accent);cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--card);
+  border-bottom:1px solid var(--rule);
+  padding:clamp(2.5rem,6vw,4.5rem) 1.25rem 2.75rem;
+}
+.hero-inner{max-width:1120px;margin:0 auto;display:grid;gap:2.25rem;grid-template-columns:1fr}
+@media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr;align-items:center;gap:3rem}}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,3.6rem);
+  line-height:1.03;
+  font-weight:600;
+  letter-spacing:-.02em;
+  margin:0 0 .5rem;
+}
+.hero p{margin:0 0 1rem;color:var(--ink-soft);max-width:34em}
+.hero .lede{font-size:1.12rem;color:var(--ink)}
+.meta{font-family:"IBM Plex Sans",sans-serif;font-size:.85rem;color:var(--ink-soft);margin-top:1.5rem}
+.meta span{display:inline-block;margin-right:1.25rem}
+
+/* hero terminal */
+.demo{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--code-bg);box-shadow:0 18px 40px -28px rgba(10,30,40,.8)}
+.demo .file{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.78rem;color:var(--code-com);
+  padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.demo pre{margin:0;padding:1.1rem .9rem;color:var(--code-ink);font-size:.86rem;line-height:1.7;overflow-x:auto}
+.demo .out{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:.8rem .9rem;font-family:"IBM Plex Sans",sans-serif;font-size:.83rem;color:rgb(157,179,190);
+  display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;
+}
+.demo .out b{color:rgb(255,255,255);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--code-key);display:inline-block}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem;display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media(min-width:960px){.wrap{grid-template-columns:230px minmax(0,1fr);gap:3.5rem;align-items:start}}
+
+nav.toc{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.88rem;
+  padding:2rem 0 0;
+}
+@media(min-width:960px){nav.toc{position:sticky;top:0;max-height:100vh;overflow-y:auto;padding:2.5rem 0 3rem}}
+nav.toc h2{font-size:.8rem;font-weight:600;color:var(--ink-soft);margin:0 0 .85rem;letter-spacing:.04em}
+nav.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+nav.toc li{counter-increment:toc}
+nav.toc a{
+  display:flex;gap:.6rem;text-decoration:none;color:var(--ink-soft);
+  padding:.3rem 0 .3rem .85rem;margin-left:-1px;border-left:2px solid transparent;line-height:1.35;
+}
+nav.toc a:hover{color:var(--ink)}
+nav.toc a::before{content:counter(toc);font-variant-numeric:tabular-nums;font-size:.75rem;opacity:.65;padding-top:.15em}
+nav.toc ol{counter-reset:toc}
+nav.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+
+main{padding:2.5rem 0 5rem;max-width:74ch}
+section{scroll-margin-top:1.5rem;padding-bottom:2.75rem}
+section+section{border-top:1px solid var(--rule);padding-top:2.75rem}
+h2.ch{font-size:1.8rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem;line-height:1.2}
+.chno{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--accent);display:block;margin-bottom:.4rem}
+h3{font-size:1.12rem;font-weight:600;margin:2rem 0 .5rem;letter-spacing:-.005em}
+p{margin:0 0 1rem}
+ul,ol.body{margin:0 0 1rem;padding-left:1.25rem}
+li{margin-bottom:.35rem}
+strong{font-weight:600}
+main code{
+  background:var(--accent-soft);color:var(--ink);padding:.1em .35em;border-radius:3px;font-size:.87em;
+}
+
+/* code blocks */
+figure.code{margin:1.25rem 0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--code-bg)}
+figure.code figcaption{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.76rem;color:var(--code-com);
+  padding:.5rem .85rem;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+figure.code pre{
+  margin:0;padding:1rem .85rem;overflow-x:auto;color:var(--code-ink);
+  font-size:.84rem;line-height:1.7;
+}
+figure.code button{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.72rem;color:var(--code-com);
+  background:transparent;border:1px solid rgba(255,255,255,.16);border-radius:4px;
+  padding:.18rem .5rem;cursor:pointer;flex:none;
+}
+figure.code button:hover{color:rgb(255,255,255);border-color:rgba(255,255,255,.4)}
+figure.code button.done{color:var(--code-key);border-color:var(--code-key)}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.c{color:var(--code-com);font-style:italic}
+
+.note{
+  background:var(--accent-soft);border-left:3px solid var(--accent);
+  padding:.85rem 1rem;margin:1.25rem 0;font-size:.95rem;border-radius:0 5px 5px 0;
+}
+.warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.note p:last-child{margin-bottom:0}
+.note b{font-family:"IBM Plex Sans",sans-serif;font-size:.82rem;font-weight:600;display:block;margin-bottom:.2rem;color:var(--ink-soft)}
+
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-family:"IBM Plex Sans",sans-serif;min-width:420px}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;font-size:.82rem;color:var(--ink-soft)}
+td code{background:var(--accent-soft);padding:.1em .3em;border-radius:3px;font-size:.85em}
+
+.tree{font-size:.84rem;line-height:1.65;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:1rem;overflow-x:auto;margin:1.25rem 0;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);background:var(--card);padding:2.5rem 1.25rem 3.5rem}
+footer .fin{max-width:1120px;margin:0 auto;font-family:"IBM Plex Sans",sans-serif;font-size:.9rem;color:var(--ink-soft)}
+footer a{margin-right:1.1rem;white-space:nowrap}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>37 Practice Questions: Conditional Statements</h1>
+      <p style="font-family:'IBM Plex Sans',sans-serif;font-size:1.2rem;font-weight:600;color:var(--accent);margin:0 0 1rem;">By Gagan Sir</p>
+      <p class="lede">A complete practice collection of 37 Python Conditional Statements problems with solutions and output examples across 8 parts.</p>
+      <p>Covers basic if-else, multi-branch if-elif-else, nested if-else, f-string formatting, user input handling, and advanced real-world challenge problems.</p>
+      <div class="meta">
+        <span>By Gagan Sir</span><span>37 Problems</span><span>8 Parts</span><span>Beginner to Advanced</span>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="file">questions_demo.py</div>
+<pre><span class="k">marks</span> = <span class="s">85</span>
+
+<span class="k">if</span> marks >= <span class="s">90</span>:
+    <span class="k">grade</span> = <span class="s">"A+"</span>
+<span class="k">elif</span> marks >= <span class="s">80</span>:
+    <span class="k">grade</span> = <span class="s">"A"</span>
+
+<span class="k">print</span>(<span class="s">f"Grade: {grade}"</span>)</pre>
+      <div class="out"><span class="dot"></span><b>python questions_demo.py</b> &rarr; Grade: A</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Chapters">
+  <h2>Parts</h2>
+  <ol>
+    <li><a data-target="part1" onclick="document.getElementById('part1').scrollIntoView({behavior:'smooth'})">Part 1 - Basic If / Else (Q1-Q5)</a></li>
+    <li><a data-target="part2" onclick="document.getElementById('part2').scrollIntoView({behavior:'smooth'})">Part 2 - If / Elif / Else (Q6-Q10)</a></li>
+    <li><a data-target="part3" onclick="document.getElementById('part3').scrollIntoView({behavior:'smooth'})">Part 3 - Nested If Statements (Q11-Q14)</a></li>
+    <li><a data-target="part4" onclick="document.getElementById('part4').scrollIntoView({behavior:'smooth'})">Part 4 - F-String Formatting (Q15-Q19)</a></li>
+    <li><a data-target="part5" onclick="document.getElementById('part5').scrollIntoView({behavior:'smooth'})">Part 5 - User Input Basics (Q20-Q25)</a></li>
+    <li><a data-target="part6" onclick="document.getElementById('part6').scrollIntoView({behavior:'smooth'})">Part 6 - User Input + Elif (Q26-Q28)</a></li>
+    <li><a data-target="part7" onclick="document.getElementById('part7').scrollIntoView({behavior:'smooth'})">Part 7 - User Input + Nested If (Q29-Q32)</a></li>
+    <li><a data-target="part8" onclick="document.getElementById('part8').scrollIntoView({behavior:'smooth'})">Part 8 - Advanced Challenges (Q33-Q37)</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="part1">
+<span class="chno">Part 1</span>
+<h2 class="ch">Basic If / Else (Questions 1 &ndash; 5)</h2>
+
+<h3>Question 1 &ndash; Voting Eligibility</h3>
+<p>Create a variable age = 20. Check whether the person is eligible to vote (age 18 or above).</p>
+<figure class="code"><figcaption>q01_voting.py</figcaption><pre>age = 20
+
+if age >= 18:
+    print("You are eligible to vote.")
+else:
+    print("You are not eligible to vote.")</pre></figure>
+<div class="note"><b>Output:</b> <p>You are eligible to vote.</p></div>
+
+<h3>Question 2 &ndash; Pass or Fail</h3>
+<p>Create a variable marks = 75. Check whether the student passed or failed (Passing marks are 40).</p>
+<figure class="code"><figcaption>q02_pass_fail.py</figcaption><pre>marks = 75
+
+if marks >= 40:
+    print("You passed the exam.")
+else:
+    print("You failed the exam.")</pre></figure>
+<div class="note"><b>Output:</b> <p>You passed the exam.</p></div>
+
+<h3>Question 3 &ndash; Even or Odd</h3>
+<p>Create a variable number = 12. Check whether the number is even or odd.</p>
+<figure class="code"><figcaption>q03_even_odd.py</figcaption><pre>number = 12
+
+if number % 2 == 0:
+    print("The number is even.")
+else:
+    print("The number is odd.")</pre></figure>
+<div class="note"><b>Output:</b> <p>The number is even.</p></div>
+
+<h3>Question 4 &ndash; Positive, Negative or Zero</h3>
+<p>Create a variable number = -10. Check whether the number is positive, negative or zero.</p>
+<figure class="code"><figcaption>q04_sign.py</figcaption><pre>number = -10
+
+if number > 0:
+    print("The number is positive.")
+elif number < 0:
+    print("The number is negative.")
+else:
+    print("The number is zero.")</pre></figure>
+<div class="note"><b>Output:</b> <p>The number is negative.</p></div>
+
+<h3>Question 5 &ndash; Password Check</h3>
+<p>Create a variable password = "python123". Check whether the password is correct.</p>
+<figure class="code"><figcaption>q05_password.py</figcaption><pre>password = "python123"
+
+if password == "python123":
+    print("Login successful.")
+else:
+    print("Wrong password.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Login successful.</p></div>
+</section>
+
+<section id="part2">
+<span class="chno">Part 2</span>
+<h2 class="ch">If / Elif / Else Multi-Branch (Questions 6 &ndash; 10)</h2>
+
+<h3>Question 6 &ndash; Grade Calculator</h3>
+<p>Create marks = 85. Conditions: 90+ = A+, 80-89 = A, 70-79 = B, 60-69 = C, 40-59 = D, Below 40 = Fail.</p>
+<figure class="code"><figcaption>q06_grades.py</figcaption><pre>marks = 85
+
+if marks >= 90:
+    print("Grade A+")
+elif marks >= 80:
+    print("Grade A")
+elif marks >= 70:
+    print("Grade B")
+elif marks >= 60:
+    print("Grade C")
+elif marks >= 40:
+    print("Grade D")
+else:
+    print("Fail")</pre></figure>
+<div class="note"><b>Output:</b> <p>Grade A</p></div>
+
+<h3>Question 7 &ndash; Age Category</h3>
+<p>Create age = 25. Categories: 0-12 Child, 13-19 Teenager, 20-59 Adult, 60+ Senior Citizen.</p>
+<figure class="code"><figcaption>q07_age_category.py</figcaption><pre>age = 25
+
+if age <= 12:
+    print("Child")
+elif age <= 19:
+    print("Teenager")
+elif age <= 59:
+    print("Adult")
+else:
+    print("Senior Citizen")</pre></figure>
+<div class="note"><b>Output:</b> <p>Adult</p></div>
+
+<h3>Question 8 &ndash; Temperature Classification</h3>
+<p>Create temperature = 35. Above 35 Very Hot, 25-35 Hot, 15-24 Normal, Below 15 Cold.</p>
+<figure class="code"><figcaption>q08_temperature.py</figcaption><pre>temperature = 35
+
+if temperature > 35:
+    print("Very Hot")
+elif temperature >= 25:
+    print("Hot")
+elif temperature >= 15:
+    print("Normal")
+else:
+    print("Cold")</pre></figure>
+<div class="note"><b>Output:</b> <p>Hot</p></div>
+
+<h3>Question 9 &ndash; Day Checker</h3>
+<p>Create day = 3. Display day name according to number 1 to 7.</p>
+<figure class="code"><figcaption>q09_day_checker.py</figcaption><pre>day = 3
+
+if day == 1:
+    print("Monday")
+elif day == 2:
+    print("Tuesday")
+elif day == 3:
+    print("Wednesday")
+elif day == 4:
+    print("Thursday")
+elif day == 5:
+    print("Friday")
+elif day == 6:
+    print("Saturday")
+elif day == 7:
+    print("Sunday")
+else:
+    print("Invalid day")</pre></figure>
+<div class="note"><b>Output:</b> <p>Wednesday</p></div>
+
+<h3>Question 10 &ndash; Salary Category</h3>
+<p>Create salary = 35000. 50000+ High, 30000-49999 Good, 20000-29999 Average, Below 20000 Low.</p>
+<figure class="code"><figcaption>q10_salary.py</figcaption><pre>salary = 35000
+
+if salary >= 50000:
+    print("High Salary")
+elif salary >= 30000:
+    print("Good Salary")
+elif salary >= 20000:
+    print("Average Salary")
+else:
+    print("Low Salary")</pre></figure>
+<div class="note"><b>Output:</b> <p>Good Salary</p></div>
+</section>
+
+<section id="part3">
+<span class="chno">Part 3</span>
+<h2 class="ch">Nested If Statements (Questions 11 &ndash; 14)</h2>
+
+<h3>Question 11 &ndash; Nested Login System</h3>
+<p>Create username = "admin", password = "1234". Check credentials using nested if.</p>
+<figure class="code"><figcaption>q11_nested_login.py</figcaption><pre>username = "admin"
+password = "1234"
+
+if username == "admin":
+    if password == "1234":
+        print("Login successful.")
+    else:
+        print("Wrong password.")
+else:
+    print("Invalid username.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Login successful.</p></div>
+
+<h3>Question 12 &ndash; Driving Eligibility</h3>
+<p>Create age = 22, has_license = True. Check eligibility using nested if.</p>
+<figure class="code"><figcaption>q12_driving.py</figcaption><pre>age = 22
+has_license = True
+
+if age >= 18:
+    if has_license:
+        print("You can drive.")
+    else:
+        print("License required.")
+else:
+    print("You are too young to drive.")</pre></figure>
+<div class="note"><b>Output:</b> <p>You can drive.</p></div>
+
+<h3>Question 13 &ndash; Student Result (Marks + Attendance)</h3>
+<p>Create marks = 75, attendance = 80. Marks >= 40 and Attendance >= 75 required.</p>
+<figure class="code"><figcaption>q13_student_result.py</figcaption><pre>marks = 75
+attendance = 80
+
+if marks >= 40:
+    if attendance >= 75:
+        print("You passed the exam.")
+    else:
+        print("You failed because of low attendance.")
+else:
+    print("You failed because of low marks.")</pre></figure>
+<div class="note"><b>Output:</b> <p>You passed the exam.</p></div>
+
+<h3>Question 14 &ndash; Loan Eligibility</h3>
+<p>Create age = 25, salary = 40000. Age >= 18 and Salary >= 30000 required.</p>
+<figure class="code"><figcaption>q14_loan.py</figcaption><pre>age = 25
+salary = 40000
+
+if age >= 18:
+    if salary >= 30000:
+        print("Loan approved.")
+    else:
+        print("Salary is too low.")
+else:
+    print("Age is not eligible.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Loan approved.</p></div>
+</section>
+
+<section id="part4">
+<span class="chno">Part 4</span>
+<h2 class="ch">F-String Formatting (Questions 15 &ndash; 19)</h2>
+
+<h3>Question 15 &ndash; Personal Information</h3>
+<p>Create name = "Gagan", age = 24. Print using f-string.</p>
+<figure class="code"><figcaption>q15_personal.py</figcaption><pre>name = "Gagan"
+age = 24
+
+print(f"My name is {name} and I am {age} years old.")</pre></figure>
+<div class="note"><b>Output:</b> <p>My name is Gagan and I am 24 years old.</p></div>
+
+<h3>Question 16 &ndash; Student Information</h3>
+<p>Create name = "Rahul", marks = 85. Print using f-string.</p>
+<figure class="code"><figcaption>q16_student_info.py</figcaption><pre>name = "Rahul"
+marks = 85
+
+print(f"{name} scored {marks} marks.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Rahul scored 85 marks.</p></div>
+
+<h3>Question 17 &ndash; Product Information</h3>
+<p>Create product = "Laptop", price = 55000. Print using f-string.</p>
+<figure class="code"><figcaption>q17_product_info.py</figcaption><pre>product = "Laptop"
+price = 55000
+
+print(f"{product} costs ₹{price}.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Laptop costs ₹55000.</p></div>
+
+<h3>Question 18 &ndash; Grade with F-String</h3>
+<p>Calculate grade for name = "Gagan", marks = 85 and display with f-string.</p>
+<figure class="code"><figcaption>q18_grade_fstring.py</figcaption><pre>name = "Gagan"
+marks = 85
+
+if marks >= 90:
+    grade = "A+"
+elif marks >= 80:
+    grade = "A"
+elif marks >= 70:
+    grade = "B"
+elif marks >= 60:
+    grade = "C"
+elif marks >= 40:
+    grade = "D"
+else:
+    grade = "Fail"
+
+print(f"{name} scored {marks} marks and got Grade {grade}.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Gagan scored 85 marks and got Grade A.</p></div>
+
+<h3>Question 19 &ndash; Voting Eligibility with F-String</h3>
+<p>Check voting eligibility for name = "Gagan", age = 24 using f-string.</p>
+<figure class="code"><figcaption>q19_voting_fstring.py</figcaption><pre>name = "Gagan"
+age = 24
+
+if age >= 18:
+    print(f"{name} is eligible to vote.")
+else:
+    print(f"{name} is not eligible to vote.")</pre></figure>
+<div class="note"><b>Output:</b> <p>Gagan is eligible to vote.</p></div>
+</section>
+
+<section id="part5">
+<span class="chno">Part 5</span>
+<h2 class="ch">User Input Basics (Questions 20 &ndash; 25)</h2>
+
+<h3>Question 20 &ndash; Name and Age Input</h3>
+<figure class="code"><figcaption>q20_user_info.py</figcaption><pre>name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+
+print(f"Hello {name}, you are {age} years old.")</pre></figure>
+
+<h3>Question 21 &ndash; User Input Even or Odd</h3>
+<figure class="code"><figcaption>q21_user_even_odd.py</figcaption><pre>number = int(input("Enter a number: "))
+
+if number % 2 == 0:
+    print(f"{number} is an even number.")
+else:
+    print(f"{number} is an odd number.")</pre></figure>
+
+<h3>Question 22 &ndash; User Input Voting Eligibility</h3>
+<figure class="code"><figcaption>q22_user_voting.py</figcaption><pre>age = int(input("Enter your age: "))
+
+if age >= 18:
+    print(f"You are {age} years old and you are eligible to vote.")
+else:
+    print(f"You are {age} years old and you are not eligible to vote.")</pre></figure>
+
+<h3>Question 23 &ndash; User Input Positive, Negative or Zero</h3>
+<figure class="code"><figcaption>q23_user_sign.py</figcaption><pre>number = int(input("Enter a number: "))
+
+if number > 0:
+    print(f"{number} is positive.")
+elif number < 0:
+    print(f"{number} is negative.")
+else:
+    print(f"{number} is zero.")</pre></figure>
+
+<h3>Question 24 &ndash; User Input Pass or Fail</h3>
+<figure class="code"><figcaption>q24_user_pass_fail.py</figcaption><pre>marks = int(input("Enter your marks: "))
+
+if marks >= 40:
+    print(f"You scored {marks} marks and passed the exam.")
+else:
+    print(f"You scored {marks} marks and failed the exam.")</pre></figure>
+
+<h3>Question 25 &ndash; User Input Password Check</h3>
+<figure class="code"><figcaption>q25_user_password.py</figcaption><pre>password = input("Enter password: ")
+
+if password == "python123":
+    print("Login successful.")
+else:
+    print("Wrong password.")</pre></figure>
+</section>
+
+<section id="part6">
+<span class="chno">Part 6</span>
+<h2 class="ch">User Input + Elif (Questions 26 &ndash; 28)</h2>
+
+<h3>Question 26 &ndash; User Input Grade Calculator</h3>
+<figure class="code"><figcaption>q26_user_grades.py</figcaption><pre>marks = int(input("Enter your marks: "))
+
+if marks >= 90:
+    grade = "A+"
+elif marks >= 80:
+    grade = "A"
+elif marks >= 70:
+    grade = "B"
+elif marks >= 60:
+    grade = "C"
+elif marks >= 40:
+    grade = "D"
+else:
+    grade = "Fail"
+
+print(f"You scored {marks} marks and your grade is {grade}.")</pre></figure>
+
+<h3>Question 27 &ndash; User Input Age Category</h3>
+<figure class="code"><figcaption>q27_user_age_category.py</figcaption><pre>age = int(input("Enter your age: "))
+
+if age <= 12:
+    category = "Child"
+elif age <= 19:
+    category = "Teenager"
+elif age <= 59:
+    category = "Adult"
+else:
+    category = "Senior Citizen"
+
+print(f"You are {age} years old and you are an {category}.")</pre></figure>
+
+<h3>Question 28 &ndash; User Input Dynamic Calculator</h3>
+<figure class="code"><figcaption>q28_user_calculator.py</figcaption><pre>num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operator = input("Enter operator (+, -, *, /): ")
+
+if operator == "+":
+    result = num1 + num2
+elif operator == "-":
+    result = num1 - num2
+elif operator == "*":
+    result = num1 * num2
+elif operator == "/":
+    result = num1 / num2
+else:
+    result = None
+    print("Invalid operator.")
+
+if result is not None:
+    print(f"{num1} {operator} {num2} = {result}")</pre></figure>
+</section>
+
+<section id="part7">
+<span class="chno">Part 7</span>
+<h2 class="ch">User Input + Nested If (Questions 29 &ndash; 32)</h2>
+
+<h3>Question 29 &ndash; User Input Login System</h3>
+<figure class="code"><figcaption>q29_user_login.py</figcaption><pre>username = input("Enter username: ")
+password = input("Enter password: ")
+
+if username == "admin":
+    if password == "1234":
+        print("Login successful.")
+    else:
+        print("Wrong password.")
+else:
+    print("Invalid username.")</pre></figure>
+
+<h3>Question 30 &ndash; User Input Driving Eligibility</h3>
+<figure class="code"><figcaption>q30_user_driving.py</figcaption><pre>age = int(input("Enter your age: "))
+has_license = input("Do you have a driving license? (yes/no): ")
+
+if age >= 18:
+    if has_license == "yes":
+        print("You can drive.")
+    else:
+        print("License required.")
+else:
+    print("You are not eligible to drive.")</pre></figure>
+
+<h3>Question 31 &ndash; User Input Student Result</h3>
+<figure class="code"><figcaption>q31_user_student_result.py</figcaption><pre>name = input("Enter student name: ")
+marks = int(input("Enter marks: "))
+attendance = int(input("Enter attendance percentage: "))
+
+if marks >= 40:
+    if attendance >= 75:
+        print(f"{name} passed the exam.")
+    else:
+        print(f"{name} failed because of low attendance.")
+else:
+    print(f"{name} failed because of low marks.")</pre></figure>
+
+<h3>Question 32 &ndash; User Input Loan Eligibility</h3>
+<figure class="code"><figcaption>q32_user_loan.py</figcaption><pre>name = input("Enter name: ")
+age = int(input("Enter age: "))
+salary = int(input("Enter salary: "))
+
+if age >= 18:
+    if salary >= 30000:
+        print(f"{name}, your loan is approved.")
+    else:
+        print(f"{name}, your salary is too low.")
+else:
+    print(f"{name}, your age is not eligible.")</pre></figure>
+</section>
+
+<section id="part8">
+<span class="chno">Part 8</span>
+<h2 class="ch">Advanced Challenges (Questions 33 &ndash; 37)</h2>
+
+<h3>Question 33 &ndash; Shopping Discount Calculator</h3>
+<p>Discount rules: 5000+ = 20%, 3000-4999 = 10%, 1000-2999 = 5%, Below 1000 = No discount.</p>
+<figure class="code"><figcaption>q33_shopping_discount.py</figcaption><pre>product = input("Enter product name: ")
+price = float(input("Enter price: "))
+quantity = int(input("Enter quantity: "))
+
+total = price * quantity
+
+if total >= 5000:
+    discount = total * 20 / 100
+elif total >= 3000:
+    discount = total * 10 / 100
+elif total >= 1000:
+    discount = total * 5 / 100
+else:
+    discount = 0
+
+final_amount = total - discount
+
+print(f"Product: {product}")
+print(f"Total Amount: ₹{total}")
+print(f"Discount: ₹{discount}")
+print(f"Final Amount: ₹{final_amount}")</pre></figure>
+
+<h3>Question 34 &ndash; ATM Withdrawal System</h3>
+<p>Conditions: 1. Withdrawal <= balance. 2. Withdrawal must be a multiple of 500.</p>
+<figure class="code"><figcaption>q34_atm_rules.py</figcaption><pre>balance = float(input("Enter your balance: "))
+withdrawal = float(input("Enter withdrawal amount: "))
+
+if withdrawal <= balance:
+    if withdrawal % 500 == 0:
+        balance = balance - withdrawal
+        print("Withdrawal successful.")
+        print(f"Remaining balance: ₹{balance}")
+    else:
+        print("Amount must be a multiple of 500.")
+else:
+    print("Insufficient balance.")</pre></figure>
+
+<h3>Question 35 &ndash; Electricity Bill Calculator</h3>
+<p>Rates: 0-100 units = ₹5/unit, 101-200 units = ₹7/unit, 201-300 units = ₹10/unit, Above 300 = ₹15/unit.</p>
+<figure class="code"><figcaption>q35_electricity_bill.py</figcaption><pre>units = int(input("Enter electricity units: "))
+
+if units <= 100:
+    rate = 5
+elif units <= 200:
+    rate = 7
+elif units <= 300:
+    rate = 10
+else:
+    rate = 15
+
+bill = units * rate
+
+print(f"Units Consumed: {units}")
+print(f"Rate: ₹{rate} per unit")
+print(f"Total Bill: ₹{bill}")</pre></figure>
+
+<h3>Question 36 &ndash; Movie Ticket Pricing System</h3>
+<p>Pricing: Age &lt; 18 (Normal ₹150, Premium ₹200); Age &gt;= 18 (Normal ₹200, Premium ₹300).</p>
+<figure class="code"><figcaption>q36_movie_tickets.py</figcaption><pre>name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+ticket_type = input("Enter ticket type (normal/premium): ")
+
+if age < 18:
+    if ticket_type == "normal":
+        price = 150
+    else:
+        price = 200
+else:
+    if ticket_type == "normal":
+        price = 200
+    else:
+        price = 300
+
+print(f"Name: {name}")
+print(f"Ticket Type: {ticket_type}")
+print(f"Ticket Price: ₹{price}")</pre></figure>
+
+<h3>Question 37 &ndash; Employee Bonus Calculator</h3>
+<p>Rules: Experience &gt;= 5 (Salary &gt;= 50k &rarr; 20%, else 15%); Experience &lt; 5 (Salary &gt;= 50k &rarr; 10%, else 5%).</p>
+<figure class="code"><figcaption>q37_employee_bonus.py</figcaption><pre>name = input("Enter employee name: ")
+salary = float(input("Enter salary: "))
+experience = int(input("Enter years of experience: "))
+
+if experience >= 5:
+    if salary >= 50000:
+        bonus = salary * 20 / 100
+    else:
+        bonus = salary * 15 / 100
+else:
+    if salary >= 50000:
+        bonus = salary * 10 / 100
+    else:
+        bonus = salary * 5 / 100
+
+final_salary = salary + bonus
+
+print(f"Employee Name: {name}")
+print(f"Salary: ₹{salary}")
+print(f"Bonus: ₹{bonus}")
+print(f"Final Salary: ₹{final_salary}")</pre></figure>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <div class="fin">
+    <p>37 Conditional Statements Practice Problems Reference Sheet &bull; By Gagan Sir</p>
+    <p>
+      <a href="https://docs.python.org/3/tutorial/controlflow.html">Python Official Docs</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('figure.code').forEach(function (fig) {
+  var cap = fig.querySelector('figcaption');
+  if (!cap) return;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = 'Copy';
+  btn.addEventListener('click', function () {
+    var text = fig.querySelector('pre').innerText;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+    }, function () { btn.textContent = 'Press Ctrl+C'; });
+  });
+  cap.appendChild(btn);
+});
+
+var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+var byId = {};
+links.forEach(function (a) {
+  var targetId = a.getAttribute('data-target');
+  if (targetId) { byId[targetId] = a; }
+});
+
+if ('IntersectionObserver' in window) {
+  var visible = new Set();
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { visible.add(e.target.id); } else { visible.delete(e.target.id); }
+    });
+    var order = Object.keys(byId);
+    var first = order.find(function (id) { return visible.has(id); });
+    links.forEach(function (a) { a.classList.remove('on'); });
+    if (first && byId[first]) { byId[first].classList.add('on'); }
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+  document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+}
+</script>
+</body>
+</html>

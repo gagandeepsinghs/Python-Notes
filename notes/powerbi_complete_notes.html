@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI & DAX Complete In-Depth Master Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(242, 200, 17);
+            --accent-dark: rgb(217, 119, 6);
+            --accent-hover: rgb(180, 83, 9);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --box-bg: rgb(239, 246, 255);
+            --box-border: rgb(191, 219, 254);
+            --box-text: rgb(30, 58, 138);
+            --note-bg: rgb(254, 243, 199);
+            --note-border: rgb(252, 211, 77);
+            --note-text: rgb(146, 64, 14);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-dark);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(148, 163, 184);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(30, 41, 59);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-dark);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 7px 10px;
+            color: rgb(203, 213, 225);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-dark);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(226, 232, 240);
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        .box-blue {
+            background-color: var(--box-bg);
+            border: 1px solid var(--box-border);
+            color: var(--box-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-yellow {
+            background-color: var(--note-bg);
+            border: 1px solid var(--note-border);
+            color: var(--note-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-blue h4, .box-yellow h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            color: var(--code-text);
+            padding: 15px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--output-border);
+            padding: 12px 16px;
+            margin-top: 10px;
+            border-radius: 0 6px 6px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(30, 41, 59);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(203, 213, 225);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .ui-mockup {
+            border: 2px solid rgb(203, 213, 225);
+            border-radius: 8px;
+            background-color: rgb(255, 255, 255);
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui-header-pbi {
+            background-color: rgb(242, 200, 17);
+            color: rgb(15, 23, 42);
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ui-views-bar {
+            background-color: rgb(241, 245, 249);
+            padding: 8px 15px;
+            border-bottom: 1px solid rgb(226, 232, 240);
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: rgb(51, 65, 85);
+            font-weight: 600;
+        }
+
+        .kpi-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 15px;
+            background-color: rgb(248, 250, 252);
+        }
+
+        .kpi-card {
+            background-color: white;
+            border: 1px solid rgb(226, 232, 240);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .kpi-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: rgb(15, 23, 42);
+            margin: 5px 0;
+        }
+
+        .kpi-trend {
+            font-size: 0.75rem;
+            color: rgb(22, 101, 52);
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Power BI & DAX Master</h2>
+        <span class="author-tag">Complete In-Depth Notes &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search DAX, M, topic..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod1')">1. Architecture & Building Blocks</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod2')">2. Power BI Desktop UI Views</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod3')">3. Power Query ETL & Storage Modes</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod4')">4. Data Modeling & Star Schema</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod5')">5. DAX Basics, Columns vs Measures</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod6')">6. Scalar & Iterative DAX (SUMX)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod7')">7. Master CALCULATE & Modifiers</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod8')">8. Time Intelligence DAX (YTD, YoY)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod9')">9. Advanced DAX Tables & RLS</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod10')">10. Data Visualization & Interactivity</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod11')">11. Power BI Service & Gateways</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod12')">12. DAX Optimization & Performance</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod13')">13. 5 Business Power BI Projects</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Power BI & DAX: Complete In-Depth Master Notes</h1>
+            <p>Master Power BI from ground zero to advanced enterprise business intelligence: Power Query ETL, M code, Star Schema modeling, VertiPaq engine, deep-dive DAX calculations (CALCULATE, Time Intelligence, Table Functions), visualization design, Power BI Service publishing, to 5 complete real-world projects.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- MODULE 1: Intro & Architecture -->
+        <div class="section-card" id="sec-mod1">
+            <h2 class="section-title">Module 1: Introduction to Power BI & Ecosystem Architecture</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>What is Power BI?</h4>
+                    <p><strong>Power BI</strong> is a Microsoft business analytics service that connects to hundreds of data sources, transforms messy data into structured models, performs high-speed dynamic calculations via DAX, and renders interactive reports and dashboards.</p>
+                </div>
+                <div class="box-yellow">
+                    <h4>The Power BI Ecosystem Components</h4>
+                    <ul class="list-styled">
+                        <li><strong>Power BI Desktop:</strong> Free Windows application for authoring ETL, data modeling, DAX measures, and reports.</li>
+                        <li><strong>Power BI Service:</strong> Cloud SaaS platform (<code>app.powerbi.com</code>) for publishing, sharing dashboards, and scheduling refreshes.</li>
+                        <li><strong>Power BI Mobile:</strong> Native iOS/Android app to view live dashboards.</li>
+                        <li><strong>Power BI Gateway:</strong> Secure bridge connecting cloud service to on-premises databases.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">The End-to-End Business Intelligence Workflow</h3>
+            <ol class="list-styled">
+                <li><strong>Extract & Transform (Power Query):</strong> Connect to raw sources, clean data, and shape tables.</li>
+                <li><strong>Model Data (Data View & Model View):</strong> Create relationships between tables using Star Schema principles.</li>
+                <li><strong>Calculate Metrics (DAX):</strong> Write Data Analysis Expressions for KPIs, Time Intelligence, and dynamic totals.</li>
+                <li><strong>Visualize Data (Report View):</strong> Drag and drop visuals, visuals formatting, slicers, and bookmarks.</li>
+                <li><strong>Publish & Share (Power BI Service):</strong> Push report to cloud workspace, create dashboards, set up RLS, and schedule data refresh.</li>
+            </ol>
+        </div>
+
+        <!-- MODULE 2: UI Anatomy -->
+        <div class="section-card" id="sec-mod2">
+            <h2 class="section-title">Module 2: Power BI Desktop UI Interface Anatomy & Views</h2>
+            
+            <p>Power BI Desktop is structured into three primary working views accessible from the left navigation bar:</p>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>View Name</th>
+                        <th>Icon / Position</th>
+                        <th>Primary Purpose & Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Report View</strong></td>
+                        <td>Top Left (Bar Chart)</td>
+                        <td>Canvas area where charts, cards, slicers, matrices, and visual reports are built.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Table / Data View</strong></td>
+                        <td>Middle Left (Grid)</td>
+                        <td>Inspects underlying loaded table rows, columns, data types, and formatting properties.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Model View</strong></td>
+                        <td>Bottom Left (Diagram)</td>
+                        <td>Visual Entity-Relationship Diagram (ERD) mapping table keys, cardinality, and filter direction.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ui-mockup">
+                <div class="ui-header-pbi">
+                    <span>Power BI Desktop - Executive_Sales_Report.pbix</span>
+                    <span>By Gagan Sir</span>
+                </div>
+                <div class="ui-views-bar">
+                    <span style="color: rgb(217, 119, 6); border-bottom: 2px solid rgb(217, 119, 6);">Report Canvas</span>
+                    <span>Data Grid</span>
+                    <span>Model Diagram</span>
+                    <span>Power Query Editor</span>
+                </div>
+                <div class="kpi-container">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total Revenue</div>
+                        <div class="kpi-value">$2.45M</div>
+                        <div class="kpi-trend">+14.2% YoY</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total Profit</div>
+                        <div class="kpi-value">$680K</div>
+                        <div class="kpi-trend">+18.5% YoY</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Active Customers</div>
+                        <div class="kpi-value">14,250</div>
+                        <div class="kpi-trend">+8.1% YoY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 3: Power Query ETL & Storage Modes -->
+        <div class="section-card" id="sec-mod3">
+            <h2 class="section-title">Module 3: Data Ingestion, Storage Modes & Power Query ETL</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Power BI Data Storage Modes</h4>
+                    <p><strong>1. Import Mode:</strong> Loads complete dataset into memory. Uses VertiPaq columnar compression. Ultra-fast DAX performance.</p>
+                    <p><strong>2. DirectQuery:</strong> Queries source database in real-time. Zero storage memory in Power BI, but depends on database speed.</p>
+                    <p><strong>3. Dual / Composite:</strong> Combines Import and DirectQuery modes across different tables in one model.</p>
+                </div>
+                <div class="box-yellow">
+                    <h4>Essential Power Query Transformations</h4>
+                    <ul class="list-styled">
+                        <li><strong>Unpivot Columns:</strong> Transforms wide cross-tab format (Jan, Feb, Mar as columns) into attribute-value rows.</li>
+                        <li><strong>Merge Queries:</strong> Joins two tables side-by-side using key matching (SQL Join).</li>
+                        <li><strong>Append Queries:</strong> Stacks two tables vertically (SQL UNION).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Power Query M Language Sample - Custom Applied Step</div>
+                <pre>// Unpivoting Monthly Sales Columns in M Code
+= Table.UnpivotOtherColumns(PreviousStep_ChangedType, {"ProductID", "Category"}, "Month", "SalesAmount")</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 4: Data Modeling & Star Schema -->
+        <div class="section-card" id="sec-mod4">
+            <h2 class="section-title">Module 4: Data Modeling & Star Schema Architecture</h2>
+            
+            <p>Data modeling is the foundation of Power BI. A bad data model makes DAX complex and slow. A clean <strong>Star Schema</strong> makes DAX simple and ultra-fast.</p>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Table Type</th>
+                        <th>Characteristics</th>
+                        <th>Contents & Columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fact Table</strong> (Sales, Orders, Transactions)</td>
+                        <td>Central table in Star Schema. Contains transactional events recorded over time. High row count.</td>
+                        <td>Foreign Keys (CustomerID, ProductID, DateKey) and Numeric Metrics (SalesAmount, Quantity, Discount).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dimension Table</strong> (Customer, Product, Date, Location)</td>
+                        <td>Surrounds the Fact Table. Provides descriptive context for filtering and grouping metrics. Low row count.</td>
+                        <td>Primary Keys (CustomerID) and Text Attributes (Customer Name, Category, Segment, Country, City).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Relationship Cardinalities & Filter Directions</h3>
+            <ul class="list-styled">
+                <li><strong>One-to-Many (1:*):</strong> Best practice. <code>1</code> on Dimension side (unique keys), <code>*</code> on Fact side (repeated keys).</li>
+                <li><strong>Single Filter Direction:</strong> Filter flows from <code>1</code> side (Dimension) to <code>*</code> side (Fact). Avoid Bi-directional filtering unless strictly required.</li>
+                <li><strong>Active vs Inactive Relationships:</strong> Only one relationship between two tables can be active at a time. Inactive relationships are activated using <code>USERELATIONSHIP()</code> in DAX.</li>
+            </ul>
+        </div>
+
+        <!-- MODULE 5: DAX Basics, Columns vs Measures -->
+        <div class="section-card" id="sec-mod5">
+            <h2 class="section-title">Module 5: Introduction to DAX, Calculated Columns vs Measures</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Calculated Columns</h4>
+                    <p>Evaluated line-by-line during data refresh. Stored permanently in RAM memory. Has automatic <strong>Row Context</strong>.</p>
+                    <p><em>Use when: Creating a slicer attribute or row grouping.</em></p>
+                </div>
+                <div class="box-yellow">
+                    <h4>Measures (DAX Best Practice)</h4>
+                    <p>Evaluated dynamically on the fly based on report slicer/filter selections. Takes <strong>zero RAM storage</strong> space.</p>
+                    <p><em>Use when: Aggregating numbers, KPIs, totals, % calculations.</em></p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Filter Context vs Row Context</h3>
+            <p><strong>Row Context:</strong> The current active row being evaluated (available in Calculated Columns and X-functions like SUMX).</p>
+            <p><strong>Filter Context:</strong> The environment of filters applied to a visual by slicers, report filters, rows, and columns.</p>
+
+            <div class="code-container">
+                <div class="code-header">DAX Formula Syntax - Calculated Column vs Measure</div>
+                <pre>-- Calculated Column (Evaluates Row by Row)
+Margin_Column = Sales[Revenue] - Sales[Cost]
+
+-- Measure (Evaluates Dynamically in Filter Context)
+Total_Sales = SUM(Sales[Revenue])</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 6: Scalar & Iterative DAX (SUMX) -->
+        <div class="section-card" id="sec-mod6">
+            <h2 class="section-title">Module 6: Scalar Aggregations & Iterative X-Functions</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>DAX Function</th>
+                        <th>Category</th>
+                        <th>Behavior & Expression Syntax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SUM(Column)</code></td>
+                        <td>Scalar Aggregation</td>
+                        <td>Sums all values in a single numeric column within filter context.</td>
+                    </tr>
+                    <tr>
+                        <td><code>SUMX(Table, Expression)</code></td>
+                        <td>Iterative X-Function</td>
+                        <td>Iterates row-by-row over <code>Table</code>, evaluates <code>Expression</code> per row, and sums final totals.</td>
+                    </tr>
+                    <tr>
+                        <td><code>AVERAGEX(Table, Expression)</code></td>
+                        <td>Iterative X-Function</td>
+                        <td>Iterates row-by-row and calculates average of the expression results.</td>
+                    </tr>
+                    <tr>
+                        <td><code>DIVIDE(Num, Denom, [Alt])</code></td>
+                        <td>Safe Division</td>
+                        <td>Performs safe division. Returns <code>Alt</code> (or Blank) if denominator is zero (prevents DIV/0 Error).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">DAX Code Examples - Iterative Calculations & Safe Division</div>
+                <pre>-- Calculate Revenue without creating a calculated column
+Total Revenue = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice])
+
+-- Calculate Profit Margin % safely
+Profit Margin % = 
+DIVIDE(
+    [Total Profit],
+    [Total Revenue],
+    0
+)</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 7: Master CALCULATE & Modifiers -->
+        <div class="section-card" id="sec-mod7">
+            <h2 class="section-title">Module 7: The Master CALCULATE Function & Filter Modifiers</h2>
+            
+            <p><code>CALCULATE</code> is the single most important function in DAX. It evaluates an expression while modifying or overwriting the existing Filter Context.</p>
+
+            <div class="code-container">
+                <div class="code-header">DAX Syntax - CALCULATE Master Formula</div>
+                <pre>CALCULATE( Expression, Filter1, Filter2, ... )</pre>
+            </div>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Filter Modifier</th>
+                        <th>DAX Syntax</th>
+                        <th>Behavior & Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ALL</code></td>
+                        <td><code>ALL(TableOrColumn)</code></td>
+                        <td>Removes all filters from specified table/column. Used for % of Total calculations.</td>
+                    </tr>
+                    <tr>
+                        <td><code>ALLEXCEPT</code></td>
+                        <td><code>ALLEXCEPT(Table, Col1)</code></td>
+                        <td>Removes all filters from Table except specified column(s).</td>
+                    </tr>
+                    <tr>
+                        <td><code>ALLSELECTED</code></td>
+                        <td><code>ALLSELECTED()</code></td>
+                        <td>Removes visual grid filters while respecting explicit slicer filters.</td>
+                    </tr>
+                    <tr>
+                        <td><code>USERELATIONSHIP</code></td>
+                        <td><code>USERELATIONSHIP(Col1, Col2)</code></td>
+                        <td>Activates an inactive relationship for the duration of the measure.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">DAX Measures - Using CALCULATE, ALL, and Inactive Relationships</div>
+                <pre>-- Total Sales for East Region Only
+East Sales = CALCULATE([Total Sales], Customer[Region] = "East")
+
+-- Percentage of Total Sales (% of All Categories)
+% of Total Sales = 
+DIVIDE(
+    [Total Sales],
+    CALCULATE([Total Sales], ALL(Product[Category]))
+)
+
+-- Sales by Ship Date (Using Inactive Relationship)
+Sales by Ship Date = 
+CALCULATE(
+    [Total Sales],
+    USERELATIONSHIP(Sales[ShipDateKey], 'Date'[DateKey])
+)</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 8: Time Intelligence DAX -->
+        <div class="section-card" id="sec-mod8">
+            <h2 class="section-title">Module 8: Time Intelligence DAX Functions (YTD, YoY Growth)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>The Date Table Mandate</h4>
+                    <p>For Time Intelligence DAX to work correctly, you <strong>MUST</strong> have a dedicated Date Dimension Table marked as a Date Table with contiguous, non-duplicate dates.</p>
+                </div>
+                <div class="box-yellow">
+                    <h4>Creating a DAX Date Table</h4>
+                    <p><code>Date = CALENDAR(DATE(2020,1,1), DATE(2030,12,31))</code></p>
+                </div>
+            </div>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Metric Type</th>
+                        <th>DAX Function</th>
+                        <th>Example Formula Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Year-to-Date (YTD)</strong></td>
+                        <td><code>TOTALYTD</code> / <code>DATESYTD</code></td>
+                        <td><code>Sales YTD = TOTALYTD([Total Sales], 'Date'[Date])</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prior Year Sales</strong></td>
+                        <td><code>SAMEPERIODLASTYEAR</code></td>
+                        <td><code>Sales PY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Period Shift</strong></td>
+                        <td><code>DATEADD</code></td>
+                        <td><code>Sales M M = CALCULATE([Total Sales], DATEADD('Date'[Date], -1, MONTH))</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">DAX Measures - Year-over-Year (YoY) Growth % Pattern</div>
+                <pre>-- 1. Sales Prior Year
+Sales PY = 
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+-- 2. YoY Sales Variance
+YoY Sales Growth = [Total Sales] - [Sales PY]
+
+-- 3. YoY Growth Percentage %
+YoY Sales Growth % = 
+DIVIDE(
+    [YoY Sales Growth],
+    [Sales PY],
+    0
+)</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 9: Advanced DAX Tables & RLS -->
+        <div class="section-card" id="sec-mod9">
+            <h2 class="section-title">Module 9: Advanced DAX Patterns, VAR Variables & Row-Level Security (RLS)</h2>
+            
+            <div class="code-container">
+                <div class="code-header">DAX Code - Using VAR Variables & RANKX</div>
+                <pre>-- Top Performing Products Ranking using VAR Variables
+Product Rank = 
+VAR CurrentSales = [Total Sales]
+VAR IsProductInContext = HASONEVALUE(Product[ProductName])
+RETURN
+IF(
+    IsProductInContext,
+    RANKX(
+        ALL(Product[ProductName]),
+        [Total Sales],
+        CurrentSales,
+        DESC
+    ),
+    BLANK()
+)</pre>
+            </div>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Dynamic Row-Level Security (RLS) Setup</h3>
+            <p>Row-Level Security restricts data access for given users. In Power BI Desktop: <strong>Modeling Tab &rarr; Manage Roles &rarr; Add DAX Filter</strong>.</p>
+
+            <div class="code-container">
+                <div class="code-header">DAX RLS Filter Syntax</div>
+                <pre>-- Dynamic RLS DAX Filter on User Email
+UserSecurityTable[Email] = USERPRINCIPALNAME()</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 10: Data Visualization & Interactivity -->
+        <div class="section-card" id="sec-mod10">
+            <h2 class="section-title">Module 10: Data Visualization & Interactive Report Features</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Visual Type</th>
+                        <th>Optimal Analysis Scenario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Card / Multi-Row Card</strong></td>
+                        <td>Displaying high-level KPI metrics ($ Revenue, Total Orders, Margin %).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clustered Bar / Column Chart</strong></td>
+                        <td>Comparing category values side by side.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Line Chart</strong></td>
+                        <td>Showing continuous time series trends (Sales by Month/Year).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decomposition Tree (AI)</strong></td>
+                        <td>Root-cause analysis to drill down into metrics across dimensions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Matrix Visual</strong></td>
+                        <td>Cross-tab data grids supporting hierarchical row expand/collapse.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Report Interactivity & Features</h3>
+            <ul class="list-styled">
+                <li><strong>Drill-Through:</strong> Allows users to right-click a visual data point (e.g. "East Region") and jump to a detailed report page filtered specifically for that region.</li>
+                <li><strong>Bookmarks & Buttons:</strong> Saves visual states (e.g., toggling between Chart View and Table View).</li>
+                <li><strong>Custom Tooltips:</strong> Hovering over a visual displays a mini-report page popup.</li>
+            </ul>
+        </div>
+
+        <!-- MODULE 11: Power BI Service & Gateways -->
+        <div class="section-card" id="sec-mod11">
+            <h2 class="section-title">Module 11: Power BI Service, Workspaces & Gateways</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Workspace Roles & Permissions</h4>
+                    <ul class="list-styled">
+                        <li><strong>Admin:</strong> Full control over workspace, permissions, and publishing.</li>
+                        <li><strong>Member:</strong> Can add users, publish reports, create dashboards.</li>
+                        <li><strong>Contributor:</strong> Can edit and publish content within workspace.</li>
+                        <li><strong>Viewer:</strong> Read-only access to view reports and dashboards.</li>
+                    </ul>
+                </div>
+                <div class="box-yellow">
+                    <h4>On-Premises Data Gateways</h4>
+                    <p>Acts as an encrypted bridge to refresh cloud Power BI datasets using local databases (SQL Server, Oracle, SAP).</p>
+                    <p><strong>Standard Gateway:</strong> Enterprise multi-user support.</p>
+                    <p><strong>Personal Gateway:</strong> Single user desktop setup.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 12: DAX Optimization -->
+        <div class="section-card" id="sec-mod12">
+            <h2 class="section-title">Module 12: Performance Tuning & DAX Optimization</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Optimization Focus</th>
+                        <th>Best Practice Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>DAX Measures vs Columns</strong></td>
+                        <td>Avoid Calculated Columns where possible. Use Measures to preserve VertiPaq RAM memory.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Safe Division</strong></td>
+                        <td>Always use <code>DIVIDE(a, b)</code> instead of <code>a / b</code> operator.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DAX Variables</strong></td>
+                        <td>Use <code>VAR ... RETURN</code> syntax to prevent re-evaluating identical sub-expressions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High Cardinality</strong></td>
+                        <td>Remove high-cardinality columns (like timestamps or unique GUID strings) if not needed for reporting.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance Analyzer</strong></td>
+                        <td>Use Power BI's Performance Analyzer to inspect visual query execution durations.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MODULE 13: 5 Business Projects -->
+        <div class="section-card" id="sec-mod13">
+            <h2 class="section-title">Module 13: 5 Real-World Practical Business Power BI Projects</h2>
+            
+            <!-- Project 1 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-bottom: 10px;">Project 1: Executive Sales & Revenue Performance Dashboard</h3>
+            <div class="code-container">
+                <div class="code-header">Project 1 DAX Measures Implementation</div>
+                <pre>-- 1. Total Revenue
+Total Revenue = SUMX(Sales, Sales[Quantity] * Sales[UnitPrice])
+
+-- 2. Revenue Prior Year
+Revenue PY = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Date'[Date]))
+
+-- 3. Revenue YoY Growth %
+YoY Revenue % = DIVIDE([Total Revenue] - [Revenue PY], [Revenue PY], 0)</pre>
+            </div>
+
+            <!-- Project 2 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 2: Customer Churn & Retention Cohort Analytics</h3>
+            <div class="code-container">
+                <div class="code-header">Project 2 DAX Measures Implementation</div>
+                <pre>-- Active Customers Count
+Active Customers = DISTINCTCOUNT(Sales[CustomerID])
+
+-- Lost Customers (No purchase in last 90 days)
+Lost Customers = 
+CALCULATE(
+    [Active Customers],
+    FILTER(
+        ALL('Customer'),
+        'Customer'[LastPurchaseDate] < TODAY() - 90
+    )
+)</pre>
+            </div>
+
+            <!-- Project 3 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 3: Financial Income Statement (P&L) & Variance Analysis</h3>
+            <div class="code-container">
+                <div class="code-header">Project 3 DAX Measures Implementation</div>
+                <pre>-- Gross Profit
+Gross Profit = [Total Revenue] - [Total COGS]
+
+-- Operating Margin %
+Operating Margin % = DIVIDE([Gross Profit] - [Operating Expenses], [Total Revenue], 0)</pre>
+            </div>
+
+            <!-- Project 4 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 4: HR Workforce Analytics & Turnover Monitor</h3>
+            <div class="code-container">
+                <div class="code-header">Project 4 DAX Measures Implementation</div>
+                <pre>-- Employee Attrition Rate %
+Total Terminations = COUNTROWS(FILTER(Employees, Employees[Status] = "Terminated"))
+Average Headcount = AVERAGE(Employees[Headcount])
+Attrition Rate % = DIVIDE([Total Terminations], [Average Headcount], 0)</pre>
+            </div>
+
+            <!-- Project 5 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 5: Supply Chain & Inventory Fulfillment Control</h3>
+            <div class="code-container">
+                <div class="code-header">Project 5 DAX Measures Implementation</div>
+                <pre>-- On-Time In-Full (OTIF) Delivery %
+OTIF Deliveries = CALCULATE(COUNTROWS(Shipments), Shipments[Status] = "On-Time In-Full")
+Total Deliveries = COUNTROWS(Shipments)
+OTIF % = DIVIDE([OTIF Deliveries], [Total Deliveries], 0)</pre>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Power BI & DAX Complete Master Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

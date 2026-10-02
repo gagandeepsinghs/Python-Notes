@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Fundamentals, Aggregation, Subqueries, Revision & Cheatsheet - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(9, 9, 11);
+            --bg-secondary: rgb(24, 24, 27);
+            --text-primary: rgb(244, 244, 245);
+            --text-muted: rgb(161, 161, 170);
+            --accent-color: rgb(59, 130, 246);
+            --accent-hover: rgb(37, 99, 235);
+            --code-bg: rgb(24, 24, 27);
+            --code-border: rgb(39, 39, 42);
+            --code-text: rgb(244, 244, 245);
+            --border-color: rgb(39, 39, 42);
+            --box-blue-bg: rgb(30, 58, 138);
+            --box-blue-border: rgb(30, 64, 175);
+            --box-blue-text: rgb(219, 234, 254);
+            --box-green-bg: rgb(6, 78, 59);
+            --box-green-border: rgb(6, 95, 70);
+            --box-green-text: rgb(209, 250, 229);
+            --box-red-bg: rgb(127, 29, 29);
+            --box-red-border: rgb(153, 27, 27);
+            --box-red-text: rgb(254, 226, 226);
+            --output-bg: rgb(18, 18, 20);
+            --output-border: rgb(39, 39, 42);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: rgb(18, 18, 20);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(161, 161, 170);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(63, 63, 70);
+            background-color: rgb(24, 24, 27);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            color: rgb(212, 212, 216);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(24, 24, 27) 0%, rgb(39, 39, 42) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: rgb(255, 255, 255);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(255, 255, 255);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .box-blue {
+            background-color: var(--box-blue-bg);
+            border: 1px solid var(--box-blue-border);
+            color: var(--box-blue-text);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .box-green {
+            background-color: var(--box-green-bg);
+            border: 1px solid var(--box-green-border);
+            color: var(--box-green-text);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .box-red {
+            background-color: var(--box-red-bg);
+            border: 1px solid var(--box-red-border);
+            color: var(--box-red-text);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .box-blue h4, .box-green h4, .box-red h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* Black Dark Code Container */
+        .code-container {
+            background-color: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .code-header {
+            background-color: rgb(39, 39, 42);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            border-bottom: 1px solid rgb(63, 63, 70);
+        }
+
+        .code-header .lang-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgb(212, 212, 216);
+        }
+
+        .code-header .copy-btn {
+            background: none;
+            border: none;
+            color: rgb(161, 161, 170);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            color: rgb(244, 244, 245);
+            padding: 18px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.92rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+        }
+
+        /* Syntax Highlighting Colors */
+        .kw { color: rgb(236, 72, 153); font-weight: bold; } /* Keywords PINK */
+        .fn { color: rgb(96, 165, 250); } /* Functions BLUE */
+        .str { color: rgb(52, 211, 153); } /* Strings GREEN */
+        .type { color: rgb(192, 132, 252); } /* Types PURPLE */
+        .num { color: rgb(251, 146, 60); } /* Numbers ORANGE */
+        .cm { color: rgb(113, 113, 122); font-style: italic; } /* Comments GREY */
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 14px 18px;
+            margin-top: 10px;
+            border-radius: 0 8px 8px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(224, 231, 255);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: rgb(161, 161, 170);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(39, 39, 42);
+            color: rgb(147, 197, 253);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(63, 63, 70);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        .exec-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: rgb(24, 24, 27);
+            border: 1px solid rgb(39, 39, 42);
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .exec-num {
+            background-color: var(--accent-color);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .exec-clause {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: rgb(236, 72, 153);
+            font-weight: bold;
+            width: 110px;
+        }
+
+        .exec-desc {
+            color: rgb(212, 212, 216);
+            font-size: 0.92rem;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>SQL Fundamentals & Analytics</h2>
+        <span class="author-tag">Complete Dark Theme Notes &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search topic or keyword..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-db')">1. Database Creation & Select</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-table')">2. Table Creation & Insert</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-select')">3. Data Retrieval (SELECT)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-alias')">4. Column Aliases (AS)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-distinct')">5. DISTINCT Keyword</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-where')">6. WHERE & Comparison Operators</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-logical')">7. Logical Operators (AND, OR, NOT)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-range')">8. IN, NOT IN & BETWEEN</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-like')">9. LIKE & Wildcards (% and _)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-orderby')">10. ORDER BY (ASC, DESC)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-limit')">11. LIMIT & Top Records</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-null')">12. NULL Values (IS NULL)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-update')">13. UPDATE Data</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-delete')">14. DELETE Data</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-alter')">15. ALTER TABLE</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-truncate')">16. TRUNCATE vs DROP vs DELETE</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-agg')">17. Aggregate Functions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-groupby')">18. GROUP BY Aggregations</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-having')">19. HAVING vs WHERE</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-casewhen')">20. CASE WHEN Logic</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-analyst')">21. Data Analyst Queries & Subqueries</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-joins')">22. SQL JOINs Overview</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-cond-expr')">23. Conditional Expressions (IF, COALESCE, NULLIF)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-execution-order')">24. SQL Order of Execution Matrix</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-revision-cheatsheet')">25. Master SQL Revision Cheatsheet</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>SQL Fundamentals, Aggregation, Subqueries & Analytics</h1>
+            <p>Master SQL from database creation, table design, data insertion, filtering, aggregate analytics, CASE WHEN statements, subqueries, to relational JOINs with clear definitions, revision cheatsheets, and code containers matching dark theme specifications.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- SECTION 1: Database Create -->
+        <div class="section-card" id="sec-db">
+            <h2 class="section-title">1. Database Create Karna</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Definition</h4>
+                    <p><code>CREATE DATABASE</code> ka use naya database create karne ke liye hota hai. Database select karne ke liye <code>USE database_name;</code> execute karte hain.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Important Note</h4>
+                    <p><code>USE office;</code> ka matlab hai ki ab aage bane wali saari tables <code>office</code> database ke andar hi hongi.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Create a new database</span>
+<span class="kw">CREATE DATABASE</span> office;
+
+<span class="cm">-- Select and switch to the database</span>
+<span class="kw">USE</span> office;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Tables Creation & Constraints -->
+        <div class="section-card" id="sec-table">
+            <h2 class="section-title">2. Table Structure & Constraints</h2>
+            
+            <p>Table store karta hai rows aur columns me data. Attributes Define karte hain column datatype aur constraints.</p>
+
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>PRIMARY KEY</h4>
+                    <p>Uniquely identify karta hai har record ko. Duplicate aur NULL values strictly NOT allowed.</p>
+                </div>
+                <div class="box-green">
+                    <h4>AUTO_INCREMENT</h4>
+                    <p>Automatically system unique number assign kar deta hai (1, 2, 3...) har nayi row ke liye.</p>
+                </div>
+                <div class="box-red">
+                    <h4>FOREIGN KEY</h4>
+                    <p>Do tables ke beech me relationship establish karta hai parent-child relation me.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- 1. Departments Table</span>
+<span class="kw">CREATE TABLE</span> departments (
+    department_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    department_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    location <span class="type">VARCHAR</span>(<span class="num">50</span>)
+);
+
+<span class="cm">-- 2. Employees Table</span>
+<span class="kw">CREATE TABLE</span> employees (
+    employee_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    first_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    last_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    email <span class="type">VARCHAR</span>(<span class="num">100</span>) <span class="kw">UNIQUE</span>,
+    hire_date <span class="type">DATE</span>,
+    salary <span class="type">DECIMAL</span>(<span class="num">10</span>, <span class="num">2</span>),
+    department_id <span class="type">INT</span>,
+    <span class="kw">FOREIGN KEY</span> (department_id) <span class="kw">REFERENCES</span> departments(department_id)
+);</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 3: SELECT Data -->
+        <div class="section-card" id="sec-select">
+            <h2 class="section-title">3. Data Retrieval (SELECT)</h2>
+            
+            <p>Table se data fetch karne ke liye <code>SELECT</code> statement use hota hai.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Select all columns from employees table</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees;
+
+<span class="cm">-- Select specific columns</span>
+<span class="kw">SELECT</span> first_name, last_name, salary <span class="kw">FROM</span> employees;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Column Aliases (AS) -->
+        <div class="section-card" id="sec-alias">
+            <h2 class="section-title">4. Column Aliases (AS)</h2>
+            
+            <p><code>AS</code> keyword output column ka temporary user-friendly name badalne ke liye lagate hain.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> 
+    first_name <span class="kw">AS</span> Name, 
+    salary <span class="kw">AS</span> Monthly_Pay 
+<span class="kw">FROM</span> employees;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 5: DISTINCT -->
+        <div class="section-card" id="sec-distinct">
+            <h2 class="section-title">5. DISTINCT Keyword</h2>
+            
+            <p><code>DISTINCT</code> duplicate values ko filter karke sirf unique records display karta hai.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Get unique department IDs</span>
+<span class="kw">SELECT DISTINCT</span> department_id <span class="kw">FROM</span> employees;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 6: WHERE Clause -->
+        <div class="section-card" id="sec-where">
+            <h2 class="section-title">6. WHERE Clause & Comparison Operators</h2>
+            
+            <p>Data filtering ke liye <code>WHERE</code> condition add karta hai row-by-row level par.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Employees with salary greater than 60,000</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> salary > <span class="num">60000</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 7: Logical Operators -->
+        <div class="section-card" id="sec-logical">
+            <h2 class="section-title">7. Logical Operators (AND, OR, NOT)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>AND Operator</h4>
+                    <p>Dono conditions True honi chahiye tabhi row fetch hogi.</p>
+                </div>
+                <div class="box-green">
+                    <h4>OR Operator</h4>
+                    <p>Koi ek condition bhi True hogi to row include ho jayegi.</p>
+                </div>
+                <div class="box-red">
+                    <h4>NOT Operator</h4>
+                    <p>Given condition ko reverse (negate) karta hai.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- AND Example</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> department_id = <span class="num">2</span> <span class="kw">AND</span> salary > <span class="num">50000</span>;
+
+<span class="cm">-- OR Example</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> department_id = <span class="num">1</span> <span class="kw">OR</span> department_id = <span class="num">3</span>;
+
+<span class="cm">-- NOT Example</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE NOT</span> department_id = <span class="num">2</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 8: IN & BETWEEN -->
+        <div class="section-card" id="sec-range">
+            <h2 class="section-title">8. IN, NOT IN & BETWEEN Operators</h2>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- IN Operator</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> department_id <span class="kw">IN</span> (<span class="num">1</span>, <span class="num">2</span>, <span class="num">4</span>);
+
+<span class="cm">-- BETWEEN Range</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> salary <span class="kw">BETWEEN</span> <span class="num">40000</span> <span class="kw">AND</span> <span class="num">80000</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 9: LIKE & Wildcards -->
+        <div class="section-card" id="sec-like">
+            <h2 class="section-title">9. LIKE Operator & Wildcard Characters</h2>
+            
+            <ul class="list-styled">
+                <li><code>%</code> : Zero, one, or multiple characters matching.</li>
+                <li><code>_</code> : Exactly one single character matching.</li>
+            </ul>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Name starts with 'A'</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> first_name <span class="kw">LIKE</span> <span class="str">'A%'</span>;
+
+<span class="cm">-- Name has 'a' as second character</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> first_name <span class="kw">LIKE</span> <span class="str">'_a%'</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 10: ORDER BY -->
+        <div class="section-card" id="sec-orderby">
+            <h2 class="section-title">10. ORDER BY (Sorting Results)</h2>
+            
+            <p>Data ko ascending (<code>ASC</code>) ya descending (<code>DESC</code>) order me arrange karne ke liye.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 11: LIMIT -->
+        <div class="section-card" id="sec-limit">
+            <h2 class="section-title">11. LIMIT Clause</h2>
+            
+            <p>Output rows ki quantity strict constrain karne ke liye <code>LIMIT</code> use karein.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Top 5 highest paid employees</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span> 
+<span class="kw">LIMIT</span> <span class="num">5</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 12: NULL Values -->
+        <div class="section-card" id="sec-null">
+            <h2 class="section-title">12. NULL Values Handling</h2>
+            
+            <p>NULL is missing value. Check <code>IS NULL</code> or <code>IS NOT NULL</code> (never use <code>= NULL</code>).</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> department_id <span class="kw">IS NULL</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 13: UPDATE Data -->
+        <div class="section-card" id="sec-update">
+            <h2 class="section-title">13. UPDATE Data</h2>
+            
+            <p>Existing row values modify karne ke liye <code>UPDATE</code> table name <code>SET</code> column = value specify karte hain.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">UPDATE</span> employees 
+<span class="kw">SET</span> salary = <span class="num">75000</span> 
+<span class="kw">WHERE</span> employee_id = <span class="num">3</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 14: DELETE Data -->
+        <div class="section-card" id="sec-delete">
+            <h2 class="section-title">14. DELETE Data</h2>
+            
+            <p>Specific row ko remove karne ke liye <code>DELETE FROM</code> table with <code>WHERE</code> clause.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">DELETE FROM</span> employees 
+<span class="kw">WHERE</span> employee_id = <span class="num">5</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 15: ALTER TABLE -->
+        <div class="section-card" id="sec-alter">
+            <h2 class="section-title">15. ALTER TABLE (Schema Modifications)</h2>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Add new column</span>
+<span class="kw">ALTER TABLE</span> employees <span class="kw">ADD</span> phone_number <span class="type">VARCHAR</span>(<span class="num">15</span>);
+
+<span class="cm">-- Drop column</span>
+<span class="kw">ALTER TABLE</span> employees <span class="kw">DROP COLUMN</span> phone_number;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 16: TRUNCATE vs DROP vs DELETE -->
+        <div class="section-card" id="sec-truncate">
+            <h2 class="section-title">16. TRUNCATE vs DROP vs DELETE</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>DELETE</th>
+                        <th>TRUNCATE</th>
+                        <th>DROP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Type</strong></td>
+                        <td>DML</td>
+                        <td>DDL</td>
+                        <td>DDL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WHERE Clause</strong></td>
+                        <td>Supported</td>
+                        <td>Not Supported</td>
+                        <td>Not Supported</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Table Structure</strong></td>
+                        <td>Remains intact</td>
+                        <td>Remains intact</td>
+                        <td>Completely Removed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed</strong></td>
+                        <td>Slower (Logs each row)</td>
+                        <td>Very Fast</td>
+                        <td>Instantaneous</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 17: Aggregate Functions -->
+        <div class="section-card" id="sec-agg">
+            <h2 class="section-title">17. Aggregate Functions</h2>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> 
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total_employees,
+    <span class="fn">SUM</span>(salary) <span class="kw">AS</span> total_payroll,
+    <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_salary,
+    <span class="fn">MIN</span>(salary) <span class="kw">AS</span> min_salary,
+    <span class="fn">MAX</span>(salary) <span class="kw">AS</span> max_salary
+<span class="kw">FROM</span> employees;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 18: GROUP BY -->
+        <div class="section-card" id="sec-groupby">
+            <h2 class="section-title">18. GROUP BY Clause</h2>
+            
+            <p>Similar values wale rows ko groups me collapse karke summary metrics derive karne ke liye.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> 
+    department_id, 
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> employee_count, 
+    <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_dept_salary
+<span class="kw">FROM</span> employees
+<span class="kw">GROUP BY</span> department_id;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 19: HAVING vs WHERE -->
+        <div class="section-card" id="sec-having">
+            <h2 class="section-title">19. HAVING vs WHERE Clause</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>WHERE</h4>
+                    <p>Individual raw rows ko filter karta hai before grouping.</p>
+                </div>
+                <div class="box-green">
+                    <h4>HAVING</h4>
+                    <p>Aggregated grouped results ko filter karta hai after GROUP BY.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> department_id, <span class="fn">AVG</span>(salary) <span class="kw">AS</span> avg_sal
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary > <span class="num">30000</span>
+<span class="kw">GROUP BY</span> department_id
+<span class="kw">HAVING</span> <span class="fn">AVG</span>(salary) > <span class="num">50000</span>;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 20: CASE WHEN -->
+        <div class="section-card" id="sec-casewhen">
+            <h2 class="section-title">20. 🔥 CASE WHEN — Conditional Logic & Aggregation</h2>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Salary Categorization</span>
+<span class="kw">SELECT</span> 
+    first_name,
+    salary,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> salary >= <span class="num">80000</span> <span class="kw">THEN</span> <span class="str">'High'</span>
+        <span class="kw">WHEN</span> salary >= <span class="num">60000</span> <span class="kw">THEN</span> <span class="str">'Medium'</span>
+        <span class="kw">ELSE</span> <span class="str">'Low'</span>
+    <span class="kw">END AS</span> salary_category
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- Conditional Aggregation (CASE + COUNT)</span>
+<span class="kw">SELECT</span> 
+    <span class="fn">COUNT</span>(<span class="kw">CASE WHEN</span> salary >= <span class="num">80000</span> <span class="kw">THEN</span> <span class="num">1</span> <span class="kw">END</span>) <span class="kw">AS</span> high_salary_employees
+<span class="kw">FROM</span> employees;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 21: Data Analyst Queries & Subqueries -->
+        <div class="section-card" id="sec-analyst">
+            <h2 class="section-title">21. 🧠 Data Analyst Interview Queries & Subqueries</h2>
+            
+            <h3 style="color: rgb(147, 197, 253); margin-top: 15px;">Q1. Employees earning more than Average Salary</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> salary > (
+    <span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees
+);</pre>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">Q2. Second Highest Salary</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span> <span class="fn">MAX</span>(salary) <span class="kw">AS</span> second_highest 
+<span class="kw">FROM</span> employees 
+<span class="kw">WHERE</span> salary &lt; (
+    <span class="kw">SELECT</span> <span class="fn">MAX</span>(salary) <span class="kw">FROM</span> employees
+);</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 22: SQL JOINs Overview -->
+        <div class="section-card" id="sec-joins">
+            <h2 class="section-title">22. SQL JOINs Overview</h2>
+            
+            <p>A <strong>JOIN</strong> is used to combine data from two or more tables based on a related column between them.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- INNER JOIN</span>
+<span class="kw">SELECT</span> e.first_name, d.department_name
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d <span class="kw">ON</span> e.department_id = d.department_id;
+
+<span class="cm">-- LEFT JOIN</span>
+<span class="kw">SELECT</span> e.first_name, d.department_name
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> departments d <span class="kw">ON</span> e.department_id = d.department_id;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 23: Conditional Expressions -->
+        <div class="section-card" id="sec-cond-expr">
+            <h2 class="section-title">23. ⚡ Conditional Expressions (CASE, IF, COALESCE, NULLIF)</h2>
+            
+            <p>Conditional expressions allow you to perform evaluation logic and substitute values conditionally inside SQL queries.</p>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                        <th>Syntax</th>
+                        <th>Example Query</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CASE Statement</strong></td>
+                        <td>Allows multi-branch conditional evaluation within a query.</td>
+                        <td><span class="code-snippet">SELECT col1, CASE WHEN cond THEN val ELSE default END FROM tbl;</span></td>
+                        <td><span class="code-snippet">SELECT order_id, CASE WHEN total > 1000 THEN 'High' ELSE 'Low' END FROM orders;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>IF() Function</strong></td>
+                        <td>Evaluates a condition and returns a value based on true or false boolean result.</td>
+                        <td><span class="code-snippet">SELECT IF(condition, true_val, false_val) AS alias FROM tbl;</span></td>
+                        <td><span class="code-snippet">SELECT name, age, IF(age > 50, 'Senior', 'Junior') AS emp_cat FROM employees;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>COALESCE() Function</strong></td>
+                        <td>Returns the very first non-NULL value from a given list of arguments.</td>
+                        <td><span class="code-snippet">SELECT COALESCE(val1, val2, ...) AS alias FROM tbl;</span></td>
+                        <td><span class="code-snippet">SELECT COALESCE(first_name, middle_name, 'N/A') AS pref_name FROM employees;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>NULLIF() Function</strong></td>
+                        <td>Returns NULL if two specified expressions are equal; otherwise returns expression1.</td>
+                        <td><span class="code-snippet">SELECT NULLIF(expr1, expr2) AS alias FROM tbl;</span></td>
+                        <td><span class="code-snippet">SELECT NULLIF(total_amount, discounted_amount) AS diff_amount FROM orders;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- 1. CASE Statement Example</span>
+<span class="kw">SELECT</span> order_id, total_amount,
+    <span class="kw">CASE</span> 
+        <span class="kw">WHEN</span> total_amount > <span class="num">1000</span> <span class="kw">THEN</span> <span class="str">'High Value Order'</span>
+        <span class="kw">WHEN</span> total_amount > <span class="num">500</span> <span class="kw">THEN</span> <span class="str">'Medium Value Order'</span>
+        <span class="kw">ELSE</span> <span class="str">'Low Value Order'</span>
+    <span class="kw">END AS</span> order_status
+<span class="kw">FROM</span> orders;
+
+<span class="cm">-- 2. IF() Function Example</span>
+<span class="kw">SELECT</span> name, age,
+    <span class="fn">IF</span>(age > <span class="num">50</span>, <span class="str">'Senior'</span>, <span class="str">'Junior'</span>) <span class="kw">AS</span> employee_category
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- 3. COALESCE() Function Example</span>
+<span class="kw">SELECT</span> <span class="fn">COALESCE</span>(first_name, middle_name, <span class="str">'No Name'</span>) <span class="kw">AS</span> preferred_name
+<span class="kw">FROM</span> employees;
+
+<span class="cm">-- 4. NULLIF() Function Example</span>
+<span class="kw">SELECT</span> <span class="fn">NULLIF</span>(total_amount, discounted_amount) <span class="kw">AS</span> diff_amount
+<span class="kw">FROM</span> orders;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 24: Order of Execution -->
+        <div class="section-card" id="sec-execution-order">
+            <h2 class="section-title">24. 🔄 SQL Query Execution Order</h2>
+            
+            <p>Understanding the exact sequence in which SQL evaluates clauses is essential for writing efficient queries and debugging errors (e.g., why aliases created in SELECT cannot be filtered in WHERE).</p>
+
+            <div style="margin: 20px 0;">
+                <div class="exec-step">
+                    <div class="exec-num">1</div>
+                    <div class="exec-clause">FROM</div>
+                    <div class="exec-desc">Choose and join base tables to form the target dataset.</div>
+                </div>
+                <div class="exec-step">
+                    <div class="exec-num">2</div>
+                    <div class="exec-clause">WHERE</div>
+                    <div class="exec-desc">Filters the base data rows based on conditions.</div>
+                </div>
+                <div class="exec-step">
+                    <div class="exec-num">3</div>
+                    <div class="exec-clause">GROUP BY</div>
+                    <div class="exec-desc">Aggregates base data into grouped sets.</div>
+                </div>
+                <div class="exec-step">
+                    <div class="exec-num">4</div>
+                    <div class="exec-clause">HAVING</div>
+                    <div class="exec-desc">Filters the aggregated grouped data.</div>
+                </div>
+                <div class="exec-step">
+                    <div class="exec-num">5</div>
+                    <div class="exec-clause">SELECT</div>
+                    <div class="exec-desc">Returns the final output columns and evaluates aliases.</div>
+                </div>
+                <div class="exec-step">
+                    <div class="exec-num">6</div>
+                    <div class="exec-clause">ORDER BY</div>
+                    <div class="exec-desc">Sorts the final result dataset (ASC or DESC).</div>
+                </div>
+                <div class="exec-step">
+                    <div class="exec-num">7</div>
+                    <div class="exec-clause">LIMIT</div>
+                    <div class="exec-desc">Limits the returned dataset to a specified row count.</div>
+                </div>
+            </div>
+
+            <div class="box-green" style="margin-top: 20px;">
+                <h4>Key Rule to Remember for Interviews</h4>
+                <p>Because <code>WHERE</code> executes at Step 2 while aggregate calculations happen at Step 3 (<code>GROUP BY</code>), you CANNOT use aggregate functions inside <code>WHERE</code> clauses. Use <code>HAVING</code> instead!</p>
+            </div>
+        </div>
+
+        <!-- SECTION 25: Master Revision Cheatsheet -->
+        <div class="section-card" id="sec-revision-cheatsheet">
+            <h2 class="section-title">25. 🚀 Master SQL Revision Cheatsheet & DDL / DML Guide</h2>
+            
+            <p>A quick-reference guide for fast exam and interview revision summarizing DDL, DML, clauses, and essential queries.</p>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 20px; margin-bottom: 10px;">1. DDL vs DML Classification</h3>
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Data Definition Language (DDL)</h4>
+                    <p>Defines & alters database schemas.</p>
+                    <ul style="margin-left: 15px; margin-top: 5px;">
+                        <li><code>CREATE</code> : Database, Table, View, Index</li>
+                        <li><code>ALTER</code> : Add/Drop/Modify Columns</li>
+                        <li><code>DROP</code> : Delete Table/Database</li>
+                        <li><code>TRUNCATE</code> : Empty table fast</li>
+                    </ul>
+                </div>
+                <div class="box-green">
+                    <h4>Data Manipulation Language (DML)</h4>
+                    <p>Manipulates stored records inside tables.</p>
+                    <ul style="margin-left: 15px; margin-top: 5px;">
+                        <li><code>INSERT</code> : Add new records</li>
+                        <li><code>UPDATE</code> : Modify existing records</li>
+                        <li><code>DELETE</code> : Remove specific rows</li>
+                        <li><code>SELECT</code> : Retrieve data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px; margin-bottom: 10px;">2. Quick SQL Syntax Revision Snippets</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Filter rows with WHERE</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> tbl <span class="kw">WHERE</span> col > <span class="num">5</span>;
+
+<span class="cm">-- Limit output rows</span>
+<span class="kw">SELECT</span> col1, col2 <span class="kw">FROM</span> tbl <span class="kw">LIMIT</span> <span class="num">10</span>;
+
+<span class="cm">-- Multiple conditions (OR)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> tbl <span class="kw">WHERE</span> col1 > <span class="num">5</span> <span class="kw">OR</span> col2 &lt; <span class="num">2</span>;
+
+<span class="cm">-- Order by column index</span>
+<span class="kw">SELECT</span> col1, col2 <span class="kw">FROM</span> tbl <span class="kw">ORDER BY</span> <span class="num">1</span>;
+
+<span class="cm">-- Row count, Sum & Max</span>
+<span class="kw">SELECT</span> <span class="fn">COUNT</span>(*), <span class="fn">SUM</span>(col1), <span class="fn">MAX</span>(col1) <span class="kw">FROM</span> tbl;
+
+<span class="cm">-- Grouped aggregation</span>
+<span class="kw">SELECT</span> <span class="fn">AVG</span>(col1) <span class="kw">FROM</span> tbl <span class="kw">GROUP BY</span> col2;
+
+<span class="cm">-- Aggregate filter with HAVING</span>
+<span class="kw">SELECT</span> col1, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> total <span class="kw">FROM</span> tbl <span class="kw">GROUP BY</span> col1 <span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) > <span class="num">10</span>;
+
+<span class="cm">-- CASE expression</span>
+<span class="kw">SELECT</span> col1,
+    <span class="kw">CASE</span> 
+        <span class="kw">WHEN</span> col1 > <span class="num">10</span> <span class="kw">THEN</span> <span class="str">'more than 10'</span>
+        <span class="kw">WHEN</span> col1 &lt; <span class="num">10</span> <span class="kw">THEN</span> <span class="str">'less than 10'</span>
+        <span class="kw">ELSE</span> <span class="str">'10'</span>
+    <span class="kw">END AS</span> NewColumnName
+<span class="kw">FROM</span> tbl;</pre>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>SQL Fundamentals, Aggregation, Subqueries & Analytics Master Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

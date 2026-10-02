@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flask, end to end</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F4;
+  --card:#FFFFFF;
+  --ink:#16202A;
+  --ink-soft:#4C5A66;
+  --rule:#D3DAE1;
+  --accent:#0F6F63;
+  --accent-soft:#E2EFEC;
+  --amber:#9A6A16;
+  --amber-soft:#F6EEDC;
+  --code-bg:#13202A;
+  --code-ink:#DCE6EC;
+  --code-key:#7FD1C1;
+  --code-str:#E5C07B;
+  --code-com:#7A8C99;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#10171D;
+    --card:#161F27;
+    --ink:#E4EAEF;
+    --ink-soft:#9DAEBB;
+    --rule:#28343E;
+    --accent:#5CC2B2;
+    --accent-soft:#16302D;
+    --amber:#D6AC63;
+    --amber-soft:#2A2519;
+    --code-bg:#0B1218;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10171D;
+  --card:#161F27;
+  --ink:#E4EAEF;
+  --ink-soft:#9DAEBB;
+  --rule:#28343E;
+  --accent:#5CC2B2;
+  --accent-soft:#16302D;
+  --amber:#D6AC63;
+  --amber-soft:#2A2519;
+  --code-bg:#0B1218;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif}
+code,pre,kbd{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--card);
+  border-bottom:1px solid var(--rule);
+  padding:clamp(2.5rem,6vw,4.5rem) 1.25rem 2.75rem;
+}
+.hero-inner{max-width:1120px;margin:0 auto;display:grid;gap:2.25rem;grid-template-columns:1fr}
+@media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr;align-items:center;gap:3rem}}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,3.6rem);
+  line-height:1.03;
+  font-weight:600;
+  letter-spacing:-.02em;
+  margin:0 0 1rem;
+}
+.hero p{margin:0 0 1rem;color:var(--ink-soft);max-width:34em}
+.hero .lede{font-size:1.12rem;color:var(--ink)}
+.meta{font-family:"IBM Plex Sans",sans-serif;font-size:.85rem;color:var(--ink-soft);margin-top:1.5rem}
+.meta span{display:inline-block;margin-right:1.25rem}
+
+/* hero terminal */
+.demo{border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--code-bg);box-shadow:0 18px 40px -28px rgba(10,30,40,.8)}
+.demo .file{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.78rem;color:var(--code-com);
+  padding:.55rem .9rem;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.demo pre{margin:0;padding:1.1rem .9rem;color:var(--code-ink);font-size:.86rem;line-height:1.7;overflow-x:auto}
+.demo .out{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:.8rem .9rem;font-family:"IBM Plex Sans",sans-serif;font-size:.83rem;color:#9DB3BE;
+  display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;
+}
+.demo .out b{color:#fff;font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--code-key);display:inline-block}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem;display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media(min-width:960px){.wrap{grid-template-columns:230px minmax(0,1fr);gap:3.5rem;align-items:start}}
+
+nav.toc{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.88rem;
+  padding:2rem 0 0;
+}
+@media(min-width:960px){nav.toc{position:sticky;top:0;max-height:100vh;overflow-y:auto;padding:2.5rem 0 3rem}}
+nav.toc h2{font-size:.8rem;font-weight:600;color:var(--ink-soft);margin:0 0 .85rem;letter-spacing:.04em}
+nav.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+nav.toc li{counter-increment:toc}
+nav.toc a{
+  display:flex;gap:.6rem;text-decoration:none;color:var(--ink-soft);
+  padding:.3rem 0 .3rem .85rem;margin-left:-1px;border-left:2px solid transparent;line-height:1.35;
+}
+nav.toc a:hover{color:var(--ink)}
+nav.toc a::before{content:counter(toc);font-variant-numeric:tabular-nums;font-size:.75rem;opacity:.65;padding-top:.15em}
+nav.toc ol{counter-reset:toc}
+nav.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+
+main{padding:2.5rem 0 5rem;max-width:74ch}
+section{scroll-margin-top:1.5rem;padding-bottom:2.75rem}
+section+section{border-top:1px solid var(--rule);padding-top:2.75rem}
+h2.ch{font-size:1.8rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem;line-height:1.2}
+.chno{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--accent);display:block;margin-bottom:.4rem}
+h3{font-size:1.12rem;font-weight:600;margin:2rem 0 .5rem;letter-spacing:-.005em}
+p{margin:0 0 1rem}
+ul,ol.body{margin:0 0 1rem;padding-left:1.25rem}
+li{margin-bottom:.35rem}
+strong{font-weight:600}
+main code{
+  background:var(--accent-soft);color:var(--ink);padding:.1em .35em;border-radius:3px;font-size:.87em;
+}
+
+/* code blocks */
+figure.code{margin:1.25rem 0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--code-bg)}
+figure.code figcaption{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.76rem;color:var(--code-com);
+  padding:.5rem .85rem;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+figure.code pre{
+  margin:0;padding:1rem .85rem;overflow-x:auto;color:var(--code-ink);
+  font-size:.84rem;line-height:1.7;
+}
+figure.code button{
+  font-family:"IBM Plex Sans",sans-serif;font-size:.72rem;color:var(--code-com);
+  background:transparent;border:1px solid rgba(255,255,255,.16);border-radius:4px;
+  padding:.18rem .5rem;cursor:pointer;flex:none;
+}
+figure.code button:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+figure.code button.done{color:var(--code-key);border-color:var(--code-key)}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.c{color:var(--code-com);font-style:italic}
+
+.note{
+  background:var(--accent-soft);border-left:3px solid var(--accent);
+  padding:.85rem 1rem;margin:1.25rem 0;font-size:.95rem;border-radius:0 5px 5px 0;
+}
+.warn{background:var(--amber-soft);border-left-color:var(--amber)}
+.note p:last-child{margin-bottom:0}
+.note b{font-family:"IBM Plex Sans",sans-serif;font-size:.82rem;font-weight:600;display:block;margin-bottom:.2rem;color:var(--ink-soft)}
+
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-family:"IBM Plex Sans",sans-serif;min-width:420px}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;font-size:.82rem;color:var(--ink-soft)}
+td code{background:var(--accent-soft);padding:.1em .3em;border-radius:3px;font-size:.85em}
+
+.tree{font-size:.84rem;line-height:1.65;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:1rem;overflow-x:auto;margin:1.25rem 0;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);background:var(--card);padding:2.5rem 1.25rem 3.5rem}
+footer .fin{max-width:1120px;margin:0 auto;font-family:"IBM Plex Sans",sans-serif;font-size:.9rem;color:var(--ink-soft)}
+footer a{margin-right:1.1rem;white-space:nowrap}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Flask, end to end</h1>
+      <p class="lede">Flask is a small Python web framework. It gives you routing, templating and a request object, then stays out of the way. Everything else — database, forms, login — you add when you need it.</p>
+      <p>This guide goes from an empty folder to a tested, deployable application: routing, Jinja templates, forms, sessions, SQLAlchemy, authentication, a JSON API, and a production checklist. Every snippet runs on Flask 3.x and Python 3.9+.</p>
+      <div class="meta">
+        <span>21 chapters</span><span>Flask 3.x</span><span>Python 3.9+</span>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="file">app.py</div>
+<pre><span class="k">from</span> flask <span class="k">import</span> Flask
+
+app = Flask(__name__)
+
+<span class="k">@app.route</span>(<span class="s">"/"</span>)
+<span class="k">def</span> home():
+    <span class="k">return</span> <span class="s">"Hello, World!"</span></pre>
+      <div class="out"><span class="dot"></span><b>flask run</b> &rarr; http://127.0.0.1:5000 &rarr; Hello, World!</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Chapters">
+  <h2>Chapters</h2>
+  <ol>
+    <li><a href="#what">What Flask is</a></li>
+    <li><a href="#setup">Setup and first app</a></li>
+    <li><a href="#routing">Routing and URLs</a></li>
+    <li><a href="#request">Requests and methods</a></li>
+    <li><a href="#response">Responses and redirects</a></li>
+    <li><a href="#templates">Jinja templates</a></li>
+    <li><a href="#static">Static files</a></li>
+    <li><a href="#forms">Forms</a></li>
+    <li><a href="#session">Sessions and flash</a></li>
+    <li><a href="#errors">Error handling</a></li>
+    <li><a href="#config">Config and the app factory</a></li>
+    <li><a href="#blueprints">Blueprints and structure</a></li>
+    <li><a href="#db">Databases with SQLAlchemy</a></li>
+    <li><a href="#migrate">Migrations</a></li>
+    <li><a href="#auth">Authentication</a></li>
+    <li><a href="#api">Building a JSON API</a></li>
+    <li><a href="#uploads">File uploads</a></li>
+    <li><a href="#hooks">Hooks, g and context</a></li>
+    <li><a href="#logging">Logging and debugging</a></li>
+    <li><a href="#testing">Testing</a></li>
+    <li><a href="#deploy">Deployment</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="what">
+<span class="chno">Chapter 1</span>
+<h2 class="ch">What Flask is</h2>
+<p>Flask is a <em>microframework</em>. The "micro" means it ships with a small core and no opinions about your database, your form library or your project layout. It is built on two libraries by the same team:</p>
+<ul>
+  <li><strong>Werkzeug</strong> — the WSGI layer: request and response objects, URL routing, the development server.</li>
+  <li><strong>Jinja</strong> — the template engine that turns <code>.html</code> files plus data into finished pages.</li>
+</ul>
+<p>A Flask app is a Python object that maps URLs to functions. When a request arrives, Flask matches the URL, calls your function, and turns whatever you return into an HTTP response. That is the whole model, and everything in this guide is a variation on it.</p>
+
+<h3>When to reach for it</h3>
+<p>Flask suits APIs, small-to-medium sites, prototypes, internal tools and anything where you want to choose your own pieces. Django is the better fit when you want an admin interface, an ORM and auth decided for you on day one. FastAPI is the better fit when you are building a typed, async-first JSON API and want automatic OpenAPI docs.</p>
+
+<div class="note">
+<b>Vocabulary you will see</b>
+<p><strong>WSGI</strong> is the Python standard for talking between a web server and a Python app. <strong>Route</strong> is a URL pattern. <strong>View function</strong> is the function that handles a route. <strong>Endpoint</strong> is the name Flask gives a view so you can build URLs for it.</p>
+</div>
+</section>
+
+<section id="setup">
+<span class="chno">Chapter 2</span>
+<h2 class="ch">Setup and first app</h2>
+<p>Every project gets its own virtual environment so its dependencies never collide with another project's.</p>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>mkdir myapp && cd myapp
+
+<span class="c"># macOS / Linux</span>
+python3 -m venv .venv
+source .venv/bin/activate
+
+<span class="c"># Windows (PowerShell)</span>
+py -m venv .venv
+.venv\Scripts\activate
+
+pip install Flask</pre></figure>
+
+<p>Your prompt now shows <code>(.venv)</code>. Create <code>app.py</code>:</p>
+
+<figure class="code"><figcaption>app.py</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> Flask
+
+app = Flask(__name__)
+
+
+<span class="k">@app.route</span>(<span class="s">"/"</span>)
+<span class="k">def</span> home():
+    <span class="k">return</span> <span class="s">"Hello, World!"</span>
+
+
+<span class="k">@app.route</span>(<span class="s">"/about"</span>)
+<span class="k">def</span> about():
+    <span class="k">return</span> <span class="s">"&lt;h1&gt;About this site&lt;/h1&gt;"</span></pre></figure>
+
+<p><code>Flask(__name__)</code> tells Flask where the app lives so it can find your <code>templates/</code> and <code>static/</code> folders. <code>@app.route</code> registers the function below it for that URL.</p>
+
+<h3>Running it</h3>
+<figure class="code"><figcaption>terminal</figcaption><pre>flask --app app run --debug</pre></figure>
+<p>Open <code>http://127.0.0.1:5000</code>. If your file is named <code>app.py</code> or <code>wsgi.py</code>, you can shorten this to <code>flask run --debug</code>.</p>
+<p><code>--debug</code> does two things: it reloads the server when you save a file, and it shows an interactive traceback in the browser when something breaks. That traceback lets anyone who can reach the page execute Python on your machine, so it is strictly a local-development tool.</p>
+
+<h3>Recording dependencies</h3>
+<figure class="code"><figcaption>terminal</figcaption><pre>pip freeze &gt; requirements.txt   <span class="c"># save</span>
+pip install -r requirements.txt <span class="c"># restore, on another machine</span></pre></figure>
+<p>Add <code>.venv/</code>, <code>__pycache__/</code>, <code>*.db</code> and <code>.env</code> to <code>.gitignore</code>.</p>
+</section>
+
+<section id="routing">
+<span class="chno">Chapter 3</span>
+<h2 class="ch">Routing and URLs</h2>
+<p>Parts of a URL can be captured and passed into the view as arguments. The type in angle brackets is a <em>converter</em>: it both restricts what matches and converts the value.</p>
+
+<figure class="code"><figcaption>routes</figcaption><pre><span class="k">@app.route</span>(<span class="s">"/user/&lt;username&gt;"</span>)
+<span class="k">def</span> profile(username):
+    <span class="k">return</span> <span class="s">f"Profile of {username}"</span>
+
+
+<span class="k">@app.route</span>(<span class="s">"/post/&lt;int:post_id&gt;"</span>)
+<span class="k">def</span> show_post(post_id):
+    <span class="k">return</span> <span class="s">f"Post number {post_id + 1}"</span>   <span class="c"># already an int</span>
+
+
+<span class="k">@app.route</span>(<span class="s">"/files/&lt;path:filepath&gt;"</span>)
+<span class="k">def</span> serve(filepath):
+    <span class="k">return</span> <span class="s">f"You asked for {filepath}"</span>       <span class="c"># slashes allowed</span></pre></figure>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Converter</th><th>Matches</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>string</code></td><td>any text without a slash (the default)</td><td><code>/user/ada</code></td></tr>
+<tr><td><code>int</code></td><td>positive integers</td><td><code>/post/42</code></td></tr>
+<tr><td><code>float</code></td><td>decimal numbers</td><td><code>/price/9.99</code></td></tr>
+<tr><td><code>path</code></td><td>text including slashes</td><td><code>/files/docs/a.txt</code></td></tr>
+<tr><td><code>uuid</code></td><td>UUID strings</td><td><code>/job/8f14e4…</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Building URLs with url_for</h3>
+<p>Never hard-code links. <code>url_for</code> takes the view's name and builds the URL, so changing a route in one place fixes every link to it. Extra keyword arguments become the query string.</p>
+
+<figure class="code"><figcaption>url_for</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> url_for
+
+url_for(<span class="s">"home"</span>)                       <span class="c"># /</span>
+url_for(<span class="s">"show_post"</span>, post_id=<span class="s">7</span>)        <span class="c"># /post/7</span>
+url_for(<span class="s">"profile"</span>, username=<span class="s">"ada"</span>, tab=<span class="s">"bio"</span>)
+                                      <span class="c"># /user/ada?tab=bio</span>
+url_for(<span class="s">"static"</span>, filename=<span class="s">"style.css"</span>)
+                                      <span class="c"># /static/style.css</span></pre></figure>
+
+<h3>Trailing slashes</h3>
+<p>A rule written as <code>/projects/</code> also answers <code>/projects</code> with a redirect to the canonical slashed form. A rule written as <code>/about</code> returns 404 for <code>/about/</code>. Pick one style and keep to it.</p>
+
+<h3>Registering routes without the decorator</h3>
+<figure class="code"><figcaption>add_url_rule</figcaption><pre>app.add_url_rule(<span class="s">"/health"</span>, <span class="s">"health"</span>, <span class="k">lambda</span>: <span class="s">"ok"</span>)
+<span class="c"># path, endpoint name, view function</span></pre></figure>
+</section>
+
+<section id="request">
+<span class="chno">Chapter 4</span>
+<h2 class="ch">Requests and methods</h2>
+<p>By default a route only answers <code>GET</code>. List the methods you want to accept:</p>
+
+<figure class="code"><figcaption>methods</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> request
+
+<span class="k">@app.route</span>(<span class="s">"/login"</span>, methods=[<span class="s">"GET"</span>, <span class="s">"POST"</span>])
+<span class="k">def</span> login():
+    <span class="k">if</span> request.method == <span class="s">"POST"</span>:
+        user = request.form[<span class="s">"username"</span>]        <span class="c"># 400 if missing</span>
+        pw   = request.form.get(<span class="s">"password"</span>, <span class="s">""</span>) <span class="c"># default if missing</span>
+        <span class="k">return</span> <span class="s">f"Welcome {user}"</span>
+    <span class="k">return</span> <span class="s">"&lt;form method='post'&gt;…&lt;/form&gt;"</span></pre></figure>
+
+<p>Flask 2.2+ also has shorthand decorators: <code>@app.get()</code>, <code>@app.post()</code>, <code>@app.put()</code>, <code>@app.patch()</code>, <code>@app.delete()</code>.</p>
+
+<h3>What the request object holds</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Attribute</th><th>Contains</th></tr></thead>
+<tbody>
+<tr><td><code>request.args</code></td><td>query string values — <code>?page=2</code></td></tr>
+<tr><td><code>request.form</code></td><td>submitted form fields</td></tr>
+<tr><td><code>request.json</code></td><td>parsed JSON body (requires the JSON content type)</td></tr>
+<tr><td><code>request.get_json(silent=True)</code></td><td>same, but returns <code>None</code> instead of raising</td></tr>
+<tr><td><code>request.files</code></td><td>uploaded files</td></tr>
+<tr><td><code>request.headers</code></td><td>request headers</td></tr>
+<tr><td><code>request.cookies</code></td><td>cookies sent by the browser</td></tr>
+<tr><td><code>request.method</code>, <code>.path</code>, <code>.url</code></td><td>method and address</td></tr>
+<tr><td><code>request.remote_addr</code></td><td>client IP (see the proxy note in chapter 21)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><code>args</code> and <code>form</code> are multi-dicts: use <code>getlist()</code> when a field can repeat, and <code>type=</code> to coerce.</p>
+
+<figure class="code"><figcaption>reading query strings safely</figcaption><pre>page = request.args.get(<span class="s">"page"</span>, <span class="s">1</span>, type=<span class="k">int</span>)   <span class="c"># 1 if absent or junk</span>
+tags = request.args.getlist(<span class="s">"tag"</span>)            <span class="c"># ?tag=a&amp;tag=b -&gt; ["a","b"]</span></pre></figure>
+
+<div class="note warn">
+<b>Treat everything in request as hostile</b>
+<p>Query strings, form fields and headers all come from the client and can be anything. Validate types, check lengths, and never interpolate them into SQL or shell commands.</p>
+</div>
+</section>
+
+<section id="response">
+<span class="chno">Chapter 5</span>
+<h2 class="ch">Responses and redirects</h2>
+<p>Whatever a view returns is converted into a response. Flask accepts several shapes:</p>
+
+<figure class="code"><figcaption>return values</figcaption><pre><span class="k">return</span> <span class="s">"plain text or html"</span>                 <span class="c"># 200</span>
+<span class="k">return</span> <span class="s">"Not found"</span>, <span class="s">404</span>                    <span class="c"># body + status</span>
+<span class="k">return</span> <span class="s">"Created"</span>, <span class="s">201</span>, {<span class="s">"Location"</span>: <span class="s">"/post/7"</span>}
+<span class="k">return</span> {<span class="s">"id"</span>: <span class="s">7</span>, <span class="s">"title"</span>: <span class="s">"Hello"</span>}         <span class="c"># dict -&gt; JSON</span>
+<span class="k">return</span> [<span class="s">1</span>, <span class="s">2</span>, <span class="s">3</span>]                            <span class="c"># list -&gt; JSON</span></pre></figure>
+
+<h3>Shaping the response object</h3>
+<figure class="code"><figcaption>make_response</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> make_response, jsonify
+
+<span class="k">@app.get</span>(<span class="s">"/api/time"</span>)
+<span class="k">def</span> now():
+    resp = make_response(jsonify(time=<span class="s">"12:00"</span>))
+    resp.headers[<span class="s">"Cache-Control"</span>] = <span class="s">"no-store"</span>
+    resp.set_cookie(<span class="s">"seen"</span>, <span class="s">"1"</span>, max_age=<span class="s">3600</span>, httponly=<span class="k">True</span>, samesite=<span class="s">"Lax"</span>)
+    <span class="k">return</span> resp</pre></figure>
+
+<h3>Redirects and aborting</h3>
+<figure class="code"><figcaption>redirect / abort</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> redirect, url_for, abort
+
+<span class="k">@app.post</span>(<span class="s">"/posts"</span>)
+<span class="k">def</span> create():
+    <span class="c"># … save …</span>
+    <span class="k">return</span> redirect(url_for(<span class="s">"show_post"</span>, post_id=<span class="s">7</span>))
+
+
+<span class="k">@app.get</span>(<span class="s">"/admin"</span>)
+<span class="k">def</span> admin():
+    <span class="k">if</span> <span class="k">not</span> user_is_admin():
+        abort(<span class="s">403</span>)              <span class="c"># raises, stops here</span>
+    <span class="k">return</span> <span class="s">"Dashboard"</span></pre></figure>
+
+<p>Always redirect after a successful <code>POST</code>. It stops the browser from re-submitting the form when the user refreshes.</p>
+
+<h3>Sending files</h3>
+<figure class="code"><figcaption>send_file</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> send_file, send_from_directory
+
+<span class="k">return</span> send_file(<span class="s">"report.pdf"</span>, as_attachment=<span class="k">True</span>)
+<span class="k">return</span> send_from_directory(<span class="s">"uploads"</span>, filename)  <span class="c"># safe path join</span></pre></figure>
+</section>
+
+<section id="templates">
+<span class="chno">Chapter 6</span>
+<h2 class="ch">Jinja templates</h2>
+<p>Put HTML files in a <code>templates/</code> folder next to <code>app.py</code> and render them with <code>render_template</code>. Keyword arguments become variables inside the template.</p>
+
+<figure class="code"><figcaption>app.py</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> render_template
+
+<span class="k">@app.get</span>(<span class="s">"/posts"</span>)
+<span class="k">def</span> posts():
+    items = [{<span class="s">"id"</span>: <span class="s">1</span>, <span class="s">"title"</span>: <span class="s">"First"</span>}, {<span class="s">"id"</span>: <span class="s">2</span>, <span class="s">"title"</span>: <span class="s">"Second"</span>}]
+    <span class="k">return</span> render_template(<span class="s">"posts.html"</span>, posts=items, user=<span class="s">"Ada"</span>)</pre></figure>
+
+<h3>Syntax</h3>
+<p>Jinja has two delimiters: <code>{{ }}</code> prints a value, <code>{% %}</code> runs a statement.</p>
+
+<figure class="code"><figcaption>templates/posts.html</figcaption><pre>&lt;h1&gt;Hello, {{ user }}&lt;/h1&gt;
+
+{% if posts %}
+  &lt;ul&gt;
+  {% for post in posts %}
+    &lt;li&gt;
+      &lt;a href="{{ url_for('show_post', post_id=post.id) }}"&gt;{{ post.title }}&lt;/a&gt;
+      {% if loop.first %} &lt;em&gt;newest&lt;/em&gt;{% endif %}
+    &lt;/li&gt;
+  {% endfor %}
+  &lt;/ul&gt;
+{% else %}
+  &lt;p&gt;Nothing published yet.&lt;/p&gt;
+{% endif %}</pre></figure>
+
+<p>Inside a loop, <code>loop.index</code> (1-based), <code>loop.index0</code>, <code>loop.first</code>, <code>loop.last</code> and <code>loop.length</code> are available.</p>
+
+<h3>Filters</h3>
+<p>A filter transforms a value with <code>|</code>. They chain.</p>
+<figure class="code"><figcaption>common filters</figcaption><pre>{{ name|upper }}
+{{ price|round(2) }}
+{{ body|truncate(140) }}
+{{ items|length }}
+{{ missing|default("n/a") }}
+{{ text|replace("a", "b")|title }}
+{{ html_string|safe }}          {# render as HTML, do not escape #}</pre></figure>
+
+<div class="note">
+<b>Autoescaping</b>
+<p>Jinja escapes <code>&lt;</code>, <code>&gt;</code> and <code>&amp;</code> in every variable it prints, which is what stops cross-site scripting. <code>|safe</code> switches that off for one value. Only use it on HTML you generated yourself, never on anything a user typed.</p>
+</div>
+
+<h3>Inheritance</h3>
+<p>One base layout, many pages that fill in its blocks. This is the single most useful Jinja feature.</p>
+
+<figure class="code"><figcaption>templates/base.html</figcaption><pre>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;{% block title %}My site{% endblock %}&lt;/title&gt;
+  &lt;link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;nav&gt;&lt;a href="{{ url_for('home') }}"&gt;Home&lt;/a&gt;&lt;/nav&gt;
+  &lt;main&gt;{% block content %}{% endblock %}&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></figure>
+
+<figure class="code"><figcaption>templates/posts.html</figcaption><pre>{% extends "base.html" %}
+
+{% block title %}Posts &middot; {{ super() }}{% endblock %}
+
+{% block content %}
+  &lt;h1&gt;Posts&lt;/h1&gt;
+  …
+{% endblock %}</pre></figure>
+
+<h3>Includes and macros</h3>
+<p><code>include</code> pastes another template in. A <code>macro</code> is a reusable function that outputs markup.</p>
+
+<figure class="code"><figcaption>templates/macros.html</figcaption><pre>{% macro field(name, label, type="text", value="") %}
+  &lt;label&gt;{{ label }}
+    &lt;input name="{{ name }}" type="{{ type }}" value="{{ value }}"&gt;
+  &lt;/label&gt;
+{% endmacro %}
+
+{# use it elsewhere #}
+{% from "macros.html" import field %}
+{{ field("email", "Email address", type="email") }}</pre></figure>
+
+<h3>Giving every template the same variable</h3>
+<figure class="code"><figcaption>context processor</figcaption><pre><span class="k">@app.context_processor</span>
+<span class="k">def</span> inject_globals():
+    <span class="k">return</span> {<span class="s">"site_name"</span>: <span class="s">"My site"</span>, <span class="s">"year"</span>: <span class="s">2026</span>}
+<span class="c"># {{ site_name }} now works in every template</span></pre></figure>
+</section>
+
+<section id="static">
+<span class="chno">Chapter 7</span>
+<h2 class="ch">Static files</h2>
+<p>CSS, JavaScript, images and fonts go in a <code>static/</code> folder. Flask serves them at <code>/static/…</code> automatically in development.</p>
+
+<div class="tree">myapp/
+├── app.py
+├── templates/
+│   ├── base.html
+│   └── posts.html
+└── static/
+    ├── style.css
+    ├── app.js
+    └── img/logo.svg</div>
+
+<figure class="code"><figcaption>linking assets</figcaption><pre>&lt;link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"&gt;
+&lt;script src="{{ url_for('static', filename='app.js') }}" defer&gt;&lt;/script&gt;
+&lt;img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo"&gt;</pre></figure>
+
+<p>Browsers cache aggressively. During development, hard-refresh if a stylesheet change does not appear. In production, put a version in the URL (<code>style.css?v=3</code>) or let a build tool add a content hash to the filename.</p>
+</section>
+
+<section id="forms">
+<span class="chno">Chapter 8</span>
+<h2 class="ch">Forms</h2>
+<p>A plain HTML form posts to a route; you read <code>request.form</code>, validate, then redirect. The pattern below — render on GET, process on POST, redirect on success, re-render with errors on failure — is the backbone of every form in Flask.</p>
+
+<figure class="code"><figcaption>app.py</figcaption><pre><span class="k">@app.route</span>(<span class="s">"/signup"</span>, methods=[<span class="s">"GET"</span>, <span class="s">"POST"</span>])
+<span class="k">def</span> signup():
+    errors = {}
+    <span class="k">if</span> request.method == <span class="s">"POST"</span>:
+        email = request.form.get(<span class="s">"email"</span>, <span class="s">""</span>).strip()
+        pw    = request.form.get(<span class="s">"password"</span>, <span class="s">""</span>)
+
+        <span class="k">if</span> <span class="s">"@"</span> <span class="k">not in</span> email:
+            errors[<span class="s">"email"</span>] = <span class="s">"Enter a valid email address."</span>
+        <span class="k">if</span> <span class="k">len</span>(pw) &lt; <span class="s">8</span>:
+            errors[<span class="s">"password"</span>] = <span class="s">"Use at least 8 characters."</span>
+
+        <span class="k">if</span> <span class="k">not</span> errors:
+            create_user(email, pw)
+            <span class="k">return</span> redirect(url_for(<span class="s">"home"</span>))
+
+    <span class="k">return</span> render_template(<span class="s">"signup.html"</span>, errors=errors)</pre></figure>
+
+<h3>Flask-WTF</h3>
+<p>For anything beyond a couple of fields, Flask-WTF defines the form once as a class and handles validation, re-rendering and CSRF protection.</p>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>pip install Flask-WTF</pre></figure>
+
+<figure class="code"><figcaption>forms.py</figcaption><pre><span class="k">from</span> flask_wtf <span class="k">import</span> FlaskForm
+<span class="k">from</span> wtforms <span class="k">import</span> StringField, PasswordField, SubmitField
+<span class="k">from</span> wtforms.validators <span class="k">import</span> DataRequired, Email, Length, EqualTo
+
+
+<span class="k">class</span> SignupForm(FlaskForm):
+    email = StringField(<span class="s">"Email"</span>, validators=[DataRequired(), Email()])
+    password = PasswordField(<span class="s">"Password"</span>, validators=[DataRequired(), Length(min=<span class="s">8</span>)])
+    confirm = PasswordField(<span class="s">"Repeat password"</span>, validators=[EqualTo(<span class="s">"password"</span>)])
+    submit = SubmitField(<span class="s">"Create account"</span>)</pre></figure>
+
+<figure class="code"><figcaption>view + template</figcaption><pre><span class="k">@app.route</span>(<span class="s">"/signup"</span>, methods=[<span class="s">"GET"</span>, <span class="s">"POST"</span>])
+<span class="k">def</span> signup():
+    form = SignupForm()
+    <span class="k">if</span> form.validate_on_submit():        <span class="c"># POST + all validators pass</span>
+        create_user(form.email.data, form.password.data)
+        <span class="k">return</span> redirect(url_for(<span class="s">"home"</span>))
+    <span class="k">return</span> render_template(<span class="s">"signup.html"</span>, form=form)</pre></figure>
+
+<figure class="code"><figcaption>templates/signup.html</figcaption><pre>&lt;form method="post"&gt;
+  {{ form.hidden_tag() }}              {# CSRF token #}
+  {{ form.email.label }} {{ form.email() }}
+  {% for e in form.email.errors %}&lt;p class="error"&gt;{{ e }}&lt;/p&gt;{% endfor %}
+
+  {{ form.password.label }} {{ form.password() }}
+  {% for e in form.password.errors %}&lt;p class="error"&gt;{{ e }}&lt;/p&gt;{% endfor %}
+
+  {{ form.submit() }}
+&lt;/form&gt;</pre></figure>
+
+<div class="note">
+<b>What CSRF protection does</b>
+<p>Without it, another site can make a logged-in visitor's browser submit a form to yours. Flask-WTF puts a secret token in each form and rejects submissions that do not carry it. It needs <code>SECRET_KEY</code> to be set.</p>
+</div>
+</section>
+
+<section id="session">
+<span class="chno">Chapter 9</span>
+<h2 class="ch">Sessions and flash messages</h2>
+<p>HTTP has no memory between requests. The <code>session</code> object gives you one: it behaves like a dict, and Flask stores it in a cookie that is cryptographically signed with your <code>SECRET_KEY</code>.</p>
+
+<figure class="code"><figcaption>session</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> session
+
+app.secret_key = os.environ[<span class="s">"SECRET_KEY"</span>]   <span class="c"># required</span>
+
+<span class="k">@app.post</span>(<span class="s">"/login"</span>)
+<span class="k">def</span> login():
+    session[<span class="s">"user_id"</span>] = <span class="s">7</span>
+    session.permanent = <span class="k">True</span>                <span class="c"># survives browser restart</span>
+    <span class="k">return</span> redirect(url_for(<span class="s">"home"</span>))
+
+<span class="k">@app.post</span>(<span class="s">"/logout"</span>)
+<span class="k">def</span> logout():
+    session.clear()
+    <span class="k">return</span> redirect(url_for(<span class="s">"home"</span>))</pre></figure>
+
+<div class="note warn">
+<b>Signed, not encrypted</b>
+<p>Anyone holding the cookie can read its contents; they just cannot change it without the key. Keep passwords, tokens and personal data out of the session — store an ID and look the rest up server-side. Generate a key with <code>python -c "import secrets; print(secrets.token_hex(32))"</code> and keep it out of version control.</p>
+</div>
+
+<h3>Flash messages</h3>
+<p>A flash is a one-shot message stored in the session and displayed on the next page — the "Saved." banner after a redirect.</p>
+
+<figure class="code"><figcaption>flashing</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> flash
+
+flash(<span class="s">"Your changes were saved."</span>, <span class="s">"success"</span>)
+flash(<span class="s">"That email is already registered."</span>, <span class="s">"error"</span>)</pre></figure>
+
+<figure class="code"><figcaption>templates/base.html</figcaption><pre>{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    &lt;div class="alert alert-{{ category }}"&gt;{{ message }}&lt;/div&gt;
+  {% endfor %}
+{% endwith %}</pre></figure>
+
+<h3>Cookies directly</h3>
+<figure class="code"><figcaption>cookies</figcaption><pre>theme = request.cookies.get(<span class="s">"theme"</span>, <span class="s">"light"</span>)
+
+resp = make_response(render_template(<span class="s">"page.html"</span>))
+resp.set_cookie(<span class="s">"theme"</span>, <span class="s">"dark"</span>, max_age=<span class="s">60</span>*<span class="s">60</span>*<span class="s">24</span>*<span class="s">365</span>,
+                httponly=<span class="k">True</span>, secure=<span class="k">True</span>, samesite=<span class="s">"Lax"</span>)
+<span class="k">return</span> resp</pre></figure>
+</section>
+
+<section id="errors">
+<span class="chno">Chapter 10</span>
+<h2 class="ch">Error handling</h2>
+<p>Register a handler per status code or exception type. Return a body and the status.</p>
+
+<figure class="code"><figcaption>error handlers</figcaption><pre><span class="k">@app.errorhandler</span>(<span class="s">404</span>)
+<span class="k">def</span> not_found(e):
+    <span class="k">return</span> render_template(<span class="s">"404.html"</span>), <span class="s">404</span>
+
+
+<span class="k">@app.errorhandler</span>(<span class="s">500</span>)
+<span class="k">def</span> server_error(e):
+    <span class="k">return</span> render_template(<span class="s">"500.html"</span>), <span class="s">500</span>
+
+
+<span class="k">@app.errorhandler</span>(ValueError)          <span class="c"># by exception class</span>
+<span class="k">def</span> bad_value(e):
+    <span class="k">return</span> {<span class="s">"error"</span>: <span class="k">str</span>(e)}, <span class="s">400</span></pre></figure>
+
+<h3>Raising HTTP errors on purpose</h3>
+<figure class="code"><figcaption>abort and get_or_404</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> abort
+
+post = Post.query.get(post_id)
+<span class="k">if</span> post <span class="k">is</span> <span class="k">None</span>:
+    abort(<span class="s">404</span>)
+
+<span class="c"># or, with Flask-SQLAlchemy:</span>
+post = db.get_or_404(Post, post_id)</pre></figure>
+
+<h3>Errors for an API</h3>
+<p>If a client asked for JSON, answer with JSON rather than an HTML error page.</p>
+
+<figure class="code"><figcaption>content-aware errors</figcaption><pre><span class="k">from</span> werkzeug.exceptions <span class="k">import</span> HTTPException
+
+<span class="k">@app.errorhandler</span>(HTTPException)
+<span class="k">def</span> handle_http_error(e):
+    <span class="k">if</span> request.path.startswith(<span class="s">"/api/"</span>):
+        <span class="k">return</span> {<span class="s">"error"</span>: e.name, <span class="s">"detail"</span>: e.description}, e.code
+    <span class="k">return</span> render_template(<span class="s">"error.html"</span>, error=e), e.code</pre></figure>
+</section>
+
+<section id="config">
+<span class="chno">Chapter 11</span>
+<h2 class="ch">Config and the app factory</h2>
+<p>Settings live on <code>app.config</code>, a dict with a few helpers for loading values from elsewhere.</p>
+
+<figure class="code"><figcaption>config.py</figcaption><pre><span class="k">import</span> os
+
+
+<span class="k">class</span> Config:
+    SECRET_KEY = os.environ.get(<span class="s">"SECRET_KEY"</span>, <span class="s">"dev-only-not-for-production"</span>)
+    SQLALCHEMY_DATABASE_URI = os.environ.get(<span class="s">"DATABASE_URL"</span>, <span class="s">"sqlite:///app.db"</span>)
+    MAX_CONTENT_LENGTH = <span class="s">16</span> * <span class="s">1024</span> * <span class="s">1024</span>     <span class="c"># 16 MB uploads</span>
+
+
+<span class="k">class</span> DevConfig(Config):
+    DEBUG = <span class="k">True</span>
+
+
+<span class="k">class</span> ProdConfig(Config):
+    SESSION_COOKIE_SECURE = <span class="k">True</span>
+    SESSION_COOKIE_HTTPONLY = <span class="k">True</span>
+    SESSION_COOKIE_SAMESITE = <span class="s">"Lax"</span></pre></figure>
+
+<figure class="code"><figcaption>loading config</figcaption><pre>app.config.from_object(DevConfig)
+app.config.from_prefixed_env()        <span class="c"># reads FLASK_* environment vars</span>
+app.config[<span class="s">"SECRET_KEY"</span>]</pre></figure>
+
+<h3>Keeping secrets in a .env file</h3>
+<figure class="code"><figcaption>terminal + .env</figcaption><pre>pip install python-dotenv
+
+<span class="c"># .env  (never commit this file)</span>
+SECRET_KEY=6f1c…
+DATABASE_URL=postgresql://user:pass@localhost/mydb</pre></figure>
+<p>With python-dotenv installed, the <code>flask</code> command loads <code>.env</code> automatically. Under a production server, call <code>load_dotenv()</code> yourself or set real environment variables.</p>
+
+<h3>The application factory</h3>
+<p>Instead of creating <code>app</code> at import time, create it inside a function. This lets you build one app configured for production and a different one for tests, and it removes the circular-import problems that appear once a project has more than one module.</p>
+
+<figure class="code"><figcaption>app/__init__.py</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> Flask
+<span class="k">from</span> .extensions <span class="k">import</span> db, migrate, login_manager
+
+
+<span class="k">def</span> create_app(config_object=<span class="s">"config.DevConfig"</span>):
+    app = Flask(__name__)
+    app.config.from_object(config_object)
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+
+    <span class="k">from</span> .blog <span class="k">import</span> bp <span class="k">as</span> blog_bp
+    <span class="k">from</span> .auth <span class="k">import</span> bp <span class="k">as</span> auth_bp
+    app.register_blueprint(blog_bp)
+    app.register_blueprint(auth_bp, url_prefix=<span class="s">"/auth"</span>)
+
+    <span class="k">return</span> app</pre></figure>
+
+<figure class="code"><figcaption>app/extensions.py</figcaption><pre><span class="k">from</span> flask_sqlalchemy <span class="k">import</span> SQLAlchemy
+<span class="k">from</span> flask_migrate <span class="k">import</span> Migrate
+<span class="k">from</span> flask_login <span class="k">import</span> LoginManager
+
+db = SQLAlchemy()
+migrate = Migrate()
+login_manager = LoginManager()
+login_manager.login_view = <span class="s">"auth.login"</span></pre></figure>
+
+<p>Extensions are created empty here and bound to an app inside the factory with <code>init_app</code>. Run it with <code>flask --app "app:create_app" run --debug</code>.</p>
+</section>
+
+<section id="blueprints">
+<span class="chno">Chapter 12</span>
+<h2 class="ch">Blueprints and project structure</h2>
+<p>A blueprint is a group of routes, templates and static files that gets registered onto an app. Think of it as a section of the site — auth, blog, admin — in its own module.</p>
+
+<figure class="code"><figcaption>app/blog/__init__.py</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> Blueprint, render_template
+
+bp = Blueprint(<span class="s">"blog"</span>, __name__, template_folder=<span class="s">"templates"</span>)
+
+
+<span class="k">@bp.get</span>(<span class="s">"/"</span>)
+<span class="k">def</span> index():
+    <span class="k">return</span> render_template(<span class="s">"blog/index.html"</span>)
+
+
+<span class="k">@bp.get</span>(<span class="s">"/post/&lt;int:post_id&gt;"</span>)
+<span class="k">def</span> show(post_id):
+    <span class="k">return</span> render_template(<span class="s">"blog/show.html"</span>, post_id=post_id)</pre></figure>
+
+<p>Endpoints inside a blueprint are namespaced by its name, so links use <code>url_for("blog.show", post_id=1)</code>. Inside a template belonging to the same blueprint you can shorten that to <code>url_for(".show", post_id=1)</code>.</p>
+
+<h3>A layout that scales</h3>
+<div class="tree">myapp/
+├── app/
+│   ├── __init__.py        create_app() lives here
+│   ├── extensions.py      db, migrate, login_manager
+│   ├── models.py          database tables
+│   ├── auth/
+│   │   ├── __init__.py    blueprint + routes
+│   │   └── forms.py
+│   ├── blog/
+│   │   ├── __init__.py
+│   │   └── forms.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── auth/login.html
+│   │   └── blog/index.html
+│   └── static/
+├── migrations/            created by Flask-Migrate
+├── tests/
+│   ├── conftest.py
+│   └── test_blog.py
+├── config.py
+├── requirements.txt
+├── .env                   secrets, untracked
+└── wsgi.py                app = create_app()</div>
+
+<h3>Blueprint-local hooks and errors</h3>
+<figure class="code"><figcaption>scoped to one blueprint</figcaption><pre><span class="k">@bp.before_request</span>
+<span class="k">def</span> require_login():
+    <span class="k">if</span> <span class="s">"user_id"</span> <span class="k">not in</span> session:
+        <span class="k">return</span> redirect(url_for(<span class="s">"auth.login"</span>))
+
+
+<span class="k">@bp.errorhandler</span>(<span class="s">404</span>)
+<span class="k">def</span> blog_404(e):
+    <span class="k">return</span> render_template(<span class="s">"blog/404.html"</span>), <span class="s">404</span></pre></figure>
+</section>
+
+<section id="db">
+<span class="chno">Chapter 13</span>
+<h2 class="ch">Databases with SQLAlchemy</h2>
+<p>Flask-SQLAlchemy maps Python classes to database tables. Start on SQLite, which needs no server, and switch the connection string later to move to Postgres.</p>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>pip install Flask-SQLAlchemy</pre></figure>
+
+<figure class="code"><figcaption>app/models.py</figcaption><pre><span class="k">from</span> datetime <span class="k">import</span> datetime, timezone
+<span class="k">from</span> .extensions <span class="k">import</span> db
+
+
+<span class="k">class</span> User(db.Model):
+    id = db.Column(db.Integer, primary_key=<span class="k">True</span>)
+    email = db.Column(db.String(<span class="s">120</span>), unique=<span class="k">True</span>, nullable=<span class="k">False</span>, index=<span class="k">True</span>)
+    password_hash = db.Column(db.String(<span class="s">256</span>), nullable=<span class="k">False</span>)
+    posts = db.relationship(<span class="s">"Post"</span>, back_populates=<span class="s">"author"</span>, cascade=<span class="s">"all, delete-orphan"</span>)
+
+    <span class="k">def</span> __repr__(self):
+        <span class="k">return</span> <span class="s">f"&lt;User {self.email}&gt;"</span>
+
+
+<span class="k">class</span> Post(db.Model):
+    id = db.Column(db.Integer, primary_key=<span class="k">True</span>)
+    title = db.Column(db.String(<span class="s">200</span>), nullable=<span class="k">False</span>)
+    body = db.Column(db.Text, default=<span class="s">""</span>)
+    created = db.Column(db.DateTime, default=<span class="k">lambda</span>: datetime.now(timezone.utc))
+    user_id = db.Column(db.Integer, db.ForeignKey(<span class="s">"user.id"</span>), nullable=<span class="k">False</span>)
+    author = db.relationship(<span class="s">"User"</span>, back_populates=<span class="s">"posts"</span>)</pre></figure>
+
+<h3>Creating the tables</h3>
+<figure class="code"><figcaption>first run</figcaption><pre><span class="k">with</span> app.app_context():
+    db.create_all()</pre></figure>
+<p><code>create_all()</code> only creates tables that do not exist; it will not alter an existing one. Once the schema starts changing, move to migrations (next chapter).</p>
+
+<h3>Querying</h3>
+<figure class="code"><figcaption>reads</figcaption><pre><span class="k">from</span> sqlalchemy <span class="k">import</span> select
+
+<span class="c"># modern SQLAlchemy 2.x style</span>
+posts = db.session.scalars(
+    select(Post).where(Post.title.ilike(<span class="s">"%flask%"</span>))
+                .order_by(Post.created.desc())
+                .limit(<span class="s">10</span>)
+).all()
+
+one = db.session.get(Post, <span class="s">7</span>)          <span class="c"># by primary key, or None</span>
+one = db.get_or_404(Post, <span class="s">7</span>)           <span class="c"># or raise 404</span>
+
+<span class="c"># paginate (Flask-SQLAlchemy helper)</span>
+page = db.paginate(select(Post).order_by(Post.created.desc()), per_page=<span class="s">20</span>)
+page.items, page.has_next, page.next_num</pre></figure>
+
+<figure class="code"><figcaption>writes</figcaption><pre>post = Post(title=<span class="s">"Hello"</span>, body=<span class="s">"First post"</span>, author=current_user)
+db.session.add(post)
+db.session.commit()
+
+post.title = <span class="s">"Hello, edited"</span>
+db.session.commit()
+
+db.session.delete(post)
+db.session.commit()</pre></figure>
+
+<div class="note">
+<b>Nothing is saved until you commit</b>
+<p><code>add()</code> stages an object; <code>commit()</code> writes the transaction. If something fails mid-way, call <code>db.session.rollback()</code> before using the session again.</p>
+</div>
+
+<h3>Filter reference</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Goal</th><th>Expression</th></tr></thead>
+<tbody>
+<tr><td>Equals</td><td><code>Post.title == "Hi"</code></td></tr>
+<tr><td>Case-insensitive contains</td><td><code>Post.title.ilike("%hi%")</code></td></tr>
+<tr><td>In a list</td><td><code>Post.id.in_([1, 2, 3])</code></td></tr>
+<tr><td>Null check</td><td><code>Post.body.is_(None)</code></td></tr>
+<tr><td>And / or</td><td><code>and_(a, b)</code>, <code>or_(a, b)</code></td></tr>
+<tr><td>Count</td><td><code>db.session.scalar(select(func.count()).select_from(Post))</code></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="migrate">
+<span class="chno">Chapter 14</span>
+<h2 class="ch">Migrations</h2>
+<p>A migration is a versioned script that changes the database schema. Flask-Migrate wraps Alembic and compares your models to the live database to generate them.</p>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>pip install Flask-Migrate
+
+flask db init                          <span class="c"># once, creates migrations/</span>
+flask db migrate -m "add posts table"  <span class="c"># generate a script</span>
+flask db upgrade                       <span class="c"># apply it</span>
+
+flask db downgrade                     <span class="c"># undo the last one</span>
+flask db current                       <span class="c"># which version is applied</span></pre></figure>
+
+<div class="note warn">
+<b>Always read the generated script</b>
+<p>Autogeneration misses some changes — renamed columns look like a drop plus an add, which destroys data. Open the file in <code>migrations/versions/</code> and correct it before upgrading, and take a backup before running migrations in production.</p>
+</div>
+
+<h3>Custom CLI commands</h3>
+<p>Register your own commands for seeding data and other chores.</p>
+<figure class="code"><figcaption>app/__init__.py</figcaption><pre><span class="k">import</span> click
+
+<span class="k">@app.cli.command</span>(<span class="s">"seed"</span>)
+<span class="k">def</span> seed():
+    <span class="s">"""Insert sample data."""</span>
+    db.session.add(User(email=<span class="s">"ada@example.com"</span>, password_hash=<span class="s">"…"</span>))
+    db.session.commit()
+    click.echo(<span class="s">"Seeded."</span>)
+
+<span class="c"># flask seed</span></pre></figure>
+</section>
+
+<section id="auth">
+<span class="chno">Chapter 15</span>
+<h2 class="ch">Authentication</h2>
+<p>Two parts: store passwords as hashes, and track who is logged in. Werkzeug supplies the hashing; Flask-Login supplies the session handling.</p>
+
+<figure class="code"><figcaption>hashing passwords</figcaption><pre><span class="k">from</span> werkzeug.security <span class="k">import</span> generate_password_hash, check_password_hash
+
+
+<span class="k">class</span> User(db.Model, UserMixin):
+    <span class="c"># … columns …</span>
+
+    <span class="k">def</span> set_password(self, raw):
+        self.password_hash = generate_password_hash(raw)
+
+    <span class="k">def</span> check_password(self, raw):
+        <span class="k">return</span> check_password_hash(self.password_hash, raw)</pre></figure>
+
+<p>Never store a raw password, and never email one back to a user. A hash is one-way: you can check a guess against it, but you cannot recover the original.</p>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>pip install Flask-Login</pre></figure>
+
+<figure class="code"><figcaption>app/auth/__init__.py</figcaption><pre><span class="k">from</span> flask_login <span class="k">import</span> login_user, logout_user, login_required, current_user
+<span class="k">from</span> ..extensions <span class="k">import</span> db, login_manager
+<span class="k">from</span> ..models <span class="k">import</span> User
+
+
+<span class="k">@login_manager.user_loader</span>
+<span class="k">def</span> load_user(user_id):
+    <span class="k">return</span> db.session.get(User, <span class="k">int</span>(user_id))
+
+
+<span class="k">@bp.route</span>(<span class="s">"/login"</span>, methods=[<span class="s">"GET"</span>, <span class="s">"POST"</span>])
+<span class="k">def</span> login():
+    form = LoginForm()
+    <span class="k">if</span> form.validate_on_submit():
+        user = db.session.scalar(select(User).where(User.email == form.email.data))
+        <span class="k">if</span> user <span class="k">and</span> user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            <span class="k">return</span> redirect(url_for(<span class="s">"blog.index"</span>))
+        flash(<span class="s">"Email or password is incorrect."</span>, <span class="s">"error"</span>)
+    <span class="k">return</span> render_template(<span class="s">"auth/login.html"</span>, form=form)
+
+
+<span class="k">@bp.post</span>(<span class="s">"/logout"</span>)
+<span class="k">@login_required</span>
+<span class="k">def</span> logout():
+    logout_user()
+    <span class="k">return</span> redirect(url_for(<span class="s">"blog.index"</span>))</pre></figure>
+
+<p>Give the same message for a wrong email and a wrong password, so the form cannot be used to discover which addresses are registered.</p>
+
+<h3>Protecting pages</h3>
+<figure class="code"><figcaption>in views and templates</figcaption><pre><span class="k">@bp.get</span>(<span class="s">"/dashboard"</span>)
+<span class="k">@login_required</span>
+<span class="k">def</span> dashboard():
+    <span class="k">return</span> render_template(<span class="s">"dashboard.html"</span>)</pre></figure>
+
+<figure class="code"><figcaption>templates/base.html</figcaption><pre>{% if current_user.is_authenticated %}
+  &lt;span&gt;{{ current_user.email }}&lt;/span&gt;
+  &lt;form method="post" action="{{ url_for('auth.logout') }}"&gt;&lt;button&gt;Log out&lt;/button&gt;&lt;/form&gt;
+{% else %}
+  &lt;a href="{{ url_for('auth.login') }}"&gt;Log in&lt;/a&gt;
+{% endif %}</pre></figure>
+
+<h3>Roles</h3>
+<figure class="code"><figcaption>a custom decorator</figcaption><pre><span class="k">from</span> functools <span class="k">import</span> wraps
+
+
+<span class="k">def</span> admin_required(view):
+    <span class="k">@wraps</span>(view)
+    <span class="k">@login_required</span>
+    <span class="k">def</span> wrapped(*args, **kwargs):
+        <span class="k">if</span> <span class="k">not</span> current_user.is_admin:
+            abort(<span class="s">403</span>)
+        <span class="k">return</span> view(*args, **kwargs)
+    <span class="k">return</span> wrapped</pre></figure>
+</section>
+
+<section id="api">
+<span class="chno">Chapter 16</span>
+<h2 class="ch">Building a JSON API</h2>
+<p>Return dicts and lists and Flask serialises them. Give the resource a method for turning itself into plain data.</p>
+
+<figure class="code"><figcaption>app/api.py</figcaption><pre><span class="k">from</span> flask <span class="k">import</span> Blueprint, request
+
+api = Blueprint(<span class="s">"api"</span>, __name__, url_prefix=<span class="s">"/api"</span>)
+
+
+<span class="k">def</span> serialize(post):
+    <span class="k">return</span> {
+        <span class="s">"id"</span>: post.id,
+        <span class="s">"title"</span>: post.title,
+        <span class="s">"body"</span>: post.body,
+        <span class="s">"created"</span>: post.created.isoformat(),
+    }
+
+
+<span class="k">@api.get</span>(<span class="s">"/posts"</span>)
+<span class="k">def</span> list_posts():
+    posts = db.session.scalars(select(Post).order_by(Post.created.desc())).all()
+    <span class="k">return</span> {<span class="s">"posts"</span>: [serialize(p) <span class="k">for</span> p <span class="k">in</span> posts]}
+
+
+<span class="k">@api.get</span>(<span class="s">"/posts/&lt;int:post_id&gt;"</span>)
+<span class="k">def</span> get_post(post_id):
+    <span class="k">return</span> serialize(db.get_or_404(Post, post_id))
+
+
+<span class="k">@api.post</span>(<span class="s">"/posts"</span>)
+<span class="k">def</span> create_post():
+    data = request.get_json(silent=<span class="k">True</span>) <span class="k">or</span> {}
+    title = (data.get(<span class="s">"title"</span>) <span class="k">or</span> <span class="s">""</span>).strip()
+    <span class="k">if</span> <span class="k">not</span> title:
+        <span class="k">return</span> {<span class="s">"error"</span>: <span class="s">"title is required"</span>}, <span class="s">400</span>
+
+    post = Post(title=title, body=data.get(<span class="s">"body"</span>, <span class="s">""</span>), user_id=<span class="s">1</span>)
+    db.session.add(post)
+    db.session.commit()
+    <span class="k">return</span> serialize(post), <span class="s">201</span>, {<span class="s">"Location"</span>: url_for(<span class="s">"api.get_post"</span>, post_id=post.id)}
+
+
+<span class="k">@api.delete</span>(<span class="s">"/posts/&lt;int:post_id&gt;"</span>)
+<span class="k">def</span> delete_post(post_id):
+    post = db.get_or_404(Post, post_id)
+    db.session.delete(post)
+    db.session.commit()
+    <span class="k">return</span> <span class="s">""</span>, <span class="s">204</span></pre></figure>
+
+<h3>Status codes worth knowing</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Code</th><th>Use it when</th></tr></thead>
+<tbody>
+<tr><td>200</td><td>the request succeeded and there is a body</td></tr>
+<tr><td>201</td><td>a resource was created; add a <code>Location</code> header</td></tr>
+<tr><td>204</td><td>it worked and there is nothing to return</td></tr>
+<tr><td>400</td><td>the body or parameters are malformed</td></tr>
+<tr><td>401 / 403</td><td>not authenticated / authenticated but not allowed</td></tr>
+<tr><td>404</td><td>no such resource</td></tr>
+<tr><td>422</td><td>well-formed but fails validation</td></tr>
+<tr><td>429</td><td>rate limited</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Calling it from a browser on another origin</h3>
+<figure class="code"><figcaption>CORS</figcaption><pre>pip install Flask-Cors
+
+<span class="k">from</span> flask_cors <span class="k">import</span> CORS
+CORS(app, resources={<span class="s">r"/api/*"</span>: {<span class="s">"origins"</span>: [<span class="s">"https://myfrontend.com"</span>]}})</pre></figure>
+<p>List the origins you actually serve. <code>origins="*"</code> is fine for a public read-only API and wrong for anything that carries credentials.</p>
+</section>
+
+<section id="uploads">
+<span class="chno">Chapter 17</span>
+<h2 class="ch">File uploads</h2>
+<p>The form needs <code>enctype="multipart/form-data"</code>; the file arrives in <code>request.files</code>.</p>
+
+<figure class="code"><figcaption>upload view</figcaption><pre><span class="k">import</span> os, uuid
+<span class="k">from</span> werkzeug.utils <span class="k">import</span> secure_filename
+
+ALLOWED = {<span class="s">"png"</span>, <span class="s">"jpg"</span>, <span class="s">"jpeg"</span>, <span class="s">"gif"</span>, <span class="s">"pdf"</span>}
+app.config[<span class="s">"UPLOAD_FOLDER"</span>] = <span class="s">"uploads"</span>
+app.config[<span class="s">"MAX_CONTENT_LENGTH"</span>] = <span class="s">16</span> * <span class="s">1024</span> * <span class="s">1024</span>
+
+
+<span class="k">@app.post</span>(<span class="s">"/upload"</span>)
+<span class="k">def</span> upload():
+    file = request.files.get(<span class="s">"file"</span>)
+    <span class="k">if</span> <span class="k">not</span> file <span class="k">or</span> file.filename == <span class="s">""</span>:
+        flash(<span class="s">"Choose a file first."</span>, <span class="s">"error"</span>)
+        <span class="k">return</span> redirect(request.url)
+
+    ext = file.filename.rsplit(<span class="s">"."</span>, <span class="s">1</span>)[-<span class="s">1</span>].lower()
+    <span class="k">if</span> ext <span class="k">not in</span> ALLOWED:
+        flash(<span class="s">"That file type is not accepted."</span>, <span class="s">"error"</span>)
+        <span class="k">return</span> redirect(request.url)
+
+    name = <span class="s">f"{uuid.uuid4().hex}.{ext}"</span>          <span class="c"># avoid collisions</span>
+    file.save(os.path.join(app.config[<span class="s">"UPLOAD_FOLDER"</span>], secure_filename(name)))
+    flash(<span class="s">"Uploaded."</span>, <span class="s">"success"</span>)
+    <span class="k">return</span> redirect(url_for(<span class="s">"home"</span>))</pre></figure>
+
+<figure class="code"><figcaption>serving them back</figcaption><pre><span class="k">@app.get</span>(<span class="s">"/uploads/&lt;name&gt;"</span>)
+<span class="k">def</span> uploaded_file(name):
+    <span class="k">return</span> send_from_directory(app.config[<span class="s">"UPLOAD_FOLDER"</span>], name)</pre></figure>
+
+<div class="note warn">
+<b>Uploads are user input too</b>
+<p>Store files outside the folder your web server executes from, never trust the client's filename or content type, and set <code>MAX_CONTENT_LENGTH</code> so a large upload cannot exhaust memory. On most hosts the local disk is temporary — use object storage for anything that must survive a restart.</p>
+</div>
+</section>
+
+<section id="hooks">
+<span class="chno">Chapter 18</span>
+<h2 class="ch">Hooks, g and the application context</h2>
+<p>Hooks run around every request in the app or blueprint they are registered on.</p>
+
+<figure class="code"><figcaption>request hooks</figcaption><pre><span class="k">import</span> time
+<span class="k">from</span> flask <span class="k">import</span> g
+
+
+<span class="k">@app.before_request</span>
+<span class="k">def</span> start_timer():
+    g.start = time.perf_counter()
+
+
+<span class="k">@app.after_request</span>                     <span class="c"># skipped if an exception escaped</span>
+<span class="k">def</span> add_headers(response):
+    response.headers[<span class="s">"X-Runtime"</span>] = <span class="s">f"{time.perf_counter() - g.start:.3f}s"</span>
+    response.headers[<span class="s">"X-Content-Type-Options"</span>] = <span class="s">"nosniff"</span>
+    <span class="k">return</span> response                    <span class="c"># must return it</span>
+
+
+<span class="k">@app.teardown_request</span>                  <span class="c"># always runs</span>
+<span class="k">def</span> cleanup(exception):
+    <span class="k">pass</span></pre></figure>
+
+<p><code>g</code> is a scratchpad that lives for exactly one request — a good place to cache the current user or an open connection, and a bad place for anything that should outlive the response.</p>
+
+<h3>The two contexts</h3>
+<p>Flask pushes an <em>application context</em> (which powers <code>current_app</code> and <code>g</code>) and a <em>request context</em> (which powers <code>request</code> and <code>session</code>). Inside a view both exist. Outside one — in a script, a shell, a background job — you have to push one yourself, which is the cause of the familiar "working outside of application context" error.</p>
+
+<figure class="code"><figcaption>outside a request</figcaption><pre>app = create_app()
+
+<span class="k">with</span> app.app_context():
+    db.create_all()
+    print(current_app.config[<span class="s">"SECRET_KEY"</span>])</pre></figure>
+
+<figure class="code"><figcaption>a shell with everything imported</figcaption><pre><span class="k">@app.shell_context_processor</span>
+<span class="k">def</span> shell_objects():
+    <span class="k">return</span> {<span class="s">"db"</span>: db, <span class="s">"User"</span>: User, <span class="s">"Post"</span>: Post}
+
+<span class="c"># flask shell</span></pre></figure>
+</section>
+
+<section id="logging">
+<span class="chno">Chapter 19</span>
+<h2 class="ch">Logging and debugging</h2>
+<p>Every app has a logger. Use it instead of <code>print</code>, because it carries levels, timestamps and goes wherever your host collects output.</p>
+
+<figure class="code"><figcaption>logging</figcaption><pre>app.logger.debug(<span class="s">"query took %s ms"</span>, ms)
+app.logger.info(<span class="s">"user %s logged in"</span>, user.id)
+app.logger.warning(<span class="s">"payment retry %s"</span>, attempt)
+app.logger.error(<span class="s">"checkout failed"</span>, exc_info=<span class="k">True</span>)   <span class="c"># includes traceback</span></pre></figure>
+
+<figure class="code"><figcaption>a rotating file log in production</figcaption><pre><span class="k">import</span> logging
+<span class="k">from</span> logging.handlers <span class="k">import</span> RotatingFileHandler
+
+<span class="k">if</span> <span class="k">not</span> app.debug:
+    handler = RotatingFileHandler(<span class="s">"logs/app.log"</span>, maxBytes=<span class="s">1_000_000</span>, backupCount=<span class="s">5</span>)
+    handler.setFormatter(logging.Formatter(
+        <span class="s">"%(asctime)s %(levelname)s %(message)s [in %(pathname)s:%(lineno)d]"</span>))
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+    app.logger.setLevel(logging.INFO)</pre></figure>
+
+<h3>Errors you will meet early</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Message</th><th>Cause</th></tr></thead>
+<tbody>
+<tr><td>Working outside of application context</td><td>Using <code>db</code>, <code>current_app</code> or <code>g</code> outside a request — wrap it in <code>with app.app_context():</code></td></tr>
+<tr><td>Could not build url for endpoint</td><td>Wrong endpoint name in <code>url_for</code>; with blueprints it needs the <code>blueprint.view</code> form</td></tr>
+<tr><td>TemplateNotFound</td><td>The file is not in <code>templates/</code>, or the path in <code>render_template</code> is misspelled</td></tr>
+<tr><td>The session is unavailable because no secret key was set</td><td><code>SECRET_KEY</code> is missing</td></tr>
+<tr><td>Method Not Allowed (405)</td><td>The route does not list that method</td></tr>
+<tr><td>Address already in use</td><td>An old server is still running; stop it or use <code>--port 5001</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><code>flask routes</code> prints every registered rule with its endpoint and methods — the fastest way to diagnose a 404 or a bad <code>url_for</code>.</p>
+</section>
+
+<section id="testing">
+<span class="chno">Chapter 20</span>
+<h2 class="ch">Testing</h2>
+<p>Flask's test client makes requests without a running server. With an app factory, each test gets a fresh app pointed at a throwaway database.</p>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>pip install pytest</pre></figure>
+
+<figure class="code"><figcaption>tests/conftest.py</figcaption><pre><span class="k">import</span> pytest
+<span class="k">from</span> app <span class="k">import</span> create_app
+<span class="k">from</span> app.extensions <span class="k">import</span> db <span class="k">as</span> _db
+
+
+<span class="k">@pytest.fixture</span>
+<span class="k">def</span> app():
+    app = create_app(<span class="s">"config.Config"</span>)
+    app.config.update(TESTING=<span class="k">True</span>,
+                      SQLALCHEMY_DATABASE_URI=<span class="s">"sqlite:///:memory:"</span>,
+                      WTF_CSRF_ENABLED=<span class="k">False</span>)
+    <span class="k">with</span> app.app_context():
+        _db.create_all()
+        <span class="k">yield</span> app
+        _db.session.remove()
+        _db.drop_all()
+
+
+<span class="k">@pytest.fixture</span>
+<span class="k">def</span> client(app):
+    <span class="k">return</span> app.test_client()
+
+
+<span class="k">@pytest.fixture</span>
+<span class="k">def</span> runner(app):
+    <span class="k">return</span> app.test_cli_runner()</pre></figure>
+
+<figure class="code"><figcaption>tests/test_blog.py</figcaption><pre><span class="k">def</span> test_home_page(client):
+    r = client.get(<span class="s">"/"</span>)
+    <span class="k">assert</span> r.status_code == <span class="s">200</span>
+    <span class="k">assert</span> <span class="s">b"Posts"</span> <span class="k">in</span> r.data
+
+
+<span class="k">def</span> test_create_post_api(client):
+    r = client.post(<span class="s">"/api/posts"</span>, json={<span class="s">"title"</span>: <span class="s">"Hi"</span>})
+    <span class="k">assert</span> r.status_code == <span class="s">201</span>
+    <span class="k">assert</span> r.get_json()[<span class="s">"title"</span>] == <span class="s">"Hi"</span>
+
+
+<span class="k">def</span> test_missing_title_is_rejected(client):
+    <span class="k">assert</span> client.post(<span class="s">"/api/posts"</span>, json={}).status_code == <span class="s">400</span>
+
+
+<span class="k">def</span> test_login_redirects(client):
+    r = client.post(<span class="s">"/auth/login"</span>,
+                    data={<span class="s">"email"</span>: <span class="s">"ada@example.com"</span>, <span class="s">"password"</span>: <span class="s">"secret123"</span>},
+                    follow_redirects=<span class="k">True</span>)
+    <span class="k">assert</span> <span class="s">b"ada@example.com"</span> <span class="k">in</span> r.data</pre></figure>
+
+<p>Run everything with <code>pytest -q</code>. To inspect the session inside a test, use <code>with client.session_transaction() as sess:</code>.</p>
+</section>
+
+<section id="deploy">
+<span class="chno">Chapter 21</span>
+<h2 class="ch">Deployment</h2>
+<p>The development server handles one thing at a time and is not hardened. In production, a WSGI server runs your app and a reverse proxy sits in front of it terminating TLS and serving static files.</p>
+
+<figure class="code"><figcaption>wsgi.py</figcaption><pre><span class="k">from</span> app <span class="k">import</span> create_app
+
+app = create_app(<span class="s">"config.ProdConfig"</span>)</pre></figure>
+
+<figure class="code"><figcaption>terminal</figcaption><pre>pip install gunicorn
+
+gunicorn --workers 4 --bind 0.0.0.0:8000 wsgi:app</pre></figure>
+
+<p>A reasonable worker count is <code>(2 &times; CPU cores) + 1</code>. On Windows, use <code>waitress-serve --port=8000 wsgi:app</code> instead.</p>
+
+<h3>Behind a proxy</h3>
+<p>Nginx or your platform's load balancer forwards the original scheme and client IP in headers. Tell Flask to trust them, or <code>url_for(_external=True)</code> will generate <code>http://</code> links and <code>request.remote_addr</code> will be the proxy.</p>
+
+<figure class="code"><figcaption>wsgi.py</figcaption><pre><span class="k">from</span> werkzeug.middleware.proxy_fix <span class="k">import</span> ProxyFix
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=<span class="s">1</span>, x_proto=<span class="s">1</span>, x_host=<span class="s">1</span>)</pre></figure>
+
+<h3>Docker</h3>
+<figure class="code"><figcaption>Dockerfile</figcaption><pre>FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+EXPOSE 8000
+CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:8000", "wsgi:app"]</pre></figure>
+
+<h3>Before you go live</h3>
+<ul>
+  <li><code>SECRET_KEY</code> comes from the environment and is long and random.</li>
+  <li><code>DEBUG</code> is off. The interactive debugger must never be reachable from the internet.</li>
+  <li>Session cookies are <code>Secure</code>, <code>HttpOnly</code> and <code>SameSite=Lax</code>; the whole site is on HTTPS.</li>
+  <li>Migrations have been applied, and you have a tested database backup.</li>
+  <li>Static files are served by the proxy or a CDN, not by Python.</li>
+  <li><code>MAX_CONTENT_LENGTH</code> is set; uploads go to object storage.</li>
+  <li>Logs go somewhere you will actually read, and unhandled errors reach an error tracker.</li>
+  <li>Login, signup and password reset are rate limited (Flask-Limiter).</li>
+  <li>Dependencies are pinned in <code>requirements.txt</code>.</li>
+</ul>
+
+<h3>Where to go next</h3>
+<p>Useful extensions once the basics are in place: <strong>Flask-Limiter</strong> for rate limiting, <strong>Flask-Mail</strong> for outbound email, <strong>Flask-Caching</strong> for page and query caching, <strong>Celery</strong> or <strong>RQ</strong> for background jobs, and <strong>Flask-Admin</strong> for a quick CRUD interface over your models.</p>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <div class="fin">
+    <p>Reference material worth bookmarking:</p>
+    <p>
+      <a href="https://flask.palletsprojects.com/">Flask documentation</a>
+      <a href="https://jinja.palletsprojects.com/">Jinja</a>
+      <a href="https://flask-sqlalchemy.readthedocs.io/">Flask-SQLAlchemy</a>
+      <a href="https://werkzeug.palletsprojects.com/">Werkzeug</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('figure.code').forEach(function (fig) {
+  var cap = fig.querySelector('figcaption');
+  if (!cap) return;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = 'Copy';
+  btn.addEventListener('click', function () {
+    var text = fig.querySelector('pre').innerText;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+    }, function () { btn.textContent = 'Press Ctrl+C'; });
+  });
+  cap.appendChild(btn);
+});
+
+var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+var byId = {};
+links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+
+if ('IntersectionObserver' in window) {
+  var visible = new Set();
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { visible.add(e.target.id); } else { visible.delete(e.target.id); }
+    });
+    var order = Object.keys(byId);
+    var first = order.find(function (id) { return visible.has(id); });
+    links.forEach(function (a) { a.classList.remove('on'); });
+    if (first && byId[first]) { byId[first].classList.add('on'); }
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+  document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+}
+</script>
+</body>
+</html>

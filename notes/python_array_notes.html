@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NumPy Arrays in Python - Master Notes | By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(9, 9, 11);
+            --bg-secondary: rgb(24, 24, 27);
+            --bg-tertiary: rgb(39, 39, 42);
+            --text-primary: rgb(244, 244, 245);
+            --text-secondary: rgb(161, 161, 170);
+            --accent-blue: rgb(59, 130, 246);
+            --accent-green: rgb(16, 185, 129);
+            --accent-purple: rgb(168, 85, 247);
+            --accent-amber: rgb(245, 158, 11);
+            --accent-rose: rgb(244, 63, 94);
+            --border-color: rgb(63, 63, 70);
+            --code-bg: rgb(18, 18, 20);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar TOC */
+        .sidebar {
+            width: 310px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 15px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-header .author-tag {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 4px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 7px 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toc-link:hover, .toc-link.active {
+            background-color: var(--bg-tertiary);
+            color: var(--accent-blue);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 310px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, rgb(30, 41, 59), rgb(15, 23, 42));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-banner h1 {
+            font-size: 2.2rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 10px;
+        }
+
+        .header-banner p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background-color: var(--accent-blue);
+            color: rgb(255, 255, 255);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .definition-box {
+            background-color: rgba(59, 130, 246, 0.08);
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px 18px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: rgb(228, 228, 231);
+        }
+
+        .important-box {
+            background-color: rgba(245, 158, 11, 0.08);
+            border-left: 4px solid var(--accent-amber);
+            padding: 15px 18px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 0.92rem;
+            color: rgb(253, 230, 138);
+        }
+
+        /* Code Container & Syntax */
+        .code-container {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 15px 0 20px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgb(24, 24, 27);
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+
+        .copy-btn {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 3px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-blue);
+            color: rgb(255, 255, 255);
+        }
+
+        pre {
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: rgb(224, 242, 254);
+            line-height: 1.5;
+        }
+
+        .code-comment {
+            color: rgb(113, 113, 122);
+            font-style: italic;
+        }
+
+        .code-keyword {
+            color: rgb(244, 63, 94);
+            font-weight: bold;
+        }
+
+        .code-func {
+            color: rgb(59, 130, 246);
+        }
+
+        .code-string {
+            color: rgb(16, 185, 129);
+        }
+
+        .code-num {
+            color: rgb(245, 158, 11);
+        }
+
+        .output-box {
+            background-color: rgb(9, 9, 11);
+            border: 1px solid rgb(39, 39, 42);
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: rgb(52, 211, 153);
+        }
+
+        .output-title {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        /* Visual Diagrams */
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .diagram-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .diagram-card h4 {
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .array-visual {
+            display: inline-flex;
+            gap: 4px;
+            margin: 10px 0;
+        }
+
+        .array-cell {
+            width: 36px;
+            height: 36px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border-radius: 4px;
+        }
+
+        .matrix-visual {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 4px;
+            margin: 10px 0;
+        }
+
+        .matrix-row {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* Summary Table */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .summary-table th, .summary-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+        .summary-table th {
+            background-color: var(--bg-tertiary);
+            color: var(--accent-blue);
+        }
+
+        .summary-table tr:nth-child(even) {
+            background-color: rgba(24, 24, 27, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-green);
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toast" id="toast">Copied to Clipboard!</div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🔢 NumPy Master Notes</h2>
+            <div class="author-tag">Created by Gagan Sir</div>
+        </div>
+
+        <input type="text" class="search-box" id="searchInput" placeholder="Search topics..." onkeyup="filterTopics()">
+
+        <ul class="toc-list" id="tocList">
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec1')">1. What is NumPy?</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec2')">2. Creating an Array</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec3')">3. 1D Array</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec4')">4. 2D Array</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec5')">5. 3D Array</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec6')">6. Array Properties</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec7')">7. Array Indexing</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec8')">8. Array Slicing</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec9')">9. Reshape</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec10')">10. Flatten</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec11')">11. Ravel</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec12')">12. Array Operations</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec13')">13. Comparison Operations</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec14')">14. Axis Concept</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec15')">15. Mathematical Functions</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec16')">16. Boolean Indexing</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec17')">17. np.where()</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec18')">18. Combining Arrays</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec19')">19. Sorting</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec20')">20. Unique Values</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec21')">21. Broadcasting</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec22')">22. Copy</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec23')">23. View</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec24')">24. Random Arrays</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec25')">25. NumPy + Pandas</a></li>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec26')">26. Quick Revision</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Banner -->
+        <div class="header-banner">
+            <h1>NUMPY ARRAYS IN PYTHON</h1>
+            <p>Comprehensive Master Notes &amp; Visual Guide for Numerical Python</p>
+            <div class="badge-gagan">Created by Gagan Sir &bull; Master Edition</div>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="section-card" id="sec1">
+            <div class="section-title">
+                <span class="section-number">1</span>
+                What is NumPy?
+            </div>
+            <div class="definition-box">
+                <strong>NumPy (Numerical Python)</strong> is a fundamental Python library used for scientific computing, numerical calculations, and working with multi-dimensional arrays.
+                NumPy arrays are significantly faster, memory-efficient, and optimized compared to standard Python lists.
+            </div>
+            
+            <div class="diagram-grid">
+                <div class="diagram-card">
+                    <h4>Python List</h4>
+                    <p style="font-size:0.85rem; color:var(--text-secondary)">Stores pointers to objects scattered in memory. Slower execution.</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>NumPy ndarray</h4>
+                    <p style="font-size:0.85rem; color:var(--accent-green)">Continuous contiguous memory blocks (C-style). Ultra-fast SIMD operations.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; VERSION CHECK</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment">/* Check installed NumPy version */</span>
+<span class="code-func">print</span>(<span class="code-string">"NumPy Version:"</span>, np.__version__)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                NumPy Version: 1.26.4
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section-card" id="sec2">
+            <div class="section-title">
+                <span class="section-number">2</span>
+                Creating an Array
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>np.array()</code> function is used to create a NumPy array from a Python list or tuple.
+            </div>
+            <div class="important-box">
+                <strong>Important Note:</strong> NumPy arrays hold homogeneous data (elements of the same data type). If you pass mixed data types (like numbers and strings), NumPy automatically upcasts/type-casts everything to a common string type!
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; ARRAY CREATION</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment">/* Mixed data type causes string upcasting */</span>
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-string">"gagan"</span>])
+
+<span class="code-func">print</span>(<span class="code-string">"Array:"</span>)
+<span class="code-func">print</span>(arr)
+<span class="code-func">print</span>(<span class="code-string">"Data Type:"</span>, arr.dtype)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Array:<br>
+                ['10' '20' '30' '40' '50' 'gagan']<br>
+                Data Type: &lt;U11
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section-card" id="sec3">
+            <div class="section-title">
+                <span class="section-number">3</span>
+                1D Array (One-Dimensional)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> A 1D array contains elements arranged in a single linear line. It has only 1 axis (Axis 0).
+            </div>
+
+            <div class="diagram-card" style="margin-bottom:15px;">
+                <h4>Visual 1D Array Structure</h4>
+                <div class="array-visual">
+                    <div class="array-cell">10</div>
+                    <div class="array-cell">20</div>
+                    <div class="array-cell">30</div>
+                    <div class="array-cell">40</div>
+                    <div class="array-cell">50</div>
+                </div>
+                <p style="font-size:0.8rem; color:var(--text-secondary)">Index: [0] [1] [2] [3] [4]</p>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; 1D ARRAY</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr_1d = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>])
+<span class="code-func">print</span>(<span class="code-string">"1D Array:"</span>)
+<span class="code-func">print</span>(arr_1d)
+
+<span class="code-func">print</span>(<span class="code-string">"Dimension (ndim):"</span>, arr_1d.ndim)
+<span class="code-func">print</span>(<span class="code-string">"Shape:"</span>, arr_1d.shape)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                1D Array:<br>
+                [10 20 30 40 50]<br>
+                Dimension (ndim): 1<br>
+                Shape: (5,)
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section-card" id="sec4">
+            <div class="section-title">
+                <span class="section-number">4</span>
+                2D Array (Two-Dimensional)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> A 2D array contains data organized in rows and columns (like a table, matrix, or spreadsheet).
+            </div>
+
+            <div class="diagram-card" style="margin-bottom:15px;">
+                <h4>Visual 2D Matrix Structure (2 Rows x 3 Columns)</h4>
+                <div class="matrix-visual">
+                    <div class="matrix-row">
+                        <div class="array-cell">10</div>
+                        <div class="array-cell">20</div>
+                        <div class="array-cell">30</div>
+                    </div>
+                    <div class="matrix-row">
+                        <div class="array-cell">40</div>
+                        <div class="array-cell">50</div>
+                        <div class="array-cell">60</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; 2D ARRAY</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr_2d = np.array([
+    [<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>],
+    [<span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-num">60</span>]
+])
+
+<span class="code-func">print</span>(<span class="code-string">"2D Array:"</span>)
+<span class="code-func">print</span>(arr_2d)
+
+<span class="code-func">print</span>(<span class="code-string">"Dimension:"</span>, arr_2d.ndim)
+<span class="code-func">print</span>(<span class="code-string">"Shape (Rows, Cols):"</span>, arr_2d.shape)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                2D Array:<br>
+                [[10 20 30]<br>
+                 [40 50 60]]<br>
+                Dimension: 2<br>
+                Shape (Rows, Cols): (2, 3)
+            </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section-card" id="sec5">
+            <div class="section-title">
+                <span class="section-number">5</span>
+                3D Array (Three-Dimensional)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> A 3D array consists of multiple 2D arrays (layers / matrices).
+                <br>Structure formula: <code>Layers x Rows x Columns</code>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; 3D ARRAY</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr_3d = np.array([
+    [
+        [<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>],
+        [<span class="code-num">4</span>, <span class="code-num">5</span>, <span class="code-num">6</span>]
+    ],
+    [
+        [<span class="code-num">7</span>, <span class="code-num">8</span>, <span class="code-num">9</span>],
+        [<span class="code-num">10</span>, <span class="code-num">11</span>, <span class="code-num">12</span>]
+    ]
+])
+
+<span class="code-func">print</span>(<span class="code-string">"3D Array:"</span>)
+<span class="code-func">print</span>(arr_3d)
+
+<span class="code-func">print</span>(<span class="code-string">"Dimension:"</span>, arr_3d.ndim)
+<span class="code-func">print</span>(<span class="code-string">"Shape (Layers, Rows, Cols):"</span>, arr_3d.shape)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                3D Array:<br>
+                [[[ 1  2  3]<br>
+                  [ 4  5  6]]<br><br>
+                 [[ 7  8  9]<br>
+                  [10 11 12]]]<br>
+                Dimension: 3<br>
+                Shape (Layers, Rows, Cols): (2, 2, 3)
+            </div>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="section-card" id="sec6">
+            <div class="section-title">
+                <span class="section-number">6</span>
+                Array Properties
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> NumPy attributes provide meta-information about the structure, memory, and data format of an array.
+            </div>
+            <ul style="margin-left:20px; color:var(--text-secondary); margin-bottom:15px;">
+                <li><code>ndim</code>: Number of dimensions (axes).</li>
+                <li><code>shape</code>: Tuple representing the dimensions of array (e.g. (2, 3)).</li>
+                <li><code>size</code>: Total number of elements in the array.</li>
+                <li><code>dtype</code>: Data type of elements (int64, float64, etc.).</li>
+            </ul>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; ARRAY ATTRIBUTES</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([
+    [<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>],
+    [<span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-num">60</span>]
+])
+
+<span class="code-func">print</span>(<span class="code-string">"ndim:"</span>, arr.ndim)
+<span class="code-func">print</span>(<span class="code-string">"shape:"</span>, arr.shape)
+<span class="code-func">print</span>(<span class="code-string">"size:"</span>, arr.size)
+<span class="code-func">print</span>(<span class="code-string">"dtype:"</span>, arr.dtype)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                ndim: 2<br>
+                shape: (2, 3)<br>
+                size: 6<br>
+                dtype: int32 (or int64 depending on OS)
+            </div>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="section-card" id="sec7">
+            <div class="section-title">
+                <span class="section-number">7</span>
+                Array Indexing (1D &amp; 2D)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Indexing is used to access a specific element from an array using zero-based indices.
+                <br>Syntax for 2D: <code>array[row_index, column_index]</code>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; INDEXING EXAMPLES</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment">/* 1D Indexing */</span>
+arr_1d = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">60</span>])
+<span class="code-func">print</span>(<span class="code-string">"First element:"</span>, arr_1d[<span class="code-num">0</span>])
+<span class="code-func">print</span>(<span class="code-string">"Last element (Negative):"</span>, arr_1d[-<span class="code-num">1</span>])
+
+<span class="code-comment">/* 2D Indexing */</span>
+arr_2d = np.array([
+    [<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>],
+    [<span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-num">60</span>]
+])
+
+<span class="code-func">print</span>(<span class="code-string">"Row 0, Col 0:"</span>, arr_2d[<span class="code-num">0</span>, <span class="code-num">0</span>])
+<span class="code-func">print</span>(<span class="code-string">"Row 1, Col 2:"</span>, arr_2d[<span class="code-num">1</span>, <span class="code-num">2</span>])</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                First element: 10<br>
+                Last element (Negative): 60<br>
+                Row 0, Col 0: 10<br>
+                Row 1, Col 2: 60
+            </div>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="section-card" id="sec8">
+            <div class="section-title">
+                <span class="section-number">8</span>
+                Array Slicing (1D &amp; 2D)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Slicing extracts a range of elements from an array.
+                <br>Syntax: <code>array[start : stop : step]</code>
+                <br>2D Syntax: <code>array[row_start:row_stop, col_start:col_stop]</code>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; SLICING DEMO</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>])
+<span class="code-func">print</span>(<span class="code-string">"Step Slicing (every 2nd):"</span>, arr[<span class="code-num">0</span>:<span class="code-num">5</span>:<span class="code-num">2</span>])
+<span class="code-func">print</span>(<span class="code-string">"Reversed Array:"</span>, arr[::-<span class="code-num">1</span>])
+
+<span class="code-comment">/* 2D Matrix Slicing */</span>
+arr_2d = np.array([
+    [<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>],
+    [<span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-num">60</span>],
+    [<span class="code-num">70</span>, <span class="code-num">80</span>, <span class="code-num">90</span>]
+])
+
+<span class="code-comment">/* Extract submatrix: Rows 0 to 1, Cols 1 to 2 */</span>
+<span class="code-func">print</span>(<span class="code-string">"2D Sliced Submatrix:"</span>)
+<span class="code-func">print</span>(arr_2d[<span class="code-num">0</span>:<span class="code-num">2</span>, <span class="code-num">1</span>:<span class="code-num">3</span>])</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Step Slicing (every 2nd): [10 30 50]<br>
+                Reversed Array: [50 40 30 20 10]<br>
+                2D Sliced Submatrix:<br>
+                [[20 30]<br>
+                 [50 60]]
+            </div>
+        </div>
+
+        <!-- Section 9 -->
+        <div class="section-card" id="sec9">
+            <div class="section-title">
+                <span class="section-number">9</span>
+                Reshape
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>reshape()</code> changes the shape (dimensions) of an array without modifying its data.
+                <br><em>Constraint:</em> The total number of elements must remain identical before and after reshaping!
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; RESHAPE</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>, <span class="code-num">4</span>, <span class="code-num">5</span>, <span class="code-num">6</span>])
+new_arr = arr.reshape(<span class="code-num">2</span>, <span class="code-num">3</span>)
+
+<span class="code-func">print</span>(<span class="code-string">"Original 1D:"</span>, arr)
+<span class="code-func">print</span>(<span class="code-string">"Reshaped 2D (2x3):"</span>)
+<span class="code-func">print</span>(new_arr)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Original 1D: [1 2 3 4 5 6]<br>
+                Reshaped 2D (2x3):<br>
+                [[1 2 3]<br>
+                 [4 5 6]]
+            </div>
+        </div>
+
+        <!-- Section 10 -->
+        <div class="section-card" id="sec10">
+            <div class="section-title">
+                <span class="section-number">10</span>
+                Flatten
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>flatten()</code> converts a multi-dimensional array into a 1-dimensional array.
+                <br><code>flatten()</code> always returns a <strong>copy</strong> (occupies new memory).
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; FLATTEN</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([
+    [<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>],
+    [<span class="code-num">4</span>, <span class="code-num">5</span>, <span class="code-num">6</span>]
+])
+
+flat_arr = arr.flatten()
+<span class="code-func">print</span>(<span class="code-string">"Flattened 1D Array:"</span>, flat_arr)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Flattened 1D Array: [1 2 3 4 5 6]
+            </div>
+        </div>
+
+        <!-- Section 11 -->
+        <div class="section-card" id="sec11">
+            <div class="section-title">
+                <span class="section-number">11</span>
+                Ravel (ravel vs flatten)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>ravel()</code> converts a multi-dimensional array into a 1D array.
+                <br><strong>Key Difference:</strong> <code>flatten()</code> returns a <em>copy</em> (separate memory), whereas <code>ravel()</code> returns a <em>view</em> (shares same memory) whenever possible!
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; RAVEL DEMO</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([
+    [<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>],
+    [<span class="code-num">4</span>, <span class="code-num">5</span>, <span class="code-num">6</span>]
+])
+
+ravel_arr = arr.ravel()
+<span class="code-func">print</span>(<span class="code-string">"Ravel 1D Array:"</span>, ravel_arr)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Ravel 1D Array: [1 2 3 4 5 6]
+            </div>
+        </div>
+
+        <!-- Section 12 -->
+        <div class="section-card" id="sec12">
+            <div class="section-title">
+                <span class="section-number">12</span>
+                Array Operations (Vectorized &amp; Scalar)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> NumPy performs element-wise operations directly on arrays without requiring explicit <code>for</code> loops.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; ELEMENT-WISE &amp; SCALAR MATH</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+a = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>])
+b = np.array([<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>])
+
+<span class="code-func">print</span>(<span class="code-string">"Addition (a + b):"</span>, a + b)
+<span class="code-func">print</span>(<span class="code-string">"Subtraction (a - b):"</span>, a - b)
+<span class="code-func">print</span>(<span class="code-string">"Multiplication (a * b):"</span>, a * b)
+<span class="code-func">print</span>(<span class="code-string">"Division (a / b):"</span>, a / b)
+<span class="code-func">print</span>(<span class="code-string">"Power (a ** 2):"</span>, a ** <span class="code-num">2</span>)
+
+<span class="code-comment">/* Scalar Operations */</span>
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>])
+<span class="code-func">print</span>(<span class="code-string">"Scalar Multiply (arr * 2):"</span>, arr * <span class="code-num">2</span>)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Addition (a + b): [11 22 33]<br>
+                Subtraction (a - b): [9 18 27]<br>
+                Multiplication (a * b): [10 40 90]<br>
+                Division (a / b): [10. 10. 10.]<br>
+                Power (a ** 2): [100 400 900]<br>
+                Scalar Multiply (arr * 2): [20 40 60]
+            </div>
+        </div>
+
+        <!-- Section 13 -->
+        <div class="section-card" id="sec13">
+            <div class="section-title">
+                <span class="section-number">13</span>
+                Comparison Operations
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Compares every element in the array against a condition and returns a Boolean array of <code>True</code> / <code>False</code> values.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; COMPARISON</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>])
+
+<span class="code-func">print</span>(<span class="code-string">"arr &gt; 25:"</span>, arr &gt; <span class="code-num">25</span>)
+<span class="code-func">print</span>(<span class="code-string">"arr == 30:"</span>, arr == <span class="code-num">30</span>)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                arr &gt; 25: [False False  True  True  True]<br>
+                arr == 30: [False False  True False False]
+            </div>
+        </div>
+
+        <!-- Section 14 -->
+        <div class="section-card" id="sec14">
+            <div class="section-title">
+                <span class="section-number">14</span>
+                Axis Concept (Axis=0 vs Axis=1)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>axis</code> specifies the direction of operations in multi-dimensional arrays.
+                <br>For a 2D Array:
+                <br>&bull; <strong>axis=0</strong>: Operation across rows (Downwards / Column-wise sum)
+                <br>&bull; <strong>axis=1</strong>: Operation across columns (Horizontal / Row-wise sum)
+            </div>
+
+            <div class="diagram-grid">
+                <div class="diagram-card">
+                    <h4>axis=0 (Column-Wise)</h4>
+                    <p style="color:var(--accent-amber); font-weight:bold;">&darr; Moves Down Rows</p>
+                    <p style="font-size:0.8rem; color:var(--text-secondary)">Sum of col 0, col 1, col 2</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>axis=1 (Row-Wise)</h4>
+                    <p style="color:var(--accent-green); font-weight:bold;">&rarr; Moves Across Columns</p>
+                    <p style="font-size:0.8rem; color:var(--text-secondary)">Sum of row 0, row 1</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; AXIS DEMO</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([
+    [<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>],
+    [<span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-num">60</span>]
+])
+
+<span class="code-func">print</span>(<span class="code-string">"Sum axis=0 (Column-wise):"</span>, np.sum(arr, axis=<span class="code-num">0</span>))
+<span class="code-func">print</span>(<span class="code-string">"Sum axis=1 (Row-wise):"</span>, np.sum(arr, axis=<span class="code-num">1</span>))</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Sum axis=0 (Column-wise): [50 70 90]<br>
+                Sum axis=1 (Row-wise): [60 150]
+            </div>
+        </div>
+
+        <!-- Section 15 -->
+        <div class="section-card" id="sec15">
+            <div class="section-title">
+                <span class="section-number">15</span>
+                Mathematical &amp; Statistical Functions
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Built-in statistical and mathematical functions for fast aggregations.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; STATS FUNCTIONS</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>])
+
+<span class="code-func">print</span>(<span class="code-string">"Sum:"</span>, np.sum(arr))
+<span class="code-func">print</span>(<span class="code-string">"Mean:"</span>, np.mean(arr))
+<span class="code-func">print</span>(<span class="code-string">"Min:"</span>, np.min(arr))
+<span class="code-func">print</span>(<span class="code-string">"Max:"</span>, np.max(arr))
+<span class="code-func">print</span>(<span class="code-string">"Std Dev:"</span>, np.std(arr))
+<span class="code-func">print</span>(<span class="code-string">"Variance:"</span>, np.var(arr))
+<span class="code-func">print</span>(<span class="code-string">"Median:"</span>, np.median(arr))</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Sum: 150<br>
+                Mean: 30.0<br>
+                Min: 10<br>
+                Max: 50<br>
+                Std Dev: 14.142135623730951<br>
+                Variance: 200.0<br>
+                Median: 30.0
+            </div>
+        </div>
+
+        <!-- Section 16 -->
+        <div class="section-card" id="sec16">
+            <div class="section-title">
+                <span class="section-number">16</span>
+                Boolean Indexing / Filtering
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Extracting array elements that satisfy specific conditional logic using bitwise operators <code>&amp;</code> (AND), <code>|</code> (OR).
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; BOOLEAN FILTERING</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>])
+
+<span class="code-comment">/* Single Condition */</span>
+result = arr[arr &gt; <span class="code-num">25</span>]
+<span class="code-func">print</span>(<span class="code-string">"Elements &gt; 25:"</span>, result)
+
+<span class="code-comment">/* Multiple Conditions (&amp;) */</span>
+result_multi = arr[(arr &gt; <span class="code-num">20</span>) &amp; (arr &lt; <span class="code-num">50</span>)]
+<span class="code-func">print</span>(<span class="code-string">"20 &lt; Elements &lt; 50:"</span>, result_multi)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Elements &gt; 25: [30 40 50]<br>
+                20 &lt; Elements &lt; 50: [30 40]
+            </div>
+        </div>
+
+        <!-- Section 17 -->
+        <div class="section-card" id="sec17">
+            <div class="section-title">
+                <span class="section-number">17</span>
+                np.where()
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>np.where()</code> finds the index positions where a condition is <code>True</code>.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; NP.WHERE</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">40</span>, <span class="code-num">50</span>])
+result = np.where(arr &gt; <span class="code-num">25</span>)
+
+<span class="code-func">print</span>(<span class="code-string">"Indices where arr &gt; 25:"</span>, result)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Indices where arr &gt; 25: (array([2, 3, 4]),)
+            </div>
+        </div>
+
+        <!-- Section 18 -->
+        <div class="section-card" id="sec18">
+            <div class="section-title">
+                <span class="section-number">18</span>
+                Combining Arrays (Concatenate, vstack, hstack)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Joining multiple arrays together.
+                <br>&bull; <code>concatenate()</code>: Joins arrays along specified axis.
+                <br>&bull; <code>vstack()</code>: Stacks arrays vertically (row-wise).
+                <br>&bull; <code>hstack()</code>: Stacks arrays horizontally (column-wise).
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; STACKING &amp; CONCATENATION</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+a = np.array([<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>])
+b = np.array([<span class="code-num">4</span>, <span class="code-num">5</span>, <span class="code-num">6</span>])
+
+<span class="code-func">print</span>(<span class="code-string">"Concatenate:"</span>, np.concatenate((a, b)))
+<span class="code-func">print</span>(<span class="code-string">"Vertical Stack (vstack):"</span>)
+<span class="code-func">print</span>(np.vstack((a, b)))
+<span class="code-func">print</span>(<span class="code-string">"Horizontal Stack (hstack):"</span>, np.hstack((a, b)))</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Concatenate: [1 2 3 4 5 6]<br>
+                Vertical Stack (vstack):<br>
+                [[1 2 3]<br>
+                 [4 5 6]]<br>
+                Horizontal Stack (hstack): [1 2 3 4 5 6]
+            </div>
+        </div>
+
+        <!-- Section 19 -->
+        <div class="section-card" id="sec19">
+            <div class="section-title">
+                <span class="section-number">19</span>
+                Sorting
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>np.sort()</code> sorts array elements in ascending order. Use slice <code>[::-1]</code> for descending order.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; SORTING</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">50</span>, <span class="code-num">10</span>, <span class="code-num">40</span>, <span class="code-num">20</span>, <span class="code-num">30</span>])
+
+<span class="code-func">print</span>(<span class="code-string">"Ascending:"</span>, np.sort(arr))
+<span class="code-func">print</span>(<span class="code-string">"Descending:"</span>, np.sort(arr)[::-<span class="code-num">1</span>])</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Ascending: [10 20 30 40 50]<br>
+                Descending: [50 40 30 20 10]
+            </div>
+        </div>
+
+        <!-- Section 20 -->
+        <div class="section-card" id="sec20">
+            <div class="section-title">
+                <span class="section-number">20</span>
+                Unique Values &amp; Counts
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>np.unique()</code> extracts distinct elements. Setting <code>return_counts=True</code> returns frequency counts.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; UNIQUE VALUES</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">20</span>, <span class="code-num">30</span>, <span class="code-num">30</span>, <span class="code-num">30</span>, <span class="code-num">40</span>])
+
+values, counts = np.unique(arr, return_counts=<span class="code-keyword">True</span>)
+<span class="code-func">print</span>(<span class="code-string">"Unique Values:"</span>, values)
+<span class="code-func">print</span>(<span class="code-string">"Frequency Counts:"</span>, counts)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Unique Values: [10 20 30 40]<br>
+                Frequency Counts: [1 2 3 1]
+            </div>
+        </div>
+
+        <!-- Section 21 -->
+        <div class="section-card" id="sec21">
+            <div class="section-title">
+                <span class="section-number">21</span>
+                Broadcasting
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Broadcasting allows NumPy to perform arithmetic operations on arrays of different/compatible shapes automatically without memory duplication.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; BROADCASTING</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([
+    [<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>],
+    [<span class="code-num">40</span>, <span class="code-num">50</span>, <span class="code-num">60</span>]
+])
+
+result = arr + <span class="code-num">10</span>
+<span class="code-func">print</span>(<span class="code-string">"2D Broadcasting (+10):"</span>)
+<span class="code-func">print</span>(result)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                2D Broadcasting (+10):<br>
+                [[20 30 40]<br>
+                 [50 60 70]]
+            </div>
+        </div>
+
+        <!-- Section 22 -->
+        <div class="section-card" id="sec22">
+            <div class="section-title">
+                <span class="section-number">22</span>
+                Copy (Deep Copy)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>copy()</code> creates a separate, independent duplicate array in memory. Modifying the copy does NOT affect the original array.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; COPY</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>])
+new_arr = arr.copy()
+new_arr[<span class="code-num">0</span>] = <span class="code-num">100</span>
+
+<span class="code-func">print</span>(<span class="code-string">"Original:"</span>, arr)
+<span class="code-func">print</span>(<span class="code-string">"Copy:"</span>, new_arr)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Original: [10 20 30]<br>
+                Copy: [100 20 30]
+            </div>
+        </div>
+
+        <!-- Section 23 -->
+        <div class="section-card" id="sec23">
+            <div class="section-title">
+                <span class="section-number">23</span>
+                View (Shallow View)
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>view()</code> creates a new array object pointing to the SAME underlying memory buffer. Modifying the view WILL alter the original array!
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; VIEW</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</span>, <span class="code-num">30</span>])
+new_arr = arr.view()
+new_arr[<span class="code-num">0</span>] = <span class="code-num">100</span>
+
+<span class="code-func">print</span>(<span class="code-string">"Original (Modified!):"</span>, arr)
+<span class="code-func">print</span>(<span class="code-string">"View:"</span>, new_arr)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Original (Modified!): [100 20 30]<br>
+                View: [100 20 30]
+            </div>
+        </div>
+
+        <!-- Section 24 -->
+        <div class="section-card" id="sec24">
+            <div class="section-title">
+                <span class="section-number">24</span>
+                Random Arrays
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> <code>np.random</code> module generates random numbers, matrices, and distributions.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; RANDOM GENERATION</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment">/* Random integers between 10 and 100 */</span>
+arr_int = np.random.randint(<span class="code-num">10</span>, <span class="code-num">100</span>, <span class="code-num">5</span>)
+
+<span class="code-comment">/* Random decimals between 0 and 1 */</span>
+arr_float = np.random.rand(<span class="code-num">5</span>)
+
+<span class="code-comment">/* Random 2D matrix (3x4) */</span>
+arr_2d_rand = np.random.randint(<span class="code-num">1</span>, <span class="code-num">10</span>, size=(<span class="code-num">3</span>, <span class="code-num">4</span>))
+
+<span class="code-func">print</span>(<span class="code-string">"Random Integers:"</span>, arr_int)
+<span class="code-func">print</span>(<span class="code-string">"Random Decimals:"</span>, arr_float)
+<span class="code-func">print</span>(<span class="code-string">"Random 2D Matrix:"</span>)
+<span class="code-func">print</span>(arr_2d_rand)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output (Values vary)</div>
+                Random Integers: [45 88 12 73 91]<br>
+                Random Decimals: [0.12 0.84 0.53 0.39 0.77]<br>
+                Random 2D Matrix:<br>
+                [[4 8 2 9]<br>
+                 [1 7 5 3]<br>
+                 [6 2 8 4]]
+            </div>
+        </div>
+
+        <!-- Section 25 -->
+        <div class="section-card" id="sec25">
+            <div class="section-title">
+                <span class="section-number">25</span>
+                NumPy + Pandas Integration
+            </div>
+            <div class="definition-box">
+                <strong>Definition:</strong> Convert Pandas DataFrames/Series into native NumPy arrays using <code>to_numpy()</code> for high-performance numerical operations.
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PYTHON &bull; PANDAS TO NUMPY</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+
+df = pd.DataFrame({
+    <span class="code-string">"Name"</span>: [<span class="code-string">"A"</span>, <span class="code-string">"B"</span>, <span class="code-string">"C"</span>],
+    <span class="code-string">"Age"</span>: [<span class="code-num">20</span>, <span class="code-num">25</span>, <span class="code-num">30</span>]
+})
+
+<span class="code-comment">/* Series to NumPy */</span>
+age_array = df[<span class="code-string">"Age"</span>].to_numpy()
+
+<span class="code-comment">/* Full DataFrame to NumPy */</span>
+data_array = df.to_numpy()
+
+<span class="code-func">print</span>(<span class="code-string">"Age NumPy Array:"</span>, age_array)
+<span class="code-func">print</span>(<span class="code-string">"DataFrame to Array:"</span>)
+<span class="code-func">print</span>(data_array)</pre>
+            </div>
+            <div class="output-box">
+                <div class="output-title">Expected Output</div>
+                Age NumPy Array: [20 25 30]<br>
+                DataFrame to Array:<br>
+                [['A' 20]<br>
+                 ['B' 25]<br>
+                 ['C' 30]]
+            </div>
+        </div>
+
+        <!-- Section 26 -->
+        <div class="section-card" id="sec26">
+            <div class="section-title">
+                <span class="section-number">26</span>
+                Quick Revision &amp; Cheatsheet
+            </div>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Concept / Function</th>
+                        <th>Syntax</th>
+                        <th>Key Purpose / Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1D Array</td>
+                        <td><code>np.array([1, 2, 3])</code></td>
+                        <td>Single axis linear list</td>
+                    </tr>
+                    <tr>
+                        <td>2D Array</td>
+                        <td><code>np.array([[1, 2], [3, 4]])</code></td>
+                        <td>Matrix (Rows x Columns)</td>
+                    </tr>
+                    <tr>
+                        <td>Array Shape</td>
+                        <td><code>arr.shape</code></td>
+                        <td>Dimensions tuple (Rows, Cols)</td>
+                    </tr>
+                    <tr>
+                        <td>Reshape</td>
+                        <td><code>arr.reshape(r, c)</code></td>
+                        <td>Changes array dimensions</td>
+                    </tr>
+                    <tr>
+                        <td>Flatten vs Ravel</td>
+                        <td><code>arr.flatten() / arr.ravel()</code></td>
+                        <td>Flatten returns copy, Ravel returns view</td>
+                    </tr>
+                    <tr>
+                        <td>Axis 0 vs Axis 1</td>
+                        <td><code>axis=0 (Rows down) / axis=1 (Cols across)</code></td>
+                        <td>Direction of mathematical aggregation</td>
+                    </tr>
+                    <tr>
+                        <td>Boolean Indexing</td>
+                        <td><code>arr[arr > 25]</code></td>
+                        <td>Filtering elements by condition</td>
+                    </tr>
+                    <tr>
+                        <td>Combining Arrays</td>
+                        <td><code>np.vstack() / np.hstack()</code></td>
+                        <td>Vertical vs Horizontal stacking</td>
+                    </tr>
+                    <tr>
+                        <td>Copy vs View</td>
+                        <td><code>arr.copy() / arr.view()</code></td>
+                        <td>Independent memory vs shared memory view</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2026 NumPy Arrays Master Notes &bull; Created by Gagan Sir</p>
+            <p style="font-size:0.8rem; margin-top:5px; color:var(--accent-blue);">Built with Zero Hash Constraints for seamless offline rendering</p>
+        </div>
+
+    </div>
+
+    <script>
+        function scrollToSec(secId) {
+            const el = document.getElementById(secId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function filterTopics() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.toc-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

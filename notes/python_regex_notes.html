@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Regular Expressions (Regex) Complete Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.35rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.45rem 0.65rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .syntax-box {
+            background-color: rgb(243, 244, 246);
+            border-left: 4px solid var(--accent-color);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+            margin: 1rem 0;
+            color: rgb(31, 41, 55);
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Regex Master Guide</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-intro')">1. What is Regex?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-funcs')">2. Core Functions (search, match, findall)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-subsplit')">3. re.sub() & re.split()</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-meta')">4. Basic Metacharacters (. * + ?)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-sets')">5. Character Sets ([abc], [0-9])</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-sequences')">6. Character Classes (\d \w \s)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-anchors')">7. Anchors (^ and $)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-quantifiers')">8. Quantifiers ({n}, {n,m})</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-validation')">9. Phone, Email & Password Check</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-extraction')">10. Data Extraction Examples</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-usecases')">11. 20 Real-World Use Cases</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-pillars')">12. The 5 Pillars & Summary</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Regular Expressions (re module)</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search concepts...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Python Regular Expressions (REGEX) Notes</h1>
+                <p>Master pattern searching, matching, data validation, extraction, and string cleaning in Python using the built-in re module.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- SECTION 1: Intro -->
+            <div class="section-card" id="sec-intro">
+                <h2 class="section-title">1. What is a Regular Expression (Regex)?</h2>
+                <div class="concept-box">
+                    <p>A <strong>Regular Expression (Regex)</strong> is a sequence of characters that forms a search pattern. It is used to check if a string contains a specified search pattern, validate form inputs, or extract data.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Pattern Matching:</strong> Technique to find, extract, or validate text data.</li>
+                            <li><strong>Built-in Module:</strong> Python includes the <span class="code-snippet">re</span> module for regex operations.</li>
+                            <li><strong>Versatility:</strong> Used across web forms, security logs, data science, and text processing.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Regex Ka Matlab:</strong> Text ke andar pattern dhundhne, validate karne ya extract karne ka tarika.</li>
+                            <li><strong>Python Module:</strong> Python mein Regex use karne ke liye hum built-in <span class="code-snippet">re</span> module import karte hain.</li>
+                            <li><strong>Fayde:</strong> Validation (email, phone, password), data extraction aur string cleaning dynamic ho jati hai.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="syntax-box">import re</div>
+            </div>
+
+            <!-- SECTION 2: Core Functions -->
+            <div class="section-card" id="sec-funcs">
+                <h2 class="section-title">2. Core Regex Functions: re.search(), re.match(), re.findall()</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Function Differences</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">re.search()</span>: Searches anywhere in the string for a match.</li>
+                            <li><span class="code-snippet">re.match()</span>: Matches ONLY at the beginning/start of the string.</li>
+                            <li><span class="code-snippet">re.findall()</span>: Finds ALL occurrences and returns them as a List of strings.</li>
+                            <li><span class="code-snippet">re.fullmatch()</span>: Returns match object ONLY if the ENTIRE string matches the pattern.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Functions ka Difference</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">re.search()</span>: Poori string me kahi bhi pattern dhundhta hai.</li>
+                            <li><span class="code-snippet">re.match()</span>: Sirf string ke START me match check karta hai.</li>
+                            <li><span class="code-snippet">re.findall()</span>: Saare matches ki ek List return karta hai.</li>
+                            <li><span class="code-snippet">re.fullmatch()</span>: Jab poori string pattern ke a-to-z according ho tabhi True deta hai.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - search, match, findall, fullmatch</div>
+                    <pre>import re
+
+text = "My name is Gagan"
+
+search_res = re.search("Gagan", text)
+print("Search Result:", search_res)
+
+match_res = re.match("Gagan", text)
+print("Match Result (Starts with Gagan?):", match_res)
+
+text2 = "apple mango apple banana apple"
+all_apples = re.findall("apple", text2)
+print("Findall Result:", all_apples)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Search Result: &lt;re.Match object; span=(11, 16), match='Gagan'&gt;<br>Match Result (Starts with Gagan?): None<br>Findall Result: ['apple', 'apple', 'apple']</div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: re.sub and re.split -->
+            <div class="section-card" id="sec-subsplit">
+                <h2 class="section-title">3. Text Modification: re.sub() and re.split()</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - sub and split</div>
+                    <pre>import re
+
+text1 = "I like Java"
+replaced = re.sub("Java", "Python", text1)
+print("Replaced Text:", replaced)
+
+text2 = "apple,mango,banana"
+split_list = re.split(",", text2)
+print("Split List:", split_list)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Replaced Text: I like Python<br>Split List: ['apple', 'mango', 'banana']</div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Basic Metacharacters -->
+            <div class="section-card" id="sec-meta">
+                <h2 class="section-title">4. Basic Metacharacters (. * + ?)</h2>
+                
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Meaning</th>
+                            <th>Example Pattern</th>
+                            <th>Matches</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="code-snippet">.</span></td>
+                            <td>Any single character (except newline)</td>
+                            <td><span class="code-snippet">c.t</span></td>
+                            <td>cat, cut, cot, c1t</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">*</span></td>
+                            <td>Zero or more times</td>
+                            <td><span class="code-snippet">co*l</span></td>
+                            <td>cl, col, cool, coooool</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">+</span></td>
+                            <td>One or more times (at least once)</td>
+                            <td><span class="code-snippet">co+l</span></td>
+                            <td>col, cool, coooool</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">?</span></td>
+                            <td>Zero or one time (Optional)</td>
+                            <td><span class="code-snippet">colou?r</span></td>
+                            <td>color, colour</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Metacharacters in Action</div>
+                    <pre>import re
+
+print("Dot match:", re.search("c.t", "cat").group())
+print("Star match:", re.search("co*l", "cooooool").group())
+print("Plus match:", re.search("co+l", "coool").group())
+print("Question match:", re.search("colou?r", "color").group())</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Dot match: cat<br>Star match: cooooool<br>Plus match: coool<br>Question match: color</div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: Character Sets -->
+            <div class="section-card" id="sec-sets">
+                <h2 class="section-title">5. Character Classes & Sets ([abc], [0-9], [a-z], [A-Z])</h2>
+                
+                <div class="concept-box">
+                    <p>Square brackets <span class="code-snippet">[]</span> define a set of characters to match.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Character Sets</div>
+                    <pre>import re
+
+text1 = "My age is 22"
+digits = re.findall("[0-9]", text1)
+
+text2 = "hello123"
+lowers = re.findall("[a-z]", text2)
+
+text3 = "Hello GAGAN"
+uppers = re.findall("[A-Z]", text3)
+
+print("Digits:", digits)
+print("Lowercase Letters:", lowers)
+print("Uppercase Letters:", uppers)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Digits: ['2', '2']<br>Lowercase Letters: ['h', 'e', 'l', 'l', 'o']<br>Uppercase Letters: ['H', 'G', 'A', 'G', 'A', 'N']</div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: Special Sequences -->
+            <div class="section-card" id="sec-sequences">
+                <h2 class="section-title">6. Special Sequences (\d, \D, \w, \W, \s, \S)</h2>
+                
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Description</th>
+                            <th>Matches</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="code-snippet">\d</span></td>
+                            <td>Digits (0-9)</td>
+                            <td>Any single digit</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">\D</span></td>
+                            <td>Non-digits</td>
+                            <td>Anything except digits</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">\w</span></td>
+                            <td>Word character</td>
+                            <td>Letters, numbers, and underscore (_)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">\W</span></td>
+                            <td>Non-word character</td>
+                            <td>Symbols (@, !, %, spaces)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">\s</span></td>
+                            <td>Whitespace</td>
+                            <td>Space, tab, newline</td>
+                        </tr>
+                        <tr>
+                            <td><span class="code-snippet">\S</span></td>
+                            <td>Non-whitespace</td>
+                            <td>Any non-space character</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 7: Anchors -->
+            <div class="section-card" id="sec-anchors">
+                <h2 class="section-title">7. Anchors (^ and $)</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Anchor Meaning</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">^</span>: Asserts position at the START of the string.</li>
+                            <li><span class="code-snippet">$</span>: Asserts position at the END of the string.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Anchor ka Matlab</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">^</span>: Batata hai ki string is text se SHURU honi chahiye.</li>
+                            <li><span class="code-snippet">$</span>: Batata hai ki string is text par KHATAM honi chahiye.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Anchors</div>
+                    <pre>import re
+
+text = "Hello Gagan"
+starts_hello = re.search(r"^Hello", text)
+ends_gagan = re.search(r"Gagan$", text)
+
+print("Starts with Hello?:", bool(starts_hello))
+print("Ends with Gagan?:", bool(ends_gagan))</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Starts with Hello?: True<br>Ends with Gagan?: True</div>
+                </div>
+            </div>
+
+            <!-- SECTION 8: Quantifiers -->
+            <div class="section-card" id="sec-quantifiers">
+                <h2 class="section-title">8. Quantifiers ({n}, {n,m})</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Quantifiers</div>
+                    <pre>import re
+
+text = "My number is 12345"
+exact_5 = re.findall(r"\d{5}", text)
+
+text2 = "123456789"
+range_2_4 = re.findall(r"\d{2,4}", text2)
+
+print("Exact 5 digits:", exact_5)
+print("Range 2 to 4 digits:", range_2_4)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Exact 5 digits: ['12345']<br>Range 2 to 4 digits: ['1234', '5678', '9']</div>
+                </div>
+            </div>
+
+            <!-- SECTION 9: Phone, Email & Password Validation -->
+            <div class="section-card" id="sec-validation">
+                <h2 class="section-title">9. Form Validation: Phone, Email & Password</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Validation Patterns</div>
+                    <pre>import re
+
+phone = "9876543210"
+phone_pattern = r"^\d{10}$"
+is_valid_phone = bool(re.fullmatch(phone_pattern, phone))
+
+email = "gagan@gmail.com"
+email_pattern = r"^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$"
+is_valid_email = bool(re.fullmatch(email_pattern, email))
+
+password = "Gagan123"
+pass_pattern = r"^(?=.*[A-Za-z])(?=.*\d).{6,}$"
+is_valid_pass = bool(re.fullmatch(pass_pattern, password))
+
+print("Valid Phone?:", is_valid_phone)
+print("Valid Email?:", is_valid_email)
+print("Valid Password?:", is_valid_pass)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Valid Phone?: True<br>Valid Email?: True<br>Valid Password?: True</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Email Pattern Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Part</th>
+                            <th>Pattern Snippet</th>
+                            <th>Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Start</td>
+                            <td><span class="code-snippet">^</span></td>
+                            <td>Beginning of email string</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td><span class="code-snippet">[\w.-]+</span></td>
+                            <td>Letters, digits, underscores, dots, hyphens</td>
+                        </tr>
+                        <tr>
+                            <td>Symbol</td>
+                            <td><span class="code-snippet">@</span></td>
+                            <td>Mandatory @ symbol</td>
+                        </tr>
+                        <tr>
+                            <td>Domain</td>
+                            <td><span class="code-snippet">[\w.-]+</span></td>
+                            <td>Domain name (e.g. gmail, yahoo)</td>
+                        </tr>
+                        <tr>
+                            <td>Dot</td>
+                            <td><span class="code-snippet">\.</span></td>
+                            <td>Literal dot (.)</td>
+                        </tr>
+                        <tr>
+                            <td>Extension</td>
+                            <td><span class="code-snippet">[a-zA-Z]{2,}</span></td>
+                            <td>Minimum 2 letters (.com, .in, .org)</td>
+                        </tr>
+                        <tr>
+                            <td>End</td>
+                            <td><span class="code-snippet">$</span></td>
+                            <td>End of email string</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 10: Data Extraction Examples -->
+            <div class="section-card" id="sec-extraction">
+                <h2 class="section-title">10. Practical Data Extraction & Text Cleaning</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Extracting Phones, Emails, Mentions, Cleaning</div>
+                    <pre>import re
+
+text = "Invoice INV1001 for Gagan
+Contact: 9876543210 or email gagan@gmail.com
+Mentions: @gagan and @rajat"
+
+inv_num = re.findall(r"INV\d+", text)
+phones = re.findall(r"\d{10}", text)
+emails = re.findall(r"[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}", text)
+mentions = re.findall(r"@\w+", text)
+
+raw_messy = "Hello     Gagan    How   are  you"
+clean_spaces = re.sub(r"\s+", " ", raw_messy)
+
+print("Invoice:", inv_num)
+print("Phones:", phones)
+print("Emails:", emails)
+print("Mentions:", mentions)
+print("Clean Spaces:", clean_spaces)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Invoice: ['INV1001']<br>Phones: ['9876543210']<br>Emails: ['gagan@gmail.com']<br>Mentions: ['@gagan', '@rajat']<br>Clean Spaces: Hello Gagan How are you</div>
+                </div>
+            </div>
+
+            <!-- SECTION 11: 20 Use Cases -->
+            <div class="section-card" id="sec-usecases">
+                <h2 class="section-title">11. 20 Real-World Use Cases of Regex</h2>
+                
+                <ul class="list-styled">
+                    <li><strong>1. Email Validation:</strong> Signup & login forms.</li>
+                    <li><strong>2. Phone Number Validation:</strong> WhatsApp/Banking registrations.</li>
+                    <li><strong>3. Password Strength Check:</strong> Security enforcement in apps.</li>
+                    <li><strong>4. Extracting Phone Numbers:</strong> Scraped documents & customer text.</li>
+                    <li><strong>5. Extracting Emails:</strong> Customer lead generation.</li>
+                    <li><strong>6. Extracting Numbers from Invoices:</strong> Invoice prices and IDs.</li>
+                    <li><strong>7. Data Cleaning:</strong> Replacing extra spaces (<span class="code-snippet">\s+</span>) in datasets.</li>
+                    <li><strong>8. Special Character Removal:</strong> Sanitizing usernames.</li>
+                    <li><strong>9. Pincode/Zip Code Check:</strong> Indian 6-digit address verification.</li>
+                    <li><strong>10. Date Format Validation:</strong> Checking DD-MM-YYYY format.</li>
+                    <li><strong>11. Username Validation:</strong> Alphanumeric + underscore checks.</li>
+                    <li><strong>12. URL Protocol Check:</strong> Ensuring http:// or https://.</li>
+                    <li><strong>13. Log File Analysis:</strong> Parsing server error codes & IP addresses.</li>
+                    <li><strong>14. Global Text Search:</strong> Search engine indexing.</li>
+                    <li><strong>15. Web Scraping Pattern Matching:</strong> Extracting price tags from HTML.</li>
+                    <li><strong>16. Mentions Extraction:</strong> Social media @mentions parsing.</li>
+                    <li><strong>17. Price Extraction:</strong> Extracting numeric prices from product titles.</li>
+                    <li><strong>18. Invoice Data Extraction:</strong> Pulling Invoice ID, phone, email, and amount.</li>
+                    <li><strong>19. Banking Reference Validation:</strong> Checking transaction IDs.</li>
+                    <li><strong>20. Document Processing:</strong> Parsing PDF contents into database fields.</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 12: Pillars & Summary -->
+            <div class="section-card" id="sec-pillars">
+                <h2 class="section-title">12. The 5 Pillars of Regex & Summary</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>The 5 Core Pillars</h4>
+                        <ol class="list-styled">
+                            <li><strong>SEARCH:</strong> Finding patterns inside text (<span class="code-snippet">re.search</span>).</li>
+                            <li><strong>VALIDATE:</strong> Checking format compliance (<span class="code-snippet">re.fullmatch</span>).</li>
+                            <li><strong>EXTRACT:</strong> Pulling specific pieces of data (<span class="code-snippet">re.findall</span>).</li>
+                            <li><strong>REPLACE:</strong> Swapping target text (<span class="code-snippet">re.sub</span>).</li>
+                            <li><strong>CLEAN:</strong> Removing unwanted symbols/spaces.</li>
+                        </ol>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>5 Pillars Breakdown</h4>
+                        <ol class="list-styled">
+                            <li><strong>Search:</strong> Text me kuch dhundhna.</li>
+                            <li><strong>Validate:</strong> Format sahi hai ya nahi check karna.</li>
+                            <li><strong>Extract:</strong> Specific data bahar nikalna.</li>
+                            <li><strong>Replace:</strong> Text ko change/swap karna.</li>
+                            <li><strong>Clean:</strong> Unwanted symbols/spaces hatana.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Regular Expressions Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

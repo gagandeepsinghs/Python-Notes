@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Strings Complete Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.3rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.45rem 0.65rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .question-heading {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .syntax-box {
+            background-color: rgb(243, 244, 246);
+            border-left: 4px solid var(--accent-color);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 600;
+            margin: 1rem 0;
+            color: rgb(31, 41, 55);
+        }
+
+        .concept-box {
+            margin-bottom: 1rem;
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Python Strings Questions</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q1')">1. What is a String?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q2')">2. Creating Strings</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q3')">3. String Indexing</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q4')">4. Positive & Negative Indexing</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q5')">5. String Slicing</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q6')">6. String Immutability</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q7')">7. String Concatenation (+)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q8')">8. String Repetition (*)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q9')">9. Membership Operators</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q10')">10. String Comparison</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q11')">11. Traversing Strings</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q12')">12. len() Function</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q13')">13. max() Function</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q14')">14. min() Function</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q15')">15. f-Strings</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q16')">16. format() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q17')">17. upper() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q18')">18. lower() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q19')">19. capitalize() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q20')">20. title() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q21')">21. swapcase() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q22')">22. find() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q23')">23. index() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q24')">24. count() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q25')">25. replace() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q26')">26. split() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q27')">27. join() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q28')">28. strip() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q29')">29. lstrip() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q30')">30. rstrip() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q31')">31. isalpha() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q32')">32. isdigit() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q33')">33. isalnum() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q34')">34. islower() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q35')">35. isupper() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q36')">36. isspace() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q37')">37. startswith() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q38')">38. endswith() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q39')">39. center() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q40')">40. zfill() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q41')">41. encode() Method</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q42')">42. Reverse String Program</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q43')">43. Palindrome Check</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q44')">44. Count Vowels</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q45')">45. Count Words</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q46')">46. Count Characters</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q47')">47. Character Frequency</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q48')">48. Remove Spaces</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q49')">49. Replace Word Program</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q50')">50. Check Anagram</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q51')">51. Reverse Each Word</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q52')">52. Duplicate Characters</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('q53')">53. First Non-Repeating</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('quick-revision')">54. Quick Revision</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Strings Master Guide</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search questions...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Python Strings - Question Wise Master Notes</h1>
+                <p>Comprehensive guide covering 53 Question-based topics, built-in functions, methods, and coding solutions with Easy English and Hinglish breakdowns.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- Q1 -->
+            <div class="section-card" id="q1">
+                <h2 class="question-heading">1. What is a String in Python & How to Define It?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>A string in Python is used to store textual data. It is a sequence/collection of characters enclosed within single quotes (' '), double quotes (" "), or triple quotes (&apos;&apos;&apos; &apos;&apos;&apos; / &quot;&quot;&quot; &quot;&quot;&quot;).</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>String Python mein text/data ko store karne ke liye use hoti hai. String characters ka collection hoti hai aur ise single, double ya triple quotes mein likha jata hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string_variable = "text"</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Definition</div>
+                    <pre>name = "Gagandeep"
+print(name)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Gagandeep</div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="section-card" id="q2">
+                <h2 class="question-heading">2. How to Create Strings in Python?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>Strings are created using quotes. Single quotes for short words, double quotes for standard text, and triple quotes for multi-line strings.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>Python mein string create karne ke liye single, double ya triple quotes ka use kiya jata hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: variable = "string"</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Creating Strings</div>
+                    <pre>name = "Gagan"
+city = 'Chandigarh'
+message = "Welcome to Python"
+print(name)
+print(city)
+print(message)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Gagan<br>Chandigarh<br>Welcome to Python</div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="section-card" id="q3">
+                <h2 class="question-heading">3. What is String Indexing & How to Access Characters?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>String indexing allows accessing individual characters. In Python, indexing starts at 0 for the first character.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>String indexing ka use string ke individual characters ko access karne ke liye hota hai. Python mein indexing 0 se start hoti hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string[index]</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Indexing</div>
+                    <pre>name = "Python"
+print(name[0])
+print(name[1])
+print(name[2])</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>P<br>y<br>t</div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="section-card" id="q4">
+                <h2 class="question-heading">4. What is Positive & Negative Indexing in Python?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>Positive indexing goes left-to-right starting at 0. Negative indexing goes right-to-left starting at -1 for the last character.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>Positive indexing left se right jaati hai (0 se start). Negative indexing right se left jaati hai (-1 se start).</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string[positive_index] | string[negative_index]</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Positive & Negative Indexing</div>
+                    <pre>name = "Python"
+print(name[0])
+print(name[5])
+print(name[-1])
+print(name[-2])</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>P<br>n<br>n<br>o</div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="section-card" id="q5">
+                <h2 class="question-heading">5. What is String Slicing & Step Slicing?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>String slicing extracts a portion of a string using start, end, and optional step indices: <span class="code-snippet">string[start:end:step]</span>.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>String slicing ka use string ke ek specific portion ko extract karne ke liye hota hai. <span class="code-snippet">step=2</span> ka matlab 1 step chhod kar agla character aayega.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string[start:end] | string[start:end:step]</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Slicing</div>
+                    <pre>name = "Python"
+print(name[0:3])
+print(name[2:6])
+print(name[:4])
+print(name[2:])
+print(name[::2])</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Pyt<br>thon<br>Pyth<br>thon<br>Pto</div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="section-card" id="q6">
+                <h2 class="question-heading">6. What is String Immutability & How to Change a String?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>Strings are immutable, meaning individual characters cannot be changed directly in-place. To modify a string, you create a new one using concatenation.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>Strings immutable hoti hain, matlab unke individual characters ko directly modify nahi kar sakte. Nayi string bana kar change karte hain.</p>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Immutability</div>
+                    <pre>name = "Python"
+name = "J" + name[4:]
+print(name)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Jon</div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="section-card" id="q7">
+                <h2 class="question-heading">7. What is String Concatenation (+)?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>Concatenation combines two or more strings together using the plus <span class="code-snippet">+</span> operator.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>Concatenation ka matlab do ya zyada strings ko aapas mein combine karna hota hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string1 + string2</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Concatenation</div>
+                    <pre>first_name = "Gagan"
+last_name = "Singh"
+full_name = first_name + " " + last_name
+print(full_name)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Gagan Singh</div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="section-card" id="q8">
+                <h2 class="question-heading">8. What is String Repetition (*)?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>String repetition repeats a string a specified number of times using the asterisk <span class="code-snippet">*</span> operator.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>String repetition ka use ek string ko multiple times repeat karne ke liye hota hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string * number</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Repetition</div>
+                    <pre>word = "Python "
+print(word * 3)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Python Python Python </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="section-card" id="q9">
+                <h2 class="question-heading">9. How to Use Membership Operators (in, not in) with Strings?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p><span class="code-snippet">in</span> checks if a substring exists inside a string. <span class="code-snippet">not in</span> checks if it does NOT exist.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p><span class="code-snippet">in</span> check karta hai substring present hai ya nahi. <span class="code-snippet">not in</span> check karta hai ki present nahi hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: value in string | value not in string</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Membership</div>
+                    <pre>name = "Python"
+print("P" in name)
+print("z" in name)
+print("z" not in name)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True<br>False<br>True</div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="section-card" id="q10">
+                <h2 class="question-heading">10. How Does String Comparison Work in Python?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>Python compares strings lexicographically based on ASCII/Unicode character values.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>Python strings ko character-by-character unki Unicode/ASCII values ke basis par compare karta hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: string1 == string2 | string1 &lt; string2</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Comparison</div>
+                    <pre>a = "apple"
+b = "banana"
+print(a == b)
+print(a != b)
+print(a < b)
+print(a > b)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>False<br>True<br>True<br>False</div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="section-card" id="q11">
+                <h2 class="question-heading">11. How to Traverse a String Using a For Loop?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>String traversal accesses each character of a string one by one using a <span class="code-snippet">for</span> loop.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>String traversal ka matlab string ke har character ko for loop se ek-ek karke access karna hota hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: for variable in string: statement</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Traversal</div>
+                    <pre>name = "Python"
+for char in name:
+    print(char)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>P<br>y<br>t<br>h<br>o<br>n</div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="section-card" id="q12">
+                <h2 class="question-heading">12. How Does len() Function Work on Strings?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>The <span class="code-snippet">len()</span> function returns the total number of characters in a string.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p><span class="code-snippet">len()</span> function string ke andar total characters ki count return karta hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: len(string)</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - len()</div>
+                    <pre>name = "Python"
+print(len(name))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>6</div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="section-card" id="q13">
+                <h2 class="question-heading">13. How Does max() Function Work on Strings?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p><span class="code-snippet">max()</span> returns the character with the highest ASCII/Unicode value in the string.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p><span class="code-snippet">max()</span> function string mein sabse highest Unicode value wala character return karta hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: max(string)</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - max()</div>
+                    <pre>name = "Python"
+print(max(name))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>y</div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="section-card" id="q14">
+                <h2 class="question-heading">14. How Does min() Function Work on Strings?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p><span class="code-snippet">min()</span> returns the character with the lowest ASCII/Unicode value in the string.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p><span class="code-snippet">min()</span> function string mein sabse lowest Unicode value wala character return karta hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: min(string)</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - min()</div>
+                    <pre>name = "Python"
+print(min(name))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>P</div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="section-card" id="q15">
+                <h2 class="question-heading">15. How to Format Strings Using f-Strings?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>f-Strings allow embedding expressions directly inside string literals using curly braces <span class="code-snippet">{variable}</span>.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p>f-string ka use variables ko string ke andar directly insert karne ke liye hota hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: f"Text {variable}"</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - f-Strings</div>
+                    <pre>name = "Gagan"
+age = 22
+print(f"My name is {name} and I am {age} years old.")</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>My name is Gagan and I am 22 years old.</div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="section-card" id="q16">
+                <h2 class="question-heading">16. How to Format Strings Using format() Method?</h2>
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English</h4>
+                        <p>The <span class="code-snippet">format()</span> method replaces placeholders <span class="code-snippet">{}</span> with argument values.</p>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish</h4>
+                        <p><span class="code-snippet">format()</span> method ka use string ke placeholders {} me values insert karne ke liye hota hai.</p>
+                    </div>
+                </div>
+                <div class="syntax-box">Syntax: "Text {}".format(value)</div>
+                <div class="code-container">
+                    <div class="code-header">Python Code - format()</div>
+                    <pre>name = "Gagan"
+age = 22
+print("My name is {} and I am {} years old.".format(name, age))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>My name is Gagan and I am 22 years old.</div>
+            </div>
+
+            <!-- Q17 to Q21 Case Methods -->
+            <div class="section-card" id="q17">
+                <h2 class="question-heading">17. How Does upper() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.upper()</div>
+                <div class="code-container">
+                    <pre>name = "python"
+print(name.upper())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>PYTHON</div>
+            </div>
+
+            <div class="section-card" id="q18">
+                <h2 class="question-heading">18. How Does lower() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.lower()</div>
+                <div class="code-container">
+                    <pre>name = "PYTHON"
+print(name.lower())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>python</div>
+            </div>
+
+            <div class="section-card" id="q19">
+                <h2 class="question-heading">19. How Does capitalize() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.capitalize()</div>
+                <div class="code-container">
+                    <pre>name = "python programming"
+print(name.capitalize())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Python programming</div>
+            </div>
+
+            <div class="section-card" id="q20">
+                <h2 class="question-heading">20. How Does title() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.title()</div>
+                <div class="code-container">
+                    <pre>text = "python programming language"
+print(text.title())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Python Programming Language</div>
+            </div>
+
+            <div class="section-card" id="q21">
+                <h2 class="question-heading">21. How Does swapcase() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.swapcase()</div>
+                <div class="code-container">
+                    <pre>text = "Python Programming"
+print(text.swapcase())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>pYTHON pROGRAMMING</div>
+            </div>
+
+            <!-- Q22 to Q24 Search Methods -->
+            <div class="section-card" id="q22">
+                <h2 class="question-heading">22. How Does find() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.find(substring)</div>
+                <div class="code-container">
+                    <pre>text = "Python Programming"
+print(text.find("Program"))
+print(text.find("Java"))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>7<br>-1</div>
+            </div>
+
+            <div class="section-card" id="q23">
+                <h2 class="question-heading">23. How Does index() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.index(substring)</div>
+                <div class="code-container">
+                    <pre>text = "Python Programming"
+print(text.index("Program"))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>7</div>
+            </div>
+
+            <div class="section-card" id="q24">
+                <h2 class="question-heading">24. How Does count() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.count(substring)</div>
+                <div class="code-container">
+                    <pre>text = "banana"
+print(text.count("a"))
+print(text.count("an"))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>3<br>2</div>
+            </div>
+
+            <!-- Q25 Replace -->
+            <div class="section-card" id="q25">
+                <h2 class="question-heading">25. How Does replace() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.replace(old, new)</div>
+                <div class="code-container">
+                    <pre>text = "I like Java"
+new_text = text.replace("Java", "Python")
+print(new_text)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>I like Python</div>
+            </div>
+
+            <!-- Q26 & Q27 Split & Join -->
+            <div class="section-card" id="q26">
+                <h2 class="question-heading">26. How Does split() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.split(separator)</div>
+                <div class="code-container">
+                    <pre>text = "Python is easy"
+words = text.split()
+print(words)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>['Python', 'is', 'easy']</div>
+            </div>
+
+            <div class="section-card" id="q27">
+                <h2 class="question-heading">27. How Does join() Method Work?</h2>
+                <div class="syntax-box">Syntax: separator.join(iterable)</div>
+                <div class="code-container">
+                    <pre>words = ["Python", "is", "easy"]
+sentence = " ".join(words)
+print(sentence)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Python is easy</div>
+            </div>
+
+            <!-- Q28 to Q30 Strip Methods -->
+            <div class="section-card" id="q28">
+                <h2 class="question-heading">28. How Does strip() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.strip()</div>
+                <div class="code-container">
+                    <pre>text = "   Python   "
+print(repr(text.strip()))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>'Python'</div>
+            </div>
+
+            <div class="section-card" id="q29">
+                <h2 class="question-heading">29. How Does lstrip() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.lstrip()</div>
+                <div class="code-container">
+                    <pre>text = "   Python   "
+print(repr(text.lstrip()))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>'Python   '</div>
+            </div>
+
+            <div class="section-card" id="q30">
+                <h2 class="question-heading">30. How Does rstrip() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.rstrip()</div>
+                <div class="code-container">
+                    <pre>text = "   Python   "
+print(repr(text.rstrip()))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>'   Python'</div>
+            </div>
+
+            <!-- Q31 to Q36 Checking Methods -->
+            <div class="section-card" id="q31">
+                <h2 class="question-heading">31. How Does isalpha() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.isalpha()</div>
+                <div class="code-container">
+                    <pre>text1 = "Python"
+text2 = "Python123"
+print(text1.isalpha())
+print(text2.isalpha())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True<br>False</div>
+            </div>
+
+            <div class="section-card" id="q32">
+                <h2 class="question-heading">32. How Does isdigit() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.isdigit()</div>
+                <div class="code-container">
+                    <pre>text1 = "12345"
+text2 = "Python"
+print(text1.isdigit())
+print(text2.isdigit())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True<br>False</div>
+            </div>
+
+            <div class="section-card" id="q33">
+                <h2 class="question-heading">33. How Does isalnum() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.isalnum()</div>
+                <div class="code-container">
+                    <pre>text1 = "Python123"
+text2 = "Python 123"
+print(text1.isalnum())
+print(text2.isalnum())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True<br>False</div>
+            </div>
+
+            <div class="section-card" id="q34">
+                <h2 class="question-heading">34. How Does islower() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.islower()</div>
+                <div class="code-container">
+                    <pre>text = "python"
+print(text.islower())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True</div>
+            </div>
+
+            <div class="section-card" id="q35">
+                <h2 class="question-heading">35. How Does isupper() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.isupper()</div>
+                <div class="code-container">
+                    <pre>text = "PYTHON"
+print(text.isupper())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True</div>
+            </div>
+
+            <div class="section-card" id="q36">
+                <h2 class="question-heading">36. How Does isspace() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.isspace()</div>
+                <div class="code-container">
+                    <pre>text1 = "   "
+text2 = "Python"
+print(text1.isspace())
+print(text2.isspace())</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True<br>False</div>
+            </div>
+
+            <!-- Q37 & Q38 Prefix & Suffix -->
+            <div class="section-card" id="q37">
+                <h2 class="question-heading">37. How Does startswith() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.startswith(value)</div>
+                <div class="code-container">
+                    <pre>url = "https://google.com"
+print(url.startswith("https"))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True</div>
+            </div>
+
+            <div class="section-card" id="q38">
+                <h2 class="question-heading">38. How Does endswith() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.endswith(value)</div>
+                <div class="code-container">
+                    <pre>file = "report.pdf"
+print(file.endswith(".pdf"))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>True</div>
+            </div>
+
+            <!-- Q39 & Q40 Alignment -->
+            <div class="section-card" id="q39">
+                <h2 class="question-heading">39. How Does center() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.center(width, fillchar)</div>
+                <div class="code-container">
+                    <pre>text = "Python"
+print(text.center(20, "-"))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>-------Python-------</div>
+            </div>
+
+            <div class="section-card" id="q40">
+                <h2 class="question-heading">40. How Does zfill() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.zfill(width)</div>
+                <div class="code-container">
+                    <pre>number = "123"
+print(number.zfill(6))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>000123</div>
+            </div>
+
+            <!-- Q41 Encoding -->
+            <div class="section-card" id="q41">
+                <h2 class="question-heading">41. How Does encode() Method Work?</h2>
+                <div class="syntax-box">Syntax: string.encode()</div>
+                <div class="code-container">
+                    <pre>text = "Python"
+result = text.encode()
+print(result)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>b'Python'</div>
+            </div>
+
+            <!-- Q42 to Q53 Practice Programs -->
+            <div class="section-card" id="q42">
+                <h2 class="question-heading">42. How to Reverse a String in Python?</h2>
+                <div class="syntax-box">Syntax: string[::-1]</div>
+                <div class="code-container">
+                    <pre>text = "Python"
+reverse = text[::-1]
+print(reverse)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>nohtyP</div>
+            </div>
+
+            <div class="section-card" id="q43">
+                <h2 class="question-heading">43. How to Check if a String is a Palindrome?</h2>
+                <div class="syntax-box">Syntax: string == string[::-1]</div>
+                <div class="code-container">
+                    <pre>text = "madam"
+if text == text[::-1]:
+    print("Palindrome")
+else:
+    print("Not Palindrome")</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Palindrome</div>
+            </div>
+
+            <div class="section-card" id="q44">
+                <h2 class="question-heading">44. How to Count Vowels in a String?</h2>
+                <div class="code-container">
+                    <pre>text = "Python Programming"
+vowels = "aeiouAEIOU"
+count = 0
+for char in text:
+    if char in vowels:
+        count += 1
+print("Vowels:", count)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Vowels: 4</div>
+            </div>
+
+            <div class="section-card" id="q45">
+                <h2 class="question-heading">45. How to Count Total Words in a Sentence?</h2>
+                <div class="syntax-box">Syntax: len(string.split())</div>
+                <div class="code-container">
+                    <pre>text = "Python is easy to learn"
+words = text.split()
+print("Total Words:", len(words))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Total Words: 5</div>
+            </div>
+
+            <div class="section-card" id="q46">
+                <h2 class="question-heading">46. How to Count Total Characters in a String?</h2>
+                <div class="syntax-box">Syntax: len(string)</div>
+                <div class="code-container">
+                    <pre>text = "Python"
+print("Total Characters:", len(text))</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Total Characters: 6</div>
+            </div>
+
+            <div class="section-card" id="q47">
+                <h2 class="question-heading">47. How to Find Character Frequency in a String?</h2>
+                <div class="code-container">
+                    <pre>text = "banana"
+frequency = {}
+for char in text:
+    frequency[char] = frequency.get(char, 0) + 1
+print(frequency)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>{'b': 1, 'a': 3, 'n': 2}</div>
+            </div>
+
+            <div class="section-card" id="q48">
+                <h2 class="question-heading">48. How to Remove All Spaces from a String?</h2>
+                <div class="syntax-box">Syntax: string.replace(" ", "")</div>
+                <div class="code-container">
+                    <pre>text = "Python is easy"
+result = text.replace(" ", "")
+print(result)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Pythoniseasy</div>
+            </div>
+
+            <div class="section-card" id="q49">
+                <h2 class="question-heading">49. How to Replace a Specific Word in a String?</h2>
+                <div class="syntax-box">Syntax: string.replace(old_word, new_word)</div>
+                <div class="code-container">
+                    <pre>text = "I love Java"
+result = text.replace("Java", "Python")
+print(result)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>I love Python</div>
+            </div>
+
+            <div class="section-card" id="q50">
+                <h2 class="question-heading">50. How to Check if Two Strings are Anagrams?</h2>
+                <div class="syntax-box">Syntax: sorted(string1) == sorted(string2)</div>
+                <div class="code-container">
+                    <pre>text1 = "listen"
+text2 = "silent"
+if sorted(text1) == sorted(text2):
+    print("Anagram")
+else:
+    print("Not Anagram")</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Anagram</div>
+            </div>
+
+            <div class="section-card" id="q51">
+                <h2 class="question-heading">51. How to Reverse Each Word in a Sentence?</h2>
+                <div class="code-container">
+                    <pre>text = "Python is easy"
+result = " ".join(word[::-1] for word in text.split())
+print(result)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>nohtyP si ysae</div>
+            </div>
+
+            <div class="section-card" id="q52">
+                <h2 class="question-heading">52. How to Find Duplicate Characters in a String?</h2>
+                <div class="code-container">
+                    <pre>text = "programming"
+frequency = {}
+for char in text:
+    frequency[char] = frequency.get(char, 0) + 1
+
+print("Duplicate Characters:")
+for char in frequency:
+    if frequency[char] > 1:
+        print(char)</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>Duplicate Characters:<br>r<br>g<br>m</div>
+            </div>
+
+            <div class="section-card" id="q53">
+                <h2 class="question-heading">53. How to Find the First Non-Repeating Character in a String?</h2>
+                <div class="code-container">
+                    <pre>text = "aabbcde"
+for char in text:
+    if text.count(char) == 1:
+        print("First Non-Repeating Character:", char)
+        break</pre>
+                </div>
+                <div class="output-box"><div class="output-label">Output</div>First Non-Repeating Character: c</div>
+            </div>
+
+            <!-- Q54 Quick Revision -->
+            <div class="section-card" id="quick-revision">
+                <h2 class="question-heading">54. Quick Revision Summary of String Topics</h2>
+                <div class="code-container">
+                    <div class="code-header">Python Code - Quick Revision Notes</div>
+                    <pre>name = "Python"
+
+print(name[0])
+print(name[-1])
+print(name[0:3])
+
+print(len(name))
+print("Hello " + name)
+print(name * 2)
+print("P" in name)
+
+age = 22
+print(f"My age is {age}")
+
+print(name.upper())
+print(name.lower())
+print(name.capitalize())
+print(name.title())
+print(name.swapcase())
+
+print(name.find("t"))
+print(name.index("t"))
+print(name.count("t"))
+print(name.replace("Python", "Java"))
+
+print("Python is easy".split())
+print("-".join(["Python", "Java", "SQL"]))
+
+print("   Python   ".strip())
+print("Python".isalpha())
+print("123".isdigit())
+print("Python123".isalnum())
+print("python".islower())
+print("PYTHON".isupper())
+print("   ".isspace())
+
+print("Python".startswith("Py"))
+print("Python".endswith("on"))
+print("Python".center(20, "-"))
+print("123".zfill(6))
+print("Python".encode())</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Strings Master Notes &bull; Question Wise Study Guide &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

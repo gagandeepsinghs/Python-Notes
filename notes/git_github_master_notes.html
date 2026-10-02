@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub Master Notes (Scratch to Advanced) - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(9, 9, 11);
+            --bg-secondary: rgb(24, 24, 27);
+            --text-primary: rgb(244, 244, 245);
+            --text-muted: rgb(161, 161, 170);
+            --accent-color: rgb(59, 130, 246);
+            --accent-hover: rgb(37, 99, 235);
+            --code-bg: rgb(24, 24, 27);
+            --code-border: rgb(39, 39, 42);
+            --code-text: rgb(244, 244, 245);
+            --border-color: rgb(39, 39, 42);
+            --box-blue-bg: rgb(30, 58, 138);
+            --box-blue-border: rgb(30, 64, 175);
+            --box-blue-text: rgb(219, 234, 254);
+            --box-green-bg: rgb(6, 78, 59);
+            --box-green-border: rgb(6, 95, 70);
+            --box-green-text: rgb(209, 250, 229);
+            --box-red-bg: rgb(127, 29, 29);
+            --box-red-border: rgb(153, 27, 27);
+            --box-red-text: rgb(254, 226, 226);
+            --output-bg: rgb(18, 18, 20);
+            --output-border: rgb(39, 39, 42);
+            --sidebar-width: 320px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: rgb(18, 18, 20);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(161, 161, 170);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(63, 63, 70);
+            background-color: rgb(24, 24, 27);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            color: rgb(212, 212, 216);
+            text-decoration: none;
+            font-size: 0.86rem;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1150px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(24, 24, 27) 0%, rgb(39, 39, 42) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-card h1 {
+            font-size: 2.3rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: rgb(255, 255, 255);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 28px;
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.45rem;
+            color: rgb(255, 255, 255);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-title {
+            font-size: 1.15rem;
+            color: rgb(147, 197, 253);
+            margin-top: 22px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .box-blue {
+            background-color: var(--box-blue-bg);
+            border: 1px solid var(--box-blue-border);
+            color: var(--box-blue-text);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .box-green {
+            background-color: var(--box-green-bg);
+            border: 1px solid var(--box-green-border);
+            color: var(--box-green-text);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .box-red {
+            background-color: var(--box-red-bg);
+            border: 1px solid var(--box-red-border);
+            color: var(--box-red-text);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .box-blue h4, .box-green h4, .box-red h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* Dark Code Container */
+        .code-container {
+            background-color: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .code-header {
+            background-color: rgb(39, 39, 42);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            border-bottom: 1px solid rgb(63, 63, 70);
+        }
+
+        .code-header .lang-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgb(212, 212, 216);
+            font-weight: 600;
+        }
+
+        .code-header .copy-btn {
+            background: none;
+            border: none;
+            color: rgb(161, 161, 170);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            color: rgb(244, 244, 245);
+            padding: 18px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.92rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+        }
+
+        /* Syntax Highlighting Colors */
+        .kw { color: rgb(236, 72, 153); font-weight: bold; } /* Keywords PINK */
+        .fn { color: rgb(96, 165, 250); } /* Commands / Functions BLUE */
+        .str { color: rgb(52, 211, 153); } /* Parameters / Strings GREEN */
+        .type { color: rgb(192, 132, 252); } /* Flags / Types PURPLE */
+        .num { color: rgb(251, 146, 60); } /* Numbers ORANGE */
+        .cm { color: rgb(113, 113, 122); font-style: italic; } /* Comments GREY */
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 14px 18px;
+            margin-top: 10px;
+            border-radius: 0 8px 8px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(224, 231, 255);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: rgb(161, 161, 170);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(39, 39, 42);
+            color: rgb(147, 197, 253);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(63, 63, 70);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Git & GitHub Notes</h2>
+        <span class="author-tag">Complete Master Guide &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search command or concept..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod1')">Mod 1: Version Control & Setup</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod2')">Mod 2: Git 3-Stage Architecture</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod3')">Mod 3: Essential Commands</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod4')">Mod 4: Undoing & Resetting</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod5')">Mod 5: Branching & Merging</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod6')">Mod 6: Stashing & Reflog</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod7')">Mod 7: Remotes & GitHub</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod8')">Mod 8: PRs & Collaboration</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod9')">Mod 9: Rebasing & Workflows</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod10')">Mod 10: Cheatsheet & FAQs</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Git & GitHub Complete Master Notes</h1>
+            <p>From absolute basics to advanced branching strategies, 3-stage architecture, merging conflicts, rebasing, stashing, reflog recovery, pull requests, and Gitflow workflows.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- MODULE 1 -->
+        <div class="section-card" id="sec-mod1">
+            <h2 class="section-title">Module 1. Version Control & Setup</h2>
+            
+            <h3 class="sub-title">1.1 What is Version Control System (VCS)?</h3>
+            <p>A <strong>Version Control System (VCS)</strong> is software that tracks and records changes made to files over time so that you can recall specific versions later, compare revisions, restore lost code, and collaborate smoothly with a team.</p>
+
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Centralized VCS (CVCS)</h4>
+                    <p>Examples: Subversion (SVN), Perforce.<br>A single central server contains all versioned files. If the central server goes down, developers cannot collaborate or save version history.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Distributed VCS (DVCS)</h4>
+                    <p>Examples: Git, Mercurial.<br>Every developer fully mirrors (clones) the entire repository, including full commit history, locally on their machine. Work continues even offline!</p>
+                </div>
+            </div>
+
+            <h3 class="sub-title">1.2 Git vs GitHub: What's the Difference?</h3>
+            <table class="table-custom">
+                <thead>
+                    <tr><th>Feature</th><th>Git</th><th>GitHub</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Definition</strong></td><td>Command-line open-source Distributed Version Control Tool</td><td>Cloud-based web platform hosting Git repositories</td></tr>
+                    <tr><td><strong>Location</strong></td><td>Runs locally on your computer</td><td>Hosted on remote cloud servers (Microsoft)</td></tr>
+                    <tr><td><strong>Function</strong></td><td>Tracks file modifications & commit histories</td><td>Provides Web UI, PRs, Issue tracking, Actions CI/CD</td></tr>
+                    <tr><td><strong>Offline Use</strong></td><td>Works 100% offline</td><td>Requires Internet connection</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">1.3 First Time Git Configuration</h3>
+            <p>After installing Git, configure your global user identity so every commit is tagged with your name and email.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Set global user name</span>
+git config --global user.name <span class="str">"Gagan Sir"</span>
+
+<span class="cm">-- Set global user email</span>
+git config --global user.email <span class="str">"gagan@example.com"</span>
+
+<span class="cm">-- Set default main branch name</span>
+git config --global init.defaultBranch <span class="str">main</span>
+
+<span class="cm">-- Verify configurations</span>
+git config --list</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 2 -->
+        <div class="section-card" id="sec-mod2">
+            <h2 class="section-title">Module 2. Git 3-Stage Architecture</h2>
+            
+            <p>Git manages project files across <strong>Three Main Areas</strong> (Working Tree, Staging Area, Local Repository):</p>
+
+            <div class="explanation-grid">
+                <div class="box-red">
+                    <h4>1. Working Directory</h4>
+                    <p>The local folder where you actively create, edit, or delete code files. Files here are either Untracked or Modified.</p>
+                </div>
+                <div class="box-blue">
+                    <h4>2. Staging Area (Index)</h4>
+                    <p>A middle-ground buffer file (index) holding changes you select to be included in the next commit preview.</p>
+                </div>
+                <div class="box-green">
+                    <h4>3. Local Repository (.git)</h4>
+                    <p>The permanent database inside the hidden <code>.git</code> folder storing snapshot commits and history pointers.</p>
+                </div>
+            </div>
+
+            <h3 class="sub-title">File Lifecycle in Git</h3>
+            <div class="box-blue">
+                <h4>Workflow Flowchart</h4>
+                <p><strong>Untracked / Modified File</strong> &rarr; <span class="code-snippet">git add</span> &rarr; <strong>Staged Area</strong> &rarr; <span class="code-snippet">git commit</span> &rarr; <strong>Committed (Local Repo)</strong></p>
+            </div>
+        </div>
+
+        <!-- MODULE 3 -->
+        <div class="section-card" id="sec-mod3">
+            <h2 class="section-title">Module 3. Essential Git Commands (Daily Workflow)</h2>
+            
+            <h3 class="sub-title">3.1 Initializing & Checking Repository</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Initialize a new empty Git repository</span>
+git init
+
+<span class="cm">-- Check the current status of files</span>
+git status</pre>
+            </div>
+
+            <h3 class="sub-title">3.2 Staging & Committing Changes</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Stage a specific file</span>
+git add index.html
+
+<span class="cm">-- Stage all modified and new files</span>
+git add .
+
+<span class="cm">-- Commit staged files with descriptive message</span>
+git commit -m <span class="str">"Add user authentication module"</span>
+
+<span class="cm">-- Shortcut: Stage modified tracked files and commit in one go</span>
+git commit -am <span class="str">"Fix login validation bug"</span></pre>
+            </div>
+
+            <h3 class="sub-title">3.3 Viewing History & Differences</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- View commit history</span>
+git log
+
+<span class="cm">-- Compact single-line history with graph</span>
+git log --oneline --graph --all
+
+<span class="cm">-- See unstaged changes in working directory</span>
+git diff
+
+<span class="cm">-- See staged changes waiting to be committed</span>
+git diff --staged</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 4 -->
+        <div class="section-card" id="sec-mod4">
+            <h2 class="section-title">Module 4. Undoing Changes & Resetting</h2>
+            
+            <h3 class="sub-title">4.1 .gitignore File</h3>
+            <p>Create a <code>.gitignore</code> file at your project root to prevent temporary files, API secrets, or large dependencies from being tracked by Git.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; .gitignore</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Ignore node_modules folder</span>
+node_modules/
+
+<span class="cm">-- Ignore environment secrets</span>
+.env
+
+<span class="cm">-- Ignore all .log files</span>
+*.log
+
+<span class="cm">-- Ignore OS files</span>
+.DS_Store
+Thumbs.db</pre>
+            </div>
+
+            <h3 class="sub-title">4.2 Undoing Work & Resetting Modes</h3>
+            <table class="table-custom">
+                <thead>
+                    <tr><th>Command</th><th>Target Area</th><th>Behavior / Result</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="code-snippet">git restore file.txt</span></td><td>Working Directory</td><td>Discards local uncommitted modifications in working copy.</td></tr>
+                    <tr><td><span class="code-snippet">git restore --staged file.txt</span></td><td>Staging Area</td><td>Unstages file back to working directory.</td></tr>
+                    <tr><td><span class="code-snippet">git commit --amend -m "msg"</span></td><td>Latest Commit</td><td>Modifies the last commit message or includes newly staged files.</td></tr>
+                    <tr><td><span class="code-snippet">git reset --soft HEAD~1</span></td><td>Local Repo</td><td>Undoes commit, keeps changes staged in index.</td></tr>
+                    <tr><td><span class="code-snippet">git reset --mixed HEAD~1</span></td><td>Local Repo & Index</td><td>Default: Undoes commit & un-stages changes to working dir.</td></tr>
+                    <tr><td><span class="code-snippet">git reset --hard HEAD~1</span></td><td>All Areas</td><td><strong>DESTRUCTIVE</strong>: Wipes out commit, staged files, and working changes!</td></tr>
+                    <tr><td><span class="code-snippet">git revert &lt;commit-hash&gt;</span></td><td>Local Repo</td><td>Safe public undo: creates a NEW commit that reverses previous commit.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MODULE 5 -->
+        <div class="section-card" id="sec-mod5">
+            <h2 class="section-title">Module 5. Git Branching & Merging Masterclass</h2>
+            
+            <p>Branching allows developers to diverge from the main line of development to isolate feature work or bug fixes.</p>
+
+            <h3 class="sub-title">5.1 Branching Commands</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- List all local branches</span>
+git branch
+
+<span class="cm">-- Create a new branch</span>
+git branch feature-payment
+
+<span class="cm">-- Switch to branch (Modern syntax)</span>
+git switch feature-payment
+
+<span class="cm">-- Create and switch in one command</span>
+git switch -c feature-dashboard
+
+<span class="cm">-- Delete merged branch</span>
+git branch -d feature-payment
+
+<span class="cm">-- Force delete unmerged branch</span>
+git branch -D feature-payment</pre>
+            </div>
+
+            <h3 class="sub-title">5.2 Merging Strategies & Resolving Conflicts</h3>
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Fast-Forward Merge</h4>
+                    <p>Occurs when the target branch has no intermediate commits. Git simply moves the branch pointer forward.</p>
+                </div>
+                <div class="box-green">
+                    <h4>3-Way Merge Commit</h4>
+                    <p>Occurs when branches have diverged. Git creates a new merge commit combining two distinct histories.</p>
+                </div>
+            </div>
+
+            <div class="box-red">
+                <h4>Resolving Merge Conflicts Step-by-Step</h4>
+                <p>When Git cannot automatically resolve differences, it inserts conflict markers:</p>
+                <pre style="background: rgb(18,18,20); margin: 10px 0; padding: 10px;">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Code on current branch
+=======
+Code on incoming branch
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch</pre>
+                <p>1. Open file and edit code to final desired state.<br>
+                2. Run <span class="code-snippet">git add resolved_file.py</span><br>
+                3. Run <span class="code-snippet">git commit -m "Resolve merge conflict"</span></p>
+            </div>
+        </div>
+
+        <!-- MODULE 6 -->
+        <div class="section-card" id="sec-mod6">
+            <h2 class="section-title">Module 6. Stashing, Reflog & Advanced Tools</h2>
+            
+            <h3 class="sub-title">6.1 Git Stash (Temporarily Saving Work)</h3>
+            <p>Use stashing when you need to switch branches quickly without committing incomplete work.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Save modified tracked files into stash stack</span>
+git stash
+
+<span class="cm">-- Save with custom message including untracked files</span>
+git stash save <span class="str">"WIP: navbar styling"</span> -u
+
+<span class="cm">-- View list of stashed items</span>
+git stash list
+
+<span class="cm">-- Re-apply most recent stash and remove it from list</span>
+git stash pop
+
+<span class="cm">-- Clear all stashes</span>
+git stash clear</pre>
+            </div>
+
+            <h3 class="sub-title">6.2 Emergency Recovery with Reflog</h3>
+            <p><code>git reflog</code> records every single move of <code>HEAD</code> in your repository. If you accidentally delete a branch or hard-reset a commit, <code>reflog</code> lets you restore it!</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- View full movement history of HEAD</span>
+git reflog
+
+<span class="cm">-- Restore lost commit using HEAD@{index}</span>
+git reset --hard HEAD@{3}</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 7 -->
+        <div class="section-card" id="sec-mod7">
+            <h2 class="section-title">Module 7. Remote Repositories & GitHub</h2>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Connect local repo to remote GitHub URL</span>
+git remote add origin https://github.com/username/project.git
+
+<span class="cm">-- Check remote URLs</span>
+git remote -v
+
+<span class="cm">-- Push code and set upstream tracking</span>
+git push -u origin main
+
+<span class="cm">-- Fetch remote changes without merging</span>
+git fetch origin
+
+<span class="cm">-- Fetch and merge remote changes in one command</span>
+git pull origin main</pre>
+            </div>
+
+            <div class="box-green">
+                <h4>git fetch vs git pull</h4>
+                <p><strong>git fetch</strong> downloads latest remote commits to remote-tracking branches (<code>origin/main</code>) without modifying your local code.<br>
+                <strong>git pull</strong> is equivalent to <code>git fetch + git merge</code>.</p>
+            </div>
+        </div>
+
+        <!-- MODULE 8 -->
+        <div class="section-card" id="sec-mod8">
+            <h2 class="section-title">Module 8. GitHub Collaboration & Pull Requests</h2>
+            
+            <h3 class="sub-title">Standard Pull Request (PR) Workflow</h3>
+            <ol class="list-styled">
+                <li><strong>Fork / Clone</strong> repository.</li>
+                <li>Create feature branch: <span class="code-snippet">git switch -c feature-new-api</span>.</li>
+                <li>Make modifications, stage, and commit: <span class="code-snippet">git commit -m "Add API endpoints"</span>.</li>
+                <li>Push feature branch to remote: <span class="code-snippet">git push -u origin feature-new-api</span>.</li>
+                <li>Open <strong>Pull Request (PR)</strong> on GitHub for team code review.</li>
+                <li>After approval, merge PR into <span class="code-snippet">main</span> branch.</li>
+            </ol>
+        </div>
+
+        <!-- MODULE 9 -->
+        <div class="section-card" id="sec-mod9">
+            <h2 class="section-title">Module 9. Rebasing & Professional Workflows</h2>
+            
+            <h3 class="sub-title">9.1 Git Rebase vs Git Merge</h3>
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Git Merge</h4>
+                    <p>Preserves complete chronological history by adding a 3-way merge commit. Non-destructive.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Git Rebase</h4>
+                    <p>Re-applies your commits on top of another base tip to maintain a clean linear commit history.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; GIT COMMANDS</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Rebase current feature branch onto main</span>
+git rebase main
+
+<span class="cm">-- Interactive rebase to squash last 3 commits</span>
+git rebase -i HEAD~3</pre>
+            </div>
+
+            <div class="box-red">
+                <h4>Golden Rule of Rebasing</h4>
+                <p>NEVER rebase commits that have been pushed to a public shared branch! Only rebase private local feature branches before merging.</p>
+            </div>
+        </div>
+
+        <!-- MODULE 10 -->
+        <div class="section-card" id="sec-mod10">
+            <h2 class="section-title">Module 10. Master Git Cheatsheet & FAQs</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr><th>Operation</th><th>Command</th><th>Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Setup User Name</td><td><span class="code-snippet">git config --global user.name "Name"</span></td><td>Identifies commit author</td></tr>
+                    <tr><td>Init Repo</td><td><span class="code-snippet">git init</span></td><td>Creates local repo</td></tr>
+                    <tr><td>Stage All Files</td><td><span class="code-snippet">git add .</span></td><td>Stages changes</td></tr>
+                    <tr><td>Commit</td><td><span class="code-snippet">git commit -m "msg"</span></td><td>Saves snapshot</td></tr>
+                    <tr><td>Check Status</td><td><span class="code-snippet">git status</span></td><td>Shows working state</td></tr>
+                    <tr><td>Branch Create</td><td><span class="code-snippet">git switch -c feature</span></td><td>Creates & switches branch</td></tr>
+                    <tr><td>Stash Work</td><td><span class="code-snippet">git stash</span></td><td>Saves WIP work</td></tr>
+                    <tr><td>Push Remote</td><td><span class="code-snippet">git push -u origin main</span></td><td>Uploads commits</td></tr>
+                    <tr><td>Recover Commit</td><td><span class="code-snippet">git reflog</span></td><td>Emergency history log</td></tr>
+                </tbody>
+            </table>
+
+            <div class="footer">
+                <p>Git & GitHub Complete Master Notes &bull; <strong>Created by Gagan Sir</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tuple Complete Master Notes & 25 Practice Solutions - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(148, 163, 184);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(30, 41, 59);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 7px 10px;
+            color: rgb(203, 213, 225);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(226, 232, 240);
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border: 1px solid var(--english-border);
+            color: var(--english-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border: 1px solid var(--hinglish-border);
+            color: var(--hinglish-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-english h4, .box-hinglish h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            color: var(--code-text);
+            padding: 15px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--output-border);
+            padding: 12px 16px;
+            margin-top: 10px;
+            border-radius: 0 6px 6px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(30, 41, 59);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(203, 213, 225);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .ques-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid rgb(226, 232, 240);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .ques-title {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Python Tuples Roadmap</h2>
+        <span class="author-tag">50 Topics + 25 Practice Solutions &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search tuple concept..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-intro')">1. What is a Tuple?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-creation')">2. Creating Tuples & Syntax</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-indexing')">3. Indexing & Slicing</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-immutable')">4. Immutability Rule</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-loops')">5. Loops with Tuple</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-methods')">6. Tuple Methods (count, index)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ops')">7. Concatenation & Repetition</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-packing')">8. Packing & Unpacking (*)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-nested')">9. Nested Tuples</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-builtins')">10. Built-in Math Functions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-conversions')">11. Type Conversions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-advanced')">12. Advanced Interoperability</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-summary')">13. Operations Cheat Sheet</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-practice-list')">14. 25 Practice Questions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-solutions')">15. Step-by-Step Code Solutions</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Python Tuple: Complete Master Notes & 25 Practice Solutions</h1>
+            <p>Master Python Tuples from core definitions, immutability principles, single-element comma rules, packing/unpacking, nested tuples, function returns, to 25 practice questions with complete executable solutions.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- SECTION 1: What is a Tuple? -->
+        <div class="section-card" id="sec-intro">
+            <h2 class="section-title">1. What is a Tuple in Python?</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>English Definition</h4>
+                    <p>A <strong>Tuple</strong> is an ordered, immutable collection in Python enclosed in round parentheses <code>()</code>. Tuples allow duplicate elements, support indexing/slicing, and cannot be altered after creation.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Explanation</h4>
+                    <p>Tuple Python mein ek data structure hai jisme multiple values ek hi variable me store hoti hain. Key rule: <strong>Tuple change nahi ho sakta (immutable)</strong>.</p>
+                </div>
+            </div>
+
+            <ul class="list-styled">
+                <li><strong>Ordered:</strong> Maintains exact insertion order of items.</li>
+                <li><strong>Immutable:</strong> Elements cannot be modified, added, or removed in-place.</li>
+                <li><strong>Allows Duplicates:</strong> Can hold identical values multiple times.</li>
+                <li><strong>Heterogeneous Data:</strong> Can mix integers, floats, strings, booleans, and lists.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 2: Creating Tuples -->
+        <div class="section-card" id="sec-creation">
+            <h2 class="section-title">2. Creating Tuples & Syntax Variations</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>Single Element Comma Rule</h4>
+                    <p>Writing <code>num = (10)</code> creates an <code>int</code> integer! To create a single-element tuple, you <strong>must include a trailing comma</strong>: <code>num = (10,)</code>.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Tuple Without Parentheses</h4>
+                    <p>Python mein bina round brackets ke bhi numbers separated by commas dene se automatically tuple ban jata hai (Tuple Packing): <code>nums = 10, 20, 30</code>.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Creating Tuples</div>
+                <pre>numbers = (10, 20, 30, 40)
+empty_tuple = ()
+single_elem = (10,)
+no_brackets = 10, 20, 30, 40
+mixed_data = (10, "Python", 20.5, True)
+
+print("Standard Tuple:", numbers)
+print("Single Element Type:", type(single_elem))
+print("Without Brackets:", no_brackets)
+print("Mixed Tuple:", mixed_data)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Standard Tuple: (10, 20, 30, 40)<br>Single Element Type: &lt;class 'tuple'&gt;<br>Without Brackets: (10, 20, 30, 40)<br>Mixed Tuple: (10, 'Python', 20.5, True)</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Indexing & Slicing -->
+        <div class="section-card" id="sec-indexing">
+            <h2 class="section-title">3. Tuple Indexing & Slicing</h2>
+            
+            <p>Access tuple elements using zero-based indexing <code>tuple[0]</code>, negative indexing <code>tuple[-1]</code>, or extract sub-tuples using slicing <code>tuple[start:stop:step]</code>.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Indexing & Slicing</div>
+                <pre>numbers = (10, 20, 30, 40, 50)
+
+print("First element (0):", numbers[0])
+print("Last element (-1):", numbers[-1])
+print("Slice [1:4]:", numbers[1:4])
+print("Step 2 [::2]:", numbers[::2])
+print("Reversed [::-1]:", numbers[::-1])</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>First element (0): 10<br>Last element (-1): 50<br>Slice [1:4]: (20, 30, 40)<br>Step 2 [::2]: (10, 30, 50)<br>Reversed [::-1]: (50, 40, 30, 20, 10)</div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Immutability Rule -->
+        <div class="section-card" id="sec-immutable">
+            <h2 class="section-title">4. The Immutability Rule</h2>
+            
+            <p>Attempting to assign a new value to an existing index in a tuple will raise a <code>TypeError</code>.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Demonstrating Immutability</div>
+                <pre>numbers = (10, 20, 30)
+try:
+    numbers[1] = 50
+except TypeError as e:
+    print("Error caught:", e)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Error caught: 'tuple' object does not support item assignment</div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Loops with Tuple -->
+        <div class="section-card" id="sec-loops">
+            <h2 class="section-title">5. Looping Through a Tuple</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Iterating over Tuple</div>
+                <pre>numbers = (10, 20, 30, 40)
+
+print("Direct Loop:")
+for item in numbers:
+    print("Item:", item)
+
+print("
+Range Index Loop:")
+for i in range(len(numbers)):
+    print("Index", i, ":", numbers[i])</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Direct Loop:<br>Item: 10<br>Item: 20<br>Item: 30<br>Item: 40<br><br>Range Index Loop:<br>Index 0 : 10<br>Index 1 : 20<br>Index 2 : 30<br>Index 3 : 40</div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: Tuple Methods -->
+        <div class="section-card" id="sec-methods">
+            <h2 class="section-title">6. Tuple Built-in Methods (count & index)</h2>
+            
+            <p>Because tuples are immutable, they only possess <strong>two built-in methods</strong>: <code>count()</code> and <code>index()</code>.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - count() and index()</div>
+                <pre>numbers = (10, 20, 20, 30, 20, 40)
+
+print("Count of 20:", numbers.count(20))
+print("Index of 30:", numbers.index(30))</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Count of 20: 3<br>Index of 30: 3</div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: Concatenation & Repetition -->
+        <div class="section-card" id="sec-ops">
+            <h2 class="section-title">7. Concatenation, Repetition & Membership</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Tuple Operations</div>
+                <pre>t1 = (10, 20)
+t2 = (30, 40)
+
+combined = t1 + t2
+repeated = t1 * 3
+
+print("Concatenated (+):", combined)
+print("Repeated (*):", repeated)
+print("Is 20 in t1?", 20 in t1)
+print("Is 50 not in t1?", 50 not in t1)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Concatenated (+): (10, 20, 30, 40)<br>Repeated (*): (10, 20, 10, 20, 10, 20)<br>Is 20 in t1? True<br>Is 50 not in t1? True</div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Packing & Unpacking -->
+        <div class="section-card" id="sec-packing">
+            <h2 class="section-title">8. Tuple Packing & Advanced Unpacking (* Operator)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>Wildcard * Unpacking</h4>
+                    <p>Using <code>*var</code> during unpacking collects excess items into a list: <code>a, b, *c = (10, 20, 30, 40, 50)</code>.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Explanation</h4>
+                    <p>Tuple unpacking se tuple ke values ko multiple variables mein ek sath assign kar sakte hain. <code>*</code> operator bachi hui values ko list ke roop mein store kar leta hai.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Unpacking Variations</div>
+                <pre>numbers = (10, 20, 30, 40, 50)
+
+a, b, *c = numbers
+print("a:", a, "| b:", b, "| c:", c)
+
+first, *middle, last = numbers
+print("first:", first, "| middle:", middle, "| last:", last)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>a: 10 | b: 20 | c: [30, 40, 50]<br>first: 10 | middle: [20, 30, 40] | last: 50</div>
+            </div>
+        </div>
+
+        <!-- SECTION 9: Nested Tuples -->
+        <div class="section-card" id="sec-nested">
+            <h2 class="section-title">9. Nested Tuples & Multi-level Loops</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Nested Tuple Access</div>
+                <pre>nested = ((10, 20), (30, 40), (50, 60))
+
+print("First inner tuple:", nested[0])
+print("Specific element (0, 1):", nested[0][1])
+
+print("
+Nested Loop Iteration:")
+for row in nested:
+    for val in row:
+        print(val, end=" ")
+    print()</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>First inner tuple: (10, 20)<br>Specific element (0, 1): 20<br><br>Nested Loop Iteration:<br>10 20 <br>30 40 <br>50 60 </div>
+            </div>
+        </div>
+
+        <!-- SECTION 10: Built-in Math Functions -->
+        <div class="section-card" id="sec-builtins">
+            <h2 class="section-title">10. Built-in Math & Boolean Functions</h2>
+            
+            <p>Functions like <code>sum()</code>, <code>min()</code>, <code>max()</code>, <code>any()</code>, <code>all()</code>, and <code>sorted()</code> work seamlessly with tuples. Note that <code>sorted()</code> returns a <strong>sorted List</strong>.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Math & Sorting</div>
+                <pre>nums = (50, 20, 40, 10, 30)
+
+print("Sum:", sum(nums))
+print("Max:", max(nums))
+print("Min:", min(nums))
+print("Sorted (returns list):", sorted(nums))
+print("Sorted Descending:", sorted(nums, reverse=True))
+print("Any True (0, 0, 10):", any((0, 0, 10)))
+print("All True (10, 20, 30):", all((10, 20, 30)))</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Sum: 150<br>Max: 50<br>Min: 10<br>Sorted (returns list): [10, 20, 30, 40, 50]<br>Sorted Descending: [50, 40, 30, 20, 10]<br>Any True (0, 0, 10): True<br>All True (10, 20, 30): True</div>
+            </div>
+        </div>
+
+        <!-- SECTION 11: Type Conversions -->
+        <div class="section-card" id="sec-conversions">
+            <h2 class="section-title">11. Type Conversions (to/from Tuple)</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Converting Data Types</div>
+                <pre>py_list = [10, 20, 30]
+tup_from_list = tuple(py_list)
+
+py_str = "Python"
+tup_from_str = tuple(py_str)
+
+py_set = {10, 20, 30}
+tup_from_set = tuple(py_set)
+
+print("List to Tuple:", tup_from_list)
+print("String to Tuple:", tup_from_str)
+print("Set to Tuple:", tup_from_set)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>List to Tuple: (10, 20, 30)<br>String to Tuple: ('P', 'y', 't', 'h', 'o', 'n')<br>Set to Tuple: (10, 20, 30)</div>
+            </div>
+        </div>
+
+        <!-- SECTION 12: Advanced Interoperability -->
+        <div class="section-card" id="sec-advanced">
+            <h2 class="section-title">12. Advanced Interoperability & Function Returns</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>Mutable List inside Immutable Tuple</h4>
+                    <p>If a tuple contains a list element <code>([10, 20], [30, 40])</code>, the list itself can be modified in-place <code>data[0][0] = 100</code> because list objects are mutable.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Tuple as Dictionary Key</h4>
+                    <p>Tuples immutable hone ki wajah se hashable hote hain, isliye inko dictionary keys ke roop mein use kiya ja sakta hai: <code>{(101, "Python"): "Gagan"}</code>.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Functions Returning Multiple Values</div>
+                <pre>def get_user_info():
+    name = "Gagan"
+    age = 22
+    course = "MCA"
+    return name, age, course
+
+result = get_user_info()
+print("Function Returned Tuple:", result)
+
+student_dict = {
+    (101, "Python"): "Gagan",
+    (102, "SQL"): "Rahul"
+}
+print("Tuple as Dict Key:", student_dict)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Function Returned Tuple: ('Gagan', 22, 'MCA')<br>Tuple as Dict Key: {(101, 'Python'): 'Gagan', (102, 'SQL'): 'Rahul'}</div>
+            </div>
+        </div>
+
+        <!-- SECTION 13: Summary Cheat Sheet -->
+        <div class="section-card" id="sec-summary">
+            <h2 class="section-title">13. Operations Summary Cheat Sheet</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Syntax / Expression</th>
+                        <th>Allowed on Tuple?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Access Item</strong></td>
+                        <td><code>tuple[0]</code></td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modify Item</strong></td>
+                        <td><code>tuple[0] = 100</code></td>
+                        <td>No (TypeError)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Delete Item</strong></td>
+                        <td><code>del tuple[0]</code></td>
+                        <td>No (TypeError)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Delete Entire Tuple</strong></td>
+                        <td><code>del tuple_name</code></td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Concatenate</strong></td>
+                        <td><code>tuple1 + tuple2</code></td>
+                        <td>Yes (Returns new tuple)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Repeat</strong></td>
+                        <td><code>tuple * n</code></td>
+                        <td>Yes (Returns new tuple)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Methods</strong></td>
+                        <td><code>count()</code>, <code>index()</code></td>
+                        <td>Only these 2 built-in methods</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 14: 25 Practice Questions -->
+        <div class="section-card" id="sec-practice-list">
+            <h2 class="section-title">14. 25 Tuple Practice Questions</h2>
+            
+            <div class="ques-box">
+                <div class="ques-title">Practice Questions (1 - 25)</div>
+                <p>1. Find maximum number in a tuple.</p>
+                <p>2. Find minimum number in a tuple.</p>
+                <p>3. Find sum of all numbers in a tuple.</p>
+                <p>4. Find total length of a tuple.</p>
+                <p>5. Reverse a tuple using slicing.</p>
+                <p>6. Search if an element exists in a tuple using <code>in</code>.</p>
+                <p>7. Find frequency of an element using <code>count()</code>.</p>
+                <p>8. Find index position of an element using <code>index()</code>.</p>
+                <p>9. Combine two tuples using <code>+</code> operator.</p>
+                <p>10. Convert a tuple into a list.</p>
+                <p>11. Convert a list into a tuple.</p>
+                <p>12. Sort tuple elements in ascending order using <code>sorted()</code>.</p>
+                <p>13. Sort tuple elements in descending order.</p>
+                <p>14. Perform tuple unpacking into separate variables.</p>
+                <p>15. Access a value from a nested tuple.</p>
+                <p>16. Find duplicate values in a tuple.</p>
+                <p>17. Extract unique values from a tuple using set conversion.</p>
+                <p>18. Find the second largest number in a tuple.</p>
+                <p>19. Find the second smallest number in a tuple.</p>
+                <p>20. Filter even numbers from a tuple.</p>
+                <p>21. Filter odd numbers from a tuple.</p>
+                <p>22. Filter positive numbers from a tuple.</p>
+                <p>23. Filter negative numbers from a tuple.</p>
+                <p>24. Create a reversed tuple using <code>reversed()</code>.</p>
+                <p>25. Loop through tuple elements and print each with index.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 15: Step-by-Step Code Solutions -->
+        <div class="section-card" id="sec-solutions">
+            <h2 class="section-title">15. Step-by-Step Python Code Solutions</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Solutions (Q1 - Q25)</div>
+                <pre>nums = (10, 50, 20, 80, -30, 20, 40)
+
+print("Q1 Max:", max(nums))
+print("Q2 Min:", min(nums))
+print("Q3 Sum:", sum(nums))
+print("Q4 Length:", len(nums))
+print("Q5 Reversed:", nums[::-1])
+
+print("Q6 Is 50 in nums?", 50 in nums)
+print("Q7 Frequency of 20:", nums.count(20))
+print("Q8 Index of 80:", nums.index(80))
+
+t1 = (1, 2)
+t2 = (3, 4)
+print("Q9 Combined:", t1 + t2)
+
+l_from_t = list(nums)
+print("Q10 Tuple to List:", l_from_t)
+
+t_from_l = tuple([100, 200, 300])
+print("Q11 List to Tuple:", t_from_l)
+
+print("Q12 Ascending Sort:", sorted(nums))
+print("Q13 Descending Sort:", sorted(nums, reverse=True))
+
+a, b, *rest = nums
+print("Q14 Unpacked a, b:", a, b)
+
+nested = ((10, 20), (30, 40))
+print("Q15 Nested Access (1, 0):", nested[1][0])
+
+unique_vals = tuple(set(nums))
+print("Q17 Unique Values:", unique_vals)
+
+sorted_unique = sorted(list(set(nums)))
+print("Q18 Second Largest:", sorted_unique[-2])
+print("Q19 Second Smallest:", sorted_unique[1])
+
+print("Q20 Evens:", tuple(x for x in nums if x % 2 == 0))
+print("Q21 Odds:", tuple(x for x in nums if x % 2 != 0))
+print("Q22 Positives:", tuple(x for x in nums if x > 0))
+print("Q23 Negatives:", tuple(x for x in nums if x < 0))
+
+rev_tup = tuple(reversed(nums))
+print("Q24 Reversed Tuple via reversed():", rev_tup)
+
+print("
+Q25 Enumerate Loop:")
+for idx, val in enumerate(nums):
+    print("  Index", idx, "->", val)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Q1 Max: 80<br>Q2 Min: -30<br>Q3 Sum: 190<br>Q4 Length: 7<br>Q5 Reversed: (40, 20, -30, 80, 20, 50, 10)<br>Q6 Is 50 in nums? True<br>Q7 Frequency of 20: 2<br>Q8 Index of 80: 3<br>Q9 Combined: (1, 2, 3, 4)<br>Q10 Tuple to List: [10, 50, 20, 80, -30, 20, 40]<br>Q11 List to Tuple: (100, 200, 300)<br>Q12 Ascending Sort: [-30, 10, 20, 20, 40, 50, 80]<br>Q13 Descending Sort: [80, 50, 40, 20, 20, 10, -30]<br>Q14 Unpacked a, b: 10 50<br>Q15 Nested Access (1, 0): 30<br>Q18 Second Largest: 50<br>Q19 Second Smallest: 10<br>Q20 Evens: (10, 50, 20, 80, -30, 20, 40)<br>Q21 Odds: ()<br>Q22 Positives: (10, 50, 20, 80, 20, 40)<br>Q23 Negatives: (-30,)<br>Q24 Reversed Tuple via reversed(): (40, 20, -30, 80, 20, 50, 10)<br><br>Q25 Enumerate Loop:<br>  Index 0 -&gt; 10<br>  Index 1 -&gt; 50<br>  Index 2 -&gt; 20<br>  Index 3 -&gt; 80<br>  Index 4 -&gt; -30<br>  Index 5 -&gt; 20<br>  Index 6 -&gt; 40</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python Tuple Complete Master Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

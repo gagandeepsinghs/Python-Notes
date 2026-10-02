@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Database & JOINs Complete Master Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(9, 9, 11);
+            --bg-secondary: rgb(24, 24, 27);
+            --text-primary: rgb(244, 244, 245);
+            --text-muted: rgb(161, 161, 170);
+            --accent-color: rgb(59, 130, 246);
+            --accent-hover: rgb(37, 99, 235);
+            --code-bg: rgb(24, 24, 27);
+            --code-border: rgb(39, 39, 42);
+            --code-text: rgb(244, 244, 245);
+            --border-color: rgb(39, 39, 42);
+            --box-blue-bg: rgb(30, 58, 138);
+            --box-blue-border: rgb(30, 64, 175);
+            --box-blue-text: rgb(219, 234, 254);
+            --box-green-bg: rgb(6, 78, 59);
+            --box-green-border: rgb(6, 95, 70);
+            --box-green-text: rgb(209, 250, 229);
+            --output-bg: rgb(18, 18, 20);
+            --output-border: rgb(39, 39, 42);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: rgb(18, 18, 20);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(161, 161, 170);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(63, 63, 70);
+            background-color: rgb(24, 24, 27);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 7px 10px;
+            color: rgb(212, 212, 216);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(255, 255, 255);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(39, 39, 42);
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        .box-blue {
+            background-color: var(--box-blue-bg);
+            border: 1px solid var(--box-blue-border);
+            color: var(--box-blue-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-green {
+            background-color: var(--box-green-bg);
+            border: 1px solid var(--box-green-border);
+            color: var(--box-green-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-blue h4, .box-green h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* Black Theme Code Container matching user image reference */
+        .code-container {
+            background-color: rgb(24, 24, 27);
+            border: 1px solid rgb(39, 39, 42);
+            border-radius: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .code-header {
+            background-color: rgb(18, 18, 20);
+            color: rgb(161, 161, 170);
+            padding: 10px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(39, 39, 42);
+        }
+
+        .code-header .lang-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgb(212, 212, 216);
+        }
+
+        .code-header .copy-btn {
+            background: none;
+            border: none;
+            color: rgb(161, 161, 170);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            color: rgb(244, 244, 245);
+            padding: 18px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.92rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+        }
+
+        /* Syntax Highlighting Colors */
+        .kw { color: rgb(236, 72, 153); font-weight: bold; } /* Keywords PINK */
+        .fn { color: rgb(96, 165, 250); } /* Functions BLUE */
+        .str { color: rgb(52, 211, 153); } /* Strings GREEN */
+        .type { color: rgb(192, 132, 252); } /* Types PURPLE */
+        .num { color: rgb(251, 146, 60); } /* Numbers ORANGE */
+        .cm { color: rgb(113, 113, 122); font-style: italic; } /* Comments GREY */
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 14px 18px;
+            margin-top: 10px;
+            border-radius: 0 8px 8px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(224, 231, 255);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: rgb(161, 161, 170);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(39, 39, 42);
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(39, 39, 42);
+            color: rgb(147, 197, 253);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(63, 63, 70);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .diagram-box {
+            background-color: rgb(18, 18, 20);
+            border: 1px solid rgb(39, 39, 42);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: monospace;
+            color: rgb(52, 211, 153);
+            white-space: pre;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>SQL JOINs Master</h2>
+        <span class="author-tag">Complete Dark Theme Notes &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search JOIN or Keyword..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-db')">1. Database Create & Select</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-schema')">2. Table Structure & ER Diagram</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-tables')">3. Tables Creation & Constraints</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-insert')">4. Sample Data Insertion</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-inner')">5. INNER JOIN Deep Dive</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-left')">6. LEFT JOIN Deep Dive</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-right')">7. RIGHT JOIN Deep Dive</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-full')">8. FULL OUTER JOIN (UNION)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-cross')">9. CROSS JOIN (Cartesian)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-self')">10. SELF JOIN (Manager-Employee)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-multi')">11. Multiple Tables JOIN (3+ Tables)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-clauses')">12. JOIN + WHERE, ORDER BY, GROUP BY</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-having')">13. JOIN + HAVING (Group Filters)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-revision')">14. JOINs & Keywords Cheat Sheet</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-keys')">15. Primary, Foreign & Keys Concept</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-script')">16. Complete Full Runnable MySQL Script</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>SQL JOINs & Relational Database: Complete Master Notes</h1>
+            <p>Master SQL JOINs (INNER, LEFT, RIGHT, FULL OUTER, CROSS, SELF, MULTIPLE JOINs) from scratch to depth with clear definitions, relational table architecture, syntax highlighting in dark mode, WHERE vs HAVING filters, grouping, and a complete runnable MySQL script.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- SECTION 1: Database Create & Select -->
+        <div class="section-card" id="sec-db">
+            <h2 class="section-title">1. Database Create Karna & Select Karna</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Definition</h4>
+                    <p><code>CREATE DATABASE</code> ka use new database create karne ke liye hota hai. <code>USE database_name;</code> active session ke liye database ko select/activate karta hai taki saari aage wali tables us database ke andar banein.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Important Concept</h4>
+                    <p><code>USE office;</code> execute karne ke baad, hum jo bhi <code>CREATE TABLE</code> ya <code>INSERT</code> queries chalayenge, woh automatically <strong>office</strong> database container ke andar execute honge.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">CREATE DATABASE</span> office;
+
+<span class="kw">USE</span> office;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Table Structure & ER Diagram -->
+        <div class="section-card" id="sec-schema">
+            <h2 class="section-title">2. Relational Table Structure (ER Diagram)</h2>
+            
+            <p>Hum is master guide mein <strong>4 Relational Tables</strong> banayenge: <code>departments</code>, <code>employees</code>, <code>projects</code>, aur <code>employee_projects</code> (Bridge Table).</p>
+
+            <div class="diagram-box">
+departments
+     |
+     | department_id (Primary Key -> Foreign Key)
+     |
+ employees
+     |
+     | employee_id (Primary Key -> Foreign Key)
+     |
+employee_projects (Bridge / Junction Table)
+     |
+     | project_id (Foreign Key <- Primary Key)
+     |
+ projects
+            </div>
+
+            <ul class="list-styled">
+                <li><strong>departments:</strong> Department details store karega (Primary Key: <code>department_id</code>).</li>
+                <li><strong>employees:</strong> Employee details & department link store karega (Primary Key: <code>employee_id</code>, Foreign Key: <code>department_id</code>).</li>
+                <li><strong>projects:</strong> Project info & budgets store karega (Primary Key: <code>project_id</code>).</li>
+                <li><strong>employee_projects:</strong> Many-to-Many relationship bridge table (Composite Primary Key: <code>employee_id, project_id</code>).</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 3: Creating Tables & Constraints -->
+        <div class="section-card" id="sec-tables">
+            <h2 class="section-title">3. Table Creation & Constraints Explanation</h2>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 15px;">A. Departments Table</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">CREATE TABLE</span> departments (
+    department_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    department_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    location <span class="type">VARCHAR</span>(<span class="num">50</span>)
+);</pre>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">B. Employees Table (with Foreign Key)</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">CREATE TABLE</span> employees (
+    employee_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    employee_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    email <span class="type">VARCHAR</span>(<span class="num">100</span>) <span class="kw">UNIQUE</span>,
+    salary <span class="type">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>),
+    department_id <span class="type">INT</span>,
+    manager_id <span class="type">INT</span>,
+    
+    <span class="kw">FOREIGN KEY</span> (department_id)
+    <span class="kw">REFERENCES</span> departments(department_id)
+);</pre>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">C. Projects Table</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">CREATE TABLE</span> projects (
+    project_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    project_name <span class="type">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+    project_budget <span class="type">DECIMAL</span>(<span class="num">12</span>,<span class="num">2</span>)
+);</pre>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">D. Employee Projects Table (Bridge Table with Composite Primary Key)</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">CREATE TABLE</span> employee_projects (
+    employee_id <span class="type">INT</span>,
+    project_id <span class="type">INT</span>,
+    
+    <span class="kw">PRIMARY KEY</span> (employee_id, project_id),
+    
+    <span class="kw">FOREIGN KEY</span> (employee_id)
+    <span class="kw">REFERENCES</span> employees(employee_id),
+    
+    <span class="kw">FOREIGN KEY</span> (project_id)
+    <span class="kw">REFERENCES</span> projects(project_id)
+);</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Sample Data Insertion -->
+        <div class="section-card" id="sec-insert">
+            <h2 class="section-title">4. Sample Data Insertion</h2>
+            
+            <p>Data insert karenge standard <code>INSERT INTO</code> command se. Notice that employee <strong>Neha</strong> has <code>NULL</code> department_id (helps us understand LEFT JOIN & NULL handling).</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="cm">-- Departments Data</span>
+<span class="kw">INSERT INTO</span> departments (department_name, location)
+<span class="kw">VALUES</span>
+(<span class="str">'HR'</span>, <span class="str">'Chandigarh'</span>),
+(<span class="str">'IT'</span>, <span class="str">'Mohali'</span>),
+(<span class="str">'Sales'</span>, <span class="str">'Chandigarh'</span>),
+(<span class="str">'Finance'</span>, <span class="str">'Panchkula'</span>),
+(<span class="str">'Marketing'</span>, <span class="str">'Ludhiana'</span>);
+
+<span class="cm">-- Employees Data (Neha has department_id NULL)</span>
+<span class="kw">INSERT INTO</span> employees (employee_name, email, salary, department_id, manager_id)
+<span class="kw">VALUES</span>
+(<span class="str">'Gagan'</span>, <span class="str">'gagan@gmail.com'</span>, <span class="num">45000</span>, <span class="num">2</span>, <span class="kw">NULL</span>),
+(<span class="str">'Rahul'</span>, <span class="str">'rahul@gmail.com'</span>, <span class="num">35000</span>, <span class="num">2</span>, <span class="num">1</span>),
+(<span class="str">'Aman'</span>, <span class="str">'aman@gmail.com'</span>, <span class="num">40000</span>, <span class="num">3</span>, <span class="num">4</span>),
+(<span class="str">'Priya'</span>, <span class="str">'priya@gmail.com'</span>, <span class="num">50000</span>, <span class="num">1</span>, <span class="kw">NULL</span>),
+(<span class="str">'Simran'</span>, <span class="str">'simran@gmail.com'</span>, <span class="num">38000</span>, <span class="num">4</span>, <span class="num">4</span>),
+(<span class="str">'Neha'</span>, <span class="str">'neha@gmail.com'</span>, <span class="num">42000</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>);
+
+<span class="cm">-- Projects Data</span>
+<span class="kw">INSERT INTO</span> projects (project_name, project_budget)
+<span class="kw">VALUES</span>
+(<span class="str">'Website Development'</span>, <span class="num">200000</span>),
+(<span class="str">'Data Analytics'</span>, <span class="num">300000</span>),
+(<span class="str">'CRM System'</span>, <span class="num">250000</span>),
+(<span class="str">'Marketing Campaign'</span>, <span class="num">150000</span>);
+
+<span class="cm">-- Employee Projects Bridge Data</span>
+<span class="kw">INSERT INTO</span> employee_projects (employee_id, project_id)
+<span class="kw">VALUES</span>
+(<span class="num">1</span>, <span class="num">1</span>), (<span class="num">1</span>, <span class="num">2</span>), (<span class="num">2</span>, <span class="num">1</span>), (<span class="num">3</span>, <span class="num">3</span>), (<span class="num">4</span>, <span class="num">4</span>), (<span class="num">5</span>, <span class="num">2</span>);</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 5: INNER JOIN -->
+        <div class="section-card" id="sec-inner">
+            <h2 class="section-title">5. INNER JOIN Deep Dive</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Simple Definition</h4>
+                    <p><strong>INNER JOIN</strong> sirf woh records return karta hai jinka dono tables (Table 1 aur Table 2) mein <strong>matching record available</strong> ho based on the <code>ON</code> condition.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Why Neha is Omitted?</h4>
+                    <p>Neha ka <code>department_id</code> NULL hai, isliye <code>employees.department_id = departments.department_id</code> match nahi hota, aur Neha result mein nahi aati.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    employees.employee_name,
+    departments.department_name
+<span class="kw">FROM</span> employees
+<span class="kw">INNER JOIN</span> departments
+<span class="kw">ON</span> employees.department_id = departments.department_id;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>employee_name</th><th>department_name</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gagan</td><td>IT</td></tr>
+                        <tr><td>Rahul</td><td>IT</td></tr>
+                        <tr><td>Aman</td><td>Sales</td></tr>
+                        <tr><td>Priya</td><td>HR</td></tr>
+                        <tr><td>Simran</td><td>Finance</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 6: LEFT JOIN -->
+        <div class="section-card" id="sec-left">
+            <h2 class="section-title">6. LEFT JOIN Deep Dive</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Simple Definition</h4>
+                    <p><strong>LEFT JOIN</strong> (ya LEFT OUTER JOIN) <strong>Left Table ke saare records</strong> return karta hai, chahe Right Table mein matching record ho ya na ho. Agar right table mein match na ho, toh NULL values aati hain.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Why Neha Appears Here?</h4>
+                    <p>Left table <code>employees</code> mein Neha hai. Right table <code>departments</code> mein match na hone ki wajah se <code>department_name</code> column mein <strong>NULL</strong> display hoga.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    employees.employee_name,
+    departments.department_name
+<span class="kw">FROM</span> employees
+<span class="kw">LEFT JOIN</span> departments
+<span class="kw">ON</span> employees.department_id = departments.department_id;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>employee_name</th><th>department_name</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gagan</td><td>IT</td></tr>
+                        <tr><td>Rahul</td><td>IT</td></tr>
+                        <tr><td>Aman</td><td>Sales</td></tr>
+                        <tr><td>Priya</td><td>HR</td></tr>
+                        <tr><td>Simran</td><td>Finance</td></tr>
+                        <tr><td>Neha</td><td>NULL</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 7: RIGHT JOIN -->
+        <div class="section-card" id="sec-right">
+            <h2 class="section-title">7. RIGHT JOIN Deep Dive</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Simple Definition</h4>
+                    <p><strong>RIGHT JOIN</strong> (ya RIGHT OUTER JOIN) <strong>Right Table ke saare records</strong> return karta hai, chahe Left Table mein matching record ho ya nahi.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Why Marketing Appears Here?</h4>
+                    <p>Right table <code>departments</code> mein Marketing department hai jisme koi employee nahi hai. Right Join execution mein Marketing department aayega aur <code>employee_name</code> NULL dikhayega.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    employees.employee_name,
+    departments.department_name
+<span class="kw">FROM</span> employees
+<span class="kw">RIGHT JOIN</span> departments
+<span class="kw">ON</span> employees.department_id = departments.department_id;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>employee_name</th><th>department_name</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gagan</td><td>IT</td></tr>
+                        <tr><td>Rahul</td><td>IT</td></tr>
+                        <tr><td>Aman</td><td>Sales</td></tr>
+                        <tr><td>Priya</td><td>HR</td></tr>
+                        <tr><td>Simran</td><td>Finance</td></tr>
+                        <tr><td>NULL</td><td>Marketing</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 8: FULL OUTER JOIN -->
+        <div class="section-card" id="sec-full">
+            <h2 class="section-title">8. FULL OUTER JOIN (using UNION in MySQL)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Simple Definition</h4>
+                    <p><strong>FULL OUTER JOIN</strong> dono tables ke saare records ko combine karke dikhata hai. Jinka match hota hai woh match hote hain, baaki jagah NULL show hota hai.</p>
+                </div>
+                <div class="box-green">
+                    <h4>MySQL Solution (LEFT JOIN + RIGHT JOIN + UNION)</h4>
+                    <p>MySQL mein direct <code>FULL OUTER JOIN</code> syntax supported nahi hota. Isliye hum <strong>LEFT JOIN</strong> aur <strong>RIGHT JOIN</strong> queries ko <strong>UNION</strong> se combine karte hain.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    employees.employee_name,
+    departments.department_name
+<span class="kw">FROM</span> employees
+<span class="kw">LEFT JOIN</span> departments
+<span class="kw">ON</span> employees.department_id = departments.department_id
+
+<span class="kw">UNION</span>
+
+<span class="kw">SELECT</span>
+    employees.employee_name,
+    departments.department_name
+<span class="kw">FROM</span> employees
+<span class="kw">RIGHT JOIN</span> departments
+<span class="kw">ON</span> employees.department_id = departments.department_id;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>employee_name</th><th>department_name</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gagan</td><td>IT</td></tr>
+                        <tr><td>Rahul</td><td>IT</td></tr>
+                        <tr><td>Aman</td><td>Sales</td></tr>
+                        <tr><td>Priya</td><td>HR</td></tr>
+                        <tr><td>Simran</td><td>Finance</td></tr>
+                        <tr><td>Neha</td><td>NULL</td></tr>
+                        <tr><td>NULL</td><td>Marketing</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 9: CROSS JOIN -->
+        <div class="section-card" id="sec-cross">
+            <h2 class="section-title">9. CROSS JOIN (Cartesian Product)</h2>
+            
+            <p><strong>CROSS JOIN</strong> pehli table ke har single record ko doosri table ke har single record ke sath combine karta hai (Cartesian Product).</p>
+
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Row Calculation Formula</h4>
+                    <p>Agar Table 1 mein <strong>6 records</strong> hain aur Table 2 mein <strong>5 records</strong> hain, toh CROSS JOIN total <strong>6 &times; 5 = 30 rows</strong> return karega.</p>
+                </div>
+                <div class="box-green">
+                    <h4>No ON Condition Needed</h4>
+                    <p>CROSS JOIN mein koi <code>ON</code> condition nahi di jaati kyunki yeh matching par nahi balki har possible combination par kaam karta hai.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    employees.employee_name,
+    departments.department_name
+<span class="kw">FROM</span> employees
+<span class="kw">CROSS JOIN</span> departments;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 10: SELF JOIN -->
+        <div class="section-card" id="sec-self">
+            <h2 class="section-title">10. SELF JOIN (Manager-Employee Relationship)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Simple Definition</h4>
+                    <p>Jab hum <strong>same table ko khud ke saath JOIN</strong> karte hain, use <strong>SELF JOIN</strong> kehte hain. Yeh hierarchical data (jaise Employee and Manager) ke liye exact requirement hoti hai.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Table Aliases (e and m)</h4>
+                    <p>Table aliases <code>e</code> (for Employee view) aur <code>m</code> (for Manager view) ka use karke hum same table ko do alag roles mein treat karte hain: <code>e.manager_id = m.employee_id</code>.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    e.employee_name <span class="kw">AS</span> Employee,
+    m.employee_name <span class="kw">AS</span> Manager
+<span class="kw">FROM</span> employees e
+<span class="kw">LEFT JOIN</span> employees m
+<span class="kw">ON</span> e.manager_id = m.employee_id;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>Employee</th><th>Manager</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gagan</td><td>NULL</td></tr>
+                        <tr><td>Rahul</td><td>Gagan</td></tr>
+                        <tr><td>Aman</td><td>Priya</td></tr>
+                        <tr><td>Priya</td><td>NULL</td></tr>
+                        <tr><td>Simran</td><td>Priya</td></tr>
+                        <tr><td>Neha</td><td>NULL</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 11: Multiple Tables JOIN -->
+        <div class="section-card" id="sec-multi">
+            <h2 class="section-title">11. Multiple Tables JOIN (Connecting 4 Tables)</h2>
+            
+            <p>Hum ek hi SQL query mein 3, 4 ya usse zyada tables ko multi-level JOINs se connect kar sakte hain.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    e.employee_name,
+    d.department_name,
+    p.project_name
+<span class="kw">FROM</span> employees e
+
+<span class="kw">INNER JOIN</span> departments d
+<span class="kw">ON</span> e.department_id = d.department_id
+
+<span class="kw">INNER JOIN</span> employee_projects ep
+<span class="kw">ON</span> e.employee_id = ep.employee_id
+
+<span class="kw">INNER JOIN</span> projects p
+<span class="kw">ON</span> ep.project_id = p.project_id;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>employee_name</th><th>department_name</th><th>project_name</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gagan</td><td>IT</td><td>Website Development</td></tr>
+                        <tr><td>Gagan</td><td>IT</td><td>Data Analytics</td></tr>
+                        <tr><td>Rahul</td><td>IT</td><td>Website Development</td></tr>
+                        <tr><td>Aman</td><td>Sales</td><td>CRM System</td></tr>
+                        <tr><td>Priya</td><td>HR</td><td>Marketing Campaign</td></tr>
+                        <tr><td>Simran</td><td>Finance</td><td>Data Analytics</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 12: JOIN + WHERE, ORDER BY, GROUP BY -->
+        <div class="section-card" id="sec-clauses">
+            <h2 class="section-title">12. JOIN + WHERE, ORDER BY & GROUP BY Clauses</h2>
+            
+            <h3 style="color: rgb(147, 197, 253); margin-top: 15px;">A. JOIN + WHERE (Filtering IT Department Only)</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    e.employee_name,
+    d.department_name
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d
+<span class="kw">ON</span> e.department_id = d.department_id
+<span class="kw">WHERE</span> d.department_name = <span class="str">'IT'</span>;</pre>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">B. JOIN + ORDER BY (Sorting Salaries Descending)</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    e.employee_name,
+    d.department_name,
+    e.salary
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d
+<span class="kw">ON</span> e.department_id = d.department_id
+<span class="kw">ORDER BY</span> e.salary <span class="kw">DESC</span>;</pre>
+            </div>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">C. JOIN + GROUP BY (Department Average Salary)</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    d.department_name,
+    <span class="fn">AVG</span>(e.salary) <span class="kw">AS</span> average_salary
+<span class="kw">FROM</span> departments d
+<span class="kw">LEFT JOIN</span> employees e
+<span class="kw">ON</span> d.department_id = e.department_id
+<span class="kw">GROUP BY</span> d.department_id, d.department_name;</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 13: JOIN + HAVING -->
+        <div class="section-card" id="sec-having">
+            <h2 class="section-title">13. JOIN + HAVING (Group-Level Filters)</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>WHERE vs HAVING Difference</h4>
+                    <p><strong>WHERE:</strong> Individual rows ko filter karta hai pehle (before grouping).</p>
+                    <p><strong>HAVING:</strong> Aggregated groups ko filter karta hai (after GROUP BY execution).</p>
+                </div>
+                <div class="box-green">
+                    <h4>Query Goal</h4>
+                    <p>Sirf woh departments list karo jinme <strong>1 se zyada employees (total_employees > 1)</strong> kaam karte hain.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">SELECT</span>
+    d.department_name,
+    <span class="fn">COUNT</span>(e.employee_id) <span class="kw">AS</span> total_employees
+<span class="kw">FROM</span> departments d
+<span class="kw">LEFT JOIN</span> employees e
+<span class="kw">ON</span> d.department_id = e.department_id
+<span class="kw">GROUP BY</span> d.department_id, d.department_name
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(e.employee_id) > <span class="num">1</span>;</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Query Result Output</div>
+                <table class="table-custom">
+                    <thead><tr><th>department_name</th><th>total_employees</th></tr></thead>
+                    <tbody>
+                        <tr><td>IT</td><td>2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 14: Quick Revision & Keywords -->
+        <div class="section-card" id="sec-revision">
+            <h2 class="section-title">14. JOINs & Important SQL Keywords Cheat Sheet</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>JOIN Type</th>
+                        <th>Returned Records Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>INNER JOIN</strong></td><td>Sirf matching records return karta hai dono tables se.</td></tr>
+                    <tr><td><strong>LEFT JOIN</strong></td><td>Left table ke saare records + matching right table records.</td></tr>
+                    <tr><td><strong>RIGHT JOIN</strong></td><td>Right table ke saare records + matching left table records.</td></tr>
+                    <tr><td><strong>FULL OUTER JOIN</strong></td><td>Dono tables ke saare records (MySQL mein LEFT + RIGHT + UNION).</td></tr>
+                    <tr><td><strong>CROSS JOIN</strong></td><td>Cartesian Product (m &times; n combinations).</td></tr>
+                    <tr><td><strong>SELF JOIN</strong></td><td>Same table ko khud se connect karna (Aliases e, m).</td></tr>
+                </tbody>
+            </table>
+
+            <h3 style="color: rgb(147, 197, 253); margin-top: 25px;">21 Important SQL Keywords</h3>
+            <table class="table-custom">
+                <thead><tr><th>Keyword</th><th>Simple Definition</th></tr></thead>
+                <tbody>
+                    <tr><td><code>CREATE DATABASE</code></td><td>Creates a new database container.</td></tr>
+                    <tr><td><code>USE</code></td><td>Selects and activates database session.</td></tr>
+                    <tr><td><code>CREATE TABLE</code></td><td>Creates a new table with column specifications.</td></tr>
+                    <tr><td><code>INSERT INTO</code></td><td>Inserts rows into a table.</td></tr>
+                    <tr><td><code>SELECT</code></td><td>Retrieves records from tables.</td></tr>
+                    <tr><td><code>FROM</code></td><td>Specifies the primary source table.</td></tr>
+                    <tr><td><code>JOIN</code></td><td>Combines rows from multiple tables.</td></tr>
+                    <tr><td><code>ON</code></td><td>Specifies joining condition between key columns.</td></tr>
+                    <tr><td><code>WHERE</code></td><td>Filters individual rows before grouping.</td></tr>
+                    <tr><td><code>GROUP BY</code></td><td>Groups identical rows into summary categories.</td></tr>
+                    <tr><td><code>HAVING</code></td><td>Filters aggregated groups after GROUP BY.</td></tr>
+                    <tr><td><code>ORDER BY</code></td><td>Sorts result rows ascending or descending.</td></tr>
+                    <tr><td><code>AS</code></td><td>Assigns a temporary alias name to columns or tables.</td></tr>
+                    <tr><td><code>UNION</code></td><td>Combines distinct result sets of two SELECT queries.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 15: Keys Concept -->
+        <div class="section-card" id="sec-keys">
+            <h2 class="section-title">15. Primary Key, Foreign Key & Relational Constraints</h2>
+            
+            <ul class="list-styled">
+                <li><strong>PRIMARY KEY:</strong> Uniquely identifies each record in a table. Cannot be NULL or duplicate (e.g. <code>department_id INT PRIMARY KEY</code>).</li>
+                <li><strong>FOREIGN KEY:</strong> Establishes a link/relationship between two tables by pointing to Primary Key of parent table (e.g. <code>FOREIGN KEY (department_id) REFERENCES departments(department_id)</code>).</li>
+                <li><strong>COMPOSITE PRIMARY KEY:</strong> A primary key made of multiple columns combined together (e.g. <code>PRIMARY KEY (employee_id, project_id)</code> in bridge table).</li>
+                <li><strong>UNIQUE:</strong> Prevents duplicate values in a column (e.g. <code>email VARCHAR(100) UNIQUE</code>).</li>
+                <li><strong>NOT NULL:</strong> Prevents column from holding empty/NULL values (e.g. <code>department_name VARCHAR(50) NOT NULL</code>).</li>
+                <li><strong>AUTO_INCREMENT:</strong> Automatically generates sequential integer numbers (1, 2, 3...) when new records are inserted.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 16: Complete Script -->
+        <div class="section-card" id="sec-script">
+            <h2 class="section-title">16. Complete Full Runnable MySQL Script</h2>
+            
+            <p>Aap is poore code script ko copy karke directly MySQL Workbench ya Command Line mein execute kar sakte hain:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="lang-tag">&lt;/&gt; SQL</span>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <pre><span class="kw">CREATE DATABASE</span> office;
+
+<span class="kw">USE</span> office;
+
+<span class="kw">CREATE TABLE</span> departments (
+    department_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    department_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    location <span class="type">VARCHAR</span>(<span class="num">50</span>)
+);
+
+<span class="kw">CREATE TABLE</span> employees (
+    employee_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    employee_name <span class="type">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    email <span class="type">VARCHAR</span>(<span class="num">100</span>) <span class="kw">UNIQUE</span>,
+    salary <span class="type">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>),
+    department_id <span class="type">INT</span>,
+    manager_id <span class="type">INT</span>,
+
+    <span class="kw">FOREIGN KEY</span> (department_id)
+    <span class="kw">REFERENCES</span> departments(department_id)
+);
+
+<span class="kw">CREATE TABLE</span> projects (
+    project_id <span class="type">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    project_name <span class="type">VARCHAR</span>(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+    project_budget <span class="type">DECIMAL</span>(<span class="num">12</span>,<span class="num">2</span>)
+);
+
+<span class="kw">CREATE TABLE</span> employee_projects (
+    employee_id <span class="type">INT</span>,
+    project_id <span class="type">INT</span>,
+
+    <span class="kw">PRIMARY KEY</span> (employee_id, project_id),
+
+    <span class="kw">FOREIGN KEY</span> (employee_id)
+    <span class="kw">REFERENCES</span> employees(employee_id),
+
+    <span class="kw">FOREIGN KEY</span> (project_id)
+    <span class="kw">REFERENCES</span> projects(project_id)
+);
+
+<span class="kw">INSERT INTO</span> departments (department_name, location)
+<span class="kw">VALUES</span>
+(<span class="str">'HR'</span>, <span class="str">'Chandigarh'</span>),
+(<span class="str">'IT'</span>, <span class="str">'Mohali'</span>),
+(<span class="str">'Sales'</span>, <span class="str">'Chandigarh'</span>),
+(<span class="str">'Finance'</span>, <span class="str">'Panchkula'</span>),
+(<span class="str">'Marketing'</span>, <span class="str">'Ludhiana'</span>);
+
+<span class="kw">INSERT INTO</span> employees (employee_name, email, salary, department_id, manager_id)
+<span class="kw">VALUES</span>
+(<span class="str">'Gagan'</span>, <span class="str">'gagan@gmail.com'</span>, <span class="num">45000</span>, <span class="num">2</span>, <span class="kw">NULL</span>),
+(<span class="str">'Rahul'</span>, <span class="str">'rahul@gmail.com'</span>, <span class="num">35000</span>, <span class="num">2</span>, <span class="num">1</span>),
+(<span class="str">'Aman'</span>, <span class="str">'aman@gmail.com'</span>, <span class="num">40000</span>, <span class="num">3</span>, <span class="num">4</span>),
+(<span class="str">'Priya'</span>, <span class="str">'priya@gmail.com'</span>, <span class="num">50000</span>, <span class="num">1</span>, <span class="kw">NULL</span>),
+(<span class="str">'Simran'</span>, <span class="str">'simran@gmail.com'</span>, <span class="num">38000</span>, <span class="num">4</span>, <span class="num">4</span>),
+(<span class="str">'Neha'</span>, <span class="str">'neha@gmail.com'</span>, <span class="num">42000</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>);
+
+<span class="kw">INSERT INTO</span> projects (project_name, project_budget)
+<span class="kw">VALUES</span>
+(<span class="str">'Website Development'</span>, <span class="num">200000</span>),
+(<span class="str">'Data Analytics'</span>, <span class="num">300000</span>),
+(<span class="str">'CRM System'</span>, <span class="num">250000</span>),
+(<span class="str">'Marketing Campaign'</span>, <span class="num">150000</span>);
+
+<span class="kw">INSERT INTO</span> employee_projects (employee_id, project_id)
+<span class="kw">VALUES</span>
+(<span class="num">1</span>, <span class="num">1</span>), (<span class="num">1</span>, <span class="num">2</span>), (<span class="num">2</span>, <span class="num">1</span>), (<span class="num">3</span>, <span class="num">3</span>), (<span class="num">4</span>, <span class="num">4</span>), (<span class="num">5</span>, <span class="num">2</span>);</pre>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>SQL JOINs & Database Complete Master Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

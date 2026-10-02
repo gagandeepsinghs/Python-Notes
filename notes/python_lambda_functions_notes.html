@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Lambda Functions Complete Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 1.5rem 1rem;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background-color: rgb(220, 238, 255);
+            color: rgb(10, 88, 202);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 250px;
+            outline: none;
+        }
+
+        .content-container {
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, rgb(13, 110, 253), rgb(10, 88, 202));
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-box {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Dual Explanation Boxes */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border-left: 4px solid var(--english-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-english h4 {
+            color: var(--english-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border-left: 4px solid var(--hinglish-text);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .box-hinglish h4 {
+            color: var(--hinglish-text);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            margin: 1.2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border: 1px solid var(--output-border);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(51, 65, 85);
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: rgb(71, 85, 105);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Line by line breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-table th, .breakdown-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            background-color: var(--bg-primary);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .breakdown-table tr:nth-child(even) {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .line-num {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            width: 60px;
+            text-align: center;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background-color: rgb(241, 245, 249);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: rgb(15, 23, 42);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            margin-top: auto;
+        }
+
+        .list-styled {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.3rem;
+        }
+
+        .warning-box {
+            background-color: rgb(254, 242, 242);
+            border-left: 4px solid rgb(239, 68, 68);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            color: rgb(153, 27, 27);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Python Notes</div>
+            <div class="sidebar-subtitle">Lambda Functions Guide</div>
+            <div class="author-badge">By Gagan Sir</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-what')">1. What is Lambda?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-syntax')">2. Syntax & Structure</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-basic')">3. Basic Examples</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-conditionals')">4. Lambda with If-Else</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-vs-normal')">5. Normal vs Lambda</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-map')">6. Lambda with map()</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-filter')">7. Lambda with filter()</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-sorted')">8. Lambda with sorted()</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-rules')">9. Important Rules</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-interview')">10. Interview Question</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-all-examples')">11. 10 Core Examples</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-revision')">12. Quick Revision</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <div class="top-navbar">
+            <div class="navbar-title">Python Lambda Functions Documentation</div>
+            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search concepts...">
+        </div>
+
+        <div class="content-container">
+            
+            <!-- Hero Header -->
+            <div class="header-section">
+                <h1>Chapter: Lambda Function in Python</h1>
+                <p>Complete reference guide covering Anonymous functions, Syntax, Conditional expressions, map(), filter(), sorted(), rules, and interview answers.</p>
+                <div style="margin-top: 1rem; font-weight: 600;">Author: By Gagan Sir</div>
+            </div>
+
+            <!-- SECTION 1: What is a Lambda Function? -->
+            <div class="section-card" id="sec-what">
+                <h2 class="section-title">1. What is a Lambda Function?</h2>
+                <div class="concept-box">
+                    <p>A <strong>Lambda Function</strong> is a small, anonymous (nameless) function in Python. It is defined using the <span class="code-snippet">lambda</span> keyword instead of the traditional <span class="code-snippet">def</span> keyword.</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Easy English Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Anonymous:</strong> Does not require a formal name like standard functions.</li>
+                            <li><strong>Single Operation:</strong> Best suited for quick, small, one-line calculations.</li>
+                            <li><strong>Inline Use:</strong> Frequently passed directly into built-in functions like <span class="code-snippet">map()</span>, <span class="code-snippet">filter()</span>, and <span class="code-snippet">sorted()</span>.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Hinglish Explanation</h4>
+                        <ul class="list-styled">
+                            <li><strong>Anonymous Function:</strong> Ek aisa function jiska koi normal naam nahi hota.</li>
+                            <li><strong>Kaha Use Hoga:</strong> Jab hume thode se time ke liye ek simple si line ka function chahiye hota hai.</li>
+                            <li><strong>Short & Crisp:</strong> Code neat ho jaata hai aur alag se <span class="code-snippet">def</span> likhne ki zaroorat nahi padti.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Comparison: Normal vs Lambda</div>
+                    <pre>add = lambda a, b: a + b
+result = add(10, 20)
+print(result)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>30</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">add = lambda a, b: a + b</span></td>
+                            <td>Creates a lambda function with parameters <span class="code-snippet">a</span> and <span class="code-snippet">b</span> that evaluates <span class="code-snippet">a + b</span>, assigning it to variable <span class="code-snippet">add</span>.</td>
+                            <td><span class="code-snippet">lambda</span> keyword se ek function banakar <span class="code-snippet">add</span> variable me save kiya jo <span class="code-snippet">a + b</span> ka sum return karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">result = add(10, 20)</span></td>
+                            <td>Calls the lambda function via variable <span class="code-snippet">add</span> passing arguments 10 and 20.</td>
+                            <td><span class="code-snippet">add(10, 20)</span> call karke result (30) ko variable <span class="code-snippet">result</span> me store kiya.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">3</td>
+                            <td><span class="code-snippet">print(result)</span></td>
+                            <td>Prints the calculated sum (30) to the screen.</td>
+                            <td>Result (30) ko screen par print kiya.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 2: Syntax of Lambda Function -->
+            <div class="section-card" id="sec-syntax">
+                <h2 class="section-title">2. Syntax of a Lambda Function</h2>
+                
+                <div class="concept-box">
+                    <p style="font-size: 1.1rem; font-weight: bold; color: var(--accent-color);">Syntax Formula: lambda arguments : expression</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Component Analysis</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">lambda</span>: Keyword used to start creating the anonymous function.</li>
+                            <li><span class="code-snippet">arguments</span>: Input variables separated by commas (e.g. <span class="code-snippet">x</span> or <span class="code-snippet">a, b</span>).</li>
+                            <li><span class="code-snippet">:</span>: Separator colon dividing inputs from the operation.</li>
+                            <li><span class="code-snippet">expression</span>: Single line of code evaluated and automatically returned.</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Syntax ka Breakdown</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">lambda</span>: Ye Keyword function ko start karta hai.</li>
+                            <li><span class="code-snippet">arguments</span>: Wo variables jo inputs ki tarah milenge.</li>
+                            <li><span class="code-snippet">:</span>: Separator colon jo input aur logic ko alag karta hai.</li>
+                            <li><span class="code-snippet">expression</span>: Wo calculation jiska result automatically return hoga.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Simple Syntax Example</div>
+                    <pre>square = lambda x: x * x
+print(square(25))</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>625</div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Basic Examples -->
+            <div class="section-card" id="sec-basic">
+                <h2 class="section-title">3. Basic Math Operations with Lambda</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - Addition, Subtraction, Multiplication, Division</div>
+                    <pre>add = lambda a, b: a + b
+subtract = lambda a, b: a - b
+multiply = lambda a, b: a * b
+divide = lambda a, b: a / b
+
+print("Addition:", add(10, 20))
+print("Subtraction:", subtract(20, 8))
+print("Multiplication:", multiply(5, 4))
+print("Division:", divide(20, 5))</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Addition: 30<br>Subtraction: 12<br>Multiplication: 20<br>Division: 4.0</div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Lambda with If-Else -->
+            <div class="section-card" id="sec-conditionals">
+                <h2 class="section-title">4. Lambda Function with Conditional (If-Else) Expressions</h2>
+                
+                <div class="concept-box">
+                    <p>Lambda functions can incorporate ternary operators for conditional logic.</p>
+                    <p style="font-weight: bold; color: var(--accent-color);">Ternary Syntax: lambda arguments: value_if_true if condition else value_if_false</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Even/Odd & Maximum/Minimum</div>
+                    <pre>check_even = lambda x: x % 2 == 0
+check_even_odd_str = lambda x: "Even" if x % 2 == 0 else "Odd"
+maximum = lambda a, b: a if a > b else b
+minimum = lambda a, b: a if a < b else b
+
+print("Is 10 Even?:", check_even(10))
+print("7 is:", check_even_odd_str(7))
+print("Max of 10 & 20:", maximum(10, 20))
+print("Min of 10 & 20:", minimum(10, 20))</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Is 10 Even?: True<br>7 is: Odd<br>Max of 10 & 20: 20<br>Min of 10 & 20: 10</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">1</td>
+                            <td><span class="code-snippet">check_even = lambda x: x % 2 == 0</span></td>
+                            <td>Returns boolean <span class="code-snippet">True</span> if remainder after dividing by 2 is 0.</td>
+                            <td>Agar 2 se divide karne par remainder 0 aae to <span class="code-snippet">True</span> return karta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">lambda x: "Even" if x % 2 == 0 else "Odd"</span></td>
+                            <td>Uses ternary operator to return string "Even" or "Odd".</td>
+                            <td>Ternary expression: Condition true hone par "Even" aur false hone par "Odd" deta hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">3</td>
+                            <td><span class="code-snippet">maximum = lambda a, b: a if a > b else b</span></td>
+                            <td>Compares <span class="code-snippet">a</span> and <span class="code-snippet">b</span> and returns the larger value.</td>
+                            <td>Agar <span class="code-snippet">a</span> bada hai to <span class="code-snippet">a</span> return karega, nahi to <span class="code-snippet">b</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 5: Normal vs Lambda -->
+            <div class="section-card" id="sec-vs-normal">
+                <h2 class="section-title">5. Normal Function vs Lambda Function</h2>
+                
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Normal Function (<span class="code-snippet">def</span>)</th>
+                            <th>Lambda Function (<span class="code-snippet">lambda</span>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Keyword</strong></td>
+                            <td>Defined using <span class="code-snippet">def</span></td>
+                            <td>Defined using <span class="code-snippet">lambda</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td>Has an explicit function name</td>
+                            <td>Anonymous (nameless unless assigned to variable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Statements</strong></td>
+                            <td>Can contain multiple statements, loops & blocks</td>
+                            <td>Can only contain a single expression</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Return Value</strong></td>
+                            <td>Requires explicit <span class="code-snippet">return</span> statement</td>
+                            <td>Implicitly/automatically returns expression result</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Docstrings</strong></td>
+                            <td>Supports docstrings (&quot;&quot;&quot;doc&quot;&quot;&quot;)</td>
+                            <td>Does not support docstrings</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use Case</strong></td>
+                            <td>Complex, multi-step logic & large workflows</td>
+                            <td>Quick inline operations, map/filter/sorted callbacks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 6: Lambda with map() -->
+            <div class="section-card" id="sec-map">
+                <h2 class="section-title">6. Lambda Function with map()</h2>
+                
+                <div class="concept-box">
+                    <p>The <span class="code-snippet">map()</span> function applies a given function to every item of an iterable (e.g. list) and returns a map object (convertible to list).</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - map() with Lambda</div>
+                    <pre>numbers = [1, 2, 3, 4, 5]
+squares = list(map(lambda x: x * x, numbers))
+doubled = list(map(lambda x: x * 2, numbers))
+
+names = ["gagan", "rahul", "aman"]
+upper_names = list(map(lambda name: name.upper(), names))
+
+print("Original Numbers:", numbers)
+print("Squares:", squares)
+print("Doubled:", doubled)
+print("Uppercase Names:", upper_names)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Original Numbers: [1, 2, 3, 4, 5]<br>Squares: [1, 4, 9, 16, 25]<br>Doubled: [2, 4, 6, 8, 10]<br>Uppercase Names: ['GAGAN', 'RAHUL', 'AMAN']</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">list(map(lambda x: x * x, numbers))</span></td>
+                            <td>Applies <span class="code-snippet">x * x</span> to each element in <span class="code-snippet">numbers</span> and collects results into a new list.</td>
+                            <td><span class="code-snippet">map()</span> function list ke har ek number par lambda (square) lagakar nayi list banata hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">6</td>
+                            <td><span class="code-snippet">list(map(lambda name: name.upper(), names))</span></td>
+                            <td>Transforms each string in list <span class="code-snippet">names</span> to uppercase format.</td>
+                            <td>List ke har naam ko uppercase me convert karne ke liye <span class="code-snippet">name.upper()</span> lambda map karta hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 7: Lambda with filter() -->
+            <div class="section-card" id="sec-filter">
+                <h2 class="section-title">7. Lambda Function with filter()</h2>
+                
+                <div class="concept-box">
+                    <p>The <span class="code-snippet">filter()</span> function filters elements of an iterable based on a boolean function condition. Only elements where the function returns <span class="code-snippet">True</span> are retained.</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - filter() with Lambda</div>
+                    <pre>numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+odds = list(filter(lambda x: x % 2 != 0, numbers))
+
+print("Evens:", evens)
+print("Odds:", odds)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Evens: [2, 4, 6, 8, 10]<br>Odds: [1, 3, 5, 7, 9]</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">2</td>
+                            <td><span class="code-snippet">list(filter(lambda x: x % 2 == 0, numbers))</span></td>
+                            <td>Evaluates each number; retains only those where <span class="code-snippet">x % 2 == 0</span> is True.</td>
+                            <td><span class="code-snippet">filter()</span> sirf unhi numbers ko chun-kar rakhta hai jo even condition ko pass karte hain.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 8: Lambda with sorted() -->
+            <div class="section-card" id="sec-sorted">
+                <h2 class="section-title">8. Lambda Function with sorted()</h2>
+                
+                <div class="concept-box">
+                    <p>The <span class="code-snippet">sorted()</span> function can use a lambda function as its <span class="code-snippet">key</span> parameter to customize sorting logic (e.g. sorting a list of tuples by second element).</p>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">Python Code - Sorting Tuples with Lambda</div>
+                    <pre>students = [
+    ("Gagan", 85),
+    ("Rahul", 70),
+    ("Aman", 90)
+]
+
+sorted_asc = sorted(students, key=lambda x: x[1])
+sorted_desc = sorted(students, key=lambda x: x[1], reverse=True)
+
+print("Ascending Marks:", sorted_asc)
+print("Descending Marks:", sorted_desc)</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>Ascending Marks: [('Rahul', 70), ('Gagan', 85), ('Aman', 90)]<br>Descending Marks: [('Aman', 90), ('Gagan', 85), ('Rahul', 70)]</div>
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Code Snippet</th>
+                            <th>Easy English Explanation</th>
+                            <th>Hinglish Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="line-num">7</td>
+                            <td><span class="code-snippet">sorted(students, key=lambda x: x[1])</span></td>
+                            <td>Passes lambda specifying <span class="code-snippet">x[1]</span> (the mark score in tuple) as sorting criterion.</td>
+                            <td><span class="code-snippet">key=lambda x: x[1]</span> se sorting tuple ke second element (marks) ke base par hoti hai.</td>
+                        </tr>
+                        <tr>
+                            <td class="line-num">8</td>
+                            <td><span class="code-snippet">reverse=True</span></td>
+                            <td>Sorts in descending order (highest score first).</td>
+                            <td><span class="code-snippet">reverse=True</span> se descending order (sabse zyada marks pehle) me list sort hoti hai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 9: Important Rules -->
+            <div class="section-card" id="sec-rules">
+                <h2 class="section-title">9. Important Rules of Lambda Functions</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Essential Rules</h4>
+                        <ol class="list-styled">
+                            <li>Must use the <span class="code-snippet">lambda</span> keyword.</li>
+                            <li>Can accept multiple parameters separated by commas.</li>
+                            <li>Must contain exactly <strong>ONE</strong> expression.</li>
+                            <li>Automatically returns the expression value.</li>
+                            <li>Cannot contain statements like <span class="code-snippet">return</span>, <span class="code-snippet">pass</span>, or assignments (<span class="code-snippet">=</span>).</li>
+                        </ol>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Zaroori Rules</h4>
+                        <ol class="list-styled">
+                            <li><span class="code-snippet">lambda</span> keyword likhna compulsory hai.</li>
+                            <li>Multiple arguments de sakte hain (<span class="code-snippet">a, b, c</span>).</li>
+                            <li>Sirf aur sirf <strong>EK</strong> single expression ho sakta hai.</li>
+                            <li>Result automatic return hota hai.</li>
+                            <li>Kabhi bhi <span class="code-snippet">return</span> keyword mat likhna (e.g. <span class="code-snippet">lambda a,b: return a+b</span> WRONG hai).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>CRITICAL ERROR WARNING:</strong> Writing <span class="code-snippet">lambda a, b: return a + b</span> will throw a <strong>SyntaxError</strong> because return is implicit in lambda functions!
+                </div>
+            </div>
+
+            <!-- SECTION 10: Interview Question -->
+            <div class="section-card" id="sec-interview">
+                <h2 class="section-title">10. Important Interview Question & Answer</h2>
+                
+                <div class="concept-box" style="background-color: rgb(243, 244, 246); padding: 1.5rem; border-radius: 8px;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Q: What is a Lambda Function in Python?</h3>
+                    <p style="font-size: 1.05rem;"><strong>Answer:</strong> A lambda function is a small anonymous function defined using the <span class="code-snippet">lambda</span> keyword. It can take any number of positional or keyword arguments, but can only have a single expression which is automatically evaluated and returned. It is primarily used for short-lived operations as callback arguments in functions like <span class="code-snippet">map()</span>, <span class="code-snippet">filter()</span>, and <span class="code-snippet">sorted()</span>.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 11: 10 Core Examples -->
+            <div class="section-card" id="sec-all-examples">
+                <h2 class="section-title">11. 10 Core Lambda Code Examples</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">Python Code - 10 Core Examples</div>
+                    <pre>square = lambda x: x * x
+print("1. Square of 5:", square(5))
+
+cube = lambda x: x ** 3
+print("2. Cube of 3:", cube(3))
+
+add = lambda a, b: a + b
+print("3. Add 10 & 20:", add(10, 20))
+
+sub = lambda a, b: a - b
+print("4. Subtract 20 & 5:", sub(20, 5))
+
+mult = lambda a, b: a * b
+print("5. Multiply 5 & 6:", mult(5, 6))
+
+div = lambda a, b: a / b
+print("6. Divide 20 & 4:", div(20, 4))
+
+is_even = lambda x: x % 2 == 0
+print("7. Is 10 Even?:", is_even(10))
+
+is_odd = lambda x: x % 2 != 0
+print("8. Is 9 Odd?:", is_odd(9))
+
+max_val = lambda a, b: a if a > b else b
+print("9. Max of 10 & 20:", max_val(10, 20))
+
+min_val = lambda a, b: a if a < b else b
+print("10. Min of 10 & 20:", min_val(10, 20))</pre>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Output</div>
+                    <div>1. Square of 5: 25<br>2. Cube of 3: 27<br>3. Add 10 & 20: 30<br>4. Subtract 20 & 5: 15<br>5. Multiply 5 & 6: 30<br>6. Divide 20 & 4: 5.0<br>7. Is 10 Even?: True<br>8. Is 9 Odd?: True<br>9. Max of 10 & 20: 20<br>10. Min of 10 & 20: 10</div>
+                </div>
+            </div>
+
+            <!-- SECTION 12: Quick Revision -->
+            <div class="section-card" id="sec-revision">
+                <h2 class="section-title">12. Quick Revision Summary</h2>
+                
+                <div class="explanation-grid">
+                    <div class="box-english">
+                        <h4>Cheat Sheet Summary</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">lambda args: expr</span> -> Anonymous function creator.</li>
+                            <li><span class="code-snippet">map(lambda, list)</span> -> Transforms list items.</li>
+                            <li><span class="code-snippet">filter(lambda, list)</span> -> Filters list items by condition.</li>
+                            <li><span class="code-snippet">sorted(list, key=lambda)</span> -> Custom sorting.</li>
+                            <li>Floor Division <span class="code-snippet">10 // 2</span> gives <span class="code-snippet">5</span> (int), Floating Division <span class="code-snippet">10 / 2</span> gives <span class="code-snippet">5.0</span> (float).</li>
+                        </ul>
+                    </div>
+                    <div class="box-hinglish">
+                        <h4>Quick Revision (Short Notes)</h4>
+                        <ul class="list-styled">
+                            <li><span class="code-snippet">lambda</span> = Chota nameless function single line ka.</li>
+                            <li><span class="code-snippet">map()</span> = Har element par operation apply karna.</li>
+                            <li><span class="code-snippet">filter()</span> = True/False ke basis par items select karna.</li>
+                            <li><span class="code-snippet">sorted()</span> = Custom key (jaise tuple marks) se sort karna.</li>
+                            <li><span class="code-snippet">10//2</span> integer quotient (5) deta hai, jabki <span class="code-snippet">10/2</span> float output (5.0) deta hai.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>Python Lambda Functions Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

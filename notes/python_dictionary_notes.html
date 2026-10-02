@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Dictionary Complete Master Notes & Practical Projects - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(13, 110, 253);
+            --accent-hover: rgb(10, 88, 202);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --hinglish-bg: rgb(240, 253, 244);
+            --hinglish-border: rgb(187, 247, 208);
+            --hinglish-text: rgb(22, 101, 52);
+            --english-bg: rgb(239, 246, 255);
+            --english-border: rgb(191, 219, 254);
+            --english-text: rgb(30, 58, 138);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(148, 163, 184);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(30, 41, 59);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 7px 10px;
+            color: rgb(203, 213, 225);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(226, 232, 240);
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        .box-english {
+            background-color: var(--english-bg);
+            border: 1px solid var(--english-border);
+            color: var(--english-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-hinglish {
+            background-color: var(--hinglish-bg);
+            border: 1px solid var(--hinglish-border);
+            color: var(--hinglish-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-english h4, .box-hinglish h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            color: var(--code-text);
+            padding: 15px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--output-border);
+            padding: 12px 16px;
+            margin-top: 10px;
+            border-radius: 0 6px 6px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(30, 41, 59);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(203, 213, 225);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .ques-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid rgb(226, 232, 240);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .ques-title {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Python Dictionaries</h2>
+        <span class="author-tag">Theory + Methods + Projects &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search dictionary topic..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-intro')">1. What is a Dictionary?</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-creation')">2. Creating a Dictionary</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-access')">3. Accessing Values</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-modify')">4. Adding & Updating Data</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-remove')">5. Removing Data (pop, clear)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-len')">6. Length of Dictionary (len)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-loop')">7. Looping Through Dictionary</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-methods')">8. Dictionary Methods</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-summary-table')">9. Methods Summary Table</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-dynamic')">10. Dynamic Input & User Keys</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-projects')">11. Real-Life Billing & Projects</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-solutions')">12. Practice Code Solutions</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Python Dictionary: Complete Master Notes & Practical Projects</h1>
+            <p>Master Python Dictionaries from basic key-value data structures, accessing techniques, updating, removing data, dictionary methods (keys, values, items), dynamic user input, to real-life billing systems and practical projects.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- SECTION 1: What is a Dictionary? -->
+        <div class="section-card" id="sec-intro">
+            <h2 class="section-title">1. What is a Dictionary in Python?</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>English Definition</h4>
+                    <p>A <strong>Dictionary</strong> is a built-in Python data structure that stores data in <strong>Key-Value pairs</strong>. Keys must be unique and immutable (strings, numbers, tuples), while values can be of any data type and can be duplicated.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Explanation</h4>
+                    <p>Dictionary Python mein ek data structure hai jisme data <strong>Key aur Value ke pair</strong> mein store hota hai. Jaise: <code>name &rarr; Ali</code>, <code>age &rarr; 20</code>, <code>course &rarr; Python</code>.</p>
+                </div>
+            </div>
+
+            <ul class="list-styled">
+                <li><strong>Key-Value Mapping:</strong> Each value is mapped directly to a unique key name instead of an index.</li>
+                <li><strong>Ordered (Python 3.7+):</strong> Maintains the insertion order of keys.</li>
+                <li><strong>Mutable:</strong> You can add, change, or remove key-value pairs after creation.</li>
+                <li><strong>Unique Keys:</strong> Duplicate keys are not allowed (later keys overwrite earlier ones).</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 2: Creating a Dictionary -->
+        <div class="section-card" id="sec-creation">
+            <h2 class="section-title">2. Creating a Dictionary</h2>
+            
+            <p>Dictionaries are defined using curly brackets <code>{}</code> with colon <code>:</code> separating keys and values.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Creating a Dictionary</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20,
+    "course": "Python"
+}
+
+print("Student Dictionary:", student)
+print("Type:", type(student))</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Student Dictionary: {'name': 'Ali', 'age': 20, 'course': 'Python'}<br>Type: &lt;class 'dict'&gt;</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Accessing Values -->
+        <div class="section-card" id="sec-access">
+            <h2 class="section-title">3. Accessing Dictionary Values</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>Square Bracket vs get() Method</h4>
+                    <p><code>dict[key]</code>: Directly retrieves value. Raises a <code>KeyError</code> if key is missing.</p>
+                    <p><code>dict.get(key, default)</code>: Safely retrieves value. Returns <code>None</code> or a default fallback if key is missing.</p>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Explanation</h4>
+                    <p>Dictionary mein values keys se access hoti hain. <code>student["name"]</code> direct value nikalta hai, jabki <code>get()</code> method bina error diye value access karta hai.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Accessing Keys</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20,
+    "course": "Python"
+}
+
+print("Name:", student["name"])
+print("Age:", student["age"])
+
+print("Course using get():", student.get("course"))
+print("Missing Key using get():", student.get("city", "Not Available"))</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Name: Ali<br>Age: 20<br>Course using get(): Python<br>Missing Key using get(): Not Available</div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Adding & Updating Data -->
+        <div class="section-card" id="sec-modify">
+            <h2 class="section-title">4. Adding New Data & Updating Values</h2>
+            
+            <p>Assigning a value to a new key creates the key-value pair. Assigning to an existing key updates its value.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Adding & Replacing Values</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20
+}
+
+student["city"] = "Delhi"
+print("After adding city:", student)
+
+student["age"] = 22
+print("After updating age:", student)
+
+student["name"] = "Aman"
+print("After updating name:", student)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>After adding city: {'name': 'Ali', 'age': 20, 'city': 'Delhi'}<br>After updating age: {'name': 'Ali', 'age': 22, 'city': 'Delhi'}<br>After updating name: {'name': 'Aman', 'age': 22, 'city': 'Delhi'}</div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Removing Data -->
+        <div class="section-card" id="sec-remove">
+            <h2 class="section-title">5. Removing Data (pop, popitem, del, clear)</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Method / Keyword</th>
+                        <th>Syntax</th>
+                        <th>Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>pop()</strong></td>
+                        <td><code>dict.pop("key")</code></td>
+                        <td>Removes the specified key and returns its value.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>popitem()</strong></td>
+                        <td><code>dict.popitem()</code></td>
+                        <td>Removes and returns the last inserted key-value tuple.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>del</strong></td>
+                        <td><code>del dict["key"]</code></td>
+                        <td>Deletes specified key or the entire dictionary variable.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>clear()</strong></td>
+                        <td><code>dict.clear()</code></td>
+                        <td>Removes all items, leaving an empty dictionary <code>{}</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Removing Data</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20,
+    "course": "Python",
+    "city": "Delhi"
+}
+
+removed_age = student.pop("age")
+print("Popped Age:", removed_age)
+print("Dictionary after pop('age'):", student)
+
+last_item = student.popitem()
+print("Popped Last Item:", last_item)
+
+student.clear()
+print("Dictionary after clear():", student)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Popped Age: 20<br>Dictionary after pop('age'): {'name': 'Ali', 'course': 'Python', 'city': 'Delhi'}<br>Popped Last Item: ('city', 'Delhi')<br>Dictionary after clear(): {}</div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: Length of Dictionary -->
+        <div class="section-card" id="sec-len">
+            <h2 class="section-title">6. Length of a Dictionary</h2>
+            
+            <p><code>len(dict)</code> returns the total count of key-value pairs stored inside the dictionary.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - len() Method</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20,
+    "course": "Python"
+}
+
+print("Total Key-Value pairs (len):", len(student))</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Total Key-Value pairs (len): 3</div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: Looping Through Dictionary -->
+        <div class="section-card" id="sec-loop">
+            <h2 class="section-title">7. Looping Through a Dictionary</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-english">
+                    <h4>3 Ways to Iterate</h4>
+                    <ol class="list-styled">
+                        <li><strong>For Loop over Dict:</strong> Iterates over <code>keys</code> by default.</li>
+                        <li><strong>Using dict[key] or .values():</strong> Iterates over <code>values</code>.</li>
+                        <li><strong>Using .items():</strong> Iterates over key and value pairs simultaneously.</li>
+                    </ol>
+                </div>
+                <div class="box-hinglish">
+                    <h4>Hinglish Explanation</h4>
+                    <p>Dictionary mein loop lagane ke 3 tarike hain: sirf keys print karwana, keys ke through values nikalna <code>student[key]</code>, ya phir <code>.items()</code> se key aur value dono ek sath nikalna.</p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Loops in Dictionary</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20,
+    "course": "Python"
+}
+
+print("--- Printing Keys ---")
+for k in student:
+    print("Key:", k)
+
+print("
+--- Printing Values ---")
+for k in student:
+    print("Value:", student[k])
+
+print("
+--- Printing Key-Value Pairs (.items) ---")
+for k, v in student.items():
+    print(k, "->", v)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>--- Printing Keys ---<br>Key: name<br>Key: age<br>Key: course<br><br>--- Printing Values ---<br>Value: Ali<br>Value: 20<br>Value: Python<br><br>--- Printing Key-Value Pairs (.items) ---<br>name -&gt; Ali<br>age -&gt; 20<br>course -&gt; Python</div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Dictionary Methods -->
+        <div class="section-card" id="sec-methods">
+            <h2 class="section-title">8. Core Dictionary Methods (keys, values, items, update)</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Dictionary Methods</div>
+                <pre>student = {
+    "name": "Ali",
+    "age": 20
+}
+
+print("Keys view:", student.keys())
+print("Values view:", student.values())
+print("Items view:", student.items())
+
+student.update({"age": 22, "city": "Delhi"})
+print("After update():", student)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Keys view: dict_keys(['name', 'age'])<br>Values view: dict_values(['Ali', 20])<br>Items view: dict_items([('name', 'Ali'), ('age', 20)])<br>After update(): {'name': 'Ali', 'age': 22, 'city': 'Delhi'}</div>
+            </div>
+        </div>
+
+        <!-- SECTION 9: Methods Summary Table -->
+        <div class="section-card" id="sec-summary-table">
+            <h2 class="section-title">9. Important Dictionary Methods Summary</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Work / Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>keys()</code></td>
+                        <td>Returns a view object containing all dictionary keys.</td>
+                    </tr>
+                    <tr>
+                        <td><code>values()</code></td>
+                        <td>Returns a view object containing all dictionary values.</td>
+                    </tr>
+                    <tr>
+                        <td><code>items()</code></td>
+                        <td>Returns a view object of key-value tuple pairs.</td>
+                    </tr>
+                    <tr>
+                        <td><code>get(key, default)</code></td>
+                        <td>Safely returns value of key without throwing KeyError.</td>
+                    </tr>
+                    <tr>
+                        <td><code>pop(key)</code></td>
+                        <td>Removes element with specified key and returns its value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>popitem()</code></td>
+                        <td>Removes and returns the last inserted key-value pair.</td>
+                    </tr>
+                    <tr>
+                        <td><code>update(dict2)</code></td>
+                        <td>Updates existing keys or inserts new key-value pairs.</td>
+                    </tr>
+                    <tr>
+                        <td><code>clear()</code></td>
+                        <td>Empties the dictionary completely.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 10: Dynamic Dictionary Input -->
+        <div class="section-card" id="sec-dynamic">
+            <h2 class="section-title">10. Dynamic Dictionary Creation & User Inputs</h2>
+            
+            <p>Creating empty dictionaries <code>dict = {}</code> and dynamically inserting keys and values based on user input or program logic.</p>
+
+            <div class="code-container">
+                <div class="code-header">Python Code - Dynamic Key Value Addition</div>
+                <pre>student_data = {}
+
+key = "name"
+val = "Aman"
+student_data[key] = val
+
+key2 = "age"
+val2 = 21
+student_data[key2] = val2
+
+print("Dynamic Dictionary:", student_data)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>Dynamic Dictionary: {'name': 'Aman', 'age': 21}</div>
+            </div>
+        </div>
+
+        <!-- SECTION 11: Real-Life Projects -->
+        <div class="section-card" id="sec-projects">
+            <h2 class="section-title">11. Real-Life Projects & Practical Billing Systems</h2>
+            
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-bottom: 10px;">Project 1: Product Invoice Billing & Discount System</h3>
+            <div class="code-container">
+                <div class="code-header">Python Code - Product Billing System</div>
+                <pre>product = "Laptop"
+price = 1200.0
+quantity = 2
+
+total = price * quantity
+discount = total * 0.10 if total > 1000 else 0.0
+final_amount = total - discount
+
+invoice = {
+    "product": product,
+    "original_amount": total,
+    "discount": discount,
+    "final_amount": final_amount
+}
+
+print("=== INVOICE DETAILS ===")
+for k, v in invoice.items():
+    print(k.replace('_', ' ').title(), ":", v)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>=== INVOICE DETAILS ===<br>Product : Laptop<br>Original Amount : 2400.0<br>Discount : 240.0<br>Final Amount : 2160.0</div>
+            </div>
+        </div>
+
+        <!-- SECTION 12: Practice Code Solutions -->
+        <div class="section-card" id="sec-solutions">
+            <h2 class="section-title">12. Step-by-Step Practice Code Solutions</h2>
+            
+            <div class="code-container">
+                <div class="code-header">Python Code - Practice Solutions</div>
+                <pre>d = {"name": "Ali", "age": 20, "course": "Python"}
+
+print("1. Keys:", list(d.keys()))
+print("2. Values:", list(d.values()))
+print("3. Name access:", d["name"])
+
+d["city"] = "Delhi"
+print("4. Added City:", d)
+
+d["age"] = 22
+print("5. Updated Age:", d)
+
+popped = d.pop("course")
+print("6. Popped Course:", popped)
+print("7. Length:", len(d))
+
+d.clear()
+print("8. Cleared:", d)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Output</div>
+                <div>1. Keys: ['name', 'age', 'course']<br>2. Values: ['Ali', 20, 'Python']<br>3. Name access: Ali<br>4. Added City: {'name': 'Ali', 'age': 20, 'course': 'Python', 'city': 'Delhi'}<br>5. Updated Age: {'name': 'Ali', 'age': 22, 'course': 'Python', 'city': 'Delhi'}<br>6. Popped Course: Python<br>7. Length: 3<br>8. Cleared: {}</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python Dictionary Complete Master Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

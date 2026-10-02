@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Excel Complete In-Depth Master Notes - By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 249, 250);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(33, 37, 41);
+            --text-muted: rgb(108, 117, 125);
+            --accent-color: rgb(16, 124, 65);
+            --accent-hover: rgb(10, 90, 47);
+            --code-bg: rgb(15, 23, 42);
+            --code-text: rgb(241, 245, 249);
+            --border-color: rgb(222, 226, 230);
+            --box-bg: rgb(239, 246, 255);
+            --box-border: rgb(191, 219, 254);
+            --box-text: rgb(30, 58, 138);
+            --note-bg: rgb(240, 253, 244);
+            --note-border: rgb(187, 247, 208);
+            --note-text: rgb(22, 101, 52);
+            --output-bg: rgb(241, 245, 249);
+            --output-border: rgb(203, 213, 225);
+            --sidebar-width: 290px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px 15px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        .sidebar .author-tag {
+            font-size: 0.85rem;
+            color: rgb(148, 163, 184);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(30, 41, 59);
+            color: var(--code-text);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 7px 10px;
+            color: rgb(203, 213, 225);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 10px;
+        }
+
+        .header-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .badge-gagan {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: rgb(15, 23, 42);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgb(226, 232, 240);
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .explanation-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        .box-blue {
+            background-color: var(--box-bg);
+            border: 1px solid var(--box-border);
+            color: var(--box-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-green {
+            background-color: var(--note-bg);
+            border: 1px solid var(--note-border);
+            color: var(--note-text);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .box-blue h4, .box-green h4 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgb(30, 41, 59);
+            color: rgb(148, 163, 184);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        pre {
+            color: var(--code-text);
+            padding: 15px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .output-box {
+            background-color: var(--output-bg);
+            border-left: 4px solid var(--output-border);
+            padding: 12px 16px;
+            margin-top: 10px;
+            border-radius: 0 6px 6px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: rgb(30, 41, 59);
+        }
+
+        .output-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            font-weight: 600;
+        }
+
+        .code-snippet {
+            background-color: rgb(241, 245, 249);
+            color: rgb(15, 23, 42);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgb(203, 213, 225);
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 6px;
+        }
+
+        .ui-mockup {
+            border: 2px solid rgb(203, 213, 225);
+            border-radius: 8px;
+            background-color: rgb(255, 255, 255);
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui-header {
+            background-color: rgb(16, 124, 65);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ui-ribbon {
+            background-color: rgb(241, 245, 249);
+            padding: 8px 15px;
+            border-bottom: 1px solid rgb(226, 232, 240);
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: rgb(51, 65, 85);
+            font-weight: 600;
+        }
+
+        .ui-formula-bar {
+            display: flex;
+            border-bottom: 1px solid rgb(226, 232, 240);
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .name-box {
+            width: 80px;
+            padding: 6px 10px;
+            border-right: 1px solid rgb(226, 232, 240);
+            background-color: rgb(248, 250, 252);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .fx-btn {
+            padding: 6px 12px;
+            border-right: 1px solid rgb(226, 232, 240);
+            color: rgb(100, 116, 139);
+            font-weight: bold;
+        }
+
+        .formula-input {
+            flex: 1;
+            padding: 6px 12px;
+            background-color: white;
+        }
+
+        .excel-grid {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .excel-grid th {
+            background-color: rgb(241, 245, 249);
+            border: 1px solid rgb(203, 213, 225);
+            padding: 6px;
+            text-align: center;
+            color: rgb(71, 85, 105);
+            font-weight: 600;
+        }
+
+        .excel-grid td {
+            border: 1px solid rgb(226, 232, 240);
+            padding: 6px 10px;
+        }
+
+        .excel-grid td.selected-cell {
+            outline: 2px solid rgb(16, 124, 65);
+            background-color: rgb(240, 253, 244);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Microsoft Excel Master</h2>
+        <span class="author-tag">Complete In-Depth Notes &bull; By Gagan Sir</span>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search function, concept..." onkeyup="searchFunction()">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod1')">1. Introduction & UI Anatomy</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod2')">2. Workbook & Cell Referencing</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod3')">3. Formatting & Conditional Rules</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod4')">4. Math, Stats & Text Functions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod5')">5. Logical & Conditional Aggregation</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod6')">6. Lookup & Reference (VLOOKUP, XLOOKUP)</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod7')">7. Date & Time Functions</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod8')">8. Data Tools, Validation & Filters</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod9')">9. Pivot Tables & Slicers</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod10')">10. Data Visualization & Charts</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod11')">11. Advanced What-If & Power Tools</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod12')">12. Shortcuts Cheat Sheet & Best Practices</a></li>
+            <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod13')">13. 5 Real-World Business Projects</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <div class="header-card">
+            <h1>Microsoft Excel: Complete In-Depth Master Notes</h1>
+            <p>Master Microsoft Excel from basic spreadsheet concepts, ribbon interface anatomy, cell referencing, data cleaning, advanced functions (VLOOKUP, XLOOKUP, INDEX-MATCH, SUMIFS), Pivot Tables, data visualization, What-If Analysis, to 5 real-world business projects.</p>
+            <span class="badge-gagan">Created by Gagan Sir</span>
+        </div>
+
+        <!-- MODULE 1: Intro & UI Anatomy -->
+        <div class="section-card" id="sec-mod1">
+            <h2 class="section-title">Module 1: Introduction to Microsoft Excel & UI Interface Anatomy</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>What is Microsoft Excel?</h4>
+                    <p><strong>Microsoft Excel</strong> is a powerful electronic spreadsheet application developed by Microsoft. It organizes data into rows and columns, allowing users to perform complex mathematical calculations, data analysis, financial modeling, auditing, and visual charting.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Core Applications of Excel</h4>
+                    <ul class="list-styled">
+                        <li><strong>Data Analysis & Analytics:</strong> Sorting, filtering, aggregating large datasets.</li>
+                        <li><strong>Financial Modeling & Accounting:</strong> Budgets, income statements, cash flows.</li>
+                        <li><strong>Business Operations:</strong> Inventory tracking, sales reporting, project timelines.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Anatomy of the Excel User Interface (UI)</h3>
+            
+            <div class="ui-mockup">
+                <div class="ui-header">
+                    <span>Microsoft Excel - Book1.xlsx</span>
+                    <span>By Gagan Sir</span>
+                </div>
+                <div class="ui-ribbon">
+                    <span style="color: rgb(16, 124, 65); border-bottom: 2px solid rgb(16, 124, 65);">Home</span>
+                    <span>Insert</span>
+                    <span>Page Layout</span>
+                    <span>Formulas</span>
+                    <span>Data</span>
+                    <span>Review</span>
+                    <span>View</span>
+                </div>
+                <div class="ui-formula-bar">
+                    <div class="name-box">B2</div>
+                    <div class="fx-btn">fx</div>
+                    <div class="formula-input">=SUM(B2:B5)</div>
+                </div>
+                <table class="excel-grid">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"></th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td><strong>Product</strong></td>
+                            <td><strong>Sales</strong></td>
+                            <td><strong>Target</strong></td>
+                            <td><strong>Status</strong></td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td>Laptop</td>
+                            <td class="selected-cell">1200</td>
+                            <td>1000</td>
+                            <td>Passed</td>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td>Mouse</td>
+                            <td>450</td>
+                            <td>500</td>
+                            <td>Pending</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="list-styled">
+                <li><strong>Title Bar:</strong> Displays current workbook name (e.g., <code>Book1.xlsx</code>).</li>
+                <li><strong>Ribbon & Tabs:</strong> Contains tabs (Home, Insert, Formulas, Data) hosting tools organized into logical groups.</li>
+                <li><strong>Quick Access Toolbar (QAT):</strong> Customizable bar for quick one-click commands (Save, Undo, Redo).</li>
+                <li><strong>Name Box:</strong> Displays the cell coordinate of the active selection (e.g., <code>B2</code>).</li>
+                <li><strong>Formula Bar:</strong> Displays data, text, or formulas entered into the currently active cell.</li>
+                <li><strong>Worksheet Grid:</strong> The grid consisting of columns (letters A-Z, AA-XFD) and rows (numbers 1-1,048,576).</li>
+                <li><strong>Status Bar:</strong> Displays operational status and quick metrics (Average, Count, Sum of selected cells).</li>
+            </ul>
+        </div>
+
+        <!-- MODULE 2: Workbook & Referencing -->
+        <div class="section-card" id="sec-mod2">
+            <h2 class="section-title">Module 2: Workbook Fundamentals & Cell Referencing</h2>
+            
+            <p>Every Excel file is called a <strong>Workbook</strong>, which contains one or more individual <strong>Worksheets</strong> (tabs). The grid consists of exactly <strong>1,048,576 Rows</strong> and <strong>16,384 Columns</strong> (ending at column XFD).</p>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Types of Cell References (The Dollar Sign $ Rule)</h3>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Reference Type</th>
+                        <th>Syntax</th>
+                        <th>Behavior when Copied Across Cells</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Relative Reference</strong></td>
+                        <td><code>A1</code></td>
+                        <td>Both column and row change relative to the target copy position.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Absolute Reference</strong></td>
+                        <td><code>$A$1</code></td>
+                        <td>Both column and row remain completely fixed. Dollar sign freezes position.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mixed (Fixed Row)</strong></td>
+                        <td><code>A$1</code></td>
+                        <td>Column <code>A</code> changes when copied horizontally; row <code>1</code> remains fixed.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mixed (Fixed Column)</strong></td>
+                        <td><code>$A1</code></td>
+                        <td>Column <code>A</code> remains fixed; row <code>1</code> changes when copied vertically.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Excel Formula Syntax - Relative vs Absolute Referencing</div>
+                <pre>Relative Formula: =B2 * C2
+Absolute Formula (Tax Rate in Cell E1): =B2 * $E$1
+Mixed Formula (Multiplication Table Header): =$A2 * B$1</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 3: Formatting & Conditional Rules -->
+        <div class="section-card" id="sec-mod3">
+            <h2 class="section-title">Module 3: Data Formatting & Conditional Rules</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Number Formatting Types</h4>
+                    <ul class="list-styled">
+                        <li><strong>General:</strong> Default unformatted text or number.</li>
+                        <li><strong>Currency / Accounting:</strong> Adds currency symbols ($) and aligns decimals.</li>
+                        <li><strong>Percentage:</strong> Multiplies cell value by 100 and adds % sign.</li>
+                        <li><strong>Custom Format:</strong> e.g., <code>+00 (000) 000-0000</code> for phone numbers.</li>
+                    </ul>
+                </div>
+                <div class="box-green">
+                    <h4>Conditional Formatting Rules</h4>
+                    <p>Automatically changes cell fill color, font, or icon based on underlying cell value logic.</p>
+                    <ul class="list-styled">
+                        <li><strong>Highlight Cell Rules:</strong> Greater than, Less than, Between, Equal to.</li>
+                        <li><strong>Top/Bottom Rules:</strong> Top 10 items, Top 10% items, Above Average.</li>
+                        <li><strong>Data Bars & Color Scales:</strong> Visual gradient bars inside cells.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 4: Basic to Intermediate Functions -->
+        <div class="section-card" id="sec-mod4">
+            <h2 class="section-title">Module 4: Essential Excel Formulas & Functions</h2>
+            
+            <p>All formulas in Microsoft Excel MUST begin with an equals sign <code>=</code>.</p>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Function Name</th>
+                        <th>Syntax & Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Math</strong></td>
+                        <td><code>SUM</code></td>
+                        <td><code>=SUM(range)</code> &rarr; Adds all numbers in range.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Math</strong></td>
+                        <td><code>ROUND</code></td>
+                        <td><code>=ROUND(number, num_digits)</code> &rarr; Rounds number to decimals.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stats</strong></td>
+                        <td><code>AVERAGE</code></td>
+                        <td><code>=AVERAGE(range)</code> &rarr; Returns mean average of numbers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stats</strong></td>
+                        <td><code>COUNT / COUNTA</code></td>
+                        <td><code>COUNT</code> (numeric cells only), <code>COUNTA</code> (non-empty cells).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Text</strong></td>
+                        <td><code>CONCAT / TEXTJOIN</code></td>
+                        <td><code>=TEXTJOIN(delimiter, ignore_empty, range)</code> &rarr; Joins text string with delimiter.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Text</strong></td>
+                        <td><code>LEFT / RIGHT / MID</code></td>
+                        <td><code>=MID(text, start_num, num_chars)</code> &rarr; Extracts sub-text.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Text</strong></td>
+                        <td><code>TRIM / CLEAN</code></td>
+                        <td><code>=TRIM(text)</code> &rarr; Removes leading, trailing, and extra spaces.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Excel Formula Examples - Mathematical & Text Operations</div>
+                <pre>Sum Sales Range: =SUM(B2:B100)
+Average Test Scores: =AVERAGE(C2:C50)
+Extract First Name (Left of Space): =LEFT(A2, FIND(" ", A2) - 1)
+Capitalize Text Properly: =PROPER(TRIM(A2))</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 5: Logical & Conditional Aggregation -->
+        <div class="section-card" id="sec-mod5">
+            <h2 class="section-title">Module 5: Logical Functions & Conditional Aggregation</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Logical Decision Functions</h4>
+                    <p><code>=IF(logical_test, value_if_true, value_if_false)</code></p>
+                    <p><code>=IFS(test1, val1, test2, val2, ...)</code> (Evaluates multiple conditions in order).</p>
+                    <p><code>=IFERROR(value, value_if_error)</code> (Suppresses unsightly errors like DIV/0 Error or N/A Error).</p>
+                </div>
+                <div class="box-green">
+                    <h4>Conditional Aggregation</h4>
+                    <p><code>=SUMIF(range, criteria, [sum_range])</code></p>
+                    <p><code>=SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2)</code></p>
+                    <p><code>=COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2)</code></p>
+                </div>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">Excel Formula Examples - Logical & Conditional Calculations</div>
+                <pre>Grade Evaluation: =IF(A2>=90, "A", IF(A2>=80, "B", IF(A2>=70, "C", "F")))
+IFS Modern Grade: =IFS(A2>=90, "A", A2>=80, "B", A2>=70, "C", TRUE, "F")
+Safe Division: =IFERROR(A2 / B2, 0)
+Sum Sales for North Region: =SUMIF(RegionRange, "North", SalesRange)
+Multi-Condition Sales: =SUMIFS(SalesRange, RegionRange, "North", YearRange, 2026)</pre>
+            </div>
+
+            <div class="output-box">
+                <div class="output-label">Formula Output Visualization</div>
+                <div>Grade Evaluation: A<br>Safe Division (when B2 is 0): 0<br>Multi-Condition Sales (North, 2026): $45,000</div>
+            </div>
+        </div>
+
+        <!-- MODULE 6: Lookup & Reference Functions -->
+        <div class="section-card" id="sec-mod6">
+            <h2 class="section-title">Module 6: Lookup & Reference Functions (VLOOKUP, INDEX-MATCH, XLOOKUP)</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Lookup Function</th>
+                        <th>Syntax Formula</th>
+                        <th>Key Capabilities & Limitations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>VLOOKUP</strong></td>
+                        <td><code>=VLOOKUP(lookup_val, table_array, col_index_num, [range_lookup])</code></td>
+                        <td>Searches first column only. Cannot lookup data to the left. Requires column index number.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INDEX + MATCH</strong></td>
+                        <td><code>=INDEX(return_range, MATCH(lookup_val, lookup_range, 0))</code></td>
+                        <td>Lookups to the left and right. Dynamic column changes do not break formula. Faster performance.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>XLOOKUP</strong></td>
+                        <td><code>=XLOOKUP(lookup_val, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])</code></td>
+                        <td>Modern replacement for VLOOKUP. Defaults to exact match, lookups left/right, handles missing values inline.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-container">
+                <div class="code-header">Excel Formula Examples - Lookup Comparisons</div>
+                <pre>VLOOKUP (Exact Match): =VLOOKUP("EMP101", A2:D100, 3, FALSE)
+INDEX-MATCH (Left Lookup): =INDEX(A2:A100, MATCH("EMP101", C2:C100, 0))
+XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100, "Employee Not Found")</pre>
+            </div>
+        </div>
+
+        <!-- MODULE 7: Date & Time Functions -->
+        <div class="section-card" id="sec-mod7">
+            <h2 class="section-title">Module 7: Date & Time Functions</h2>
+            
+            <p>Excel stores dates as sequential serial numbers starting from <strong>1</strong> (which represents January 1, 1900).</p>
+
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Syntax</th>
+                        <th>Description & Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>TODAY()</code></td>
+                        <td><code>=TODAY()</code></td>
+                        <td>Returns current system date (updates automatically).</td>
+                    </tr>
+                    <tr>
+                        <td><code>NOW()</code></td>
+                        <td><code>=NOW()</code></td>
+                        <td>Returns current system date and timestamp.</td>
+                    </tr>
+                    <tr>
+                        <td><code>EOMONTH</code></td>
+                        <td><code>=EOMONTH(start_date, months)</code></td>
+                        <td>Returns last day of the month before or after specified months.</td>
+                    </tr>
+                    <tr>
+                        <td><code>DATEDIF</code></td>
+                        <td><code>=DATEDIF(start_date, end_date, "Y")</code></td>
+                        <td>Calculates difference in Years ("Y"), Months ("M"), or Days ("D"). Useful for age calculation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>NETWORKDAYS</code></td>
+                        <td><code>=NETWORKDAYS(start_date, end_date, [holidays])</code></td>
+                        <td>Calculates net working days excluding weekends (Sat/Sun) and optional holidays.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MODULE 8: Data Tools & Cleaning -->
+        <div class="section-card" id="sec-mod8">
+            <h2 class="section-title">Module 8: Data Tools, Validation & Filtering Techniques</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>Data Validation Dropdown Lists</h4>
+                    <p>Restricts data entry into cells. Path: <strong>Data Tab &rarr; Data Validation &rarr; Allow: List &rarr; Source: Dept1, Dept2, Dept3</strong>.</p>
+                </div>
+                <div class="box-green">
+                    <h4>Data Cleaning Tools</h4>
+                    <ul class="list-styled">
+                        <li><strong>Text to Columns:</strong> Splits full names or CSVs by delimiters (comma, space).</li>
+                        <li><strong>Remove Duplicates:</strong> Scans rows and removes redundant duplicate entries.</li>
+                        <li><strong>Flash Fill (Ctrl + E):</strong> AI pattern recognition to auto-extract or format text.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 9: Pivot Tables & Slicers -->
+        <div class="section-card" id="sec-mod9">
+            <h2 class="section-title">Module 9: Pivot Tables & Interactive Slicers</h2>
+            
+            <p>A <strong>Pivot Table</strong> is Excel's most powerful data summarization tool. It allows you to transform thousands of rows of unorganized raw data into summarized reports within seconds without writing formulas.</p>
+
+            <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">The 4 Quadrants of a Pivot Table Field List</h3>
+            <ul class="list-styled">
+                <li><strong>Filters (Report Filter):</strong> Filters the entire pivot table report based on selected criteria.</li>
+                <li><strong>Columns:</strong> Displays field categories as vertical column headers.</li>
+                <li><strong>Rows:</strong> Displays field categories as horizontal row labels.</li>
+                <li><strong>Values:</strong> Contains numeric fields to aggregate (Sum, Average, Count, Max, Min).</li>
+            </ul>
+
+            <div class="ui-mockup">
+                <div class="ui-header">Pivot Table Summary Report - Regional Sales</div>
+                <table class="excel-grid">
+                    <thead>
+                        <tr>
+                            <th>Row Labels</th>
+                            <th>Sum of Sales</th>
+                            <th>Average Discount</th>
+                            <th>Count of Orders</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>East</td>
+                            <td>$145,000</td>
+                            <td>10%</td>
+                            <td>320</td>
+                        </tr>
+                        <tr>
+                            <td>North</td>
+                            <td>$210,000</td>
+                            <td>12%</td>
+                            <td>450</td>
+                        </tr>
+                        <tr>
+                            <td>South</td>
+                            <td>$98,000</td>
+                            <td>8%</td>
+                            <td>210</td>
+                        </tr>
+                        <tr>
+                            <td>West</td>
+                            <td>$175,000</td>
+                            <td>15%</td>
+                            <td>380</td>
+                        </tr>
+                        <tr style="background-color: rgb(241, 245, 249); font-weight: bold;">
+                            <td>Grand Total</td>
+                            <td>$628,000</td>
+                            <td>11.25%</td>
+                            <td>1,360</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MODULE 10: Data Visualization & Charts -->
+        <div class="section-card" id="sec-mod10">
+            <h2 class="section-title">Module 10: Data Visualization & Charting Types</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Chart Type</th>
+                        <th>Best Use Case Scenario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Column / Bar Chart</strong></td>
+                        <td>Comparing discrete categories or discrete items across groups.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Line Chart</strong></td>
+                        <td>Displaying continuous trends over time (months, quarters, years).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pie / Doughnut Chart</strong></td>
+                        <td>Showing relative proportions or percentages of a total (best with 5 or fewer slices).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scatter Plot (X,Y)</strong></td>
+                        <td>Analyzing relationships or correlations between two continuous numeric variables.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Waterfall Chart</strong></td>
+                        <td>Visualizing financial income statements showing cumulative gains and losses.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MODULE 11: Advanced What-If & Power Tools -->
+        <div class="section-card" id="sec-mod11">
+            <h2 class="section-title">Module 11: Advanced What-If Analysis & Excel Power Tools</h2>
+            
+            <div class="explanation-grid">
+                <div class="box-blue">
+                    <h4>What-If Analysis Tools</h4>
+                    <ul class="list-styled">
+                        <li><strong>Goal Seek:</strong> Back-calculates the required input value to achieve a specific target output cell.</li>
+                        <li><strong>Data Tables:</strong> Sensitivity analysis tool evaluating 1-variable or 2-variable inputs.</li>
+                        <li><strong>Scenario Manager:</strong> Creates and saves multiple sets of input scenarios (Best Case, Worst Case, Base Case).</li>
+                    </ul>
+                </div>
+                <div class="box-green">
+                    <h4>Excel Power Tools & Automation</h4>
+                    <ul class="list-styled">
+                        <li><strong>Power Query (Get & Transform):</strong> ETL tool to import, clean, unpivot, and transform external data.</li>
+                        <li><strong>Power Pivot & DAX:</strong> Data modeling tool connecting multiple tables using relational keys.</li>
+                        <li><strong>VBA & Macros:</strong> Automates repetitive manual workflow tasks using Visual Basic for Applications scripts.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE 12: Shortcuts & Best Practices -->
+        <div class="section-card" id="sec-mod12">
+            <h2 class="section-title">Module 12: Keyboard Shortcuts Cheat Sheet & Best Practices</h2>
+            
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Shortcut Key</th>
+                        <th>Action Performed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Ctrl + A</code></td>
+                        <td>Selects entire worksheet or active data table.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + C / Ctrl + V</code></td>
+                        <td>Copy / Paste selection.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + Z / Ctrl + Y</code></td>
+                        <td>Undo / Redo previous action.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + F / Ctrl + H</code></td>
+                        <td>Find / Replace dialog.</td>
+                    </tr>
+                    <tr>
+                        <td><code>F4</code></td>
+                        <td>Toggles absolute/relative cell reference ($) while editing formula, or repeats last action.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Alt + =</code></td>
+                        <td>AutoSum selected adjacent cell numbers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + Shift + L</code></td>
+                        <td>Toggles AutoFilter arrows on header row.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + T</code></td>
+                        <td>Converts range into an official formatted Excel Data Table.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + E</code></td>
+                        <td>Triggers Flash Fill automatic pattern recognition.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ctrl + 1</code></td>
+                        <td>Opens Format Cells dialog window.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MODULE 13: 5 Business Projects -->
+        <div class="section-card" id="sec-mod13">
+            <h2 class="section-title">Module 13: 5 Real-World Practical Business Projects</h2>
+            
+            <!-- Project 1 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-bottom: 10px;">Project 1: Employee Payroll & Tax Calculator System</h3>
+            <div class="ui-mockup">
+                <div class="ui-header">Payroll Calculation Table</div>
+                <table class="excel-grid">
+                    <thead>
+                        <tr>
+                            <th>Emp ID</th>
+                            <th>Name</th>
+                            <th>Basic Salary</th>
+                            <th>HRA (20%)</th>
+                            <th>Gross Pay</th>
+                            <th>Tax (10%)</th>
+                            <th>Net Pay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EMP101</td>
+                            <td>Aman Sharma</td>
+                            <td>$50,000</td>
+                            <td>$10,000</td>
+                            <td>$60,000</td>
+                            <td>$6,000</td>
+                            <td class="selected-cell">$54,000</td>
+                        </tr>
+                        <tr>
+                            <td>EMP102</td>
+                            <td>Priya Patel</td>
+                            <td>$65,000</td>
+                            <td>$13,000</td>
+                            <td>$78,000</td>
+                            <td>$7,800</td>
+                            <td class="selected-cell">$70,200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="code-container">
+                <div class="code-header">Project 1 Formula Implementation</div>
+                <pre>HRA Formula: =C2 * 0.20
+Gross Pay Formula: =C2 + D2
+Tax Formula: =IF(E2>50000, E2 * 0.10, 0)
+Net Pay Formula: =E2 - F2</pre>
+            </div>
+
+            <!-- Project 2 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 2: Sales Performance & Commission Dashboard</h3>
+            <div class="code-container">
+                <div class="code-header">Project 2 Formula Implementation</div>
+                <pre>Total Sales: =SUM(C2:C50)
+Commission Tier Formula: =IFS(C2>=100000, C2*0.10, C2>=50000, C2*0.05, TRUE, 0)
+Target Status: =IF(C2>=D2, "Target Met", "Below Target")
+Top Performer Lookup: =XLOOKUP(MAX(C2:C50), C2:C50, A2:A50)</pre>
+            </div>
+
+            <!-- Project 3 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 3: Financial Income Statement & Profit Margin Analyzer</h3>
+            <div class="code-container">
+                <div class="code-header">Project 3 Formula Implementation</div>
+                <pre>Gross Profit: =TotalRevenue - CostOfGoodsSold
+Operating Expenses: =SUM(E2:E10)
+Net Profit Before Tax: =GrossProfit - OperatingExpenses
+Net Profit Margin %: =NetProfit / TotalRevenue</pre>
+            </div>
+
+            <!-- Project 4 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 4: Inventory Tracking & Stock Reorder Alert System</h3>
+            <div class="code-container">
+                <div class="code-header">Project 4 Formula Implementation</div>
+                <pre>Current Stock Value: =UnitsInStock * UnitCost
+Reorder Status Alert: =IF(UnitsInStock <= ReorderPoint, "REORDER NOW", "Stock Sufficient")
+Days of Supply Remaining: =UnitsInStock / AverageDailySales</pre>
+            </div>
+
+            <!-- Project 5 -->
+            <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-top: 30px; margin-bottom: 10px;">Project 5: Interactive Student Grade & Rank Evaluation System</h3>
+            <div class="code-container">
+                <div class="code-header">Project 5 Formula Implementation</div>
+                <pre>Total Score: =SUM(C2:G2)
+Percentage Marks: =AVERAGE(C2:G2)
+Final Letter Grade: =IFS(I2>=90, "A+", I2>=80, "A", I2>=70, "B", I2>=60, "C", TRUE, "F")
+Student Class Rank: =RANK.EQ(H2, H$2:H$50, 0)</pre>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Microsoft Excel Complete Master Notes &bull; Created for Learning &bull; <strong>By Gagan Sir</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('section-card');
+            for (let card of cards) {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
