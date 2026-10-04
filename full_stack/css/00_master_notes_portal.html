@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CSS3 Master Notes Portal | By Gagan Sir</title>
+    <style>
+        :root {
+            --bg-dark: rgb(15, 23, 42);
+            --card-bg: rgb(30, 41, 59);
+            --accent-pink: rgb(244, 114, 182);
+            --accent-blue: rgb(56, 189, 248);
+            --accent-yellow: rgb(250, 204, 21);
+            --text-light: rgb(241, 245, 249);
+            --text-muted: rgb(148, 163, 184);
+            --canvas-bg: rgb(248, 250, 252);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--canvas-bg);
+            color: rgb(30, 41, 59);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-dark);
+            color: white;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.25rem;
+            color: var(--accent-pink);
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-group-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-yellow);
+            font-weight: 700;
+            margin: 12px 0 6px 8px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-item a:hover {
+            background-color: rgb(30, 41, 59);
+            color: var(--accent-pink);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px 32px;
+            max-width: 1200px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            border-radius: 16px;
+            padding: 36px;
+            color: white;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent-pink);
+            margin-bottom: 12px;
+        }
+
+        .hero-banner p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(244, 114, 182, 0.15);
+            color: var(--accent-pink);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 16px;
+            border: 1px solid rgba(244, 114, 182, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin: 32px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgb(226, 232, 240);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: rgb(253, 242, 248);
+            color: var(--accent-pink);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: rgb(100, 116, 139);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: var(--bg-dark);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .card-btn:hover {
+            background: var(--accent-pink);
+            color: rgb(15, 23, 42);
+        }
+
+        .mobile-header {
+            display: none;
+            background: var(--bg-dark);
+            color: white;
+            padding: 16px 20px;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .hamburger {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px 16px;
+            }
+            .mobile-header {
+                display: flex;
+            }
+            .backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 95;
+            }
+            .backdrop.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>CSS Notes Portal</h2>
+            <p>E:\Notes\html\css Directory</p>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-group-title">🎨 CSS3 Suite</li>
+            <li class="nav-item"><a class="nav-link" href="00_css_programming_master_notes.html"><span class="nav-icon">🎨</span>CSS Master Manual (All 48 Ch)</a></li>
+            <li class="nav-item"><a class="nav-link" href="01_css_syntax_selectors_notes.html"><span class="nav-icon">📝</span>1. Syntax & Selectors</a></li>
+            <li class="nav-item"><a class="nav-link" href="02_css_box_model_notes.html"><span class="nav-icon">📦</span>2. Box Model & Borders</a></li>
+            <li class="nav-item"><a class="nav-link" href="03_css_text_fonts_icons_notes.html"><span class="nav-icon">🔤</span>3. Typography & Tables</a></li>
+            <li class="nav-item"><a class="nav-link" href="04_css_layout_positioning_notes.html"><span class="nav-icon">📐</span>4. Layout & Positioning</a></li>
+            <li class="nav-item"><a class="nav-link" href="05_css_pseudo_combinators_notes.html"><span class="nav-icon">✨</span>5. Pseudo & Dropdowns</a></li>
+            <li class="nav-item"><a class="nav-link" href="06_css_flexbox_grid_notes.html"><span class="nav-icon">📊</span>6. Flexbox & Grid</a></li>
+            <li class="nav-item"><a class="nav-link" href="07_css_transforms_animations_notes.html"><span class="nav-icon">🎬</span>7. Transforms & Keyframes</a></li>
+            <li class="nav-item"><a class="nav-link" href="08_css_advanced_functions_notes.html"><span class="nav-icon">⚡</span>8. Units & Math Functions</a></li>
+
+            <li class="nav-group-title">🌐 Main Notes Portals</li>
+            <li class="nav-item"><a class="nav-link" href="../00_master_notes_portal.html"><span class="nav-icon">🏠</span>HTML Notes Portal</a></li>
+            <li class="nav-item"><a class="nav-link" href="../../00_master_notes_portal.html"><span class="nav-icon">🏠</span>Main E:\Notes Portal</a></li>
+        </ul>
+    </div>
+
+    <div style="width: 100%;">
+        <div class="mobile-header">
+            <span class="hamburger" onclick="toggleSidebar()">☰</span>
+            <span style="font-weight: 700; color: var(--accent-pink);">CSS Notes Portal</span>
+            <span></span>
+        </div>
+
+        <div class="main-content">
+            <div class="hero-banner">
+                <h1>CSS3 Master Notes Portal</h1>
+                <p>Designed and Curated by <strong>Gagan Sir</strong>. Complete interactive CSS3 Notes, Flexbox, Grid, Animations & Responsive Layouts.</p>
+                <div class="hero-badge">✨ Multi-Device Responsive • Zero-Hash Architecture • E:\Notes\html\css</div>
+            </div>
+
+            <div class="section-title">🎨 CSS3 Topic-by-Topic Learning Suite</div>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-title">CSS3 Master Manual</div>
+                    <div class="card-desc">All 48 CSS Chapters combined in one single manual.</div>
+                    <a class="card-btn" href="00_css_programming_master_notes.html">Open CSS Master Manual</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Syntax & Selectors</div>
+                    <div class="card-desc">CSS rulesets, element/class/id selectors, inline/internal/external CSS & colors.</div>
+                    <a class="card-btn" href="01_css_syntax_selectors_notes.html">Open Syntax Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📦</div>
+                    <div class="card-title">Box Model & Borders</div>
+                    <div class="card-desc">Backgrounds, borders, margins, padding, width, height & box-sizing: border-box.</div>
+                    <a class="card-btn" href="02_css_box_model_notes.html">Open Box Model Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔤</div>
+                    <div class="card-title">Typography & Tables</div>
+                    <div class="card-desc">Text alignment, font families, google fonts, link pseudo-states & tables.</div>
+                    <a class="card-btn" href="03_css_text_fonts_icons_notes.html">Open Typography Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📐</div>
+                    <div class="card-title">Layout & Positioning</div>
+                    <div class="card-desc">display: none/block/flex, position: static/relative/absolute/fixed/sticky & z-index.</div>
+                    <a class="card-btn" href="04_css_layout_positioning_notes.html">Open Layout Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Pseudo & Dropdowns</div>
+                    <div class="card-desc">Combinators, :hover, :nth-child(), ::before, ::after, opacity & dropdowns.</div>
+                    <a class="card-btn" href="05_css_pseudo_combinators_notes.html">Open Pseudo Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Flexbox & CSS Grid</div>
+                    <div class="card-desc">Flexbox layout, CSS Grid 2D layout, gap spacing & media queries.</div>
+                    <a class="card-btn" href="06_css_flexbox_grid_notes.html">Open Flexbox & Grid Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎬</div>
+                    <div class="card-title">Transforms & Animations</div>
+                    <div class="card-desc">2D/3D transforms, transitions, @keyframes animations & tooltips.</div>
+                    <a class="card-btn" href="07_css_transforms_animations_notes.html">Open Animations Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">Units & Math Functions</div>
+                    <div class="card-desc">Attribute selectors, custom form styling, calc(), clamp(), rem, em & specificity.</div>
+                    <a class="card-btn" href="08_css_advanced_functions_notes.html">Open Advanced Notes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('backdrop').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

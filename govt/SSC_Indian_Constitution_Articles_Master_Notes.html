@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC & DSSSB Constitution Articles Master Notes (Bilingual English + Hinglish)</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 250, 252);
+            --bg-secondary: rgb(255, 255, 255);
+            --bg-tertiary: rgb(226, 232, 240);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --accent-purple: rgb(168, 85, 247);
+            --accent-blue: rgb(59, 130, 246);
+            --accent-green: rgb(16, 185, 129);
+            --accent-amber: rgb(245, 158, 11);
+            --accent-rose: rgb(244, 63, 94);
+            --accent-cyan: rgb(6, 182, 212);
+            --border-color: rgb(63, 63, 70);
+            --code-bg: rgb(30, 58, 138);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background-color: rgb(30, 58, 138);
+            border-right: 1px solid var(--border-color); padding: 20px 15px;
+            position: fixed; top: 0; bottom: 0; left: 0; overflow-y: auto; z-index: 100;
+        }
+
+        .sidebar-header { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        .sidebar-header h2 { font-size: 1.15rem; color: rgb(59, 130, 246); display: flex; align-items: center; gap: 8px; }
+        .sidebar-header .author-tag { font-size: 0.8rem; color: var(--accent-blue); font-weight: 600; margin-top: 4px; }
+
+        
+
+        
+        .part-filter-btns { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 15px; }
+
+        .filter-btn {
+            flex: 1; min-width: 60px; padding: 6px 4px; font-size: 0.7rem; font-weight: bold;
+            background-color: var(--bg-tertiary); color: var(--text-secondary);
+            border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; text-align: center; transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover { background-color: rgb(59, 130, 246); color: #fff; border-color: rgb(59, 130, 246); }
+
+        .toc-list { list-style: none; }
+        .toc-section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--accent-amber); margin: 14px 0 6px 8px; }
+        .toc-item { margin-bottom: 3px; }
+        .toc-link { display: block; padding: 6px 10px; color: var(--text-secondary); text-decoration: none; font-size: 0.83rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .toc-link:hover, .toc-link.active { background-color: var(--bg-tertiary); color: rgb(59, 130, 246); }
+
+        /* Main Content Area */
+        .main-content { margin-left: 320px; flex: 1; padding: 35px; max-width: 1150px; }
+
+        /* Header Banner */
+        .header-banner {
+            background: linear-gradient(135deg, rgb(30, 58, 138) 0%, rgb(59, 130, 246) 100%);
+            border: 1px solid rgb(59, 130, 246); border-radius: 12px;
+            padding: 30px; margin-bottom: 35px; position: relative;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-banner h1 {
+            font-size: 2.2rem;
+            color: rgb(255, 255, 255); margin-bottom: 8px; letter-spacing: -0.5px; }
+        .header-banner p { color: var(--text-secondary); font-size: 1rem; max-width: 850px; }
+
+        .badges-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .badge-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            background-color: rgba(168, 85, 247, 0.15); color: rgb(59, 130, 246);
+            border: 1px solid rgb(59, 130, 246); padding: 4px 10px; border-radius: 20px;
+            font-size: 0.78rem; font-weight: 600;
+        }
+
+        .badge-hinglish { color: rgb(59, 130, 246); border-color: rgb(59, 130, 246); background-color: rgba(16, 185, 129, 0.15); }
+        .badge-cgl { color: var(--accent-amber); border-color: var(--accent-amber); background-color: rgba(245, 158, 11, 0.15); }
+        .badge-chsl { color: var(--accent-cyan); border-color: var(--accent-cyan); background-color: rgba(6, 182, 212, 0.15); }
+
+        /* Section Cards */
+        .section-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 26px; margin-bottom: 35px; }
+        .part-header-tag { display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; background-color: rgba(168, 85, 247, 0.2); color: rgb(59, 130, 246); }
+
+        .section-title {
+            font-size: 1.45rem;
+            color: rgb(30, 58, 138); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
+        .section-number { background-color: rgb(59, 130, 246); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.88rem; font-weight: bold; flex-shrink: 0; }
+
+        .freq-pill { margin-left: auto; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 12px; background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
+
+        /* Hinglish Note Callout */
+        .hinglish-box {
+            background-color: rgba(16, 185, 129, 0.08); border-left: 4px solid rgb(59, 130, 246);
+            padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 12px 0;
+            font-size: 0.92rem; color: rgb(167, 243, 208);
+        }
+
+        .hinglish-box strong { color: rgb(59, 130, 246); }
+
+        .mnemonic-box {
+            background-color: rgba(168, 85, 247, 0.08); border-left: 4px solid rgb(59, 130, 246);
+            padding: 15px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px;
+            font-size: 0.92rem; color: rgb(243, 232, 255);
+        }
+
+        .mnemonic-box strong { color: rgb(59, 130, 246); font-size: 1rem; }
+
+        /* SVG Diagrams & Infographics */
+        .svg-visual-container { background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center; }
+        .svg-visual-title { font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Grid Tree Layout */
+        .tree-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 15px 0; }
+        .tree-card { background-color: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; transition: transform 0.2s, border-color 0.2s; }
+        .tree-card:hover { transform: translateY(-2px); border-color: rgb(59, 130, 246); }
+        .tree-card h4 { font-size: 0.93rem; color: var(--accent-amber); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .tree-card .art-badge { font-size: 0.72rem; padding: 2px 6px; background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border-radius: 4px; }
+        .tree-card ul { list-style: none; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .tree-card ul li { position: relative; padding-left: 14px; margin-bottom: 4px; }
+        .tree-card ul li::before { content: "•"; position: absolute; left: 0; color: rgb(59, 130, 246); font-weight: bold; }
+
+        /* Tables */
+        .summary-table { width: 100%; border-collapse: collapse; margin: 18px 0; overflow-x: auto; display: block; }
+        .summary-table th, .summary-table td { border: 1px solid var(--border-color); padding: 10px 14px; text-align: left; font-size: 0.86rem; }
+        .summary-table th { background-color: var(--bg-tertiary); color: rgb(59, 130, 246); font-weight: 700; }
+        .summary-table tr:nth-child(even) { background-color: rgba(24, 24, 27, 0.6); }
+
+        .article-highlight { font-weight: bold; color: var(--accent-amber); }
+
+        /* PYQ Cards */
+        .pyq-card { background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; margin-bottom: 20px; }
+        .pyq-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .pyq-tags-container { display: flex; gap: 6px; flex-wrap: wrap; }
+        .pyq-exam-tag { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background-color: rgba(16, 185, 129, 0.15); color: rgb(59, 130, 246); border: 1px solid rgb(59, 130, 246); }
+        .pyq-question { font-size: 0.95rem; color: var(--text-primary); font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .pyq-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-bottom: 14px; }
+        .pyq-option { background-color: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 9px 12px; border-radius: 6px; font-size: 0.86rem; color: var(--text-secondary); transition: border-color 0.2s; }
+        .pyq-option:hover { border-color: rgb(59, 130, 246); color: var(--text-primary); }
+
+        .pyq-toggle-btn { background-color: var(--bg-tertiary); color: rgb(59, 130, 246); border: 1px solid rgb(59, 130, 246); padding: 6px 14px; border-radius: 5px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .pyq-toggle-btn:hover { background-color: rgb(59, 130, 246); color: #ffffff; }
+
+        .pyq-answer-box { display: none; margin-top: 14px; padding: 14px 16px; background-color: rgba(16, 185, 129, 0.08); border-left: 4px solid rgb(59, 130, 246); border-radius: 0 6px 6px 0; font-size: 0.88rem; color: rgb(224, 242, 254); line-height: 1.6; }
+        .pyq-answer-box.active { display: block; }
+        .pyq-correct-opt { font-weight: bold; color: rgb(59, 130, 246); font-size: 0.95rem; margin-bottom: 6px; }
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 15px; width: 100%; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+            <div class="sidebar-header">
+            <a href="../govt_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
+        <a href="../index.html" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary); color: var(--text-primary); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color); transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-blue)'" onmouseout="this.style.borderColor='var(--border-color)'">&larr; Back to Home</a>
+        <h2>📜 Constitution Articles Notes</h2>
+            <div class="author-tag">Bilingual (English + Hinglish)</div>
+        </div>
+
+        
+
+        <div class="part-filter-btns">
+            <button class="filter-btn active" onclick="filterPart('all')">ALL</button>
+            <button class="filter-btn" onclick="filterPart('part3')">FR (P3)</button>
+            <button class="filter-btn" onclick="filterPart('part4')">DPSP (P4)</button>
+            <button class="filter-btn" onclick="filterPart('part5')">UNION (P5)</button>
+            <button class="filter-btn" onclick="filterPart('pyq')">PYQs</button>
+        </div>
+
+        <ul class="toc-list" id="tocList">
+            <div class="toc-section-label">⚡ HINGLISH TRICKS</div>
+            <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec_tricks_formula')">1. The +89 &amp; +90 Magic Formula</a></li>
+
+            <div class="toc-section-label">📜 ARTICLES EXPLANATION</div>
+            <li class="toc-item part-sec-item"><a class="toc-link" onclick="scrollToSec('sec_part1_2')">2. Part I &amp; II: Territory &amp; Citizenship</a></li>
+            <li class="toc-item part-sec-item"><a class="toc-link" onclick="scrollToSec('sec_part3_fr')">3. Part III: Fundamental Rights (Art 12-35)</a></li>
+            <li class="toc-item part-sec-item"><a class="toc-link" onclick="scrollToSec('sec_part4_dpsp')">4. Part IV: DPSP &amp; Duties (Art 36-51A)</a></li>
+            <li class="toc-item part-sec-item"><a class="toc-link" onclick="scrollToSec('sec_part5_union')">5. Part V: President &amp; Union Exec</a></li>
+            <li class="toc-item part-sec-item"><a class="toc-link" onclick="scrollToSec('sec_part5_parliament')">6. Part V: Parliament &amp; Budget</a></li>
+            <li class="toc-item part-sec-item"><a class="toc-link" onclick="scrollToSec('sec_bodies_emergency')">7. Bodies &amp; Emergency (+4 Trick)</a></li>
+
+            <div class="toc-section-label">🎯 PRACTICE BANK</div>
+            <li class="toc-item pyq-sec-item"><a class="toc-link" onclick="scrollToSec('sec_article_mcqs')">8. Bilingual PYQ MCQs</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Header Banner -->
+        <div class="header-banner">
+            <h1>INDIAN CONSTITUTION ARTICLES MASTER NOTES</h1>
+            <p>Complete Bilingual Study Guide (English + Hinglish Explanations) with Memory Tricks, Magic Formulas &amp; SSC PYQ Bank</p>
+            <div class="badges-group">
+                <span class="badge-tag badge-hinglish">🗣️ Bilingual (English + Hinglish)</span>
+                <span class="badge-tag badge-cgl">🏆 SSC CGL</span>
+                <span class="badge-tag badge-chsl">⚡ SSC CHSL</span>
+                <span class="badge-tag">📌 DSSSB / MTS / Steno</span>
+            </div>
+        </div>
+
+        <!-- Magic Formulas & Tricks Section -->
+        <div class="section-card" id="sec_tricks_formula">
+            <span class="part-header-tag">HINGLISH MASTER TRICK</span>
+            <div class="section-title">
+                <span class="section-number">⚡</span>
+                The Magic +89 &amp; +90 Formula (Union ➔ State Articles)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 Hinglish Explanation:</strong> Tumhe State ke saare alag Articles yaad karne ki bilkul zarurat nahi hai! Bas Centre/Union ke Articles mein <strong>+89</strong> (ya <strong>+90</strong>) add kar do, toh exact State wala Article apne aap nikal aayega.
+            </div>
+
+            <div class="table-responsive-wrapper"><table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Union (Centre) Article</th>
+                        <th>Hinglish Formula</th>
+                        <th>Corresponding State Article</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Art 72:</strong> President Pardoning Power (President ki Maafi)</td>
+                        <td>72 + 89 = <strong>161</strong></td>
+                        <td><strong>Art 161:</strong> Governor Pardoning Power (Governor ki Maafi)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Art 74:</strong> Council of Ministers (PM ki Mantri Parishad)</td>
+                        <td>74 + 89 = <strong>163</strong></td>
+                        <td><strong>Art 163:</strong> Council of Ministers (CM ki Mantri Parishad)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Art 75:</strong> PM &amp; Ministers Appointment</td>
+                        <td>75 + 89 = <strong>164</strong></td>
+                        <td><strong>Art 164:</strong> CM &amp; State Ministers Appointment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Art 76:</strong> Attorney General of India (Desh ka sabse bada Vakil)</td>
+                        <td>76 + 89 = <strong>165</strong></td>
+                        <td><strong>Art 165:</strong> Advocate General for State (State ka sabse bada Vakil)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Art 110:</strong> Money Bill in Parliament</td>
+                        <td>110 + 89 = <strong>199</strong></td>
+                        <td><strong>Art 199:</strong> Money Bill in State Vidhan Sabha</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Art 112:</strong> Union Budget (Annual Financial Statement)</td>
+                        <td>112 + 90 = <strong>202</strong></td>
+                        <td><strong>Art 202:</strong> State Budget</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Art 123:</strong> President Ordinance Power (Kanoon jab Sansad chhutti par ho)</td>
+                        <td>Swap 1 2 3 ➔ <strong>2 1 3</strong></td>
+                        <td><strong>Art 213:</strong> Governor Ordinance Power</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+
+        <!-- Part I & II -->
+        <div class="section-card part3-sec" id="sec_part1_2">
+            <span class="part-header-tag">PART I &amp; II • ART 1 TO 11</span>
+            <div class="section-title">
+                <span class="section-number">1</span>
+                Union &amp; Its Territory (1-4) &amp; Citizenship (5-11)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 Hinglish Notes:</strong>
+                <br>• <strong>Article 1:</strong> Direct bolta hai - <em>"India, that is Bharat, shall be a Union of States"</em> (Bharat States ka ek Sangh hai).
+                <br>• <strong>Article 9:</strong> Agar koi Indian citizen kisi dusre country ki citizenship leta hai, toh uski Indian citizenship automatically khatam ho jati hai (Single Citizenship policy borrowed from UK).
+            </div>
+
+            <div class="tree-grid">
+                <div class="tree-card">
+                    <h4>Art 1 <span class="art-badge">Union Name</span></h4>
+                    <ul><li>India, that is Bharat, shall be a Union of States.</li></ul>
+                </div>
+                <div class="tree-card">
+                    <h4>Art 2 <span class="art-badge">New States</span></h4>
+                    <ul><li>Naye territory ko India mein add karna (outside India).</li></ul>
+                </div>
+                <div class="tree-card">
+                    <h4>Art 3 <span class="art-badge">Boundaries</span></h4>
+                    <ul><li>Existing States ki boundary, name ya area change karna (e.g., Telangana creation).</li></ul>
+                </div>
+                <div class="tree-card">
+                    <h4>Art 9 &amp; 11 <span class="art-badge">Citizenship</span></h4>
+                    <ul>
+                        <li><strong>Art 9:</strong> Single Citizenship (Dusre desh ki citizenship par Indian citizenship cancel).</li>
+                        <li><strong>Art 11:</strong> Parliament citizenship rules bana sakti hai (Citizenship Act 1955).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part III: Fundamental Rights -->
+        <div class="section-card part3-sec" id="sec_part3_fr">
+            <span class="part-header-tag">PART III • ART 12 TO 35</span>
+            <div class="section-title">
+                <span class="section-number">2</span>
+                Fundamental Rights (Maulik Adhikar)
+                <span class="freq-pill">Super High Frequency</span>
+            </div>
+
+            <div class="mnemonic-box">
+                <strong>💡 Trick 1 - Right to Equality (Art 14-18): "E-D-O-U-T"</strong><br>
+                • <strong>E</strong>quality before Law (Art 14)<br>
+                • <strong>D</strong>iscrimination Prohibition (Art 15 - Dharam, Jaati, Sex ke aadhar par koi bhedbhav nahi)<br>
+                • <strong>O</strong>pportunity in Jobs (Art 16)<br>
+                • <strong>U</strong>ntouchability Abolition (Art 17 - <em>Chhuachhoot ka Ant: SSC ka favorite question!</em>)<br>
+                • <strong>T</strong>itles Abolition (Art 18 - Sir/Rai Bahadur jaise titles par ban)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 Hinglish Notes - Art 19 6 Freedoms Trick (S-A-A-M-R-P):</strong>
+                <br>19(1)(a) **S**peech (Bolne ki azadi) ➔ 19(1)(b) **A**ssembly (Gather hone ki azadi) ➔ 19(1)(c) **A**ssociations (Union banane ki azadi) ➔ 19(1)(d) **M**ovement (Desh mein ghoomne ki azadi) ➔ 19(1)(e) **R**esidence (Rehne ki azadi) ➔ 19(1)(g) **P**rofession (Kamaane / Job karne ki azadi).
+            </div>
+
+            <div class="table-responsive-wrapper"><table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Article</th>
+                        <th>Subject Matter</th>
+                        <th>Hinglish Key Concept &amp; SSC Facts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="article-highlight">Article 20</span></td>
+                        <td>Protection in conviction</td>
+                        <td>Ek gunah ki ek hi baar saza (No Double Jeopardy). Apne khilaf gawahi ke liye force nahi kar sakte.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 21</span></td>
+                        <td>Right to Life &amp; Liberty</td>
+                        <td>Jine ka Adhikar. Right to Privacy (K.S. Puttaswamy case) aur Swachh Hawa/Pani ka adhikar isi mein aata hai.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 21A</span></td>
+                        <td>Right to Education (RTE)</td>
+                        <td><strong>86th Amendment 2002</strong> se add hua. 6 se 14 saal ke bacho ko Muft aur Anivarya Shiksha.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 23</span></td>
+                        <td>Human Trafficking &amp; Begar</td>
+                        <td>Insaano ki khareed-farokht aur majboori mein bina paise ke kaam karwana (Begar) prohibited hai.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 24</span></td>
+                        <td>Child Labor Prohibition</td>
+                        <td><strong>14 saal se kam</strong> umar ke bacho ko factory ya dangerous mines mein kaam karwana crime hai.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 32</span></td>
+                        <td>Constitutional Remedies</td>
+                        <td>Dr. B.R. Ambedkar ne ise <em>"Samvidhan ki Aatma aur Hriday"</em> (Heart &amp; Soul) kaha tha. SC <strong>5 Writs</strong> issue karta hai.</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+
+        <!-- Part IV & IV-A: DPSP & Duties -->
+        <div class="section-card part4-sec" id="sec_part4_dpsp">
+            <span class="part-header-tag">PART IV &amp; IV-A • ART 36 TO 51A</span>
+            <div class="section-title">
+                <span class="section-number">3</span>
+                DPSP &amp; Fundamental Duties (Kartavya)
+            </div>
+
+            <div class="mnemonic-box">
+                <strong>💡 Short Tricks for DPSP Articles (Hinglish):</strong><br>
+                • <strong>Art 40 = Gram Panchayat</strong> (4+0 = Gaon ki Panchayat ke 4 kone)<br>
+                • <strong>Art 44 = Uniform Civil Code (UCC)</strong> (4 aur 4 ek se Uniform dikhte hain)<br>
+                • <strong>Art 48A = Environment Protection</strong> ('A' for Air &amp; Atmosphere - 42nd Amendment 1976)<br>
+                • <strong>Art 50 = Judiciary &amp; Executive Separation</strong> (50-50 Split: Judge aur Mantri ka kaam alag)<br>
+                • <strong>Art 51 = International Peace</strong> (Duniya mein shanti ke liye ₹51 ka Shagun!)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>🇮🇳 Article 51A - Fundamental Duties (Maulik Kartavya):</strong>
+                <br>• Swaran Singh Committee ki recommendation par <strong>42nd Amendment 1976</strong> se add hue.
+                <br>• Phele 10 duties the; 11th duty (6-14 age child education) <strong>86th Amendment 2002</strong> se add hui. Borrowed from USSR.
+            </div>
+        </div>
+
+        <!-- Part V: President & Union Executive -->
+        <div class="section-card part5-sec" id="sec_part5_union">
+            <span class="part-header-tag">PART V • ART 52 TO 123</span>
+            <div class="section-title">
+                <span class="section-number">4</span>
+                President of India Articles (Trick: P-E-E-M-T-E-Q-O-I)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 President Important Articles (Hinglish):</strong>
+                <br>• <strong>Art 52:</strong> Desh mein ek President honge (First Citizen of India).
+                <br>• <strong>Art 54:</strong> Election (Chunaav) - Isme Lok Sabha, Rajya Sabha aur State Assemblies ke <strong>ONLY ELECTED</strong> members vote dete hain.
+                <br>• <strong>Art 61:</strong> Impeachment (Hataane ka tarika) - Jab Samvidhan ka violation ho. 14 din ka advance notice Dena zaruri hai.
+                <br>• <strong>Art 72:</strong> Pardoning Power (Maafi ka Adhikar) - Phansi (Death Penalty) aur Court Martial ko maaf kar sakte hain.
+                <br>• <strong>Art 123:</strong> Ordinance (Adhyadesh) - Jab Parliament session mein na ho tab kanoon banana.
+            </div>
+
+            <div class="table-responsive-wrapper"><table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Article</th>
+                        <th>Subject Matter</th>
+                        <th>SSC &amp; Hinglish Key Facts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="article-highlight">Article 52</span></td>
+                        <td>President of India</td>
+                        <td>India ke Pratham Nagrik (First Citizen). Supreme Commander of Armed Forces.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 54</span></td>
+                        <td>President Election</td>
+                        <td>Electoral College: LS, RS aur State Assemblies ke Elected members.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 61</span></td>
+                        <td>Impeachment</td>
+                        <td>President ko hatane ki process (Violation of Constitution par).</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 72</span></td>
+                        <td>Pardoning Power</td>
+                        <td>Phansi ki saza sirf President maaf kar sakte hain (Governor nahi).</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 123</span></td>
+                        <td>Ordinance Power</td>
+                        <td>Ordinance ki max duration 6 weeks (from reassembly of Parliament) hoti hai.</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+
+        <!-- Part V: Parliament -->
+        <div class="section-card part5-sec" id="sec_part5_parliament">
+            <span class="part-header-tag">PART V • ART 79 TO 122</span>
+            <div class="section-title">
+                <span class="section-number">5</span>
+                Parliament Articles (SARAL / सरल Trick)
+            </div>
+
+            <div class="mnemonic-box">
+                <strong>💡 Trick - S-A-R-A-L (सरल):</strong><br>
+                • <strong>स (S) = Samsad / Parliament</strong> ➔ <strong>Article 79</strong><br>
+                • <strong>र (R) = Rajya Sabha</strong> ➔ <strong>Article 80</strong><br>
+                • <strong>ल (L) = Lok Sabha</strong> ➔ <strong>Article 81</strong>
+            </div>
+
+            <div class="tree-grid">
+                <div class="tree-card">
+                    <h4>Art 108 <span class="art-badge">Joint Sitting</span></h4>
+                    <ul>
+                        <li>President bulate hain jab kisi Bill par deadlock ho.</li>
+                        <li><strong>Preside humesha Lok Sabha Speaker karte hain!</strong></li>
+                    </ul>
+                </div>
+                <div class="tree-card">
+                    <h4>Art 110 <span class="art-badge">Money Bill</span></h4>
+                    <ul>
+                        <li>Decide sirf Lok Sabha Speaker karte hain ki bill Money Bill hai ya nahi.</li>
+                        <li>Rajya Sabha ise max 14 din tak rok sakti hai.</li>
+                    </ul>
+                </div>
+                <div class="tree-card">
+                    <h4>Art 112 <span class="art-badge">Budget</span></h4>
+                    <ul>
+                        <li>Official naam: <strong>Annual Financial Statement</strong>.</li>
+                        <li>Constitution mein 'Budget' word kahin nahi likha hai!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Constitutional Bodies & Emergency -->
+        <div class="section-card" id="sec_bodies_emergency">
+            <span class="part-header-tag">MISCELLANEOUS • HIGH YIELD</span>
+            <div class="section-title">
+                <span class="section-number">6</span>
+                Constitutional Bodies &amp; Emergency Provisions
+            </div>
+
+            <h4 style="color:rgb(59, 130, 246); margin-bottom:10px;">🏛️ High-Yield Constitutional Bodies Table</h4>
+            <div class="table-responsive-wrapper"><table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Article</th>
+                        <th>Constitutional Body</th>
+                        <th>Hinglish Key Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="article-highlight">Article 76</span></td>
+                        <td>Attorney General of India</td>
+                        <td>Desh ka sabse bada Sarkar ka Law Officer (Vakil). Sansad mein bol sakte hain par vote nahi de sakte.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 148</span></td>
+                        <td>Comptroller and Auditor General (CAG)</td>
+                        <td>Sarkari khazaane ka Guard (Guardian of Public Purse). Tenure: 6 yrs ya 65 yrs age.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 280</span></td>
+                        <td>Finance Commission</td>
+                        <td>Har 5 saal mein President ਦੁਆਰਾ banaya jata hai Centre-State tax batware ke liye.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 315</span></td>
+                        <td>UPSC &amp; State PSCs</td>
+                        <td>Civil Services Exams conduct karwana. UPSC Chairman appointed by President.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 324</span></td>
+                        <td>Election Commission of India</td>
+                        <td>Desh mein free and fair elections karwana.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="article-highlight">Article 368</span></td>
+                        <td>Constitutional Amendment</td>
+                        <td>Samvidhan mein badlav karne ki Parliament ki power (South Africa se liya gaya).</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h4 style="color:var(--accent-rose); margin:20px 0 10px 0;">🚨 Emergency Articles (+4 Trick)</h4>
+            <div class="mnemonic-box">
+                <strong>💡 Add +4 Emergency Trick (Hinglish):</strong><br>
+                • <strong>Art 352:</strong> National Emergency (Yuddh, Bahaari Aakraman ya Shasastra Vidroh par)<br>
+                • <strong>352 + 4 = Art 356:</strong> President's Rule (State mein samvidhan fail hone par)<br>
+                • <strong>356 + 4 = Art 360:</strong> Financial Emergency (Paisa khatam hone par - India mein AAJ TAK EK BAAR BHI NAHI LAGI!)
+            </div>
+        </div>
+
+        <!-- PYQ MCQs Section -->
+        <div class="section-card pyq-sec" id="sec_article_mcqs">
+            <span class="part-header-tag">PRACTICE BANK</span>
+            <div class="section-title">
+                <span class="section-number">7</span>
+                Bilingual Articles PYQ MCQ Bank with Hinglish Solutions
+            </div>
+
+            <!-- MCQ 1 -->
+            <div class="pyq-card">
+                <div class="pyq-header">
+                    <div class="pyq-tags-container">
+                        <span class="pyq-exam-tag cgl">SSC CGL 2023</span>
+                        <span class="pyq-exam-tag dsssb">DSSSB PRT</span>
+                    </div>
+                </div>
+                <div class="pyq-question">
+                    Q1. Which Article of the Indian Constitution provides for the abolition of 'Untouchability' (Chhuachhoot)?
+                </div>
+                <div class="pyq-options">
+                    <div class="pyq-option">A) Article 14</div>
+                    <div class="pyq-option">B) Article 15</div>
+                    <div class="pyq-option">C) Article 17</div>
+                    <div class="pyq-option">D) Article 18</div>
+                </div>
+                <button class="pyq-toggle-btn" onclick="toggleAnswer(this)">Show Answer &amp; Solution</button>
+                <div class="pyq-answer-box">
+                    <div class="pyq-correct-opt">Correct Answer: Option C (Article 17)</div>
+                    <strong>Hinglish Solution:</strong> Article 17 Untouchability (Chhuachhoot) ko abolishes karta hai. Trick: <code>E-D-O-U-T</code> mein 'U' = Untouchability = Art 17. Ye SSC ka sabse repeated question hai!
+                </div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="pyq-card">
+                <div class="pyq-header">
+                    <div class="pyq-tags-container">
+                        <span class="pyq-exam-tag chsl">SSC CHSL 2023</span>
+                        <span class="pyq-exam-tag">SSC MTS 2022</span>
+                    </div>
+                </div>
+                <div class="pyq-question">
+                    Q2. Which Article directs the State to organize Village Panchayats under DPSP?
+                </div>
+                <div class="pyq-options">
+                    <div class="pyq-option">A) Article 39A</div>
+                    <div class="pyq-option">B) Article 40</div>
+                    <div class="pyq-option">C) Article 44</div>
+                    <div class="pyq-option">D) Article 50</div>
+                </div>
+                <button class="pyq-toggle-btn" onclick="toggleAnswer(this)">Show Answer &amp; Solution</button>
+                <div class="pyq-answer-box">
+                    <div class="pyq-correct-opt">Correct Answer: Option B (Article 40)</div>
+                    <strong>Hinglish Solution:</strong> Article 40 Gram Panchayats ke organization ki baat karta hai. Hinglish Trick: 4 + 0 = Panchayat ke 4 kone!
+                </div>
+            </div>
+
+            <!-- MCQ 3 -->
+            <div class="pyq-card">
+                <div class="pyq-header">
+                    <div class="pyq-tags-container">
+                        <span class="pyq-exam-tag cgl">SSC CGL 2022</span>
+                        <span class="pyq-exam-tag dsssb">DSSSB TGT</span>
+                    </div>
+                </div>
+                <div class="pyq-question">
+                    Q3. According to the SARAL trick, which Article defines the constitution of the Parliament of India (Samsad)?
+                </div>
+                <div class="pyq-options">
+                    <div class="pyq-option">A) Article 79</div>
+                    <div class="pyq-option">B) Article 80</div>
+                    <div class="pyq-option">C) Article 81</div>
+                    <div class="pyq-option">D) Article 82</div>
+                </div>
+                <button class="pyq-toggle-btn" onclick="toggleAnswer(this)">Show Answer &amp; Solution</button>
+                <div class="pyq-answer-box">
+                    <div class="pyq-correct-opt">Correct Answer: Option A (Article 79)</div>
+                    <strong>Hinglish Solution:</strong> S-A-R-A-L trick: S = Samsad (Art 79), R = Rajya Sabha (Art 80), L = Lok Sabha (Art 81).
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 30px; border-top: 1px solid var(--border-color); margin-top: 40px; color: var(--text-secondary); font-size: 0.88rem;">
+            <p><strong>Articles of Indian Constitution Master Notes (Bilingual English + Hinglish)</strong></p>
+            <p style="margin-top: 5px; color: rgb(59, 130, 246);">SSC CGL, CHSL, MTS, Steno, CPO &amp; DSSSB Exam Preparation</p>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script>
+        function scrollToSec(secId) {
+            const el = document.getElementById(secId);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleAnswer(btn) {
+            const box = btn.nextElementSibling;
+            if (box.classList.contains('active')) {
+                box.classList.remove('active');
+                btn.textContent = 'Show Answer & Solution';
+            } else {
+                box.classList.add('active');
+                btn.textContent = 'Hide Answer & Solution';
+            }
+        }
+
+        
+
+        function filterPart(part) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const part3 = document.querySelectorAll('.part3-sec');
+            const part4 = document.querySelectorAll('.part4-sec');
+            const part5 = document.querySelectorAll('.part5-sec');
+            const pyq = document.querySelectorAll('.pyq-sec');
+
+            if (part === 'all') {
+                document.querySelectorAll('.section-card').forEach(el => el.style.display = '');
+            } else if (part === 'part3') {
+                hideAll(); part3.forEach(el => el.style.display = '');
+            } else if (part === 'part4') {
+                hideAll(); part4.forEach(el => el.style.display = '');
+            } else if (part === 'part5') {
+                hideAll(); part5.forEach(el => el.style.display = '');
+            } else if (part === 'pyq') {
+                hideAll(); pyq.forEach(el => el.style.display = '');
+            }
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.section-card').forEach(el => el.style.display = 'none');
+        }
+    </script>
+</body>
+</html>

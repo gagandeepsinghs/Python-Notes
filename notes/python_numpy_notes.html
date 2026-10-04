@@ -6,18 +6,18 @@
     <title>NumPy Arrays in Python - Master Notes | By Gagan Sir</title>
     <style>
         :root {
-            --bg-primary: rgb(9, 9, 11);
-            --bg-secondary: rgb(24, 24, 27);
-            --bg-tertiary: rgb(39, 39, 42);
-            --text-primary: rgb(244, 244, 245);
-            --text-secondary: rgb(161, 161, 170);
+            --bg-primary: rgb(248, 250, 252);
+            --bg-secondary: rgb(255, 255, 255);
+            --bg-tertiary: rgb(226, 232, 240);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
             --accent-blue: rgb(59, 130, 246);
             --accent-green: rgb(16, 185, 129);
             --accent-purple: rgb(168, 85, 247);
             --accent-amber: rgb(245, 158, 11);
             --accent-rose: rgb(244, 63, 94);
             --border-color: rgb(63, 63, 70);
-            --code-bg: rgb(18, 18, 20);
+            --code-bg: rgb(30, 58, 138);
         }
 
         * {
@@ -37,8 +37,7 @@
 
         /* Sidebar TOC */
         .sidebar {
-            width: 310px;
-            background-color: var(--bg-secondary);
+            background-color: rgb(30, 58, 138);
             border-right: 1px solid var(--border-color);
             padding: 20px 15px;
             position: fixed;
@@ -70,21 +69,9 @@
             margin-top: 4px;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-        }
+        
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-        }
+        
 
         .toc-list {
             list-style: none;
@@ -119,7 +106,7 @@
         }
 
         .header-banner {
-            background: linear-gradient(135deg, rgb(30, 41, 59), rgb(15, 23, 42));
+            background: linear-gradient(135deg, rgb(30, 58, 138) 0%, rgb(59, 130, 246) 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 30px;
@@ -140,8 +127,8 @@
 
         .badge-gagan {
             display: inline-block;
-            background-color: rgba(59, 130, 246, 0.2);
-            color: var(--accent-blue);
+            background-color: rgb(59, 130, 246);
+            color: rgb(255, 255, 255);
             border: 1px solid var(--accent-blue);
             padding: 4px 12px;
             border-radius: 20px;
@@ -159,8 +146,8 @@
         }
 
         .section-title {
-            font-size: 1.4rem;
-            color: var(--text-primary);
+            font-size: 1.45rem;
+            color: rgb(30, 58, 138);
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
@@ -170,7 +157,7 @@
         }
 
         .section-number {
-            background-color: var(--accent-blue);
+            background-color: rgb(59, 130, 246);
             color: rgb(255, 255, 255);
             width: 28px;
             height: 28px;
@@ -212,7 +199,7 @@
         }
 
         .code-header {
-            background-color: rgb(24, 24, 27);
+            background-color: rgb(255, 255, 255);
             padding: 8px 15px;
             display: flex;
             justify-content: space-between;
@@ -271,8 +258,8 @@
         }
 
         .output-box {
-            background-color: rgb(9, 9, 11);
-            border: 1px solid rgb(39, 39, 42);
+            background-color: rgb(248, 250, 252);
+            border: 1px solid rgb(226, 232, 240);
             border-radius: 6px;
             padding: 12px 15px;
             margin-top: 10px;
@@ -380,7 +367,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: var(--accent-green);
+            background-color: rgb(59, 130, 246);
             color: rgb(255, 255, 255);
             padding: 10px 20px;
             border-radius: 6px;
@@ -390,7 +377,101 @@
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
-    </style>
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 20px; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
 </head>
 <body>
 
@@ -398,12 +479,14 @@
 
     <!-- Sidebar Navigation -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>🔢 NumPy Master Notes</h2>
+            <div class="sidebar-header">
+            <a href="../python_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
+        <a href="../python_portal.html" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary); color: var(--text-primary); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color); transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-blue)'" onmouseout="this.style.borderColor='var(--border-color)'">&larr; Back to Home</a>
+        <h2>🔢 NumPy Master Notes</h2>
             <div class="author-tag">Created by Gagan Sir</div>
         </div>
 
-        <input type="text" class="search-box" id="searchInput" placeholder="Search topics..." onkeyup="filterTopics()">
+        
 
         <ul class="toc-list" id="tocList">
             <li class="toc-item"><a class="toc-link" onclick="scrollToSec('sec1')">1. What is NumPy?</a></li>
@@ -463,7 +546,7 @@
                 </div>
                 <div class="diagram-card">
                     <h4>NumPy ndarray</h4>
-                    <p style="font-size:0.85rem; color:var(--accent-green)">Continuous contiguous memory blocks (C-style). Ultra-fast SIMD operations.</p>
+                    <p style="font-size:0.85rem; color:rgb(59, 130, 246)">Continuous contiguous memory blocks (C-style). Ultra-fast SIMD operations.</p>
                 </div>
             </div>
 
@@ -980,7 +1063,7 @@ arr = np.array([<span class="code-num">10</span>, <span class="code-num">20</spa
                 </div>
                 <div class="diagram-card">
                     <h4>axis=1 (Row-Wise)</h4>
-                    <p style="color:var(--accent-green); font-weight:bold;">&rarr; Moves Across Columns</p>
+                    <p style="color:rgb(59, 130, 246); font-weight:bold;">&rarr; Moves Across Columns</p>
                     <p style="font-size:0.8rem; color:var(--text-secondary)">Sum of row 0, row 1</p>
                 </div>
             </div>
@@ -1392,7 +1475,7 @@ data_array = df.to_numpy()
                 <span class="section-number">26</span>
                 Quick Revision &amp; Cheatsheet
             </div>
-            <table class="summary-table">
+            <div class="table-responsive-wrapper"><table class="summary-table">
                 <thead>
                     <tr>
                         <th>Concept / Function</th>
@@ -1447,7 +1530,7 @@ data_array = df.to_numpy()
                         <td>Independent memory vs shared memory view</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- Footer -->
@@ -1466,18 +1549,7 @@ data_array = df.to_numpy()
             }
         }
 
-        function filterTopics() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const items = document.querySelectorAll('.toc-item');
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (text.includes(query)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
+        
 
         function copyCode(btn) {
             const codeBlock = btn.parentElement.nextElementSibling;

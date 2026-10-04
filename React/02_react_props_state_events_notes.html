@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>2. React Props, State (useState) & Event Handling - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 12px;
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 300px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1200px;
+        }
+
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .header-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .module-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .module-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            border-bottom: 2px solid rgb(241, 245, 249);
+            padding-bottom: 8px;
+        }
+
+        .module-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .definition-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .def-card {
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .def-english {
+            background-color: rgb(239, 246, 255);
+            border-left: 4px solid rgb(37, 99, 235);
+        }
+
+        .def-english h4 {
+            color: rgb(29, 78, 216);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-english p {
+            color: rgb(30, 58, 138);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .def-hinglish {
+            background-color: rgb(236, 253, 245);
+            border-left: 4px solid rgb(16, 185, 129);
+        }
+
+        .def-hinglish h4 {
+            color: rgb(4, 120, 87);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-hinglish p {
+            color: rgb(6, 78, 59);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .callout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .callout-box {
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .callout-blue {
+            background-color: var(--accent-blue-bg);
+            border: 1px solid var(--accent-blue-border);
+        }
+
+        .callout-title-blue {
+            color: var(--accent-blue-text);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .callout-blue ul {
+            padding-left: 20px;
+            color: rgb(30, 58, 138);
+            font-size: 0.92rem;
+        }
+
+        .callout-blue li {
+            margin-bottom: 6px;
+        }
+
+        .callout-yellow {
+            background-color: var(--accent-yellow-bg);
+            border: 1px solid var(--accent-yellow-border);
+        }
+
+        .callout-title-yellow {
+            color: var(--accent-yellow-text);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .callout-yellow p {
+            color: rgb(120, 53, 15);
+            font-size: 0.92rem;
+        }
+
+        .code-card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(15, 23, 42);
+        }
+
+        .card-header {
+            background-color: rgb(30, 41, 59);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .code-title {
+            color: rgb(241, 245, 249);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .author-tag {
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .code-container {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+            color: rgb(241, 245, 249);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .output-container {
+            background-color: rgb(2, 6, 23);
+            border-top: 1px solid rgb(51, 65, 85);
+            padding: 16px 20px;
+        }
+
+        .output-header {
+            color: rgb(148, 163, 184);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .output-box {
+            font-family: Consolas, Monaco, monospace;
+            color: rgb(52, 211, 153);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .definition-box, .callout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h2 class="sidebar-title">React Syllabus Modules</h2>
+        </div>
+        <ul class="nav-list">
+            <li><a class="nav-link" onclick="scrollToSection(1)">1. React Props (Properties) & Data Passing</a></li><li><a class="nav-link" onclick="scrollToSection(2)">2. React State & useState Hook</a></li><li><a class="nav-link" onclick="scrollToSection(3)">3. Handling Browser Events in React</a></li><li><a class="nav-link" onclick="scrollToSection(4)">4. Functional State Updates & Updating Objects/Arrays</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>2. React Props, State (useState) & Event Handling</h1>
+            <p>Comprehensive Guide: Passing data with props, state immutability, useState hook & handling synthetic browser events</p>
+        </header>
+
+        
+        <section id="sec_1" class="module-card">
+            <h2>Module 1: React Props (Properties) & Data Passing</h2>
+            <p class="module-desc">Props pass read-only data from parent components to child components.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>Props (short for properties) are read-only input objects passed from parent to child components to dynamically customize their content and behavior.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>Props wo variables ya data hote hai jo Parent Component dwara Child Component ko pass kiye jate hai. Child inko change (mutate) nahi kar sakta.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Props flow strictly in a single direction (Uni-directional Data Flow: Parent -> Child).</li><li>Props are immutable; a child component cannot alter props it receives.</li><li>Destructuring props in function parameters keeps code clean.</li><li>Special prop children renders nested JSX content between component opening and closing tags.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering React Props (Properties) & Data Passing builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - React Props (Properties) & Data Passing</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>function CourseCard({ title, duration, instructor, children }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      &lt;p&gt;Duration: {duration} Hours&lt;/p&gt;
+      &lt;p&gt;Instructor: {instructor}&lt;/p&gt;
+      &lt;div className="extra-info"&gt;{children}&lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;CourseCard title="React Masterclass" duration={25} instructor="Gagan Sir"&gt;
+      &lt;span style={{ color: "green" }}&gt;Includes Working Portal Filter&lt;/span&gt;
+    &lt;/CourseCard&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">CourseCard Rendered:
+Title: React Masterclass | Duration: 25 Hours | Instructor: Gagan Sir
+Child Content: Includes Working Portal Filter</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_2" class="module-card">
+            <h2>Module 2: React State & useState Hook</h2>
+            <p class="module-desc">State allows React components to store dynamic data that triggers UI re-renders when updated.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>State is an internal data object managed within a component that holds information that may change over time and triggers component re-rendering.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>State component ka personal data hota hai. Jab bhi state update hoti hai, React automatically component ko dobara draw (re-render) karta hai.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Import useState from 'react': const [state, setState] = useState(initialValue);</li><li>state holds the current value; setState is the setter function to update it.</li><li>Never mutate state directly (e.g., state = 5 is forbidden); always use setState(newValue).</li><li>State updates are asynchronous and batched for optimal performance.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering React State & useState Hook builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - React State & useState Hook</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>import React, { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  const handleIncrement = () =&gt; setCount(count + 1);
+  const handleDecrement = () =&gt; setCount(count - 1);
+  const handleReset = () =&gt; setCount(0);
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Counter Value: {count}&lt;/h2&gt;
+      &lt;button onClick={handleIncrement}&gt;Increase (+1)&lt;/button&gt;
+      &lt;button onClick={handleDecrement}&gt;Decrease (-1)&lt;/button&gt;
+      &lt;button onClick={handleReset}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">Counter Value: 0
+[Click Increase -&gt; Counter Value: 1]
+[Click Decrease -&gt; Counter Value: 0]</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_3" class="module-card">
+            <h2>Module 3: Handling Browser Events in React</h2>
+            <p class="module-desc">React uses SyntheticEvents to handle user interactions consistently across all web browsers.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>SyntheticEvent is React's cross-browser wrapper around native browser events, ensuring identical event property behavior across all platforms.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>React me events camelCase me likhe jate hai jaise onClick, onChange, onSubmit. Ye browser ke events ko wrap karke uniform behavior dete hai.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Event handlers are passed as function references without parentheses: onClick={handleClick}.</li><li>To pass inline parameters, wrap in an arrow function: onClick={() => handleDelete(id)}.</li><li>Use e.preventDefault() to block default HTML form submissions.</li><li>e.target.value extracts input field text during onChange events.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering Handling Browser Events in React builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Handling Browser Events in React</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>export default function EventDemo() {
+  const handleClick = (message) =&gt; {
+    alert("Notification: " + message);
+  };
+
+  const handleInputChange = (e) =&gt; {
+    console.log("Current Typing Value:", e.target.value);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; handleClick("Hello by Gagan Sir")}&gt;Click Alert&lt;/button&gt;
+      &lt;input type="text" placeholder="Type here..." onChange={handleInputChange} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">Alert Popup: Notification: Hello by Gagan Sir
+Console output: Current Typing Value: [User Typed Text]</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_4" class="module-card">
+            <h2>Module 4: Functional State Updates & Updating Objects/Arrays</h2>
+            <p class="module-desc">Updating complex state structures safely using callback updates and spread operators.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>Functional State Updates pass a callback function to the state updater to ensure updates rely on the latest state snapshot without race conditions.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>Jab state previous state par depend karti ho, tab callback function (prev => prev + 1) use karna safe hota hai. Objects/Arrays ke liye spread operator (...) use kare.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Prevents stale closure bugs: setCount(prevCount => prevCount + 1).</li><li>Updating Object State: setUser(prev => ({ ...prev, name: 'Gagan Sir' }));</li><li>Updating Array State: setItems(prev => [...prev, newItem]);</li><li>Removing Array Item: setItems(prev => prev.filter(item => item.id !== targetId));</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering Functional State Updates & Updating Objects/Arrays builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Functional State Updates & Updating Objects/Arrays</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>import React, { useState } from "react";
+
+export default function UserStateDemo() {
+  const [user, setUser] = useState({ name: "Student", score: 80 });
+
+  const updateScore = () =&gt; {
+    setUser(prevUser =&gt; ({
+      ...prevUser,
+      score: prevUser.score + 10
+    }));
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;User: {user.name} | Score: {user.score}&lt;/h3&gt;
+      &lt;button onClick={updateScore}&gt;Add +10 Score&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">User: Student | Score: 80
+[Click Button -&gt; User: Student | Score: 90]</div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>
+        function scrollToSection(index) {
+            var el = document.getElementById("sec_" + index);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    </script>
+</body>
+</html>

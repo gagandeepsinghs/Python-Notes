@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>6. React Advanced Hooks: useRef, useReducer, useCallback & useMemo - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 12px;
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 300px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1200px;
+        }
+
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .header-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .module-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .module-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            border-bottom: 2px solid rgb(241, 245, 249);
+            padding-bottom: 8px;
+        }
+
+        .module-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .definition-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .def-card {
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .def-english {
+            background-color: rgb(239, 246, 255);
+            border-left: 4px solid rgb(37, 99, 235);
+        }
+
+        .def-english h4 {
+            color: rgb(29, 78, 216);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-english p {
+            color: rgb(30, 58, 138);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .def-hinglish {
+            background-color: rgb(236, 253, 245);
+            border-left: 4px solid rgb(16, 185, 129);
+        }
+
+        .def-hinglish h4 {
+            color: rgb(4, 120, 87);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-hinglish p {
+            color: rgb(6, 78, 59);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .callout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .callout-box {
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .callout-blue {
+            background-color: var(--accent-blue-bg);
+            border: 1px solid var(--accent-blue-border);
+        }
+
+        .callout-title-blue {
+            color: var(--accent-blue-text);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .callout-blue ul {
+            padding-left: 20px;
+            color: rgb(30, 58, 138);
+            font-size: 0.92rem;
+        }
+
+        .callout-blue li {
+            margin-bottom: 6px;
+        }
+
+        .callout-yellow {
+            background-color: var(--accent-yellow-bg);
+            border: 1px solid var(--accent-yellow-border);
+        }
+
+        .callout-title-yellow {
+            color: var(--accent-yellow-text);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .callout-yellow p {
+            color: rgb(120, 53, 15);
+            font-size: 0.92rem;
+        }
+
+        .code-card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(15, 23, 42);
+        }
+
+        .card-header {
+            background-color: rgb(30, 41, 59);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .code-title {
+            color: rgb(241, 245, 249);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .author-tag {
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .code-container {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+            color: rgb(241, 245, 249);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .output-container {
+            background-color: rgb(2, 6, 23);
+            border-top: 1px solid rgb(51, 65, 85);
+            padding: 16px 20px;
+        }
+
+        .output-header {
+            color: rgb(148, 163, 184);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .output-box {
+            font-family: Consolas, Monaco, monospace;
+            color: rgb(52, 211, 153);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .definition-box, .callout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h2 class="sidebar-title">React Syllabus Modules</h2>
+        </div>
+        <ul class="nav-list">
+            <li><a class="nav-link" onclick="scrollToSection(1)">1. The useRef Hook (DOM Access & Mutable Values)</a></li><li><a class="nav-link" onclick="scrollToSection(2)">2. The useReducer Hook (Complex State Logic Management)</a></li><li><a class="nav-link" onclick="scrollToSection(3)">3. The useMemo Hook (Caching Expensive Calculations)</a></li><li><a class="nav-link" onclick="scrollToSection(4)">4. The useCallback Hook (Caching Function References)</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>6. React Advanced Hooks: useRef, useReducer, useCallback & useMemo</h1>
+            <p>Comprehensive Guide: DOM manipulation, complex state management, memoization & performance optimization</p>
+        </header>
+
+        
+        <section id="sec_1" class="module-card">
+            <h2>Module 1: The useRef Hook (DOM Access & Mutable Values)</h2>
+            <p class="module-desc">Accessing imperative DOM nodes directly and persisting mutable values across renders without causing re-renders.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>useRef returns a mutable ref object whose .current property is initialized to the passed argument and persists across component re-renders.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>useRef do kaam karta hai: 1. DOM element ko directly focus/access karna. 2. Aisi value save karna jiske change hone par UI re-render NA HO.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Attaching ref to element: <input ref={inputRef} />.</li><li>Accessing element: inputRef.current.focus().</li><li>Modifying .current does NOT trigger component re-render.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering The useRef Hook (DOM Access & Mutable Values) builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - The useRef Hook (DOM Access & Mutable Values)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>import React, { useRef } from "react";
+
+export default function FocusInput() {
+  const inputEl = useRef(null);
+  const renderCount = useRef(0);
+
+  renderCount.current++;
+
+  const handleFocus = () =&gt; {
+    inputEl.current.focus();
+    inputEl.current.style.border = "2px solid orange";
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;input ref={inputEl} type="text" placeholder="Click button to focus" /&gt;
+      &lt;button onClick={handleFocus}&gt;Focus Input&lt;/button&gt;
+      &lt;p&gt;Component Render Count: {renderCount.current}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">Clicking button focuses input field and highlights border with orange outline without re-render cycle.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_2" class="module-card">
+            <h2>Module 2: The useReducer Hook (Complex State Logic Management)</h2>
+            <p class="module-desc">An alternative to useState for managing complex state transitions and actions.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>useReducer is a hook used for managing complex component state transitions using a Reducer function and Dispatch actions, similar to Redux.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>useReducer tab use karte hai jab state logic complex ho (jaise Multiple sub-values or next state depends on previous state). Command dispatch({ type: 'ACTION' }) se chalta hai.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Syntax: const [state, dispatch] = useReducer(reducer, initialState);</li><li>Reducer function: (state, action) => newState.</li><li>Dispatch triggers state updates: dispatch({ type: 'INCREMENT', payload: 5 }).</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering The useReducer Hook (Complex State Logic Management) builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - The useReducer Hook (Complex State Logic Management)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>import React, { useReducer } from "react";
+
+const initialState = { count: 0 };
+
+function counterReducer(state, action) {
+  switch (action.type) {
+    case "INCREMENT":
+      return { count: state.count + 1 };
+    case "DECREMENT":
+      return { count: state.count - 1 };
+    case "RESET":
+      return { count: 0 };
+    default:
+      return state;
+  }
+}
+
+export default function ReducerDemo() {
+  const [state, dispatch] = useReducer(counterReducer, initialState);
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;Reducer Count: {state.count}&lt;/h3&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: "INCREMENT" })}&gt;+1&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: "DECREMENT" })}&gt;-1&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: "RESET" })}&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">Reducer State updates cleanly via dispatched action types.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_3" class="module-card">
+            <h2>Module 3: The useMemo Hook (Caching Expensive Calculations)</h2>
+            <p class="module-desc">Memoizing heavy computation results to prevent re-running on un-related renders.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>useMemo returns a memoized value that only recalculates when one of its specified dependencies changes, optimizing application rendering speed.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>useMemo kisi heavy calculation ke result ko memory me cache kar leta hai. Jab tak uski dependencies change na ho, tab tak repeat calculation nahi hoti.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Syntax: const memoizedResult = useMemo(() => computeHeavyTask(data), [data]);</li><li>Use only for genuinely expensive operations (e.g., sorting 10,000 items).</li><li>Do NOT over-use useMemo for trivial calculations as it adds memory overhead.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering The useMemo Hook (Caching Expensive Calculations) builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - The useMemo Hook (Caching Expensive Calculations)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>import React, { useState, useMemo } from "react";
+
+export default function MemoDemo() {
+  const [number, setNumber] = useState(5);
+  const [dark, setDark] = useState(false);
+
+  // Expensive Factorial Calculation
+  const factorial = useMemo(() =&gt; {
+    console.log("Calculating Factorial...");
+    let res = 1;
+    for (let i = 1; i &lt;= number; i++) res *= i;
+    return res;
+  }, [number]);
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;Factorial of {number} = {factorial}&lt;/h3&gt;
+      &lt;button onClick={() =&gt; setNumber(number + 1)}&gt;Increment Number&lt;/button&gt;
+      &lt;button onClick={() =&gt; setDark(!dark)}&gt;Toggle Theme (No Recalculation)&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">Toggling theme re-renders UI instantly WITHOUT recalculating factorial!</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_4" class="module-card">
+            <h2>Module 4: The useCallback Hook (Caching Function References)</h2>
+            <p class="module-desc">Memoizing callback functions to prevent re-creating function instances across renders.</p>
+            
+            
+        <div class="definition-box">
+            <div class="def-card def-english">
+                <h4>🇬🇧 English Definition</h4>
+                <p>useCallback returns a memoized version of a callback function that only changes if one of the dependencies has changed, preventing un-necessary child re-renders.</p>
+            </div>
+            <div class="def-card def-hinglish">
+                <h4>🇮🇳 Hinglish Definition</h4>
+                <p>useCallback ek function reference ko cache karta hai taaki parent component re-render hone par child component ko wahi purana function reference mile aur child re-render hone se bach jaye.</p>
+            </div>
+        </div>
+        
+
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Concepts & Rules</h4>
+            <ul>
+                <li>Syntax: const memoizedCallback = useCallback(() => { doSomething(a, b); }, [a, b]);</li><li>Complements React.memo() on child components.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Takeaways & Best Practices</h4>
+            <p>Mastering The useCallback Hook (Caching Function References) builds clean, modular React application logic. Study code examples and definitions carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - The useCallback Hook (Caching Function References)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>import React, { useState, useCallback } from "react";
+
+export default function CallbackDemo() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = useCallback(() =&gt; {
+    console.log("Button Clicked with count:", count);
+  }, [count]);
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Count: {count}&lt;/h2&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Add Count&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser UI Render:</div>
+                    <div class="output-box">Function instance cached until count dependency changes.</div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>
+        function scrollToSection(index) {
+            var el = document.getElementById("sec_" + index);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    </script>
+</body>
+</html>

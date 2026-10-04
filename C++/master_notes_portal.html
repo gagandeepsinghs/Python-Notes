@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>C++ Master Suite & Interactive Search Portal - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-text: rgb(29, 78, 216);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .portal-header {
+            background-color: var(--bg-sidebar);
+            color: rgb(255, 255, 255);
+            padding: 40px 48px;
+            border-bottom: 4px solid var(--accent-orange);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .portal-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .portal-header p {
+            color: rgb(148, 163, 184);
+            font-size: 1.1rem;
+        }
+
+        .portal-container {
+            display: flex;
+            gap: 32px;
+            padding: 40px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cards-area {
+            flex: 1;
+        }
+
+        .master-banner {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            border-radius: 12px;
+            padding: 28px 32px;
+            color: rgb(255, 255, 255);
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .master-banner h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .master-banner p {
+            color: rgb(148, 163, 184);
+            font-size: 0.95rem;
+        }
+
+        .btn-master {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-master:hover {
+            transform: translateY(-2px);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .portal-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+            border-color: rgb(191, 219, 254);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgb(239, 246, 255);
+            color: rgb(29, 78, 216);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .portal-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .portal-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-card {
+            display: block;
+            text-align: center;
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-card:hover {
+            background-color: var(--accent-orange);
+        }
+
+        /* Right Side Filter Panel */
+        .filter-sidebar {
+            width: 340px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 28px;
+            height: fit-content;
+            position: sticky;
+            top: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-sidebar h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-orange);
+        }
+
+        .tag-group-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .tag-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tag-btn {
+            background-color: rgb(241, 245, 249);
+            color: var(--text-primary);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag-btn.active, .tag-btn:hover {
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+        }
+
+        .filter-stats {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 12px 0;
+            border-top: 1px solid var(--border-light);
+            margin-bottom: 16px;
+        }
+
+        .btn-reset {
+            width: 100%;
+            background-color: rgb(241, 245, 249);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-reset:hover {
+            background-color: rgb(226, 232, 240);
+        }
+
+        @media (max-width: 1050px) {
+            .portal-container { flex-direction: column; padding: 20px; }
+            .filter-sidebar { width: 100%; position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="portal-header">
+        <span class="brand-badge">Created by Gagan Sir</span>
+        <h1>C++ Language, OOP & STL Master Suite</h1>
+        <p>Interactive Search Portal & Chapter Navigator covering C++ core syntax, Object-Oriented Programming (OOP), STL Containers & DSA algorithms.</p>
+    </header>
+
+    <div class="portal-container">
+
+        <!-- Left Area: Cards -->
+        <main class="cards-area">
+
+            <!-- Banner for Unabridged Master Manual -->
+            <div class="master-banner">
+                <div>
+                    <h2>📖 Read Complete C++ & OOP Master Manual</h2>
+                    <p>Single unabridged HTML manual with all C++ topics, classes, STL containers & algorithms.</p>
+                </div>
+                <a href="00_cpp_programming_master_notes.html" class="btn-master">Open Master Manual</a>
+            </div>
+
+            <div id="portalCardsContainer" class="cards-grid">
+
+                <div class="portal-card" data-category="basics" data-title="cpp intro cout cin reference variables pointers aliases">
+                    <div>
+                        <span class="card-tag">C++ Basics</span>
+                        <h3>01. C++ Intro & References</h3>
+                        <p>C++ evolution, std::cout, std::cin, namespaces & reference variables (&) vs pointers (*).</p>
+                    </div>
+                    <a href="01_cpp_intro_syntax_variables_datatypes_notes.html" class="btn-card">Open Module 01 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="basics" data-title="operators controlflow if else switch range for loop">
+                    <div>
+                        <span class="card-tag">Control Flow</span>
+                        <h3>02. Control Flow & Range Loops</h3>
+                        <p>Conditionals, switch statements, while loops & C++11 range-based for loops.</p>
+                    </div>
+                    <a href="02_cpp_operators_controlflow_loops_notes.html" class="btn-card">Open Module 02 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="basics" data-title="functions pass by reference default args function overloading polymorphism">
+                    <div>
+                        <span class="card-tag">Functions</span>
+                        <h3>03. Functions & Overloading</h3>
+                        <p>Pass-by-reference (&), default arguments, function overloading & recursive call stack.</p>
+                    </div>
+                    <a href="03_cpp_functions_defaultargs_overloading_recursion_notes.html" class="btn-card">Open Module 03 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="oop" data-title="oop classes objects constructors destructors new delete memory encapsulation">
+                    <div>
+                        <span class="card-tag">OOP Fundamentals</span>
+                        <h3>04. Classes & Constructors</h3>
+                        <p>Classes, objects, public/private access specifiers, constructors, destructors & new/delete memory.</p>
+                    </div>
+                    <a href="04_cpp_oop_classes_objects_constructors_destructors_notes.html" class="btn-card">Open Module 04 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="oop" data-title="inheritance derived classes polymorphism virtual functions abstract interfaces">
+                    <div>
+                        <span class="card-tag">OOP Inheritance</span>
+                        <h3>05. Inheritance & Virtual Functions</h3>
+                        <p>Single & multiple inheritance, method overriding, virtual functions & abstract interfaces.</p>
+                    </div>
+                    <a href="05_cpp_oop_inheritance_polymorphism_virtual_notes.html" class="btn-card">Open Module 05 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="stl" data-title="stl standard template library vectors strings maps sets push_back size">
+                    <div>
+                        <span class="card-tag">STL Containers</span>
+                        <h3>06. STL Vectors & Maps</h3>
+                        <p>std::string, std::vector dynamic arrays, std::map key-value pairs & std::set unique elements.</p>
+                    </div>
+                    <a href="06_cpp_stl_vectors_strings_maps_sets_notes.html" class="btn-card">Open Module 06 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="stl" data-title="stl stack queue priority_queue sort algorithm binary_search reverse">
+                    <div>
+                        <span class="card-tag">STL Algorithms</span>
+                        <h3>07. STL Adapters & std::sort</h3>
+                        <p>std::stack, std::queue, std::priority_queue, std::sort & binary_search algorithms.</p>
+                    </div>
+                    <a href="07_cpp_stl_stacks_queues_algorithms_notes.html" class="btn-card">Open Module 07 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="dsa" data-title="dsa data structures linked list trees bst graphs adjacency list bfs dfs">
+                    <div>
+                        <span class="card-tag">DSA in C++</span>
+                        <h3>08. Trees & Graph Algorithms</h3>
+                        <p>OOP Linked list classes, Binary Search Trees (BST), Graph adjacency lists & BFS/DFS algorithms.</p>
+                    </div>
+                    <a href="08_cpp_dsa_linkedlists_trees_graphs_notes.html" class="btn-card">Open Module 08 Notes</a>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Side Working Filter Panel -->
+        <aside class="filter-sidebar">
+            <h3>🔍 Live Topic Filter</h3>
+            
+            <input type="text" id="portalSearchInput" class="search-input" placeholder="Search C++, OOP, STL, vectors..." onkeyup="filterPortalCards()" />
+
+            <div class="tag-group-title">Filter by Category</div>
+            <div class="tag-buttons">
+                <button class="tag-btn active" onclick="setCategoryFilter('all', this)">All</button>
+                <button class="tag-btn" onclick="setCategoryFilter('basics', this)">C++ Basics</button>
+                <button class="tag-btn" onclick="setCategoryFilter('oop', this)">OOP Concepts</button>
+                <button class="tag-btn" onclick="setCategoryFilter('stl', this)">STL Containers</button>
+                <button class="tag-btn" onclick="setCategoryFilter('dsa', this)">DSA in C++</button>
+            </div>
+
+            <div id="filterStats" class="filter-stats">Showing all 8 modules (36 Chapters)</div>
+
+            <button class="btn-reset" onclick="resetPortalFilter()">Reset All Filters</button>
+        </aside>
+
+    </div>
+
+    <script>
+        var currentActiveCategory = 'all';
+
+        function filterPortalCards() {
+            var searchVal = document.getElementById('portalSearchInput').value.toLowerCase().trim();
+            var cards = document.getElementsByClassName('portal-card');
+            var visibleCount = 0;
+
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                var title = card.getAttribute('data-title') || '';
+                var category = card.getAttribute('data-category') || '';
+                var cardText = card.innerText.toLowerCase();
+
+                var matchesSearch = (searchVal === '') || (title.indexOf(searchVal) !== -1) || (cardText.indexOf(searchVal) !== -1);
+                var matchesCategory = (currentActiveCategory === 'all') || (category === currentActiveCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+
+            document.getElementById('filterStats').innerText = 'Showing ' + visibleCount + ' of ' + cards.length + ' topic modules';
+        }
+
+        function setCategoryFilter(categoryName, btnElement) {
+            currentActiveCategory = categoryName;
+            var buttons = document.getElementsByClassName('tag-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            if (btnElement) {
+                btnElement.classList.add('active');
+            }
+            filterPortalCards();
+        }
+
+        function resetPortalFilter() {
+            document.getElementById('portalSearchInput').value = '';
+            var buttons = document.getElementsByClassName('tag-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            if (buttons.length > 0) {
+                buttons[0].classList.add('active');
+            }
+            currentActiveCategory = 'all';
+            filterPortalCards();
+        }
+    </script>
+</body>
+</html>

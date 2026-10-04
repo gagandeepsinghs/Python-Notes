@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC & DSSSB Exam Master Notes Portal Hub | 17 Dedicated Modules (Bilingual)</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 250, 252);
+            --bg-secondary: rgb(255, 255, 255);
+            --bg-tertiary: rgb(226, 232, 240);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --accent-blue: rgb(59, 130, 246);
+            --accent-green: rgb(16, 185, 129);
+            --accent-purple: rgb(168, 85, 247);
+            --accent-amber: rgb(245, 158, 11);
+            --accent-rose: rgb(244, 63, 94);
+            --accent-cyan: rgb(6, 182, 212);
+            --border-color: rgb(63, 63, 70);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 40px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .hub-banner {
+            background: linear-gradient(135deg, rgb(15, 23, 42), rgb(30, 41, 59), rgb(35, 15, 55));
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .hub-banner h1 { font-size: 2.5rem; color: #ffffff; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .hub-banner p { color: var(--text-secondary); font-size: 1.1rem; max-width: 900px; margin: 0 auto 18px auto; }
+
+        .badges-group { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .badge-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 5px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700;
+        }
+
+        .badge-bilingual { background: rgba(16, 185, 129, 0.15); color: rgb(59, 130, 246); border: 1px solid rgb(59, 130, 246); }
+        .badge-cgl { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
+        .badge-chsl { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+        .badge-dsssb { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); border: 1px solid var(--accent-rose); }
+
+        .section-category-title {
+            font-size: 1.4rem; color: var(--accent-amber); margin: 30px 0 16px 0;
+            padding-bottom: 8px; border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .module-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .module-icon { font-size: 2rem; margin-bottom: 10px; }
+        .module-card h3 { font-size: 1.1rem; color: var(--text-primary); margin-bottom: 8px; }
+        .module-card p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px; }
+
+        .module-btn {
+            display: inline-block;
+            text-align: center;
+            background-color: var(--bg-tertiary);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .module-btn:hover {
+            background-color: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+                            /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <div class="hub-banner">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../govt_portal.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--rule, #444); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; font-family:system-ui, sans-serif;">&larr; Back to Home</a>
+        <h1>SSC &amp; DSSSB MASTER EXAM NOTES HUB</h1>
+        <p>17 Dedicated Topic Modules with Visual SVG Diagrams, Short Tricks &amp; Bilingual (English + Hinglish) Explanations + Authentic PYQ Practice Banks</p>
+        <div class="badges-group">
+            <span class="badge-tag badge-bilingual">🗣️ Bilingual English + Hinglish</span>
+            <span class="badge-tag badge-cgl">🏆 SSC CGL</span>
+            <span class="badge-tag badge-chsl">⚡ SSC CHSL</span>
+            <span class="badge-tag badge-dsssb">🎯 DSSSB PRT/TGT</span>
+        </div>
+    </div>
+
+    <!-- Category 1: POLITY & CONSTITUTION -->
+    <div class="section-category-title">🏛️ POLITY &amp; CONSTITUTION MODULES</div>
+    <div class="modules-grid">
+        <!-- 01 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">📜</div>
+                <h3>01. Indian Constitution</h3>
+                <p>Preamble, Making of Constitution, Foreign Sources Table, 12 Schedules (TEARS OF OLD PM trick).</p>
+            </div>
+            <a href="01_Indian_Constitution.html" class="module-btn">Open Module 01 ➔</a>
+        </div>
+        <!-- 02 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">⚖️</div>
+                <h3>02. Fundamental Rights</h3>
+                <p>Part III (Art 12-35), E-D-O-U-T trick, Art 19 6 Freedoms (S-A-A-M-R-P), 5 Writs &amp; Art 21A RTE.</p>
+            </div>
+            <a href="02_Fundamental_Rights.html" class="module-btn">Open Module 02 ➔</a>
+        </div>
+        <!-- 03 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🇮🇳</div>
+                <h3>03. Fundamental Duties</h3>
+                <p>Part IV-A (Art 51A), 11 Duties breakdown, Swaran Singh Committee &amp; 42nd Amendment.</p>
+            </div>
+            <a href="03_Fundamental_Duties.html" class="module-btn">Open Module 03 ➔</a>
+        </div>
+        <!-- 04 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">👑</div>
+                <h3>04. President of India</h3>
+                <p>Articles 52-62, Electoral College, Impeachment (Art 61), Pardoning Power (Art 72) &amp; Ordinance (Art 123).</p>
+            </div>
+            <a href="04_President_of_India.html" class="module-btn">Open Module 04 ➔</a>
+        </div>
+        <!-- 05 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🏎️</div>
+                <h3>05. Prime Minister &amp; Cabinet</h3>
+                <p>Real Executive Head, Articles 74, 75 &amp; 78, Collective Responsibility &amp; 91st Amendment 15% rule.</p>
+            </div>
+            <a href="05_Prime_Minister_and_Cabinet.html" class="module-btn">Open Module 05 ➔</a>
+        </div>
+        <!-- 06 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🏛️</div>
+                <h3>06. Parliament of India</h3>
+                <p>Lok Sabha &amp; Rajya Sabha, SARAL trick (Art 79-81), Money Bill (Art 110), Budget (Art 112) &amp; Joint Sitting (Art 108).</p>
+            </div>
+            <a href="06_Parliament_of_India.html" class="module-btn">Open Module 06 ➔</a>
+        </div>
+        <!-- 07 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">⚖️</div>
+                <h3>07. Supreme Court &amp; Judiciary</h3>
+                <p>Articles 124-147, High Courts (Art 214), Retirement ages (65 vs 62 Yrs), Court of Record &amp; Advisory Jurisdiction.</p>
+            </div>
+            <a href="07_Supreme_Court_Judiciary.html" class="module-btn">Open Module 07 ➔</a>
+        </div>
+        <!-- 08 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🗳️</div>
+                <h3>08. Election Commission</h3>
+                <p>Article 324, National Voters' Day (25 Jan), 61st Amendment Voting Age (21 to 18 Yrs) &amp; Electoral Reforms.</p>
+            </div>
+            <a href="08_Election_Commission.html" class="module-btn">Open Module 08 ➔</a>
+        </div>
+        <!-- 09 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">📊</div>
+                <h3>09. CAG &amp; Law Officers</h3>
+                <p>CAG (Art 148 - Guardian of Public Purse), Attorney General (Art 76) &amp; Advocate General (+89 Formula).</p>
+            </div>
+            <a href="09_CAG_and_Law_Officers.html" class="module-btn">Open Module 09 ➔</a>
+        </div>
+        <!-- 10 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">📜</div>
+                <h3>10. Constitutional Amendments</h3>
+                <p>Article 368, Key Amendments 1st to 106th (42nd Mini Constitution, 44th, 52nd, 61st, 73/74th, 86th, 101st GST, 106th Women).</p>
+            </div>
+            <a href="10_Constitutional_Amendments.html" class="module-btn">Open Module 10 ➔</a>
+        </div>
+    </div>
+
+    <!-- Category 2: GEOGRAPHY & ENVIRONMENT -->
+    <div class="section-category-title">🌍 GEOGRAPHY &amp; ENVIRONMENT MODULES</div>
+    <div class="modules-grid">
+        <!-- 11 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🌊</div>
+                <h3>11. Rivers &amp; Drainage Systems</h3>
+                <p>Indus, Ganga &amp; Brahmaputra systems, Peninsular rivers (Godavari, Krishna, Narmada), Mahi river &amp; Panch Prayag visual.</p>
+            </div>
+            <a href="11_Rivers_and_Drainage.html" class="module-btn">Open Module 11 ➔</a>
+        </div>
+        <!-- 12 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🏞️</div>
+                <h3>12. National Parks &amp; Wildlife</h3>
+                <p>State-wise National Parks, Jim Corbett (1st Park), Keibul Lamjao (Floating Park Loktak), Kaziranga &amp; Tiger Reserves.</p>
+            </div>
+            <a href="12_National_Parks_Wildlife.html" class="module-btn">Open Module 12 ➔</a>
+        </div>
+    </div>
+
+    <!-- Category 3: STATIC GK & GENERAL KNOWLEDGE -->
+    <div class="section-category-title">⭐ STATIC GK &amp; GENERAL KNOWLEDGE MODULES</div>
+    <div class="modules-grid">
+        <!-- 13 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">📅</div>
+                <h3>13. Important Days &amp; Dates</h3>
+                <p>Month-wise table of National &amp; International Days, Themes, Pravasi Bharatiya Divas, Science Day, Voters Day.</p>
+            </div>
+            <a href="13_Important_Days_and_Dates.html" class="module-btn">Open Module 13 ➔</a>
+        </div>
+        <!-- 14 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🏆</div>
+                <h3>14. Awards &amp; Honors</h3>
+                <p>Bharat Ratna, Padma Awards, Dadasaheb Phalke Award, Jnanpith Award, Param Vir Chakra &amp; Nobel Laureates.</p>
+            </div>
+            <a href="14_Awards_and_Honors.html" class="module-btn">Open Module 14 ➔</a>
+        </div>
+        <!-- 15 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">📚</div>
+                <h3>15. Books &amp; Authors</h3>
+                <p>Ancient Classics (Arthashastra, Rajatarangini), Freedom Movement Autobiographies &amp; Modern Literary Masterpieces.</p>
+            </div>
+            <a href="15_Books_and_Authors.html" class="module-btn">Open Module 15 ➔</a>
+        </div>
+        <!-- 16 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">⚽</div>
+                <h3>16. Sports &amp; Trophies</h3>
+                <p>Ranji Trophy, Durand Cup, Thomas/Uber Cup, Davis Cup, Grand Slams, Olympics, Terminology &amp; Cups.</p>
+            </div>
+            <a href="16_Sports_and_Trophies.html" class="module-btn">Open Module 16 ➔</a>
+        </div>
+        <!-- 17 -->
+        <div class="module-card">
+            <div>
+                <div class="module-icon">🌐</div>
+                <h3>17. Countries, Capitals &amp; Currencies</h3>
+                <p>India's Neighboring Countries, Major World Countries, Capitals, Currencies &amp; International Organization HQs.</p>
+            </div>
+            <a href="17_Countries_Capitals_Currencies.html" class="module-btn">Open Module 17 ➔</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>SSC &amp; DSSSB Exam Master Notes Portal Hub</strong></p>
+        <p style="margin-top: 5px; color: var(--accent-blue);">All 17 Modules Stored in: <code>C:\Users\acer\Downloads\ssc\</code></p>
+    </div>
+
+</body>
+</html>

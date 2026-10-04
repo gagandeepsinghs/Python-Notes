@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSSSB & SSC Exams Master Notes (Bilingual English + Hinglish) | History, Polity & Geography</title>
+    <style>
+        :root {
+            --bg-primary: rgb(248, 250, 252);
+            --bg-secondary: rgb(255, 255, 255);
+            --bg-tertiary: rgb(226, 232, 240);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --accent-blue: rgb(59, 130, 246);
+            --accent-green: rgb(16, 185, 129);
+            --accent-purple: rgb(168, 85, 247);
+            --accent-amber: rgb(245, 158, 11);
+            --accent-rose: rgb(244, 63, 94);
+            --accent-cyan: rgb(6, 182, 212);
+            --border-color: rgb(63, 63, 70);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background-color: rgb(30, 58, 138);
+            border-right: 1px solid var(--border-color); padding: 20px 15px;
+            position: fixed; top: 0; bottom: 0; left: 0; overflow-y: auto; z-index: 100;
+        }
+
+        .sidebar-header { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        .sidebar-header h2 { font-size: 1.15rem; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .sidebar-header .author-tag { font-size: 0.8rem; color: var(--accent-blue); font-weight: 600; margin-top: 4px; }
+
+        
+
+        
+
+        .subject-filter-btns { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 15px; }
+
+        .filter-btn {
+            flex: 1; padding: 6px 4px; font-size: 0.7rem; font-weight: bold;
+            background-color: var(--bg-tertiary); color: var(--text-secondary);
+            border: 1px solid var(--border-color); border-radius: 4px;
+            cursor: pointer; text-align: center; transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover { background-color: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+
+        .toc-list { list-style: none; }
+        .toc-section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--accent-amber); margin: 14px 0 6px 8px; }
+        .toc-item { margin-bottom: 3px; }
+        .toc-link { display: block; padding: 6px 10px; color: var(--text-secondary); text-decoration: none; font-size: 0.83rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .toc-link:hover, .toc-link.active { background-color: var(--bg-tertiary); color: var(--accent-blue); }
+
+        /* Main Content Area */
+        .main-content { margin-left: 320px; flex: 1; padding: 35px; max-width: 1150px; }
+
+        /* Banner */
+        .header-banner {
+            background: linear-gradient(135deg, rgb(30, 58, 138) 0%, rgb(59, 130, 246) 100%);
+            border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 30px; margin-bottom: 35px; position: relative;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-banner h1 {
+            font-size: 2.2rem;
+            color: rgb(255, 255, 255); margin-bottom: 8px; letter-spacing: -0.5px; }
+        .header-banner p { color: var(--text-secondary); font-size: 1rem; max-width: 850px; }
+
+        .badges-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .badge-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            background-color: rgba(59, 130, 246, 0.15); color: var(--accent-blue);
+            border: 1px solid var(--accent-blue); padding: 4px 10px; border-radius: 20px;
+            font-size: 0.78rem; font-weight: 600;
+        }
+
+        .badge-hinglish { color: rgb(59, 130, 246); border-color: rgb(59, 130, 246); background-color: rgba(16, 185, 129, 0.15); }
+        .badge-dsssb { color: var(--accent-rose); border-color: var(--accent-rose); background-color: rgba(244, 63, 94, 0.15); }
+        .badge-cgl { color: var(--accent-amber); border-color: var(--accent-amber); background-color: rgba(245, 158, 11, 0.15); }
+
+        /* Section Cards */
+        .section-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 26px; margin-bottom: 35px; }
+        .subject-header-tag { display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; }
+
+        .tag-history { background-color: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+        .tag-polity { background-color: rgba(168, 85, 247, 0.2); color: rgb(59, 130, 246); }
+        .tag-geography { background-color: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+        .tag-pyq { background-color: rgba(16, 185, 129, 0.2); color: rgb(59, 130, 246); }
+
+        .section-title {
+            font-size: 1.45rem;
+            color: rgb(30, 58, 138); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
+        .section-number { background-color: var(--accent-blue); color: #ffffff; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.88rem; font-weight: bold; flex-shrink: 0; }
+
+        .exam-freq-pill { margin-left: auto; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 12px; background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border: 1px solid var(--accent-rose); }
+
+        /* Hinglish Callout Box */
+        .hinglish-box {
+            background-color: rgba(16, 185, 129, 0.08); border-left: 4px solid rgb(59, 130, 246);
+            padding: 15px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px;
+            font-size: 0.93rem; color: rgb(167, 243, 208);
+        }
+
+        .hinglish-box strong { color: rgb(59, 130, 246); }
+
+        .definition-box { background-color: rgba(59, 130, 246, 0.08); border-left: 4px solid var(--accent-blue); padding: 15px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.94rem; color: rgb(228, 228, 231); }
+        .important-box { background-color: rgba(245, 158, 11, 0.08); border-left: 4px solid var(--accent-amber); padding: 15px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.92rem; color: rgb(253, 230, 138); }
+        .mnemonic-box { background-color: rgba(168, 85, 247, 0.08); border-left: 4px solid rgb(59, 130, 246); padding: 15px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.92rem; color: rgb(243, 232, 255); }
+
+        /* SVG Flowchart & Diagram Wrappers */
+        .svg-visual-container { background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center; }
+        .svg-visual-title { font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Mind Maps & Cards */
+        .tree-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 15px 0; }
+        .tree-card { background-color: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; transition: transform 0.2s, border-color 0.2s; }
+        .tree-card:hover { transform: translateY(-2px); border-color: var(--accent-blue); }
+        .tree-card h4 { font-size: 0.93rem; color: var(--accent-amber); margin-bottom: 8px; }
+        .tree-card ul { list-style: none; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .tree-card ul li { position: relative; padding-left: 14px; margin-bottom: 4px; }
+        .tree-card ul li::before { content: "•"; position: absolute; left: 0; color: var(--accent-blue); font-weight: bold; }
+
+        /* Tables */
+        .summary-table { width: 100%; border-collapse: collapse; margin: 18px 0; overflow-x: auto; display: block; }
+        .summary-table th, .summary-table td { border: 1px solid var(--border-color); padding: 10px 14px; text-align: left; font-size: 0.86rem; }
+        .summary-table th { background-color: var(--bg-tertiary); color: var(--accent-blue); font-weight: 700; }
+        .summary-table tr:nth-child(even) { background-color: rgba(24, 24, 27, 0.6); }
+
+        /* PYQ Cards */
+        .pyq-card { background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; margin-bottom: 18px; }
+        .pyq-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .pyq-tags-container { display: flex; gap: 6px; }
+        .pyq-exam-tag { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background-color: rgba(16, 185, 129, 0.15); color: rgb(59, 130, 246); border: 1px solid rgb(59, 130, 246); }
+        .pyq-exam-tag.dsssb { color: var(--accent-rose); border-color: var(--accent-rose); background-color: rgba(244, 63, 94, 0.15); }
+        .pyq-exam-tag.cgl { color: var(--accent-amber); border-color: var(--accent-amber); background-color: rgba(245, 158, 11, 0.15); }
+
+        .pyq-question { font-size: 0.93rem; color: var(--text-primary); font-weight: 600; margin-bottom: 12px; }
+        .pyq-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 12px; }
+        .pyq-option { background-color: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; color: var(--text-secondary); }
+
+        .pyq-toggle-btn { background-color: var(--bg-tertiary); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 5px 12px; border-radius: 5px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .pyq-toggle-btn:hover { background-color: var(--accent-blue); color: #ffffff; }
+
+        .pyq-answer-box { display: none; margin-top: 12px; padding: 12px 15px; background-color: rgba(16, 185, 129, 0.08); border-left: 4px solid rgb(59, 130, 246); border-radius: 0 6px 6px 0; font-size: 0.86rem; color: rgb(224, 242, 254); }
+        .pyq-answer-box.active { display: block; }
+        .pyq-correct-opt { font-weight: bold; color: rgb(59, 130, 246); margin-bottom: 4px; }
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 15px; width: 100%; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+            <div class="sidebar-header">
+            <a href="../govt_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
+        <a href="../index.html" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary); color: var(--text-primary); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color); transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-blue)'" onmouseout="this.style.borderColor='var(--border-color)'">&larr; Back to Home</a>
+        <h2>🏆 DSSSB &amp; SSC Master Notes</h2>
+            <div class="author-tag">Bilingual (English + Hinglish)</div>
+        </div>
+
+        
+
+        <div class="subject-filter-btns">
+            <button class="filter-btn active" onclick="filterSubject('all')">ALL</button>
+            <button class="filter-btn" onclick="filterSubject('history')">HIST</button>
+            <button class="filter-btn" onclick="filterSubject('polity')">POLITY</button>
+            <button class="filter-btn" onclick="filterSubject('geography')">GEO</button>
+            <button class="filter-btn" onclick="filterSubject('pyq')">PYQs</button>
+        </div>
+
+        <ul class="toc-list" id="tocList">
+            <!-- HISTORY -->
+            <div class="toc-section-label history-item">🏛️ HISTORY (HINGLISH)</div>
+            <li class="toc-item history-item"><a class="toc-link" onclick="scrollToSec('sec_ivc')">1. Indus Valley &amp; Harappan Sites</a></li>
+            <li class="toc-item history-item"><a class="toc-link" onclick="scrollToSec('sec_vedic_travelers')">2. Foreign Travelers &amp; Books</a></li>
+            <li class="toc-item history-item"><a class="toc-link" onclick="scrollToSec('sec_sultanate_depts')">3. Delhi Sultanate Departments</a></li>
+            <li class="toc-item history-item"><a class="toc-link" onclick="scrollToSec('sec_mughal_battles')">4. Mughal Battles &amp; Architecture</a></li>
+            <li class="toc-item history-item"><a class="toc-link" onclick="scrollToSec('sec_reforms_freedom')">5. Reform Movements &amp; Freedom</a></li>
+
+            <!-- POLITY -->
+            <div class="toc-section-label polity-item">⚖️ POLITY (HINGLISH)</div>
+            <li class="toc-item polity-item"><a class="toc-link" onclick="scrollToSec('sec_const_amendments')">6. Key Constitutional Amendments</a></li>
+            <li class="toc-item polity-item"><a class="toc-link" onclick="scrollToSec('sec_schedules_writs')">7. 12 Schedules &amp; 5 Writs Visual</a></li>
+
+            <!-- GEOGRAPHY -->
+            <div class="toc-section-label geography-item">🌍 GEOGRAPHY (HINGLISH)</div>
+            <li class="toc-item geography-item"><a class="toc-link" onclick="scrollToSec('sec_panch_prayag')">8. River Systems &amp; Panch Prayag Visual</a></li>
+            <li class="toc-item geography-item"><a class="toc-link" onclick="scrollToSec('sec_dams_lakes')">9. Major Dams &amp; Iconic Lakes</a></li>
+
+            <!-- PYQ BANK -->
+            <div class="toc-section-label pyq-item">🎯 BILINGUAL PYQ BANK</div>
+            <li class="toc-item pyq-item"><a class="toc-link" onclick="scrollToSec('sec_pyqs_all')">10. Exam PYQ MCQs + Solutions</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Top Header Banner -->
+        <div class="header-banner">
+            <h1>DSSSB &amp; SSC EXAM MASTER NOTES</h1>
+            <p>Bilingual Study Portal (English + Easy Hinglish Explanations) with Vector Diagrams, Short Tricks &amp; PYQ Solutions (DSSSB PRT/TGT, SSC CGL, CHSL, MTS, Steno, CPO)</p>
+            <div class="badges-group">
+                <span class="badge-tag badge-hinglish">🗣️ Bilingual (English + Hinglish)</span>
+                <span class="badge-tag badge-dsssb">🎯 DSSSB PRT/TGT</span>
+                <span class="badge-tag badge-cgl">🏆 SSC CGL</span>
+            </div>
+        </div>
+
+        <!-- Section 1: IVC -->
+        <div class="section-card history-sec" id="sec_ivc">
+            <span class="subject-header-tag tag-history">HISTORY • ANCIENT</span>
+            <div class="section-title">
+                <span class="section-number">1</span>
+                Indus Valley Civilization (IVC Sites &amp; Special Findings)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 Hinglish Summary:</strong> Harappan Civilization apni Grid Town Planning aur Subterranean Drainage ke liye famous thi.
+                <br>• <strong>Harappa:</strong> Daya Ram Sahni ne 1921 mein Ravi river ke kinare khoja tha (6 Granaries mili theen).
+                <br>• <strong>Mohenjo-daro:</strong> R.D. Banerjee ne 1922 mein Indus river ke kinare khoja (Great Bath aur Bronze Dancing Girl mili).
+                <br>• <strong>Lothal (Gujarat):</strong> Duniya ka sabse purana Tidal Dockyard tha.
+                <br>• <strong>Rakhigarhi (Haryana):</strong> India mein sabse bada Indus Valley site hai.
+                <br>• <strong>Important Fact:</strong> Harappan logon ko Bronze, Copper, Gold ka pata tha — lekin <strong>IRON (Loha) bilkul UNKNOWN tha!</strong>
+            </div>
+        </div>
+
+        <!-- Section 2: Foreign Travelers -->
+        <div class="section-card history-sec" id="sec_vedic_travelers">
+            <span class="subject-header-tag tag-history">HISTORY • ANCIENT &amp; MEDIEVAL</span>
+            <div class="section-title">
+                <span class="section-number">2</span>
+                Famous Foreign Travelers &amp; Their Books (Hinglish Guide)
+            </div>
+
+            <div class="table-responsive-wrapper"><table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Traveler Name</th>
+                        <th>Origin Country</th>
+                        <th>Book Written</th>
+                        <th>Hinglish Key Fact &amp; Ruler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Megasthenes</strong></td>
+                        <td>Greece</td>
+                        <td><em>Indica</em></td>
+                        <td>Chandragupta Maurya ke darbar mein aaya tha. Pataliputra ki tareef ki.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fa-Hien</strong></td>
+                        <td>China</td>
+                        <td><em>Fo-Kwo-Ki</em></td>
+                        <td>Chandragupta II (Vikramaditya) ke time Gupta Period mein aaya tha.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hiuen Tsang</strong></td>
+                        <td>China</td>
+                        <td><em>Si-Yu-Ki</em></td>
+                        <td>Harshavardhana ke darbar mein aaya aur Nalanda University mein padhai ki.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Al-Biruni</strong></td>
+                        <td>Uzbekistan</td>
+                        <td><em>Kitab-ul-Hind</em></td>
+                        <td>Mahmud Ghazni ke sath India aaya tha. Indian philosophy par likha.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ibn Battuta</strong></td>
+                        <td>Morocco (Tangier)</td>
+                        <td><em>Rihla</em></td>
+                        <td>Muhammad bin Tughlaq ke time aaya (MB Tughlaq ne ise Delhi ka Qazi banaya).</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+
+        <!-- Section 3: Sultanate Departments -->
+        <div class="section-card history-sec" id="sec_sultanate_depts">
+            <span class="subject-header-tag tag-history">HISTORY • MEDIEVAL</span>
+            <div class="section-title">
+                <span class="section-number">3</span>
+                Delhi Sultanate Administrative Departments
+            </div>
+
+            <div class="tree-grid">
+                <div class="tree-card">
+                    <h4>⚔️ Diwan-i-Arz</h4>
+                    <p><strong>Military Dept (Army)</strong><br>Founded by: <strong>Balban</strong> (Army ko strong banane ke liye).</p>
+                </div>
+                <div class="tree-card">
+                    <h4>🌾 Diwan-i-Kohi</h4>
+                    <p><strong>Agriculture Dept (Kheti)</strong><br>Founded by: <strong>MB Tughlaq</strong> (Fasal va kheti behtar karne ke liye).</p>
+                </div>
+                <div class="tree-card">
+                    <h4>💰 Diwan-i-Mustakhraj</h4>
+                    <p><strong>Revenue &amp; Tax Dept</strong><br>Founded by: <strong>Alauddin Khilji</strong> (Tax arrears collect karne ke liye).</p>
+                </div>
+                <div class="tree-card">
+                    <h4>🤝 Diwan-i-Khairat</h4>
+                    <p><strong>Charity Dept (Daan)</strong><br>Founded by: <strong>Firoz Tughlaq</strong> (Gareeb ladkiyon ki shadi aur orphan welfare ke liye).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Amendments -->
+        <div class="section-card polity-sec" id="sec_const_amendments">
+            <span class="subject-header-tag tag-polity">POLITY • AMENDMENTS</span>
+            <div class="section-title">
+                <span class="section-number">6</span>
+                Most Asked Constitutional Amendments (Hinglish Summary)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 Polity Amendments Tricks:</strong>
+                <br>• <strong>42nd Amendment (1976):</strong> Ise <em>"Mini Constitution"</em> kehte hain. Preamble mein 3 naye words (Socialist, Secular, Integrity) aur Fundamental Duties (Art 51A)isi se add hue the.
+                <br>• <strong>44th Amendment (1978):</strong> Right to Property ko Fundamental Right se hata kar <strong>Art 300A</strong> ke under ek Legal Right bana diya.
+                <br>• <strong>61st Amendment (1989):</strong> Voting age <strong>21 saal se ghata kar 18 saal</strong> kar di gayi.
+                <br>• <strong>73rd &amp; 74th Amendments (1992):</strong> Panchayati Raj aur Municipalities ko constitutional status diya gaya.
+                <br>• <strong>86th Amendment (2002):</strong> 6-14 saal ke bacho ke liye Right to Education (Art 21A) add hua.
+                <br>• <strong>101st Amendment (2016):</strong> GST (Goods &amp; Services Tax) Art 279A ke under laya gaya.
+            </div>
+        </div>
+
+        <!-- Section 11: Panch Prayag -->
+        <div class="section-card geography-sec" id="sec_panch_prayag">
+            <span class="subject-header-tag tag-geography">GEOGRAPHY • RIVERS</span>
+            <div class="section-title">
+                <span class="section-number">11</span>
+                Panch Prayag River Confluences (Hinglish Trick)
+            </div>
+
+            <div class="hinglish-box">
+                <strong>💡 Panch Prayag Hinglish Shortcut:</strong> River Alaknanda main stream hai jo badhti rehti hai:
+                <br>1. Alaknanda + Dhauliganga = <strong>Vishnuprayag</strong>
+                <br>2. Alaknanda + Nandakini = <strong>Nandaprayag</strong>
+                <br>3. Alaknanda + Pindar = <strong>Karnaprayag</strong>
+                <br>4. Alaknanda + Mandakini = <strong>Rudraprayag</strong>
+                <br>5. Alaknanda + Bhagirathi = <strong>Devprayag</strong> ➔ <em>Yahan se aage ise GANGA kehte hain!</em>
+            </div>
+        </div>
+
+        <!-- Section 14: PYQs -->
+        <div class="section-card pyq-sec" id="sec_pyqs_all">
+            <span class="subject-header-tag tag-pyq">PYQ PRACTICE BANK</span>
+            <div class="section-title">
+                <span class="section-number">14</span>
+                Bilingual Exam PYQs with Hinglish Solutions
+            </div>
+
+            <!-- Q1 -->
+            <div class="pyq-card">
+                <div class="pyq-header">
+                    <div class="pyq-tags-container">
+                        <span class="pyq-exam-tag dsssb">DSSSB PRT 2022</span>
+                        <span class="pyq-exam-tag cgl">SSC CGL 2023</span>
+                    </div>
+                </div>
+                <div class="pyq-question">
+                    Q1. Which constitutional amendment act lowered the voting age in India from 21 years to 18 years?
+                </div>
+                <div class="pyq-options">
+                    <div class="pyq-option">A) 44th Amendment Act</div>
+                    <div class="pyq-option">B) 61st Amendment Act</div>
+                    <div class="pyq-option">C) 73rd Amendment Act</div>
+                    <div class="pyq-option">D) 86th Amendment Act</div>
+                </div>
+                <button class="pyq-toggle-btn" onclick="toggleAnswer(this)">Show Answer &amp; Solution</button>
+                <div class="pyq-answer-box">
+                    <div class="pyq-correct-opt">Correct Answer: Option B (61st Amendment Act, 1989)</div>
+                    <strong>Hinglish Explanation:</strong> Rajiv Gandhi government ke time 61st Constitutional Amendment Act (1989) laya gaya tha jisse Article 326 mein badlav karke voting age ko 21 saal se ghata kar 18 saal kar diya gaya.
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="pyq-card">
+                <div class="pyq-header">
+                    <div class="pyq-tags-container">
+                        <span class="pyq-exam-tag cgl">SSC CGL 2023</span>
+                    </div>
+                </div>
+                <div class="pyq-question">
+                    Q2. Which river is the only river in India that cuts the Tropic of Cancer (Kark Rekha) twice?
+                </div>
+                <div class="pyq-options">
+                    <div class="pyq-option">A) Narmada River</div>
+                    <div class="pyq-option">B) Mahi River</div>
+                    <div class="pyq-option">C) Tapti River</div>
+                    <div class="pyq-option">D) Luni River</div>
+                </div>
+                <button class="pyq-toggle-btn" onclick="toggleAnswer(this)">Show Answer &amp; Solution</button>
+                <div class="pyq-answer-box">
+                    <div class="pyq-correct-opt">Correct Answer: Option B (Mahi River)</div>
+                    <strong>Hinglish Explanation:</strong> Mahi River Madhya Pradesh ke Vindhya range se nikalti hai, Rajasthan se hote hue Gujarat mein Gulf of Khambhat mein girti hai. Ye India ki akeli nadi hai jo Tropic of Cancer ko 2 baar cut karti hai.
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 30px; border-top: 1px solid var(--border-color); margin-top: 40px; color: var(--text-secondary); font-size: 0.88rem;">
+            <p><strong>DSSSB &amp; SSC Exam Master Portal (Bilingual English + Hinglish)</strong></p>
+            <p style="margin-top: 5px; color: var(--accent-blue);">Includes Vector Diagrams, Hinglish Tricks &amp; Exam Solutions</p>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script>
+        function scrollToSec(secId) {
+            const el = document.getElementById(secId);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleAnswer(btn) {
+            const box = btn.nextElementSibling;
+            if (box.classList.contains('active')) {
+                box.classList.remove('active');
+                btn.textContent = 'Show Answer & Solution';
+            } else {
+                box.classList.add('active');
+                btn.textContent = 'Hide Answer & Solution';
+            }
+        }
+
+        
+
+        function filterSubject(subject) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const historyItems = document.querySelectorAll('.history-item, .history-sec');
+            const polityItems = document.querySelectorAll('.polity-item, .polity-sec');
+            const geographyItems = document.querySelectorAll('.geography-item, .geography-sec');
+            const pyqItems = document.querySelectorAll('.pyq-item, .pyq-sec');
+
+            if (subject === 'all') {
+                document.querySelectorAll('.toc-item, .toc-section-label, .section-card').forEach(el => el.style.display = '');
+            } else if (subject === 'history') {
+                hideAll(); historyItems.forEach(el => el.style.display = '');
+            } else if (subject === 'polity') {
+                hideAll(); polityItems.forEach(el => el.style.display = '');
+            } else if (subject === 'geography') {
+                hideAll(); geographyItems.forEach(el => el.style.display = '');
+            } else if (subject === 'pyq') {
+                hideAll(); pyqItems.forEach(el => el.style.display = '');
+            }
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.toc-item, .toc-section-label, .section-card').forEach(el => el.style.display = 'none');
+        }
+    </script>
+</body>
+</html>

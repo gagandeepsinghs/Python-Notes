@@ -187,7 +187,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 95%;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -411,6 +411,10 @@
         .card:nth-child(6) { animation-delay: 0.6s; }
         .card:nth-child(7) { animation-delay: 0.7s; }
         .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1.0s; }
+        .card:nth-child(11) { animation-delay: 1.1s; }
+        .card:nth-child(12) { animation-delay: 1.2s; }
 
         /* Floating Components (Theme Toggle & WhatsApp) */
         .theme-toggle {
@@ -665,7 +669,421 @@
             .theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 1.1rem;}
             .chatbot-float { bottom: 80px; right: 15px; width: 50px; height: 50px; font-size: 1.6rem;}
         }
-    </style>
+    
+    /* --- NEW HERO SECTION CSS --- */
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+    
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4rem;
+        margin-bottom: 3rem;
+        margin-top: 1rem;
+        padding: 0 2rem;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-left {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        flex: 1.2;
+    }
+
+    .profile-wrapper {
+        position: relative;
+    }
+    
+    .profile-img-container {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        border: 4px solid #ffcc00;
+        padding: 5px;
+        box-shadow: 0 0 40px rgba(255, 204, 0, 0.3), inset 0 0 20px rgba(255, 204, 0, 0.2);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #111;
+    }
+    
+    .accent-crown {
+        position: absolute;
+        top: -20px;
+        left: 20px;
+        color: #ffcc00;
+        font-size: 2.5rem;
+        transform: rotate(-15deg);
+        z-index: 1;
+    }
+    
+    .accent-lines {
+        position: absolute;
+        top: 50%;
+        left: -40px;
+        color: #ffcc00;
+        font-size: 1.5rem;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .accent-lines span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: #ffcc00;
+        border-radius: 5px;
+        transform: rotate(-20deg);
+    }
+
+    .hero-text {
+        flex: 1;
+        text-align: left;
+    }
+
+    .hero-cursive {
+        font-family: 'Caveat', cursive;
+        font-size: 3.5rem;
+        color: #ffffff;
+        margin-bottom: -15px;
+        display: block;
+        transform: rotate(-3deg);
+    }
+
+    .hero-title-new {
+        font-size: 4.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        letter-spacing: -1px;
+        color: white;
+    }
+
+    .hero-title-new .name-yellow {
+        color: #ffcc00;
+    }
+
+    .hero-subtitle-new {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        max-width: 450px;
+    }
+
+    .hero-right {
+        flex: 0.8;
+        background: rgba(20, 20, 20, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 2.5rem;
+        position: relative;
+    }
+    
+    .learn-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 2rem;
+    }
+    
+    .bulb-icon {
+        color: #ffcc00;
+        font-size: 2rem;
+    }
+    
+    .learn-title {
+        font-family: 'Caveat', cursive;
+        font-size: 2.8rem;
+        color: #fff;
+        transform: rotate(-3deg);
+    }
+    
+    .learn-arrow {
+        color: #ffcc00;
+        font-size: 1.5rem;
+        margin-left: auto;
+        transform: rotate(30deg);
+    }
+
+    .tag-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 2rem;
+    }
+
+    .tag-btn {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #ddd;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        cursor: default;
+    }
+    .tag-btn i { font-size: 1.2rem; }
+    .tag-btn .i-orange { color: #f97316; }
+    .tag-btn .i-cyan { color: #06b6d4; }
+    .tag-btn .i-blue { color: #3b82f6; }
+    .tag-btn .i-purple { color: #a855f7; }
+    .tag-btn .i-white { color: #e2e8f0; }
+    .tag-btn .i-robot { color: #ef4444; }
+
+    .connect-btn {
+        display: flex;
+        align-items: center;
+        background: rgba(20, 20, 20, 0.8);
+        border: 1px solid rgba(255, 204, 0, 0.3);
+        border-radius: 16px;
+        padding: 1rem 1.5rem;
+        gap: 20px;
+        text-decoration: none;
+        box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    .connect-btn:hover {
+        box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);
+        transform: translateY(-2px);
+    }
+    .wa-icon {
+        width: 50px;
+        height: 50px;
+        background: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+    }
+    .wa-text p {
+        color: #ddd;
+        font-size: 0.85rem;
+        margin-bottom: 2px;
+    }
+    .wa-text h3 {
+        color: #ffcc00;
+        font-size: 1.6rem;
+        font-weight: 800;
+    }
+    .wa-arrow {
+        margin-left: auto;
+        color: #ffcc00;
+        font-size: 1.5rem;
+    }
+
+    @media (max-width: 1200px) {
+        .hero { flex-direction: column; }
+        .hero-left, .hero-right { width: 100%; }
+    }
+    @media (max-width: 1000px) {
+        .tag-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+        .hero-left { flex-direction: column; text-align: center; gap: 1.5rem; }
+        .hero-text { text-align: center; }
+        .hero-cursive { text-align: center; }
+        .hero-title-new { font-size: 3rem; }
+    }
+    /* ------------------------------ */
+    
+    /* --- MODULES GRID CSS --- */
+    .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .mod-card {
+        background: rgba(20, 20, 20, 0.6);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 16px;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
+    }
+
+    body.light-theme .mod-card {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0,0,0,0.1);
+        color: #1a1a1a;
+    }
+
+    .mod-card:hover {
+        transform: translateY(-3px);
+        background: rgba(30, 30, 30, 0.8);
+    }
+    
+    body.light-theme .mod-card:hover {
+        background: #ffffff;
+    }
+
+    .mod-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    body.light-theme .mod-icon {
+        background: rgba(0,0,0,0.03);
+        border-color: rgba(0,0,0,0.1);
+    }
+
+    .mod-info {
+        flex: 1;
+    }
+    .mod-info h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .mod-open {
+        font-size: 0.85rem;
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.2);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s;
+    }
+    
+    body.light-theme .mod-open {
+        border-color: rgba(0,0,0,0.2);
+    }
+    
+    .mod-open i {
+        font-size: 0.7rem;
+    }
+
+    /* Specific Mod Card Glows */
+    .mod-python { border-color: rgba(59, 130, 246, 0.3); box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.05); }
+    .mod-python .mod-icon { color: #3b82f6; border-color: rgba(59, 130, 246, 0.4); }
+    .mod-python .mod-open { border-color: rgba(59, 130, 246, 0.5); color: #e2e8f0; }
+
+    .mod-java { border-color: rgba(239, 68, 68, 0.3); box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.05); }
+    .mod-java .mod-icon { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
+    .mod-java .mod-open { border-color: rgba(239, 68, 68, 0.5); color: #e2e8f0; }
+
+    .mod-govt { border-color: rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05); }
+    .mod-govt .mod-icon { color: #f8fafc; border-color: rgba(255, 255, 255, 0.3); }
+    .mod-govt .mod-open { border-color: rgba(255, 255, 255, 0.3); color: #e2e8f0; }
+    
+    body.light-theme .mod-govt { border-color: rgba(0, 0, 0, 0.2); }
+    body.light-theme .mod-govt .mod-icon { color: #333; border-color: rgba(0, 0, 0, 0.2); }
+    body.light-theme .mod-govt .mod-open { border-color: rgba(0, 0, 0, 0.2); color: #333; }
+
+    .mod-excel { border-color: rgba(34, 197, 94, 0.3); box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.05); }
+    .mod-excel .mod-icon { color: #22c55e; border-color: rgba(34, 197, 94, 0.4); }
+    .mod-excel .mod-open { border-color: rgba(34, 197, 94, 0.5); color: #e2e8f0; }
+
+    .mod-pbi { border-color: rgba(234, 179, 8, 0.3); box-shadow: inset 0 0 20px rgba(234, 179, 8, 0.05); }
+    .mod-pbi .mod-icon { color: #eab308; border-color: rgba(234, 179, 8, 0.4); }
+    .mod-pbi .mod-open { border-color: rgba(234, 179, 8, 0.5); color: #e2e8f0; }
+
+    .mod-sql { border-color: rgba(14, 165, 233, 0.3); box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.05); }
+    .mod-sql .mod-icon { color: #0ea5e9; border-color: rgba(14, 165, 233, 0.4); }
+    .mod-sql .mod-open { border-color: rgba(14, 165, 233, 0.5); color: #e2e8f0; }
+
+    .mod-other { border-color: rgba(226, 232, 240, 0.2); box-shadow: inset 0 0 20px rgba(226, 232, 240, 0.05); }
+    .mod-other .mod-icon { color: #e2e8f0; border-color: rgba(226, 232, 240, 0.3); }
+    .mod-other .mod-open { border-color: rgba(226, 232, 240, 0.3); color: #e2e8f0; }
+    
+    body.light-theme .mod-other { border-color: rgba(0, 0, 0, 0.2); }
+    body.light-theme .mod-other .mod-icon { color: #555; border-color: rgba(0, 0, 0, 0.2); }
+    body.light-theme .mod-other .mod-open { border-color: rgba(0, 0, 0, 0.2); color: #333; }
+
+    .mod-web { border-color: rgba(56, 189, 248, 0.3); box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.05); }
+    .mod-web .mod-icon { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+    .mod-web .mod-open { border-color: rgba(56, 189, 248, 0.5); color: #e2e8f0; }
+
+    .mod-data { border-color: rgba(168, 85, 247, 0.3); box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.05); }
+    .mod-data .mod-icon { color: #a855f7; border-color: rgba(168, 85, 247, 0.4); }
+    .mod-data .mod-open { border-color: rgba(168, 85, 247, 0.5); color: #e2e8f0; }
+
+    .mod-cpp { border-color: rgba(6, 182, 212, 0.3); box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.05); }
+    .mod-cpp .mod-icon { color: #06b6d4; border-color: rgba(6, 182, 212, 0.4); }
+    .mod-cpp .mod-open { border-color: rgba(6, 182, 212, 0.5); color: #e2e8f0; }
+
+    .mod-c { border-color: rgba(99, 102, 241, 0.3); box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.05); }
+    .mod-c .mod-icon { color: #6366f1; border-color: rgba(99, 102, 241, 0.4); }
+    .mod-c .mod-open { border-color: rgba(99, 102, 241, 0.5); color: #e2e8f0; }
+
+    .mod-card:hover .mod-open {
+        background: rgba(255,255,255,0.1);
+    }
+    
+    body.light-theme .mod-card .mod-open {
+        color: #1a1a1a;
+    }
+
+    /* Add hover glows to cards */
+    .mod-python:hover { box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.05), 0 0 20px rgba(59, 130, 246, 0.2); }
+    .mod-c { border-color: rgba(99, 102, 241, 0.3); box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.05); }
+    .mod-c .mod-icon { color: #6366f1; border-color: rgba(99, 102, 241, 0.4); }
+    .mod-c .mod-open { border-color: rgba(99, 102, 241, 0.5); color: #e2e8f0; }
+    .mod-cpp:hover { box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.05), 0 0 20px rgba(6, 182, 212, 0.2); }
+    .mod-c:hover { box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.05), 0 0 20px rgba(99, 102, 241, 0.2); }
+    .mod-java:hover { box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.05), 0 0 20px rgba(239, 68, 68, 0.2); }
+    .mod-govt:hover { box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05), 0 0 20px rgba(255, 255, 255, 0.1); }
+    .mod-excel:hover { box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.05), 0 0 20px rgba(34, 197, 94, 0.2); }
+    .mod-pbi:hover { box-shadow: inset 0 0 20px rgba(234, 179, 8, 0.05), 0 0 20px rgba(234, 179, 8, 0.2); }
+    .mod-sql:hover { box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.05), 0 0 20px rgba(14, 165, 233, 0.2); }
+    .mod-other:hover { box-shadow: inset 0 0 20px rgba(226, 232, 240, 0.05), 0 0 20px rgba(226, 232, 240, 0.1); }
+    .mod-web:hover { box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.05), 0 0 20px rgba(56, 189, 248, 0.2); }
+    .mod-data:hover { box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.05), 0 0 20px rgba(168, 85, 247, 0.2); }
+    .mod-github { border-color: rgba(243, 79, 41, 0.3); box-shadow: inset 0 0 20px rgba(243, 79, 41, 0.05); }
+    .mod-github .mod-icon { color: #f34f29; border-color: rgba(243, 79, 41, 0.4); }
+    .mod-github .mod-open { border-color: rgba(243, 79, 41, 0.5); color: #e2e8f0; }
+    .mod-github:hover { box-shadow: inset 0 0 20px rgba(243, 79, 41, 0.05), 0 0 20px rgba(243, 79, 41, 0.2); }
+    
+    body.light-theme .mod-govt:hover { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05), 0 0 20px rgba(0, 0, 0, 0.1); }
+    body.light-theme .mod-other:hover { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05), 0 0 20px rgba(0, 0, 0, 0.1); }
+
+    @media (max-width: 1000px) {
+        .modules-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+        .modules-grid { grid-template-columns: 1fr; }
+    }
+    
+    #detailed-grid-wrapper {
+        animation: fadeIn 0.5s ease;
+    }
+    
+</style>
+    
 </head>
 <body>
 
@@ -713,112 +1131,144 @@
         </div>
     </div>
 
-    <header>
-        <div class="hero-logo-container">
-            <img src="assets/logo.png" alt="Python with Gagan Sir Logo" class="custom-logo">
+    
+    <!-- NEW HERO SECTION -->
+    <div class="hero">
+        <div class="hero-left">
+            <!-- Logo -->
+            <div class="profile-wrapper">
+                <i class="fa-solid fa-crown accent-crown"></i>
+                <div class="accent-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="profile-img-container">
+                    <img src="assets/logo.png" alt="Python with Gagan Sir" class="profile-img">
+                </div>
+            </div>
+
+            <!-- Text -->
+            <div class="hero-text">
+                <span class="hero-cursive">Learn with</span>
+                <h1 class="hero-title-new">Gagan <span class="name-yellow">Sir</span></h1>
+                <p class="hero-subtitle-new">Your Ultimate Learning Portal for Python, Data Structures, SQL, Data Analytics and Beyond.</p>
+            </div>
         </div>
-        <h1 class="hero-title">Python with Gagan Sir</h1>
-        <p class="hero-subtitle">Your Ultimate Learning Portal for Python, Data Structures, SQL, and Beyond. Explore premium notes and master your skills.</p>
-    </header>
 
-    <div class="container">
-        <div class="grid">
+        <!-- Right Box -->
+        <div class="hero-right">
+            <div class="learn-header">
+                <i class="fa-regular fa-lightbulb bulb-icon"></i>
+                <h2 class="learn-title">Wants to Learn?</h2>
+                <i class="fa-solid fa-arrow-turn-down learn-arrow"></i>
+            </div>
             
-            <!-- Python Basics -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-brands fa-python"></i></span> Python Basics</h2>
-                <ul class="links-list">
-                    <li><a href="notes/python_variables_notes.html">Variables</a></li>
-                    <li><a href="notes/python_datatypes_notes.html">Data Types</a></li>
-                    <li><a href="notes/python_typecasting_notes.html">Typecasting</a></li>
-                    <li><a href="notes/python_operators_notes.html">Operators</a></li>
-                </ul>
+            <div class="tag-grid">
+                <div class="tag-btn"><i class="fa-solid fa-chart-column i-orange"></i> Data Analytics</div>
+                <div class="tag-btn"><i class="fa-solid fa-microchip i-cyan"></i> AI</div>
+                <div class="tag-btn"><i class="fa-brands fa-python i-blue"></i> Python</div>
+                <div class="tag-btn"><i class="fa-solid fa-atom i-purple"></i> Data Science</div>
+                <div class="tag-btn"><i class="fa-solid fa-wrench i-white"></i> AI Tools</div>
+                <div class="tag-btn"><i class="fa-solid fa-robot i-robot"></i> AI Agents</div>
             </div>
-
-            <!-- Python Control Flow -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-code-branch"></i></span> Control Flow</h2>
-                <ul class="links-list">
-                    <li><a href="notes/python_conditional_statements_notes.html">Conditional Statements</a></li>
-                    <li><a href="notes/python_conditional_questions_notes.html">Conditional Questions</a></li>
-                    <li><a href="notes/python_match_case_notes.html">Match Case</a></li>
-                    <li><a href="notes/python_choice_case_notes.html">Choice Case</a></li>
-                    <li><a href="notes/python_loops_notes.html">Loops</a></li>
-                    <li><a href="notes/python_loop_questions + notes.html">Loop Questions & Notes</a></li>
-                </ul>
-            </div>
-
-            <!-- Python Data Structures -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-layer-group"></i></span> Data Structures</h2>
-                <ul class="links-list">
-                    <li><a href="notes/python_strings_notes.html">Strings</a></li>
-                    <li><a href="notes/python_list_notes.html">Lists</a></li>
-                    <li><a href="notes/python_tuple_notes.html">Tuples</a></li>
-                    <li><a href="notes/python_set_notes.html">Sets</a></li>
-                    <li><a href="notes/python_dictionary_notes.html">Dictionaries</a></li>
-                    <li><a href="notes/python_array_notes.html">Arrays</a></li>
-                </ul>
-            </div>
-
-            <!-- Python Functions & Errors -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-gear"></i></span> Functions & Errors</h2>
-                <ul class="links-list">
-                    <li><a href="notes/python_functions_notes.html">Functions</a></li>
-                    <li><a href="notes/python_lambda_functions_notes.html">Lambda Functions</a></li>
-                    <li><a href="notes/python_exception_handling_notes.html">Exception Handling</a></li>
-                </ul>
-            </div>
-
-            <!-- Python Advanced -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-rocket"></i></span> Advanced Modules</h2>
-                <ul class="links-list">
-                    <li><a href="notes/python_numpy_notes.html">NumPy Library</a></li>
-                    <li><a href="notes/python_regex_notes.html">Regular Expressions (Regex)</a></li>
-                    <li><a href="notes/python_virtual_environment_notes.html">Virtual Environments</a></li>
-                </ul>
-            </div>
-
-            <!-- SQL & Databases -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-database"></i></span> SQL & Data</h2>
-                <ul class="links-list">
-                    <li><a href="notes/sql_fundamentals_and_analytics_notes.html">SQL Fundamentals & Analytics</a></li>
-                    <li><a href="notes/sql_joins_master_notes.html">SQL Joins Master Notes</a></li>
-                </ul>
-            </div>
-
-            <!-- Other Tools -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-toolbox"></i></span> Other Tools</h2>
-                <ul class="links-list">
-                    <li><a href="notes/excel_complete_notes.html">Excel Complete Notes</a></li>
-                    <li><a href="notes/powerbi_complete_notes.html">PowerBI Complete Notes</a></li>
-                    <li><a href="notes/flask-tutorial.html">Flask Tutorial</a></li>
-                    <li><a href="notes/git_github_master_notes.html">Git & GitHub Master Notes</a></li>
-                </ul>
-            </div>
-
-            <!-- Master Notes -->
-            <div class="card">
-                <h2><span class="card-icon"><i class="fa-solid fa-crown"></i></span> Master Notes</h2>
-                <ul class="links-list">
-                    <li><a href="notes/python_programming_master_notes.html">Python Programming Master Notes</a></li>
-                </ul>
-            </div>
-
-            <!-- Coming Soon -->
-            <div class="card" style="justify-content: center; align-items: center; text-align: center; opacity: 0.7; border: 2px dashed var(--border); background: rgba(20, 20, 20, 0.4);">
-                <h2><span class="card-icon"><i class="fa-solid fa-hourglass-half"></i></span> Coming Soon</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 0.5rem;">More content is on the way!</p>
-            </div>
-
+            
+            <a href="#" class="connect-btn">
+                <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="wa-text">
+                    <p>Connect with Me</p>
+                    <h3>+91 98765 43210</h3>
+                </div>
+                <i class="fa-regular fa-paper-plane wa-arrow"></i>
+            </a>
         </div>
     </div>
+    <!-- END NEW HERO SECTION -->
+    
 
-    <footer>
+    <div class="container">
+        
+        <!-- MODULES GRID -->
+        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Explore Modules
+        </h2>
+        
+        <div class="modules-grid">
+            
+            <a href="python_portal.html" class="mod-card mod-python">
+                <div class="mod-icon"><i class="fa-brands fa-python"></i></div>
+                <div class="mod-info"><h3>Python</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+            
+            <a href="java/master_notes_portal.html" class="mod-card mod-java">
+                <div class="mod-icon"><i class="fa-brands fa-java"></i></div>
+                <div class="mod-info"><h3>Java</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+<a href="cpp_portal.html" class="mod-card mod-cpp">
+                <div class="mod-icon"><i class="fa-solid fa-code"></i></div>
+                <div class="mod-info"><h3>C++ Language</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="c_portal.html" class="mod-card mod-c">
+                <div class="mod-icon"><i class="fa-solid fa-c"></i></div>
+                <div class="mod-info"><h3>C Language</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="govt_portal.html" class="mod-card mod-govt">
+                <div class="mod-icon"><i class="fa-solid fa-building-columns"></i></div>
+                <div class="mod-info"><h3>Govt Exams</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="other_portal.html" class="mod-card mod-excel">
+                <div class="mod-icon"><i class="fa-solid fa-file-excel"></i></div>
+                <div class="mod-info"><h3>Excel</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="other_portal.html" class="mod-card mod-pbi">
+                <div class="mod-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                <div class="mod-info"><h3>Power BI</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="sql_portal.html" class="mod-card mod-sql">
+                <div class="mod-icon"><i class="fa-solid fa-database"></i></div>
+                <div class="mod-info"><h3>SQL</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+            <a href="github_portal.html" class="mod-card mod-github">
+                <div class="mod-icon"><i class="fa-brands fa-git-alt"></i></div>
+                <div class="mod-info"><h3>Git & GitHub</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="other_portal.html" class="mod-card mod-other">
+                <div class="mod-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="mod-info"><h3>Other Tools</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="full_stack_portal.html" class="mod-card mod-web">
+                <div class="mod-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                <div class="mod-info"><h3>Full Stack</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="sql_portal.html" class="mod-card mod-data">
+                <div class="mod-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="mod-info"><h3>Data Analytics</h3></div>
+                <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+        </div>
+    
+        <footer>
         <div class="footer-content">
             <h3>by Gagan Sir ✌️✌️</h3>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 1.5rem 0;">
@@ -919,5 +1369,8 @@
             }, 500);
         };
     </script>
+
+    
+    
 </body>
 </html>

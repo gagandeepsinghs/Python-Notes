@@ -41,9 +41,7 @@
         }
 
         .sidebar {
-            width: var(--sidebar-width);
-            height: 100vh;
-            background-color: var(--code-bg);
+            background-color: rgb(30, 58, 138);
             color: var(--code-text);
             position: fixed;
             top: 0;
@@ -63,26 +61,14 @@
 
         .sidebar .author-tag {
             font-size: 0.85rem;
-            color: rgb(148, 163, 184);
+            color: rgb(191, 219, 254);
             margin-bottom: 20px;
             display: block;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid rgb(51, 65, 85);
-            background-color: rgb(30, 41, 59);
-            color: var(--code-text);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
+        
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
+        
 
         .nav-list {
             list-style: none;
@@ -104,8 +90,8 @@
         }
 
         .nav-link:hover {
-            background-color: rgb(30, 41, 59);
-            color: rgb(255, 255, 255);
+            background-color: rgb(255, 255, 255);
+            color: rgb(30, 58, 138);
         }
 
         .main-content {
@@ -125,20 +111,20 @@
         }
 
         .header-card h1 {
-            font-size: 2.2rem;
-            color: rgb(15, 23, 42);
+            font-size: 2.3rem;
+            color: rgb(255, 255, 255);
             margin-bottom: 10px;
         }
 
         .header-card p {
-            color: var(--text-muted);
+            color: rgb(241, 245, 249);
             font-size: 1.05rem;
         }
 
         .badge-gagan {
             display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
+            background-color: rgb(59, 130, 246);
+            color: rgb(255, 255, 255);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -156,8 +142,8 @@
         }
 
         .section-title {
-            font-size: 1.4rem;
-            color: rgb(15, 23, 42);
+            font-size: 1.45rem;
+            color: rgb(30, 58, 138);
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid rgb(226, 232, 240);
@@ -390,15 +376,110 @@
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
         }
-    </style>
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 15px; width: 100%; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
 </head>
 <body>
 
     <!-- Sidebar Navigation -->
-    <div class="sidebar">
+        <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../other_portal.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back to Home</a>
         <h2>Microsoft Excel Master</h2>
         <span class="author-tag">Complete In-Depth Notes &bull; By Gagan Sir</span>
-        <input type="text" class="search-box" id="searchInput" placeholder="Search function, concept..." onkeyup="searchFunction()">
+        
         <ul class="nav-list">
             <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod1')">1. Introduction & UI Anatomy</a></li>
             <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod2')">2. Workbook & Cell Referencing</a></li>
@@ -465,7 +546,7 @@
                     <div class="fx-btn">fx</div>
                     <div class="formula-input">=SUM(B2:B5)</div>
                 </div>
-                <table class="excel-grid">
+                <div class="table-responsive-wrapper"><table class="excel-grid">
                     <thead>
                         <tr>
                             <th style="width: 40px;"></th>
@@ -498,7 +579,7 @@
                             <td>Pending</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <ul class="list-styled">
@@ -520,7 +601,7 @@
 
             <h3 style="margin-top: 20px; font-size: 1.1rem; color: rgb(30, 41, 59);">Types of Cell References (The Dollar Sign $ Rule)</h3>
 
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr>
                         <th>Reference Type</th>
@@ -550,7 +631,7 @@
                         <td>Column <code>A</code> remains fixed; row <code>1</code> changes when copied vertically.</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="code-container">
                 <div class="code-header">Excel Formula Syntax - Relative vs Absolute Referencing</div>
@@ -592,7 +673,7 @@ Mixed Formula (Multiplication Table Header): =$A2 * B$1</pre>
             
             <p>All formulas in Microsoft Excel MUST begin with an equals sign <code>=</code>.</p>
 
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr>
                         <th>Category</th>
@@ -637,7 +718,7 @@ Mixed Formula (Multiplication Table Header): =$A2 * B$1</pre>
                         <td><code>=TRIM(text)</code> &rarr; Removes leading, trailing, and extra spaces.</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="code-container">
                 <div class="code-header">Excel Formula Examples - Mathematical & Text Operations</div>
@@ -686,7 +767,7 @@ Multi-Condition Sales: =SUMIFS(SalesRange, RegionRange, "North", YearRange, 2026
         <div class="section-card" id="sec-mod6">
             <h2 class="section-title">Module 6: Lookup & Reference Functions (VLOOKUP, INDEX-MATCH, XLOOKUP)</h2>
             
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr>
                         <th>Lookup Function</th>
@@ -711,7 +792,7 @@ Multi-Condition Sales: =SUMIFS(SalesRange, RegionRange, "North", YearRange, 2026
                         <td>Modern replacement for VLOOKUP. Defaults to exact match, lookups left/right, handles missing values inline.</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="code-container">
                 <div class="code-header">Excel Formula Examples - Lookup Comparisons</div>
@@ -727,7 +808,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
             
             <p>Excel stores dates as sequential serial numbers starting from <strong>1</strong> (which represents January 1, 1900).</p>
 
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr>
                         <th>Function</th>
@@ -762,7 +843,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
                         <td>Calculates net working days excluding weekends (Sat/Sun) and optional holidays.</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- MODULE 8: Data Tools & Cleaning -->
@@ -801,7 +882,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
 
             <div class="ui-mockup">
                 <div class="ui-header">Pivot Table Summary Report - Regional Sales</div>
-                <table class="excel-grid">
+                <div class="table-responsive-wrapper"><table class="excel-grid">
                     <thead>
                         <tr>
                             <th>Row Labels</th>
@@ -842,7 +923,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
                             <td>1,360</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
 
@@ -850,7 +931,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
         <div class="section-card" id="sec-mod10">
             <h2 class="section-title">Module 10: Data Visualization & Charting Types</h2>
             
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr>
                         <th>Chart Type</th>
@@ -879,7 +960,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
                         <td>Visualizing financial income statements showing cumulative gains and losses.</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- MODULE 11: Advanced What-If & Power Tools -->
@@ -910,7 +991,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
         <div class="section-card" id="sec-mod12">
             <h2 class="section-title">Module 12: Keyboard Shortcuts Cheat Sheet & Best Practices</h2>
             
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr>
                         <th>Shortcut Key</th>
@@ -959,7 +1040,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
                         <td>Opens Format Cells dialog window.</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- MODULE 13: 5 Business Projects -->
@@ -970,7 +1051,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
             <h3 style="font-size: 1.1rem; color: rgb(30, 41, 59); margin-bottom: 10px;">Project 1: Employee Payroll & Tax Calculator System</h3>
             <div class="ui-mockup">
                 <div class="ui-header">Payroll Calculation Table</div>
-                <table class="excel-grid">
+                <div class="table-responsive-wrapper"><table class="excel-grid">
                     <thead>
                         <tr>
                             <th>Emp ID</th>
@@ -1002,7 +1083,7 @@ XLOOKUP (Modern Left Lookup with Fallback): =XLOOKUP("EMP101", C2:C100, A2:A100,
                             <td class="selected-cell">$70,200</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
             <div class="code-container">
                 <div class="code-header">Project 1 Formula Implementation</div>
@@ -1062,18 +1143,7 @@ Student Class Rank: =RANK.EQ(H2, H$2:H$50, 0)</pre>
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function searchFunction() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('section-card');
-            for (let card of cards) {
-                let text = card.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            }
-        }
+        
     </script>
 </body>
 </html>

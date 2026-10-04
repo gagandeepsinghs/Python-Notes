@@ -43,8 +43,7 @@
 
         /* Sidebar Styling */
         .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bg-secondary);
+            background-color: rgb(30, 58, 138);
             border-right: 1px solid var(--border-color);
             position: fixed;
             top: 0;
@@ -104,8 +103,8 @@
         }
 
         .nav-link:hover {
-            background-color: var(--bg-primary);
-            color: var(--accent-color);
+            background-color: rgb(255, 255, 255);
+            color: rgb(30, 58, 138);
         }
 
         /* Main Content Styling */
@@ -133,14 +132,7 @@
             font-weight: 600;
         }
 
-        .search-box {
-            padding: 0.4rem 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            width: 250px;
-            outline: none;
-        }
+        
 
         .content-container {
             padding: 2.5rem;
@@ -178,8 +170,8 @@
         }
 
         .section-title {
-            font-size: 1.5rem;
-            color: var(--accent-color);
+            font-size: 1.45rem;
+            color: rgb(30, 58, 138);
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--bg-primary);
@@ -351,13 +343,108 @@
         .list-styled li {
             margin-bottom: 0.3rem;
         }
-    </style>
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 15px; width: 100%; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
 </head>
 <body>
 
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <div class="sidebar-header">
+            <a href="../python_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
             <div class="sidebar-title">Python Notes</div>
             <div class="sidebar-subtitle">Python Functions Guide</div>
             <div class="author-badge">By Gagan Sir</div>
@@ -381,9 +468,12 @@
 
     <!-- Main Content Area -->
     <div class="main-wrapper">
-        <div class="top-navbar">
+                  <div class="top-navbar" style="justify-content: flex-start; gap: 15px;">
+              <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../python_portal.html'; }" class="back-btn-nav" style="display: flex; align-items: center; justify-content: center; min-width: 44px; height: 44px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 1.1rem; transition: background 0.2s; cursor: pointer;" onmouseover="this.style.background='var(--accent-blue)'" onmouseout="this.style.background='var(--bg-tertiary)'" aria-label="Go Back">
+                  &larr;
+              </a>
             <div class="navbar-title">Python Functions Documentation</div>
-            <input type="text" class="search-box" id="searchInput" onkeyup="searchFunction()" placeholder="Search concepts...">
+            
         </div>
 
         <div class="content-container">
@@ -442,7 +532,7 @@ namste()</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -471,7 +561,7 @@ namste()</pre>
                             <td>Function Call: Function ko execute karne ke liye uska naam () ke saath likhte hain.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 3: Parameters vs Arguments -->
@@ -497,7 +587,7 @@ greet("Rajat")</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -532,7 +622,7 @@ greet("Rajat")</pre>
                             <td>Doosri call me <span class="code-snippet">"Rajat"</span> argument pass ho raha hai.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 4: Multiple Parameters & Math -->
@@ -558,7 +648,7 @@ calculator(17, 4)</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -587,7 +677,7 @@ calculator(17, 4)</pre>
                             <td>17 aur 4 arguments pass kar ke calculator function call kiya.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 5: Print vs Return Statement -->
@@ -629,7 +719,7 @@ print(res)</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -664,7 +754,7 @@ print(res)</pre>
                             <td>Multiple values ko ek saath Tuple ke roop me return kar raha hai.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 6: Types of Arguments -->
@@ -699,7 +789,7 @@ student(age=22, name="Gagan")</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -728,7 +818,7 @@ student(age=22, name="Gagan")</pre>
                             <td>Keyword arguments: Naam ke saath value di, isliye position change karne se koi farak nahi padta.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 7: *args and **kwargs -->
@@ -768,7 +858,7 @@ student_info(name="Gagan", age=22, city="Chandigarh")</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -797,7 +887,7 @@ student_info(name="Gagan", age=22, city="Chandigarh")</pre>
                             <td><span class="code-snippet">**details</span> keyword arguments ko key-value pairs wali dictionary bana kar accept karta hai.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 8: Functions with Lists & Dicts -->
@@ -827,7 +917,7 @@ show_student(st_dict)</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -850,7 +940,7 @@ show_student(st_dict)</pre>
                             <td>Dictionary pass hone par uske keys (name, age) ko read karke formatted text dikhata hai.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 9: Logic & Validation Functions -->
@@ -887,7 +977,7 @@ print(circle_area(5))</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -916,7 +1006,7 @@ print(circle_area(5))</pre>
                             <td>Circle ke area ka formula pi * r square lagakar result return karta hai.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 10: Advanced Concepts -->
@@ -948,7 +1038,7 @@ print(evens)</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -977,7 +1067,7 @@ print(evens)</pre>
                             <td>Wahi elements filter karta hai jo condition (even) ko satisfy karte hain.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 11: Scope & Global Keyword -->
@@ -1003,7 +1093,7 @@ print(count)</pre>
                 </div>
 
                 <h3 style="margin-top: 1.5rem; margin-bottom: 0.8rem; color: var(--accent-color);">Line-by-Line Code Breakdown</h3>
-                <table class="breakdown-table">
+                <div class="table-responsive-wrapper"><table class="breakdown-table">
                     <thead>
                         <tr>
                             <th>Line</th>
@@ -1032,7 +1122,7 @@ print(count)</pre>
                             <td>Global count me 1 increment karta hai.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table></div>
             </div>
 
             <!-- SECTION 12: Practice Questions -->
@@ -1193,18 +1283,7 @@ print(f"Final Amount after Discount = {final_amount}")</pre>
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function searchFunction() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('section-card');
-            for (let card of cards) {
-                let text = card.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            }
-        }
+        
     </script>
 </body>
 </html>

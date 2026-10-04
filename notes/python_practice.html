@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Practice Portal</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+    
+    <!-- Skulpt -->
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0f0f13;
+            --bg-panel: #18181f;
+            --bg-card: #22222b;
+            --primary: #ffcc00;
+            --primary-glow: rgba(255, 204, 0, 0.2);
+            --secondary: #2b2b36;
+            --text-main: #ffffff;
+            --text-muted: #8b8b99;
+            --border: #333344;
+            --error: #ff4757;
+            --success: #2ed573;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: rgb(30, 58, 138);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        .questions-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .topic-group { margin-bottom: 1rem; }
+        
+        .topic-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .question-btn {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-main);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-btn:hover {
+            background: var(--secondary);
+        }
+
+        .question-btn.active {
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .top-panel {
+            padding: 2rem;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border);
+            min-height: 150px;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            background: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-desc {
+            font-size: 1.1rem;
+            color: #d1d1e0;
+            line-height: 1.6;
+        }
+
+        /* Editor Area */
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #282a36; /* Dracula bg */
+        }
+
+        .editor-header {
+            background: #1e1f29;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #14141b;
+        }
+
+        .editor-header span {
+            color: #6272a4;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-run {
+            background: var(--success);
+            color: #000;
+        }
+        .btn-run:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46, 213, 115, 0.3); }
+
+        .btn-solution {
+            background: var(--secondary);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .btn-solution:hover { background: #3a3a4a; }
+
+        .CodeMirror {
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            height: auto !important;
+        }
+
+        /* Output Area */
+        .output-container {
+            height: 250px;
+            background: #000;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .output-header {
+            padding: 0.5rem 1rem;
+            background: #111;
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .output-content {
+            flex: 1;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: #f1f1f1;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .output-content.error { color: var(--error); }
+        .output-content.success { color: var(--success); }
+
+        /* Loader */
+        .loader-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 15, 19, 0.9);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--secondary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Solution Modal */
+        .solution-modal {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 50;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .solution-modal.active { display: flex; }
+
+        .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 600px;
+            max-width: 90%;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .solution-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--secondary);
+        }
+
+        .solution-body { padding: 1.5rem; }
+
+        .solution-code {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #a9b7c6;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+            font-size: 1.05rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .close-modal:hover { color: #fff; }
+
+        .copy-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <h3 id="loader-text">Loading Python Engine...</h3>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div>
+                <a href="python_programming_master_notes.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Portal</a>
+                <h2><i class="fa-brands fa-python"></i> Practice Labs</h2>
+            </div>
+        </div>
+        <div class="questions-list" id="questionsList">
+            <!-- Questions injected via JS -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Panel (Question) -->
+        <div class="top-panel">
+            <div class="question-meta">
+                <span class="badge" id="qTopic">Topic</span>
+                <span class="badge" id="qNum">Question 1</span>
+            </div>
+            <h2 class="question-title" id="qTitle">Select a question</h2>
+            <p class="question-desc" id="qDesc">Choose a question from the sidebar to start practicing.</p>
+        </div>
+
+        <!-- Editor -->
+        <div class="editor-container">
+            <div class="editor-header">
+                <span>main.py</span>
+                <div class="action-btns">
+                    <button class="btn btn-solution" onclick="showSolution()"><i class="fa-solid fa-lightbulb"></i> Solution</button>
+                    <button class="btn btn-run" onclick="runCode()"><i class="fa-solid fa-play"></i> Run Code</button>
+                </div>
+            </div>
+            <textarea id="codeEditor"></textarea>
+        </div>
+
+        <!-- Output -->
+        <div class="output-container">
+            <div class="output-header">
+                <span>Terminal</span>
+                <span id="execTime" style="text-transform: none; color: #555;"></span>
+            </div>
+            <div class="output-content" id="output">Output will appear here...</div>
+        </div>
+
+        <!-- Solution Modal -->
+        <div class="solution-modal" id="solutionModal">
+            <div class="solution-card">
+                <div class="solution-header">
+                    <h3>💡 Correct Solution</h3>
+                    <button class="close-modal" onclick="closeSolution()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="solution-body">
+                    <p style="margin-bottom: 10px; color: var(--text-muted);">Here is one way to solve this problem:</p>
+                    <div class="solution-code" id="solutionCode"></div>
+                    <button class="copy-btn" onclick="copySolution()"><i class="fa-solid fa-copy"></i> Copy to Editor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    
+    <!-- Load Questions Data -->
+    <script src="questions_data.js"></script>
+
+    <script>
+        // Initialize CodeMirror
+        const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+            mode: 'python',
+            theme: 'dracula',
+            lineNumbers: true,
+            indentUnit: 4,
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            viewportMargin: Infinity
+        });
+
+        let currentQuestion = null;
+
+        // Initialize Engine
+        function initEngine() {
+            try {
+                document.getElementById('loader').style.display = 'none';
+                loadSidebar();
+                // Select first question by default
+                if (questionsData.length > 0) {
+                    selectQuestion(questionsData[0].id);
+                }
+            } catch (err) {
+                document.getElementById('loader-text').innerText = "Failed to load Python Engine.";
+                document.getElementById('loader-text').style.color = "var(--error)";
+                console.error(err);
+            }
+        }
+
+        // Run Code Function
+        function runCode() {
+            const code = editor.getValue();
+            const outputDiv = document.getElementById('output');
+            const execTimeSpan = document.getElementById('execTime');
+            
+            outputDiv.className = 'output-content';
+            outputDiv.innerText = '';
+            execTimeSpan.innerText = '';
+            
+            let startTime = performance.now();
+            
+            // Configure Skulpt
+            Sk.configure({
+                output: function(text) {
+                    outputDiv.innerText += text;
+                },
+                read: function(x) {
+                    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
+                        throw "File not found: '" + x + "'";
+                    }
+                    return Sk.builtinFiles["files"][x];
+                },
+                inputfun: function(promptText) {
+                    return new Promise(function(resolve, reject) {
+                        let answer = window.prompt(promptText || "");
+                        if (answer === null) {
+                            reject(new Error("User cancelled input"));
+                        } else {
+                            outputDiv.innerText += (promptText || "") + answer + "\n";
+                            resolve(answer);
+                        }
+                    });
+                }
+            });
+
+            // Run Skulpt
+            let myPromise = Sk.misceval.asyncToPromise(function() {
+                return Sk.importMainWithBody("<stdin>", false, code, true);
+            });
+
+            myPromise.then(function(mod) {
+                let endTime = performance.now();
+                execTimeSpan.innerText = `${(endTime - startTime).toFixed(0)} ms`;
+                if (outputDiv.innerText === '') {
+                    outputDiv.innerText = "Code executed successfully with no output.";
+                }
+            }, function(err) {
+                outputDiv.className = 'output-content error';
+                outputDiv.innerText += err.toString() + "\n";
+                let endTime = performance.now();
+                execTimeSpan.innerText = `${(endTime - startTime).toFixed(0)} ms`;
+                
+                setTimeout(() => {
+                    if(confirm("You encountered an error! Would you like to see the solution?")) {
+                        showSolution();
+                    }
+                }, 500);
+            });
+        }
+
+        // Sidebar & Question Logic
+        function loadSidebar() {
+            const list = document.getElementById('questionsList');
+            let currentTopic = "";
+            let html = "";
+            
+            questionsData.forEach(q => {
+                if (q.topic !== currentTopic) {
+                    currentTopic = q.topic;
+                    html += \`<div class="topic-title" style="margin-top: 15px;">\${currentTopic}</div>\`;
+                }
+                html += \`
+                    <button class="question-btn" id="btn-q-\${q.id}" onclick="selectQuestion(\${q.id})">
+                        <i class="fa-regular fa-circle-check" style="color: var(--border)"></i>
+                        \${q.id}. \${q.title}
+                    </button>
+                \`;
+            });
+            list.innerHTML = html;
+        }
+
+        function selectQuestion(id) {
+            currentQuestion = questionsData.find(q => q.id === id);
+            if (!currentQuestion) return;
+
+            // Update UI
+            document.querySelectorAll('.question-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(\`btn-q-\${id}\`).classList.add('active');
+            
+            document.getElementById('qTopic').innerText = currentQuestion.topic;
+            document.getElementById('qNum').innerText = \`Question \${currentQuestion.id}\`;
+            document.getElementById('qTitle').innerText = currentQuestion.title;
+            document.getElementById('qDesc').innerText = currentQuestion.description;
+            
+            // Set code template
+            editor.setValue(currentQuestion.template || "# Write your code here\\n");
+            document.getElementById('output').innerText = "Output will appear here...";
+            document.getElementById('execTime').innerText = "";
+        }
+
+        // Solution Modal Logic
+        function showSolution() {
+            if (!currentQuestion) return;
+            document.getElementById('solutionCode').innerText = currentQuestion.solution;
+            document.getElementById('solutionModal').classList.add('active');
+        }
+
+        function closeSolution() {
+            document.getElementById('solutionModal').classList.remove('active');
+        }
+
+        function copySolution() {
+            editor.setValue(currentQuestion.solution);
+            closeSolution();
+        }
+
+        // Start App instantly without waiting for fonts/css
+        initEngine();
+
+    </script>
+</body>
+</html>

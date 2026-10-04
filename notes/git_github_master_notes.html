@@ -6,16 +6,16 @@
     <title>Git & GitHub Master Notes (Scratch to Advanced) - By Gagan Sir</title>
     <style>
         :root {
-            --bg-primary: rgb(9, 9, 11);
-            --bg-secondary: rgb(24, 24, 27);
-            --text-primary: rgb(244, 244, 245);
-            --text-muted: rgb(161, 161, 170);
+            --bg-primary: rgb(248, 250, 252);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-muted: rgb(100, 116, 139);
             --accent-color: rgb(59, 130, 246);
             --accent-hover: rgb(37, 99, 235);
-            --code-bg: rgb(24, 24, 27);
-            --code-border: rgb(39, 39, 42);
-            --code-text: rgb(244, 244, 245);
-            --border-color: rgb(39, 39, 42);
+            --code-bg: rgb(255, 255, 255);
+            --code-border: rgb(226, 232, 240);
+            --code-text: rgb(15, 23, 42);
+            --border-color: rgb(226, 232, 240);
             --box-blue-bg: rgb(30, 58, 138);
             --box-blue-border: rgb(30, 64, 175);
             --box-blue-text: rgb(219, 234, 254);
@@ -25,8 +25,8 @@
             --box-red-bg: rgb(127, 29, 29);
             --box-red-border: rgb(153, 27, 27);
             --box-red-text: rgb(254, 226, 226);
-            --output-bg: rgb(18, 18, 20);
-            --output-border: rgb(39, 39, 42);
+            --output-bg: rgb(30, 58, 138);
+            --output-border: rgb(226, 232, 240);
             --sidebar-width: 320px;
         }
 
@@ -45,9 +45,7 @@
         }
 
         .sidebar {
-            width: var(--sidebar-width);
-            height: 100vh;
-            background-color: rgb(18, 18, 20);
+            background-color: rgb(30, 58, 138);
             color: var(--code-text);
             position: fixed;
             top: 0;
@@ -67,26 +65,14 @@
 
         .sidebar .author-tag {
             font-size: 0.85rem;
-            color: rgb(161, 161, 170);
+            color: rgb(191, 219, 254);
             margin-bottom: 20px;
             display: block;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid rgb(63, 63, 70);
-            background-color: rgb(24, 24, 27);
-            color: var(--code-text);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
+        
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
+        
 
         .nav-list {
             list-style: none;
@@ -97,7 +83,7 @@
         }
 
         .nav-link {
-            color: rgb(212, 212, 216);
+            color: rgb(219, 234, 254);
             text-decoration: none;
             font-size: 0.86rem;
             display: block;
@@ -108,8 +94,8 @@
         }
 
         .nav-link:hover {
-            background-color: rgb(39, 39, 42);
-            color: rgb(255, 255, 255);
+            background-color: rgb(255, 255, 255);
+            color: rgb(30, 58, 138);
         }
 
         .main-content {
@@ -120,7 +106,7 @@
         }
 
         .header-card {
-            background: linear-gradient(135deg, rgb(24, 24, 27) 0%, rgb(39, 39, 42) 100%);
+            background: linear-gradient(135deg, rgb(30, 58, 138) 0%, rgb(59, 130, 246) 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 32px;
@@ -135,13 +121,13 @@
         }
 
         .header-card p {
-            color: var(--text-muted);
+            color: rgb(241, 245, 249);
             font-size: 1.05rem;
         }
 
         .badge-gagan {
             display: inline-block;
-            background-color: var(--accent-color);
+            background-color: rgb(59, 130, 246);
             color: rgb(255, 255, 255);
             padding: 5px 14px;
             border-radius: 20px;
@@ -160,7 +146,7 @@
 
         .section-title {
             font-size: 1.45rem;
-            color: rgb(255, 255, 255);
+            color: rgb(30, 58, 138);
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
             margin-bottom: 22px;
@@ -226,7 +212,7 @@
         }
 
         .code-header {
-            background-color: rgb(39, 39, 42);
+            background-color: rgb(226, 232, 240);
             padding: 8px 16px;
             display: flex;
             justify-content: space-between;
@@ -252,7 +238,7 @@
         }
 
         pre {
-            color: rgb(244, 244, 245);
+            color: rgb(15, 23, 42);
             padding: 18px;
             font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
             font-size: 0.92rem;
@@ -302,13 +288,13 @@
         }
 
         .table-custom th {
-            background-color: rgb(39, 39, 42);
+            background-color: rgb(226, 232, 240);
             color: rgb(255, 255, 255);
             font-weight: 600;
         }
 
         .code-snippet {
-            background-color: rgb(39, 39, 42);
+            background-color: rgb(226, 232, 240);
             color: rgb(147, 197, 253);
             padding: 2px 6px;
             border-radius: 4px;
@@ -334,15 +320,110 @@
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
         }
-    </style>
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 15px; width: 100%; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
 </head>
 <body>
 
     <!-- Sidebar Navigation -->
-    <div class="sidebar">
+        <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../github_portal.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back to Home</a>
         <h2>Git & GitHub Notes</h2>
         <span class="author-tag">Complete Master Guide &bull; By Gagan Sir</span>
-        <input type="text" class="search-box" id="searchInput" placeholder="Search command or concept..." onkeyup="searchFunction()">
+        
         <ul class="nav-list">
             <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod1')">Mod 1: Version Control & Setup</a></li>
             <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-mod2')">Mod 2: Git 3-Stage Architecture</a></li>
@@ -385,7 +466,7 @@
             </div>
 
             <h3 class="sub-title">1.2 Git vs GitHub: What's the Difference?</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr><th>Feature</th><th>Git</th><th>GitHub</th></tr>
                 </thead>
@@ -395,7 +476,7 @@
                     <tr><td><strong>Function</strong></td><td>Tracks file modifications & commit histories</td><td>Provides Web UI, PRs, Issue tracking, Actions CI/CD</td></tr>
                     <tr><td><strong>Offline Use</strong></td><td>Works 100% offline</td><td>Requires Internet connection</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">1.3 First Time Git Configuration</h3>
             <p>After installing Git, configure your global user identity so every commit is tagged with your name and email.</p>
@@ -530,7 +611,7 @@ Thumbs.db</pre>
             </div>
 
             <h3 class="sub-title">4.2 Undoing Work & Resetting Modes</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr><th>Command</th><th>Target Area</th><th>Behavior / Result</th></tr>
                 </thead>
@@ -543,7 +624,7 @@ Thumbs.db</pre>
                     <tr><td><span class="code-snippet">git reset --hard HEAD~1</span></td><td>All Areas</td><td><strong>DESTRUCTIVE</strong>: Wipes out commit, staged files, and working changes!</td></tr>
                     <tr><td><span class="code-snippet">git revert &lt;commit-hash&gt;</span></td><td>Local Repo</td><td>Safe public undo: creates a NEW commit that reverses previous commit.</td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- MODULE 5 -->
@@ -732,7 +813,7 @@ git rebase -i HEAD~3</pre>
         <div class="section-card" id="sec-mod10">
             <h2 class="section-title">Module 10. Master Git Cheatsheet & FAQs</h2>
             
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead>
                     <tr><th>Operation</th><th>Command</th><th>Purpose</th></tr>
                 </thead>
@@ -747,7 +828,7 @@ git rebase -i HEAD~3</pre>
                     <tr><td>Push Remote</td><td><span class="code-snippet">git push -u origin main</span></td><td>Uploads commits</td></tr>
                     <tr><td>Recover Commit</td><td><span class="code-snippet">git reflog</span></td><td>Emergency history log</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="footer">
                 <p>Git & GitHub Complete Master Notes &bull; <strong>Created by Gagan Sir</strong></p>
@@ -760,18 +841,7 @@ git rebase -i HEAD~3</pre>
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function searchFunction() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('section-card');
-            for (let card of cards) {
-                let text = card.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            }
-        }
+        
     </script>
 </body>
 </html>

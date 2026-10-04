@@ -6,16 +6,16 @@
     <title>Python Programming Unabridged Master Notes (Chapters 1 to 18) - By Gagan Sir</title>
     <style>
         :root {
-            --bg-primary: rgb(9, 9, 11);
-            --bg-secondary: rgb(24, 24, 27);
-            --text-primary: rgb(244, 244, 245);
-            --text-muted: rgb(161, 161, 170);
+            --bg-primary: rgb(248, 250, 252);
+            --bg-secondary: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-muted: rgb(100, 116, 139);
             --accent-color: rgb(59, 130, 246);
             --accent-hover: rgb(37, 99, 235);
-            --code-bg: rgb(24, 24, 27);
-            --code-border: rgb(39, 39, 42);
-            --code-text: rgb(244, 244, 245);
-            --border-color: rgb(39, 39, 42);
+            --code-bg: rgb(255, 255, 255);
+            --code-border: rgb(226, 232, 240);
+            --code-text: rgb(15, 23, 42);
+            --border-color: rgb(226, 232, 240);
             --box-blue-bg: rgb(30, 58, 138);
             --box-blue-border: rgb(30, 64, 175);
             --box-blue-text: rgb(219, 234, 254);
@@ -25,8 +25,8 @@
             --box-red-bg: rgb(127, 29, 29);
             --box-red-border: rgb(153, 27, 27);
             --box-red-text: rgb(254, 226, 226);
-            --output-bg: rgb(18, 18, 20);
-            --output-border: rgb(39, 39, 42);
+            --output-bg: rgb(30, 58, 138);
+            --output-border: rgb(226, 232, 240);
             --sidebar-width: 320px;
         }
 
@@ -45,9 +45,7 @@
         }
 
         .sidebar {
-            width: var(--sidebar-width);
-            height: 100vh;
-            background-color: rgb(18, 18, 20);
+            background-color: rgb(30, 58, 138);
             color: var(--code-text);
             position: fixed;
             top: 0;
@@ -67,26 +65,14 @@
 
         .sidebar .author-tag {
             font-size: 0.85rem;
-            color: rgb(161, 161, 170);
+            color: rgb(191, 219, 254);
             margin-bottom: 20px;
             display: block;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid rgb(63, 63, 70);
-            background-color: rgb(24, 24, 27);
-            color: var(--code-text);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
+        
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
+        
 
         .nav-list {
             list-style: none;
@@ -97,7 +83,7 @@
         }
 
         .nav-link {
-            color: rgb(212, 212, 216);
+            color: rgb(219, 234, 254);
             text-decoration: none;
             font-size: 0.86rem;
             display: block;
@@ -108,8 +94,8 @@
         }
 
         .nav-link:hover {
-            background-color: rgb(39, 39, 42);
-            color: rgb(255, 255, 255);
+            background-color: rgb(255, 255, 255);
+            color: rgb(30, 58, 138);
         }
 
         .main-content {
@@ -120,7 +106,7 @@
         }
 
         .header-card {
-            background: linear-gradient(135deg, rgb(24, 24, 27) 0%, rgb(39, 39, 42) 100%);
+            background: linear-gradient(135deg, rgb(30, 58, 138) 0%, rgb(59, 130, 246) 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 32px;
@@ -135,13 +121,13 @@
         }
 
         .header-card p {
-            color: var(--text-muted);
+            color: rgb(241, 245, 249);
             font-size: 1.05rem;
         }
 
         .badge-gagan {
             display: inline-block;
-            background-color: var(--accent-color);
+            background-color: rgb(59, 130, 246);
             color: rgb(255, 255, 255);
             padding: 5px 14px;
             border-radius: 20px;
@@ -160,7 +146,7 @@
 
         .section-title {
             font-size: 1.45rem;
-            color: rgb(255, 255, 255);
+            color: rgb(30, 58, 138);
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
             margin-bottom: 22px;
@@ -226,7 +212,7 @@
         }
 
         .code-header {
-            background-color: rgb(39, 39, 42);
+            background-color: rgb(226, 232, 240);
             padding: 8px 16px;
             display: flex;
             justify-content: space-between;
@@ -252,7 +238,7 @@
         }
 
         pre {
-            color: rgb(244, 244, 245);
+            color: rgb(15, 23, 42);
             padding: 18px;
             font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
             font-size: 0.92rem;
@@ -302,13 +288,13 @@
         }
 
         .table-custom th {
-            background-color: rgb(39, 39, 42);
+            background-color: rgb(226, 232, 240);
             color: rgb(255, 255, 255);
             font-weight: 600;
         }
 
         .code-snippet {
-            background-color: rgb(39, 39, 42);
+            background-color: rgb(226, 232, 240);
             color: rgb(147, 197, 253);
             padding: 2px 6px;
             border-radius: 4px;
@@ -334,15 +320,110 @@
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
         }
-    </style>
+            @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%; position: relative; height: auto; max-height: 40vh;
+                border-right: none; border-bottom: 1px solid var(--border-color);
+            }
+            .main-content { margin-left: 0; padding: 15px; width: 100%; }
+            .header-banner h1 { font-size: 1.6rem; }
+            .diagram-grid { grid-template-columns: 1fr; }
+        }
+                        /* Global Mobile Responsiveness injected by AI */
+        html, body { max-width: 100vw; overflow-x: hidden; }
+        .wrap, .main-content, .content-container, .main-wrapper, .hero-inner, .section-card, .card, .note, .important-box, .concept-box, .box-english, .box-hinglish, .tablewrap, figure {
+            min-width: 0 !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        table, .table-custom, .breakdown-table, .summary-table { 
+            width: 100%; max-width: 100%; table-layout: fixed !important; 
+            border-collapse: collapse !important; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important; 
+            min-width: 0 !important;
+        }
+        td, th { 
+            overflow-wrap: anywhere; word-break: break-word; white-space: normal; 
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.2)) !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            padding: 12px 6px !important; /* Reduced horizontal padding */
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            color: var(--text-primary, #fff) !important;
+        }
+        
+        /* Specific column sizing for 4-column breakdown tables */
+        .breakdown-table th:nth-child(1), .breakdown-table td:nth-child(1) { width: 12% !important; }
+        .breakdown-table th:nth-child(2), .breakdown-table td:nth-child(2) { width: 28% !important; }
+        .breakdown-table th:nth-child(3), .breakdown-table td:nth-child(3) { width: 30% !important; }
+        .breakdown-table th:nth-child(4), .breakdown-table td:nth-child(4) { width: 30% !important; }
+
+        /* Code Block Enhancements */
+        pre, .output-box, .code-container { 
+            width: 100%; 
+            max-width: 100%; 
+            min-width: 0 !important;
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+            word-break: normal !important; 
+            overflow-wrap: normal !important; 
+            font-size: clamp(0.85rem, 1.2vw + 0.5rem, 1rem) !important;
+            box-sizing: border-box !important;
+        }
+        
+        @media (max-width: 768px) {
+            .wrap, .main-content, .content-container { padding-left: 10px !important; padding-right: 10px !important; }
+            h1, .header-banner h1, .navbar-title { font-size: 20px !important; line-height: 1.3 !important; white-space: normal !important; }
+            h2, .section-title { font-size: 18px !important; line-height: 1.3 !important; }
+            body, p, li, .concept-box { font-size: 14px !important; }
+            table, th, td { font-size: 11px !important; padding: 6px 3px !important; }
+            code { font-size: 11px !important; }
+            pre, .output-box { padding: 10px !important; }
+            .section-card, .card { padding: 12px !important; margin-bottom: 20px !important; }
+        }
+
+        /* Orientation Handling */
+        @media (orientation: landscape) and (max-height: 600px) {
+            pre, .output-box {
+                max-height: 65vh;
+                overflow-y: auto;
+                font-size: clamp(0.75rem, 1vw + 0.5rem, 0.9rem) !important;
+                padding: 10px !important;
+            }
+            .wrap, .main-content, .content-container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Enhanced Table Scrolling for Mobile */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            td, th {
+                min-width: 110px; /* Prevent 1-word-per-line squishing */
+            }
+            td:first-child, th:first-child {
+                min-width: 60px; /* Line numbers or short features can be smaller */
+            }
+        }
+</style>
 </head>
 <body>
 
     <!-- Sidebar Navigation -->
-    <div class="sidebar">
+        <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../python_portal.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back to Home</a>
         <h2>Python Programming Notes</h2>
         <span class="author-tag">Complete Unabridged Guide (365 Pages) &bull; By Gagan Sir</span>
-        <input type="text" class="search-box" id="searchInput" placeholder="Search topic or keyword..." onkeyup="searchFunction()">
+        
         <ul class="nav-list">
             <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch1')">Chapter 1. Python Overview & Intro</a></li>
             <li class="nav-item"><a class="nav-link" onclick="scrollToSec('sec-ch2')">Chapter 2. Environment Setup</a></li>
@@ -420,7 +501,7 @@
             </ul>
 
             <h3 class="sub-title">1.4 Main Features of Python</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Feature</th><th>Meaning</th></tr></thead>
                 <tbody>
                     <tr><td><strong>Easy syntax</strong></td><td>Python code is simple and readable</td></tr>
@@ -432,7 +513,7 @@
                     <tr><td><strong>Large library support</strong></td><td>Many built-in and external libraries are available</td></tr>
                     <tr><td><strong>Open-source</strong></td><td>Free to use</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">1.5 Python Version</h3>
             <p>For modern learning, use <strong>Python 3</strong>. Python 2 is old and should not be used for new learning.</p>
@@ -466,7 +547,7 @@
             </ul>
             <p><strong>Compiler:</strong> A compiler translates the whole program before running it. Flow: <code>Source Code &rarr; Compiler &rarr; Executable File &rarr; Run Program</code>. Examples: C, C++, Go, Rust.</p>
             <p><strong>Interpreter:</strong> An interpreter runs code more directly line by line. Flow: <code>Source Code &rarr; Interpreter &rarr; Output</code>. Python is commonly called an interpreted language.</p>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Point</th><th>Compiler</th><th>Interpreter</th></tr></thead>
                 <tbody>
                     <tr><td><strong>Translation</strong></td><td>Translates full code before running</td><td>Runs code more directly line-by-line</td></tr>
@@ -474,7 +555,7 @@
                     <tr><td><strong>Error checking</strong></td><td>Many errors found before running</td><td>Errors can appear while running</td></tr>
                     <tr><td><strong>Examples</strong></td><td>C, C++, Go, Rust</td><td>Python, JavaScript, Ruby</td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- CHAPTER 2 -->
@@ -490,7 +571,7 @@
             </div>
 
             <h3 class="sub-title">2.4 Terminal and Command Line Basics</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Task</th><th>Windows Command</th><th>macOS/Linux Command</th><th>Meaning</th></tr></thead>
                 <tbody>
                     <tr><td>Check current folder</td><td><span class="code-snippet">pwd</span></td><td><span class="code-snippet">pwd</span></td><td>Shows current folder/location in terminal</td></tr>
@@ -500,7 +581,7 @@
                     <tr><td>Create folder</td><td><span class="code-snippet">mkdir python-notes</span></td><td><span class="code-snippet">mkdir python-notes</span></td><td>Creates a new folder named python-notes</td></tr>
                     <tr><td>Clear terminal</td><td><span class="code-snippet">cls</span></td><td><span class="code-snippet">clear</span></td><td>Clears the terminal screen</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">2.6 Python REPL</h3>
             <p>REPL stands for: <strong>R</strong>ead, <strong>E</strong>valuate, <strong>P</strong>rint, <strong>L</strong>oop. It allows us to run Python code line by line for quick testing.</p>
@@ -549,14 +630,14 @@ python -m pip install -r requirements.txt</pre>
             <h2 class="section-title">Chapter 3: Python Syntax Basics</h2>
             
             <h3 class="sub-title">3.1 First Python Code</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Part</th><th>Meaning</th></tr></thead>
                 <tbody>
                     <tr><td><span class="code-snippet">print</span></td><td>Built-in Python function used to display output</td></tr>
                     <tr><td><span class="code-snippet">()</span></td><td>Parentheses used to pass data to the function</td></tr>
                     <tr><td><span class="code-snippet">"Hello, World!"</span></td><td>Text value, also called a string</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">3.4 Indentation Rules</h3>
             <p>Indentation means spaces at the beginning of a line. Python uses indentation to define code blocks instead of curly braces <code>{}</code>.</p>
@@ -579,14 +660,14 @@ height = <span class="num">5.8</span>
             </div>
 
             <h3 class="sub-title">3.6 Naming Conventions</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Naming Style</th><th>Example 1</th><th>Example 2</th><th>Usage</th></tr></thead>
                 <tbody>
                     <tr><td><strong>snake_case</strong></td><td>student_name</td><td>total_marks</td><td>Variables & Functions in Python</td></tr>
                     <tr><td><strong>camelCase</strong></td><td>studentName</td><td>totalMarks</td><td>Common in JS/Java</td></tr>
                     <tr><td><strong>PascalCase</strong></td><td>StudentName</td><td>TotalMarks</td><td>Classes in Python</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">3.8 Print Statements (sep & end)</h3>
             <div class="code-container">
@@ -632,7 +713,7 @@ num_complex = <span class="num">3</span> + <span class="num">4j</span>   <span c
             </div>
 
             <h3 class="sub-title">4.7 Mutable vs Immutable Data Types</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Type</th><th>Mutable or Immutable</th><th>Description</th></tr></thead>
                 <tbody>
                     <tr><td><span class="code-snippet">int</span></td><td>Immutable</td><td>Cannot be changed after creation</td></tr>
@@ -646,7 +727,7 @@ num_complex = <span class="num">3</span> + <span class="num">4j</span>   <span c
                     <tr><td><span class="code-snippet">dict</span></td><td>Mutable</td><td>Key-value pairs can be modified</td></tr>
                     <tr><td><span class="code-snippet">set</span></td><td>Mutable</td><td>Elements can be added or removed</td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- CHAPTER 5 -->
@@ -654,7 +735,7 @@ num_complex = <span class="num">3</span> + <span class="num">4j</span>   <span c
             <h2 class="section-title">Chapter 5: Operators in Python</h2>
             
             <h3 class="sub-title">5.1 Arithmetic Operators</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr></thead>
                 <tbody>
                     <tr><td><span class="code-snippet">+</span></td><td>Addition</td><td><span class="code-snippet">10 + 5</span></td><td>15</td></tr>
@@ -665,7 +746,7 @@ num_complex = <span class="num">3</span> + <span class="num">4j</span>   <span c
                     <tr><td><span class="code-snippet">%</span></td><td>Modulus</td><td><span class="code-snippet">10 % 3</span></td><td>1</td></tr>
                     <tr><td><span class="code-snippet">**</span></td><td>Exponentiation</td><td><span class="code-snippet">2 ** 3</span></td><td>8</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">5.7 Bitwise Operators</h3>
             <div class="code-container">
@@ -703,7 +784,7 @@ b = <span class="num">3</span>  <span class="cm">-- 011</span>
             <h2 class="section-title">Chapter 6: String Operations</h2>
             
             <h3 class="sub-title">6.4 String Methods Reference</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Method</th><th>Description</th><th>Example Result</th></tr></thead>
                 <tbody>
                     <tr><td><span class="code-snippet">lower() / upper()</span></td><td>Case conversion</td><td><span class="code-snippet">"Python".upper() &rarr; "PYTHON"</span></td></tr>
@@ -714,7 +795,7 @@ b = <span class="num">3</span>  <span class="cm">-- 011</span>
                     <tr><td><span class="code-snippet">find() / index()</span></td><td>Finds position</td><td><span class="code-snippet">"Python".find("th") &rarr; 2</span></td></tr>
                     <tr><td><span class="code-snippet">startswith() / endswith()</span></td><td>Prefix/suffix check</td><td><span class="code-snippet">"Python".startswith("Py") &rarr; True</span></td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- CHAPTER 7 -->
@@ -742,14 +823,14 @@ b = <span class="num">3</span>  <span class="cm">-- 011</span>
             <h2 class="section-title">Chapter 8: Loops and Iteration</h2>
             
             <h3 class="sub-title">8.3 break, 8.4 continue, 8.5 pass</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Statement</th><th>Meaning</th><th>Effect on Loop</th></tr></thead>
                 <tbody>
                     <tr><td><strong>break</strong></td><td>Stop the loop</td><td>Exits loop completely</td></tr>
                     <tr><td><strong>continue</strong></td><td>Skip current round</td><td>Moves to next iteration immediately</td></tr>
                     <tr><td><strong>pass</strong></td><td>Do nothing</td><td>No effect (temporary placeholder)</td></tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3 class="sub-title">8.6 else with Loops</h3>
             <p>The <code>else</code> block attached to a loop executes ONLY when the loop finishes naturally without encountering a <code>break</code> statement.</p>
@@ -782,7 +863,7 @@ first, *middle, last = numbers
             <p>Unordered unique immutable values. Set operations: Union (<code>|</code>), Intersection (<code>&amp;</code>), Difference (<code>-</code>), Symmetric Difference (<code>^</code>).</p>
 
             <h3 class="sub-title" id="sec-ch9-5">9.5 Collections Module</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Tool</th><th>Main Use</th></tr></thead>
                 <tbody>
                     <tr><td><strong>Counter</strong></td><td>Counting frequency of items</td></tr>
@@ -791,7 +872,7 @@ first, *middle, last = numbers
                     <tr><td><strong>deque</strong></td><td>Double-ended queue with fast append/pop from left and right</td></tr>
                     <tr><td><strong>ChainMap</strong></td><td>Combines multiple dictionaries into one single view</td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- CHAPTER 10 -->
@@ -836,7 +917,7 @@ sum_all = reduce(<span class="kw">lambda</span> a, b: a+b, nums)</pre>
         <div class="section-card" id="sec-ch14">
             <h2 class="section-title">Chapter 14: Object-Oriented Programming (OOP)</h2>
             <h3 class="sub-title">Magic / Dunder Methods Reference</h3>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Dunder Method</th><th>Triggered By</th><th>Purpose</th></tr></thead>
                 <tbody>
                     <tr><td><span class="code-snippet">__init__</span></td><td><span class="code-snippet">ClassName()</span></td><td>Initializes object attributes</td></tr>
@@ -847,7 +928,7 @@ sum_all = reduce(<span class="kw">lambda</span> a, b: a+b, nums)</pre>
                     <tr><td><span class="code-snippet">__add__</span></td><td><span class="code-snippet">obj1 + obj2</span></td><td>Addition operator overloading</td></tr>
                     <tr><td><span class="code-snippet">__enter__ &amp; __exit__</span></td><td><span class="code-snippet">with obj:</span></td><td>Context managers</td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <!-- CHAPTER 15 -->
@@ -891,14 +972,14 @@ sum_all = reduce(<span class="kw">lambda</span> a, b: a+b, nums)</pre>
         <!-- CHAPTER 18 -->
         <div class="section-card" id="sec-ch18">
             <h2 class="section-title">Chapter 18: Concurrent and Asynchronous Programming</h2>
-            <table class="table-custom">
+            <div class="table-responsive-wrapper"><table class="table-custom">
                 <thead><tr><th>Feature</th><th>Threading</th><th>Multiprocessing</th><th>Asyncio</th></tr></thead>
                 <tbody>
                     <tr><td>Unit</td><td>Thread</td><td>Process</td><td>Coroutine / Task</td></tr>
                     <tr><td>Memory</td><td>Shared</td><td>Separate</td><td>Single-thread Event Loop</td></tr>
                     <tr><td>Best For</td><td>I/O-bound blocking tasks</td><td>CPU-bound heavy computations</td><td>I/O-bound non-blocking network tasks</td></tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
 
         <div class="footer">
@@ -911,18 +992,7 @@ sum_all = reduce(<span class="kw">lambda</span> a, b: a+b, nums)</pre>
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function searchFunction() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('section-card');
-            for (let card of cards) {
-                let text = card.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            }
-        }
+        
     </script>
 </body>
 </html>
