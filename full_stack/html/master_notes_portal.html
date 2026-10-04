@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HTML Theory & Practical Notes Portal - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-dark: rgb(15, 23, 42);
+            --card-bg: rgb(30, 41, 59);
+            --accent-orange: rgb(251, 146, 60);
+            --accent-blue: rgb(56, 189, 248);
+            --accent-green: rgb(74, 222, 128);
+            --accent-purple: rgb(192, 132, 252);
+            --text-main: rgb(241, 245, 249);
+            --text-muted: rgb(148, 163, 184);
+            --border-color: rgb(51, 65, 85);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: rgb(30, 41, 59);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            background: linear-gradient(135deg, rgb(30, 41, 59), rgb(15, 23, 42));
+            border-bottom: 2px solid var(--accent-orange);
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            color: var(--accent-orange);
+            font-size: 1.4rem;
+        }
+
+        .sidebar-header p {
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .nav-list {
+            list-style: none;
+            overflow-y: auto;
+            flex: 1;
+            padding: 15px 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-group-title {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 12px 6px 12px;
+            font-weight: 700;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: rgba(251, 146, 60, 0.15);
+            color: var(--accent-orange);
+        }
+
+        .nav-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 30px;
+            max-width: 1200px;
+        }
+
+        .mobile-header {
+            display: none;
+            background: rgb(30, 41, 59);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .hamburger {
+            font-size: 1.5rem;
+            color: var(--accent-orange);
+            cursor: pointer;
+        }
+
+        .backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 95;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgb(30, 41, 59), rgb(15, 23, 42));
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .hero-banner h1 {
+            color: var(--accent-orange);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .section-title {
+            color: var(--accent-orange);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 22px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-orange);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            color: var(--accent-orange);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .card-btn {
+            background: rgba(251, 146, 60, 0.15);
+            color: var(--accent-orange);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .card-btn:hover {
+            background: var(--accent-orange);
+            color: rgb(15, 23, 42);
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .backdrop.active { display: block; }
+            .main-content { margin-left: 0; padding: 20px 15px; }
+            .mobile-header { display: flex; align-items: center; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../../full_stack_portal.html" class="brand-badge" style="display: inline-block; margin-bottom: 15px; background-color: #f97316; cursor: pointer; text-decoration: none;">← Back to Full Stack Portal</a><br>
+            <h2>HTML Theory Portal</h2>
+            <p>E:\Notes\html Directory</p>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-group-title">🌐 HTML5 Theory Suite</li>
+            <li class="nav-item"><a class="nav-link" href="00_html_programming_master_notes.html"><span class="nav-icon">🌐</span>HTML Master Manual (All 41 Ch)</a></li>
+            <li class="nav-item"><a class="nav-link" href="01_html_basics_theory_notes.html"><span class="nav-icon">📝</span>1. Fundamentals & Structure</a></li>
+            <li class="nav-item"><a class="nav-link" href="02_html_styles_colors_theory_notes.html"><span class="nav-icon">🎨</span>2. Formatting & Colors</a></li>
+            <li class="nav-item"><a class="nav-link" href="03_html_links_images_theory_notes.html"><span class="nav-icon">🔗</span>3. Links, Images & Favicons</a></li>
+            <li class="nav-item"><a class="nav-link" href="04_html_tables_lists_theory_notes.html"><span class="nav-icon">📊</span>4. Data Tables & Lists</a></li>
+            <li class="nav-item"><a class="nav-link" href="05_html_forms_inputs_theory_notes.html"><span class="nav-icon">📋</span>5. Forms & Input Validation</a></li>
+            <li class="nav-item"><a class="nav-link" href="06_html_semantics_layout_theory_notes.html"><span class="nav-icon">🏗️</span>6. Semantic Page Layout</a></li>
+            <li class="nav-item"><a class="nav-link" href="07_html_media_graphics_theory_notes.html"><span class="nav-icon">🎬</span>7. Multimedia, Canvas & SVG</a></li>
+            <li class="nav-item"><a class="nav-link" href="08_html_advanced_apis_theory_notes.html"><span class="nav-icon">⚡</span>8. Entities & Web APIs</a></li>
+
+            <li class="nav-group-title">⚡ Sub-Modules</li>
+            <li class="nav-item"><a class="nav-link" href="css/00_master_notes_portal.html"><span class="nav-icon">🎨</span>CSS3 Web Styling Suite</a></li>
+            <li class="nav-item"><a class="nav-link" href="javascrcipt/00_master_notes_portal.html"><span class="nav-icon">⚡</span>JavaScript Learning Suite</a></li>
+            <li class="nav-item"><a class="nav-link" href="PHP/00_master_notes_portal.html"><span class="nav-icon">🐘</span>PHP Server Scripting Suite</a></li>
+
+            <li class="nav-group-title">🌐 Main Notes Portals</li>
+            <li class="nav-item"><a class="nav-link" href="../00_master_notes_portal.html"><span class="nav-icon">🏠</span>Main E:\Notes Portal</a></li>
+        </ul>
+    </div>
+
+    <div style="width: 100%;">
+        <div class="mobile-header">
+            <span class="hamburger" onclick="toggleSidebar()">☰</span>
+            <span style="font-weight: 700; color: var(--accent-orange);">HTML Theory Portal</span>
+            <span></span>
+        </div>
+
+        <div class="main-content">
+            <div class="hero-banner">
+                <h1>HTML Theory & Practical Notes Portal</h1>
+                <p>Designed and Curated by <strong>Gagan Sir</strong>. Pure theory explanations, technical principles, practical code examples, expected rendered outputs, best practices & interview Q&A.</p>
+                <div class="hero-badge">✨ Multi-Device Responsive • Zero-Hash Architecture • E:\Notes\html</div>
+            </div>
+
+            <div class="section-title">🌐 HTML5 Topic-by-Topic Theory & Practical Suite</div>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title">HTML Master Theory Manual</div>
+                    <div class="card-desc">All 41 HTML Chapters combined in one single manual.</div>
+                    <a class="card-btn" href="00_html_programming_master_notes.html">Open Master Manual</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Fundamentals & Structure</div>
+                    <div class="card-desc">DOCTYPE, html, head, body, headings, paragraphs, pre & attributes.</div>
+                    <a class="card-btn" href="01_html_basics_theory_notes.html">Open Fundamentals Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-title">Formatting & Colors</div>
+                    <div class="card-desc">Text formatting tags, blockquotes, inline CSS & RGB color models.</div>
+                    <a class="card-btn" href="02_html_styles_colors_theory_notes.html">Open Formatting Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-title">Links & Images</div>
+                    <div class="card-desc">Hyperlinks, target attributes, image alt text & favicons.</div>
+                    <a class="card-btn" href="03_html_links_images_theory_notes.html">Open Links & Images Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Tables & Lists</div>
+                    <div class="card-desc">Tables, tr, th, td, colspan, rowspan, ul, ol, dl list tags.</div>
+                    <a class="card-btn" href="04_html_tables_lists_theory_notes.html">Open Tables & Lists Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <div class="card-title">Forms & Input Validation</div>
+                    <div class="card-desc">Form action, method, inputs, labels, selects, textareas & attributes.</div>
+                    <a class="card-btn" href="05_html_forms_inputs_theory_notes.html">Open Forms Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏗️</div>
+                    <div class="card-title">Semantic Page Layout</div>
+                    <div class="card-desc">Header, nav, main, section, article, footer, div vs span, iframes.</div>
+                    <a class="card-btn" href="06_html_semantics_layout_theory_notes.html">Open Semantic Layout Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎬</div>
+                    <div class="card-title">Multimedia, Canvas & SVG</div>
+                    <div class="card-desc">Video, audio, source, canvas 2D drawing & SVG vector graphics.</div>
+                    <a class="card-btn" href="07_html_media_graphics_theory_notes.html">Open Multimedia Notes</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">Entities & Web APIs</div>
+                    <div class="card-desc">Entities, UTF-8 emojis, URL encoding, Web Storage & Geolocation.</div>
+                    <a class="card-btn" href="08_html_advanced_apis_theory_notes.html">Open Web APIs Notes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('backdrop').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

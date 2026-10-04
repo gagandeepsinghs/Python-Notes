@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bootstrap Complete Master Manual (Scratch to Advanced) - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 330px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 8px 10px;
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 330px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1250px;
+        }
+
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .header-card p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .manual-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .manual-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            border-bottom: 2px solid rgb(241, 245, 249);
+            padding-bottom: 8px;
+        }
+
+        .definition-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .def-card {
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .def-english {
+            background-color: rgb(239, 246, 255);
+            border-left: 4px solid rgb(37, 99, 235);
+        }
+
+        .def-english h4 {
+            color: rgb(29, 78, 216);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-english p {
+            color: rgb(30, 58, 138);
+            font-size: 0.92rem;
+        }
+
+        .def-hinglish {
+            background-color: rgb(236, 253, 245);
+            border-left: 4px solid rgb(16, 185, 129);
+        }
+
+        .def-hinglish h4 {
+            color: rgb(4, 120, 87);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-hinglish p {
+            color: rgb(6, 78, 59);
+            font-size: 0.92rem;
+        }
+
+        .code-card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(15, 23, 42);
+        }
+
+        .card-header {
+            background-color: rgb(30, 41, 59);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .code-title {
+            color: rgb(241, 245, 249);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .author-tag {
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .code-container {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-family: Consolas, Monaco, monospace;
+            color: rgb(241, 245, 249);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .output-container {
+            background-color: rgb(2, 6, 23);
+            border-top: 1px solid rgb(51, 65, 85);
+            padding: 16px 20px;
+        }
+
+        .output-header {
+            color: rgb(148, 163, 184);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .output-box {
+            font-family: Consolas, Monaco, monospace;
+            color: rgb(52, 211, 153);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; position: relative; height: auto; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .definition-box { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h2 class="sidebar-title">Bootstrap Master Manual</h2>
+        </div>
+        <ul class="nav-list">
+            <li><a class="nav-link" onclick="scrollToChap(1)">1. Introduction to Bootstrap</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(2)">2. Setup and CDN</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(3)">3. Containers</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(4)">4. Breakpoints & Responsive</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(5)">5. Grid System</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(6)">6. Rows & Gutters</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(7)">7. Typography</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(8)">8. Colors & Backgrounds</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(9)">9. Display & Spacing</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(10)">10. Borders & Shadows</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(11)">11. Flexbox Utilities</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(12)">12. Images & Figures</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(13)">13. Tables</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(14)">14. Buttons & Groups</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(15)">15. Alerts & Badges</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(16)">16. Cards & List Groups</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(17)">17. Carousel</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(18)">18. Collapse & Dropdowns</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(19)">19. Modal & Offcanvas</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(20)">20. Navbar</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(21)">21. Pagination & Progress</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(22)">22. Toasts & Tooltips</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(23)">23. Forms Fundamentals</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(24)">24. Floating Labels</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(25)">25. Form Validation</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(26)">26. Bootstrap JavaScript API</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(27)">27. Bootstrap Icons</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(28)">28. Accessibility</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(29)">29. Customization & Sass</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(30)">30. Utility-First Thinking</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(31)">31. HTML + JS Integration</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(32)">32. React Integration</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(33)">33. Django Integration</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(34)">34. Layout Patterns</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(35)">35. Performance & Best Practices</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(36)">36. Debugging Bootstrap</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(37)">37. Bootstrap Projects</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(38)">38. Basic Interview Q&A</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(39)">39. Scenario Interview Questions</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(40)">40. Final Revision Checklist</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>Bootstrap Complete Master Manual</h1>
+            <p>40-Chapter Comprehensive Unabridged Reference Guide from Scratch to Advanced Responsive Design, Utilities, Components, Forms, Integrations, Projects, and Interview Preparation</p>
+        </header>
+
+        <!-- Chapter 1 -->
+        <section id="chap_1" class="manual-section">
+            <h2>Chapter 1: Introduction to Bootstrap</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Bootstrap is a popular front-end CSS framework providing responsive layout tools, CSS utilities, and ready-made UI components.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Bootstrap ready-made CSS classes aur components deta hai. Isse button, navbar, cards, grid, forms aur responsive layouts jaldi se bana sakte ho.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 First Bootstrap Button</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;button class="btn btn-primary"&gt;Click Me&lt;/button&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Rendered Result:</div>
+                    <div class="output-box">Blue primary styled button with rounded corners.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 5 -->
+        <section id="chap_5" class="manual-section">
+            <h2>Chapter 5: Grid System</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Bootstrap's grid is a responsive layout system based on containers, rows, and 12-column breakpoint units.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Grid ko simple formula samjho: container -> row -> columns. 12 parts me width divide karke layout control kar sakte ho.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 12-Column Responsive Grid</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;div class="container"&gt;
+  &lt;div class="row g-3"&gt;
+    &lt;div class="col-12 col-md-4"&gt;&lt;div class="p-3 border"&gt;Sidebar&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="col-12 col-md-8"&gt;&lt;div class="p-3 border"&gt;Content&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Rendered Result:</div>
+                    <div class="output-box">1/3 Sidebar + 2/3 Content layout on desktop, stacked on mobile.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 20 -->
+        <section id="chap_20" class="manual-section">
+            <h2>Chapter 20: Responsive Navbar</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>A navbar is a responsive navigation header for branding, links, and actions collapsing automatically on mobile viewports.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Navbar responsive navigation component hai jo mobile par collapse ho jata hai.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Navbar Component</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;nav class="navbar navbar-expand-lg navbar-dark bg-dark"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="javascript:void(0)"&gt;MySite&lt;/a&gt;
+    &lt;button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="navDemo"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Rendered Result:</div>
+                    <div class="output-box">Dark responsive navbar with brand name and collapsible toggler icon.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 40 -->
+        <section id="chap_40" class="manual-section">
+            <h2>Chapter 40: Final Revision Checklist</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Comprehensive 40-chapter review checklist and troubleshooting framework for front-end web developer interviews.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Master Troubleshooting Framework: Reproduce -> Inspect HTML/CSS -> Check CDN CSS/JS -> Check class spelling -> Check breakpoints -> Fix root cause.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Troubleshooting Framework</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>// Master Troubleshooting Steps:
+// 1. Inspect HTML/CSS in DevTools
+// 2. Check Bootstrap CSS/JS CDN loading
+// 3. Verify data-bs-target ID matching
+// 4. Test mobile, tablet, desktop viewports</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Rendered Result:</div>
+                    <div class="output-box">Full 40-Chapter Bootstrap Revision Checklist Verified.</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function scrollToChap(num) {
+            var el = document.getElementById("chap_" + num);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    </script>
+</body>
+</html>

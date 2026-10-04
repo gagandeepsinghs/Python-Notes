@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Linux Administration Master Manual (Scratch to Advanced) - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 330px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 8px 10px;
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 330px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1250px;
+        }
+
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .header-card p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .manual-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .manual-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            border-bottom: 2px solid rgb(241, 245, 249);
+            padding-bottom: 8px;
+        }
+
+        .definition-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .def-card {
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .def-english {
+            background-color: rgb(239, 246, 255);
+            border-left: 4px solid rgb(37, 99, 235);
+        }
+
+        .def-english h4 {
+            color: rgb(29, 78, 216);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-english p {
+            color: rgb(30, 58, 138);
+            font-size: 0.92rem;
+        }
+
+        .def-hinglish {
+            background-color: rgb(236, 253, 245);
+            border-left: 4px solid rgb(16, 185, 129);
+        }
+
+        .def-hinglish h4 {
+            color: rgb(4, 120, 87);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .def-hinglish p {
+            color: rgb(6, 78, 59);
+            font-size: 0.92rem;
+        }
+
+        .code-card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgb(51, 65, 85);
+            background-color: rgb(15, 23, 42);
+        }
+
+        .card-header {
+            background-color: rgb(30, 41, 59);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .code-title {
+            color: rgb(241, 245, 249);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .author-tag {
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .code-container {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-family: Consolas, Monaco, monospace;
+            color: rgb(241, 245, 249);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .output-container {
+            background-color: rgb(2, 6, 23);
+            border-top: 1px solid rgb(51, 65, 85);
+            padding: 16px 20px;
+        }
+
+        .output-header {
+            color: rgb(148, 163, 184);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .output-box {
+            font-family: Consolas, Monaco, monospace;
+            color: rgb(52, 211, 153);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; position: relative; height: auto; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .definition-box { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #facc15; color: #000; cursor: pointer; font-weight: bold;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h2 class="sidebar-title">Linux Administration</h2>
+        </div>
+        <ul class="nav-list">
+            <li><a class="nav-link" onclick="scrollToChap(1)">1. Linux Fundamentals</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(2)">2. Installation & VMs</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(3)">3. Filesystem Hierarchy</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(4)">4. File Management</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(5)">5. Permissions & ACL</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(6)">6. Users & Groups</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(7)">7. Text Processing (grep/awk)</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(8)">8. Processes & Job Control</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(9)">9. Cron & Scheduling</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(10)">10. Package Management</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(11)">11. systemd Services</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(12)">12. Boot Process & GRUB</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(13)">13. Storage & Partitioning</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(14)">14. Filesystems (ext4/XFS)</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(15)">15. LVM Volume Manager</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(16)">16. RAID Redundancy</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(17)">17. Networking Fundamentals</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(18)">18. Network Troubleshooting</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(19)">19. DNS Resolution</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(20)">20. SSH & Remote Admin</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(21)">21. Firewall Security</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(22)">22. SELinux Security</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(23)">23. Logs & journalctl</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(24)">24. System Monitoring</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(25)">25. Performance Tuning</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(26)">26. Backup & Recovery</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(27)">27. Bash Shell Scripting</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(28)">28. Security Hardening</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(29)">29. NFS & Samba Sharing</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(30)">30. Apache & Nginx</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(31)">31. KVM Virtualization</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(32)">32. Docker Containers</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(33)">33. Cloud Administration</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(34)">34. Git Version Control</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(35)">35. Ansible Automation</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(36)">36. Kernel Internals</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(37)">37. Advanced Networking</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(38)">38. Troubleshooting Scenarios</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(39)">39. Real-World Admin Tasks</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(40)">40. Interview Preparation</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(41)">41. Technical Question Bank</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(42)">42. Scenario Interview Prep</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(43)">43. Linux Admin Projects</a></li>
+            <li><a class="nav-link" onclick="scrollToChap(44)">44. L1/L2/L3 Interview Prep</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>Linux Administration Complete Master Manual</h1>
+            <p>44-Module Comprehensive Unabridged Guide from Scratch to Advanced Administration, Troubleshooting, Security, Cloud, Containers, and L1/L2/L3 Interview Preparation</p>
+        </header>
+
+        <!-- Chapter 1 -->
+        <section id="chap_1" class="manual-section">
+            <h2>Module 1: Linux Fundamentals</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Linux is an open-source Unix-like kernel. A Linux distribution combines the kernel with user-space utilities, libraries, package management, and applications.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Linux ek open-source, Unix-like kernel hai. Distribution me kernel ke saath utilities, libraries, package manager aur applications milkar complete operating environment banta hai.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Basic Linux Navigation Commands</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>pwd
+ls -lah
+cd /etc
+whoami
+hostname
+man ls
+echo $PATH
+alias ll='ls -lah'</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Terminal Output:</div>
+                    <div class="output-box">/home/user
+total 24K
+drwxr-xr-x 4 user user 4096 Oct 4 18:00 .
+user
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 5 -->
+        <section id="chap_5" class="manual-section">
+            <h2>Module 5: Permissions, Ownership and ACL</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Permissions define owner, group, and other read/write/execute rights (r=4, w=2, x=1). ACLs provide fine-grained access control beyond standard octal permissions.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Permissions me owner, group aur others ke read/write/execute controls hote hain. ACL specific users ko finer-grained access deta hai.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Permissions & ACL Commands</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>ls -l file
+chmod 755 script.sh
+chown user:group file
+getfacl file
+setfacl -m u:alice:r file
+chmod 1777 shared_dir</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Terminal Output:</div>
+                    <div class="output-box">-rwxr-xr-x 1 user group 1024 Oct 4 18:00 script.sh
+// file: file
+user:alice:r--
+mask::r--</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 15 -->
+        <section id="chap_15" class="manual-section">
+            <h2>Module 15: LVM Storage Management</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>LVM provides flexible dynamic storage management: Physical Volume (PV) -> Volume Group (VG) -> Logical Volume (LV) -> Filesystem -> Mount Point.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>LVM se storage ko flexible tarike se pool aur resize kar sakte ho. PV physical storage, VG pool aur LV logical storage hota hai.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 LVM Volume Creation & Extension</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>sudo pvcreate /dev/sdb
+sudo vgcreate vgdata /dev/sdb
+sudo lvcreate -L 10G -n lvdata vgdata
+sudo lvextend -L +5G /dev/vgdata/lvdata
+sudo resize2fs /dev/vgdata/lvdata</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Terminal Output:</div>
+                    <div class="output-box">Physical volume "/dev/sdb" successfully created.
+Volume group "vgdata" successfully created
+Logical volume "lvdata" created.
+Size of logical volume vgdata/lvdata changed from 10.00 GiB to 15.00 GiB.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 32 -->
+        <section id="chap_32" class="manual-section">
+            <h2>Module 32: Docker and Containers</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Containers package applications with dependencies while sharing the host Linux kernel, isolating application environments efficiently.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Container application ko dependencies ke saath isolated environment me run karta hai aur host kernel share karta hai.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Docker Container Management Commands</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>docker ps
+docker pull nginx
+docker run -d --name web -p 8080:80 nginx
+docker exec -it web sh
+docker logs web</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Terminal Output:</div>
+                    <div class="output-box">CONTAINER ID   IMAGE   COMMAND                  PORTS
+a1b2c3d4e5f6   nginx   "/docker-entrypoint.…"   0.0.0.0:8080->80/tcp</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 44 -->
+        <section id="chap_44" class="manual-section">
+            <h2>Module 44: L1/L2/L3 Interview Preparation & Final Revision</h2>
+            <div class="definition-box">
+                <div class="def-card def-english">
+                    <h4>🇬🇧 English Definition</h4>
+                    <p>Structured interview preparation framing answers using the Golden Framework: Impact -> Evidence -> Isolation -> Safe Remediation -> Validation -> Prevention.</p>
+                </div>
+                <div class="def-card def-hinglish">
+                    <h4>🇮🇳 Hinglish Definition</h4>
+                    <p>Interview me Answer Structure: Pehle Impact batao, phir Evidence, failing layer Isolate karo, Safe Fix do, Result Validate karo aur last me Root Cause Prevention explain karo.</p>
+                </div>
+            </div>
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Golden Troubleshooting Framework</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>// Final Interview Response Structure:
+// 1. Impact Assessment
+// 2. Evidence Collection (systemctl status, journalctl, ss -lntup)
+// 3. Layer Isolation (Interface -> IP -> Route -> DNS -> Firewall -> Service)
+// 4. Safe Remediation & Validation</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Terminal Output:</div>
+                    <div class="output-box">Root Cause Analysis (RCA) Documented & Applied Successfully.</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function scrollToChap(num) {
+            var el = document.getElementById("chap_" + num);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    </script>
+</body>
+</html>

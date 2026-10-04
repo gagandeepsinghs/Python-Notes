@@ -16,11 +16,6 @@ clean_top_part = '''
         <div class="shape shape-2"></div>
     </div>
 
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">
-        <i class="fa-solid fa-sun"></i>
-    </button>
-
     <!-- Chatbot Floating Button -->
     <button class="chatbot-float" id="chatbotToggle" title="Chat with Assistant">
         <i class="fa-brands fa-whatsapp"></i>

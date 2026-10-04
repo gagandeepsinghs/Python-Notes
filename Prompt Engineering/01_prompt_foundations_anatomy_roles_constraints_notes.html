@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>01. Prompt Foundations, Anatomy & Components - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 1: Foundations</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec1')">1. What is Prompt Engineering?</a></li>
+<li><a onclick="scrollToSec('sec2')">2. Why Prompt Engineering Matters</a></li>
+<li><a onclick="scrollToSec('sec3')">3. AI Model Mental Model</a></li>
+<li><a onclick="scrollToSec('sec4')">4. Prompt Anatomy</a></li>
+<li><a onclick="scrollToSec('sec5')">5. Role / Persona</a></li>
+<li><a onclick="scrollToSec('sec6')">6. Task Definition</a></li>
+<li><a onclick="scrollToSec('sec7')">7. Context</a></li>
+<li><a onclick="scrollToSec('sec8')">8. Input Delimiters</a></li>
+<li><a onclick="scrollToSec('sec9')">9. Constraints</a></li>
+<li><a onclick="scrollToSec('sec10')">10. Output Format</a></li>
+<li><a onclick="scrollToSec('sec11')">11. Quality Criteria</a></li>
+<li><a onclick="scrollToSec('sec12')">12. Examples / Few-Shot Prompting</a></li>
+<li><a onclick="scrollToSec('sec13')">13. Zero-Shot Prompting</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>01. Prompt Foundations, Anatomy & Components</h1>
+            <p>Sections 1-13: What is Prompt Engineering, Mental Model, 9 Prompt Anatomy Components, Roles, Tasks, Context, Delimiters, Constraints, Formats, Quality Criteria & Zero/Few-Shot.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec1">
+            <h2 class="section-title">1. What is Prompt Engineering?</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Prompt engineering is the systematic practice of designing instructions, context, constraints, and formatting rules to guide an AI language model toward useful, relevant, accurate, and reproducible outputs.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                AI ko exactly kya karna hai, kis context mein karna hai, kis format mein response chahiye aur kya avoid karna hai — ye clearly specify karne ki technique ko Prompt Engineering kehte hain.
+            </div>
+            
+            <div class="code-block">
+// Basic vs Engineered Prompt Comparison
+// Vague Baseline:
+"Write something about Python."
+
+// Engineered Prompt:
+ROLE: Senior Technical Author
+TASK: Write a 3-paragraph introduction to Python for web developers.
+CONTEXT: Target audience is Java developers migrating to FastAPI.
+CONSTRAINTS: Focus on async/await performance, zero jargon, max 300 words.
+OUTPUT: Markdown with headers and bullet points.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>ROLE:</b> Defines expert perspective (Senior Technical Author).</li><li><b>TASK:</b> Explicit action verb (Write 3-paragraph intro).</li><li><b>CONTEXT:</b> Specific audience background (Java devs moving to FastAPI).</li><li><b>CONSTRAINTS:</b> Measurable boundaries (word count, zero jargon, async focus).</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is Prompt Engineering considered an essential software engineering discipline?</b><br>A: Because AI models are non-deterministic probabilistic interfaces. Prompt engineering provides the deterministic contracts, schemas, and guardrails needed for reliable software integration.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec2">
+            <h2 class="section-title">2. Why Prompt Engineering Matters</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Engineering clear prompts reduces model ambiguity, minimizes hallucinations, lowers API token costs, improves response consistency, and enables automated output validation in software applications.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Accurate prompts AI ambiguity ko kam karte hain, retries & API costs save karte hain, and software pipelines ke liye predictable JSON/Markdown output deliver karte hain.
+            </div>
+            
+            <div class="code-block">
+// Impact of Prompt Optimization on Token Usage & Accuracy
+def calculate_prompt_efficiency(vague_prompt_tokens, optimized_prompt_tokens):
+    saving = vague_prompt_tokens - optimized_prompt_tokens
+    return f"Saved {saving} tokens per call by removing fluff and specifying exact constraints."
+
+print(calculate_prompt_efficiency(1200, 350))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Token Efficiency:</b> Short, highly specific prompts reduce prompt token overhead while ensuring complete task adherence.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Can a good prompt guarantee 100% factual accuracy from an LLM?</b><br>A: No. Prompts optimize model conditioning, but factual claims still require retrieval grounding (RAG), external tool verification, or human oversight.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec3">
+            <h2 class="section-title">3. AI Model Mental Model</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                An AI model operates as a probabilistic next-token predictor conditioned on input context. Missing requirements force the model to invent assumptions based on pretraining weights.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                LLM ko probability engine samjho. Jab aap instructions mein gaps chhodte ho, to model un gaps ko apke bina bataye guess karta hai. Prompting ka goal implicit assumptions ko explicit requirements banana hai.
+            </div>
+            
+            <div class="code-block">
+// Mental Model: Conditioned Token Probability P(Next Token | Prompt Context)
+import numpy as np
+
+def model_next_token_prediction(context_length, constraint_clarity_score):
+    // Higher clarity reduces entropy/uncertainty in token sampling
+    uncertainty = 1.0 - (constraint_clarity_score / 10.0)
+    return f"Model Prediction Uncertainty: {uncertainty:.2f}"
+
+print(model_next_token_prediction(context_length=500, constraint_clarity_score=9))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>constraint_clarity_score=9:</b> High constraint specificity lowers generation entropy, forcing deterministic outputs.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What happens when prompt instructions contradict each other?</b><br>A: The model enters an ambiguous state where decoding weights split between contradictory goals, often resulting in erratic or partial compliance.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec4">
+            <h2 class="section-title">4. Prompt Anatomy</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A complete prompt architecture contains up to 9 functional blocks: Role/Persona, Task Objective, Context, Delimited Inputs, Constraints, Output Format, Quality Criteria, Examples (Few-Shot), and Verification Instructions.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Production prompt ke 9 main components hote hain: Role, Task, Context, Inputs, Constraints, Output Format, Quality Criteria, Examples, aur Verification rules. Mandatory nahi ki har prompt mein saare 9 hon.
+            </div>
+            
+            <div class="code-block">
+// 9-Part Complete Prompt Anatomy Structure
+PROMPT_ANATOMY = {
+    "1. Role": "Senior Cloud Security Specialist",
+    "2. Task": "Audit the provided AWS IAM Policy JSON",
+    "3. Context": "Enterprise fintech backend with PCI-DSS compliance",
+    "4. Input": "<iam_policy>{POLICY_DATA}</iam_policy>",
+    "5. Constraints": "List only Critical and High severity risks",
+    "6. Output Format": "JSON array with keys: risk_id, severity, remediation",
+    "7. Quality Criteria": "Must follow principle of least privilege",
+    "8. Examples": "[Few-shot JSON examples]",
+    "9. Verification": "Double check all policy wildcards (*)"
+}
+print("Anatomy Components:", len(PROMPT_ANATOMY))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>PROMPT_ANATOMY:</b> Standard enterprise checklist for designing high-reliability production prompts.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Which two components of prompt anatomy are most critical for API integrations?</b><br>A: Delimited Inputs (to prevent prompt injection) and explicit Output Format (to guarantee schema parsing).</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec5">
+            <h2 class="section-title">5. Role / Persona</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Assigning a Role or Persona conditions the model's latent feature space toward specific domain vocabulary, technical depth, perspective, and communication style.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Role dene se model us specific field ke domain language, technical terminology, and problem-solving perspective ko activate kar leta hai (e.g. 'Act as a Senior Database Administrator').
+            </div>
+            
+            <div class="code-block">
+// Role Activation Prompt Examples
+role_prompt_1 = "Act as a Lead Python Developer reviewing code for memory leaks."
+role_prompt_2 = "Act as a Patient High School Math Tutor explaining calculus."
+
+print("Role 1:", role_prompt_1)
+print("Role 2:", role_prompt_2)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Act as...:</b> Activates specialized domain style, tone, and technical rigor in the model's response.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Does assigning a Role make the model immune to factual errors?</b><br>A: No. A role changes perspective and style, but it does not magically turn the model into a real-time factual authority without retrieval context.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec6">
+            <h2 class="section-title">6. Task Definition</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Task definition states the target action using precise imperative action verbs (analyze, classify, extract, debug, summarize, synthesize, critique) while eliminating vague language.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Task clear action verb se start hona chahiye (e.g. 'Extract all dates', 'Debug memory leak'). Vague words jaise 'make it better' avoid karo.
+            </div>
+            
+            <div class="code-block">
+// Vague vs Precise Task Verbs
+vague_task = "Look at this article and do something good."
+precise_task = "Summarize the key 3 arguments of the article into a bulleted list of under 150 words."
+
+print("Precise Task Action:", precise_task)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>precise_task:</b> Combines strong verb ('Summarize') with quantitative scope ('3 arguments', 'under 150 words').</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why should you avoid open-ended requests like 'improve this code' in production?</b><br>A: Because 'improve' is subjective. The model might refactor working code, change formatting, or introduce unwanted dependencies without clear success criteria.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec7">
+            <h2 class="section-title">7. Context</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Context provides essential background information (target audience, environment constraints, business goals, assumptions) that directly alters how the model should fulfill the task.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Context wo necessary background knowledge hai jo answer ka style ya direction badal sakti hai (e.g. target audience, OS version, business constraints).
+            </div>
+            
+            <div class="code-block">
+// Context Inclusion Pattern
+context_block = """Target Audience: Executive Leadership Team (C-Suite).
+Business Goal: Decide whether to migrate from monolith to microservices.
+Tech Environment: Legacy Django 3.2 monolith handling 50k RPM.
+Key Constraint: Zero downtime migration required."""
+
+print("Context Block Loaded.")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>context_block:</b> Supplies business goals and environment state to steer executive recommendations.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How much context is too much context?</b><br>A: Irrelevant context dilutes model attention (Lost in the Middle phenomenon) and increases token costs. Provide only context that actively changes the final output.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec8">
+            <h2 class="section-title">8. Input Delimiters</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Input delimiters (XML tags like `<user_data>`, triple backticks ```` `, markdown headers) cleanly isolate instructions from external, untrusted user data.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Delimiters (XML tags ya triple backticks) instruction ko user data se alag rakhte hain. Isse model confusion aur prompt injection attacks prevent hote hain.
+            </div>
+            
+            <div class="code-block">
+// Delimited Prompt Construction
+def build_delimited_prompt(system_rule, user_text):
+    prompt = f"""{system_rule}
+
+Process ONLY the text inside the <source_document> tags:
+<source_document>
+{user_text}
+</source_document>"""
+    return prompt
+
+print(build_delimited_prompt("Summarize document", "User document contents..."))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b><source_document>:</b> XML tags explicitly bounding untrusted user data to prevent instruction blending.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why are XML tags preferred over quotes or backticks for complex data delimiters?</b><br>A: XML tags can be nested cleanly (`<document><section>...</section></document>`) and are explicitly recognized by modern models like Anthropic Claude and OpenAI GPT-4.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec9">
+            <h2 class="section-title">9. Constraints</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Constraints set negative boundaries, length limits, forbidden terms, required sources, and strict operational rules to prevent unwanted outputs.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Constraints wo rules hote hain jo model ko restrictive boundary mein rakhte hain (e.g. 'Do not mention competitors', 'Max 200 words', 'Use only provided facts').
+            </div>
+            
+            <div class="code-block">
+// Explicit Constraints Array
+constraints = [
+    "1. Do not use external knowledge outside provided context.",
+    "2. If context is missing information, output 'INSUFFICIENT_DATA'.",
+    "3. Do not include markdown code block backticks in response.",
+    "4. Maximum output length is 3 sentences."
+]
+
+print("Constraints Applied:\n" + "\n".join(constraints))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Constraints:</b> Explicit negative rules ('Do not', 'Must not') preventing assumption making and controlling response formatting.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you enforce negative constraints effectively?</b><br>A: State negative constraints clearly ('Do not use X'), explain the positive fallback behavior ('If X occurs, output Y'), and include a few-shot example demonstrating constraint compliance.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec10">
+            <h2 class="section-title">10. Output Format</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Output Format explicitly defines the structural layout of the response, such as bullet lists, Markdown tables, raw JSON schemas, SQL queries, or HTML widgets.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Output Format specify karta hai ki answer kis layout mein chahiye: JSON, Markdown table, Bullet points, ya Raw SQL. Isse backend code easily response parse kar pata hai.
+            </div>
+            
+            <div class="code-block">
+// Output Format Specification Template
+output_format_spec = """Respond ONLY with a valid JSON object following this exact schema:
+{
+    "summary": "string",
+    "risk_level": "LOW | MEDIUM | HIGH",
+    "action_items": ["string"]
+}
+Do not include any conversational intro or outro text."""
+
+print(output_format_spec)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>output_format_spec:</b> Defines explicit JSON key names, allowed enum values, and bans extra conversational text.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the risk of not specifying output formatting rules in API-driven applications?</b><br>A: The model may include conversational preambles (e.g. 'Here is your JSON:') that break automated string/JSON deserialization pipelines.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec11">
+            <h2 class="section-title">11. Quality Criteria</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Quality criteria tell the model what defines a successful output: accuracy, conciseness, production readiness, edge-case handling, or educational clarity.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Quality Criteria model ko batati hain ki 'Achha answer' kis chiz ko samjha jayega: production-ready code, edge-case handled, beginner-friendly, or evidence-backed.
+            </div>
+            
+            <div class="code-block">
+// Quality Criteria Specification
+quality_criteria = """QUALITY STANDARDS:
+- Code must be production-safe with explicit exception handling.
+- All SQL queries must be optimized for PostgreSQL 15 indexes.
+- Explanations must be clear to a junior developer."""
+
+print(quality_criteria)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>QUALITY STANDARDS:</b> Outlines qualitative evaluation benchmarks the model must satisfy before completing response.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do Quality Criteria improve code generation?</b><br>A: Prompts requesting 'production-safe code with exception handling and edge-case checks' trigger models to output robust boilerplate that simple prompts omit.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec12">
+            <h2 class="section-title">12. Examples / Few-Shot Prompting</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Few-Shot prompting supplies 1 to 5 representative input-output pairs inside the prompt, teaching the model complex formatting rules, tone, or classification logic by example.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Few-Shot Prompting mein 2-3 input-output examples include kiye jaate hain. Jab rules words mein samjhana mushkil ho, to examples se model pattern turant pick kar leta hai.
+            </div>
+            
+            <div class="code-block">
+// Few-Shot Prompt Example
+few_shot_prompt = """Classify log messages into severity levels.
+
+Input: "Database connection timed out after 3000ms"
+Output: CRITICAL
+
+Input: "User logged out successfully"
+Output: INFO
+
+Input: "Cache hit ratio dropped below 75%"
+Output: WARNING
+
+Input: "Disk storage space at 98%"
+Output:"""
+
+print(few_shot_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>few_shot_prompt:</b> Uses 3 clear input-output pairs to anchor severity classification for unseen log lines.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How many examples should be included in a few-shot prompt?</b><br>A: Typically 2 to 5 representative examples. Adding too many examples consumes context window space and can introduce unwanted pattern biases.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec13">
+            <h2 class="section-title">13. Zero-Shot Prompting</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Zero-shot prompting asks the model to perform a task directly without providing prior training examples, relying entirely on the model's pre-trained knowledge and clear instructions.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Zero-Shot Prompting mein bina kisi example ke direct task Poocha jata hai. Standard tasks (summarization, translation, direct coding) ke liye ye zero extra token waste kiye best work karta hai.
+            </div>
+            
+            <div class="code-block">
+// Zero-Shot Prompt Example
+zero_shot_prompt = "Translate the following English technical paragraph to Hindi: 'Cloud computing provides on-demand data storage and processing power.'"
+
+print(zero_shot_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>zero_shot_prompt:</b> Direct instruction and input without example pairs.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: When should you upgrade from Zero-Shot to Few-Shot prompting?</b><br>A: Upgrade when Zero-Shot fails to consistently produce the exact desired formatting, classification boundaries, or specialized domain tone.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <div></div>
+            <a href="02_prompt_techniques_fewshot_cot_chaining_frameworks_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

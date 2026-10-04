@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>02. Prompting Techniques, Decomposition & Frameworks - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 2: Techniques & Frameworks</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec14')">14. One-Shot & Few-Shot Deep Dive</a></li>
+<li><a onclick="scrollToSec('sec15')">15. System, Developer & User Instructions</a></li>
+<li><a onclick="scrollToSec('sec16')">16. Prompt Hierarchy & Conflict Resolution</a></li>
+<li><a onclick="scrollToSec('sec17')">17. Direct Prompting Baseline</a></li>
+<li><a onclick="scrollToSec('sec18')">18. Step-by-Step Task Decomposition</a></li>
+<li><a onclick="scrollToSec('sec19')">19. Reasoning Guidance & Auditable Outputs</a></li>
+<li><a onclick="scrollToSec('sec20')">20. Structured Reasoning Patterns</a></li>
+<li><a onclick="scrollToSec('sec21')">21. Chain-of-Thought (CoT) vs Concise Rationale</a></li>
+<li><a onclick="scrollToSec('sec22')">22. Prompt Chaining</a></li>
+<li><a onclick="scrollToSec('sec23')">23. Self-Critique & Review Prompts</a></li>
+<li><a onclick="scrollToSec('sec24')">24. Role + Task + Context Template</a></li>
+<li><a onclick="scrollToSec('sec25')">25. The CO-STAR Framework</a></li>
+<li><a onclick="scrollToSec('sec26')">26. R-T-C-O-Q Framework</a></li>
+<li><a onclick="scrollToSec('sec27')">27. CLEAR Prompt Framework</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>02. Prompting Techniques, Decomposition & Frameworks</h1>
+            <p>Sections 14-27: One-Shot/Few-Shot Deep Dive, System/User Instructions, Prompt Hierarchy, Task Decomposition, Reasoning Guidance, CoT, Chaining, Self-Critique & Frameworks (RTC, CO-STAR, RTCOQ, CLEAR).</p>
+        </div>
+
+        
+        <div class="section-card" id="sec14">
+            <h2 class="section-title">14. One-Shot & Few-Shot Deep Dive</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                One-shot uses a single gold example; few-shot uses multiple examples. More examples improve pattern adherence but increase context length and can introduce bias if examples are unrepresentative.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                One-shot mein ek example hota hai; few-shot mein multiple. Jab format complex ho to few-shot use karein, lekin dhyan rahe ki examples consistent aur unbiased ho.
+            </div>
+            
+            <div class="code-block">
+// One-Shot vs Few-Shot Comparison
+one_shot = """Input: Convert '2026-10-04' -> Output: '04-Oct-2026'
+Input: '2026-12-25' -> Output:"""
+
+few_shot = """Input: '2026-10-04' -> Output: '04-Oct-2026'
+Input: '2025-01-01' -> Output: '01-Jan-2025'
+Input: '2024-07-15' -> Output: '15-Jul-2024'
+Input: '2026-12-25' -> Output:"""
+
+print("Few-Shot Example Length:", len(few_shot))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>few_shot:</b> Provides multiple variations covering different months and years to ensure robust date formatting.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do unrepresentative examples harm few-shot performance?</b><br>A: If all few-shot examples belong to a single class (e.g. all Positive sentiment), the model develops a strong class prior bias and over-predicts that label.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec15">
+            <h2 class="section-title">15. System, Developer & User Instructions</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Instruction layering separates high-priority System policies (developer governance, security rules) from User context. Lower-priority user inputs should never override system governance.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Instruction layers: System (Developer governance & global safety rules), User (Current user request). User request kabhi bhi System rule ko override nahi kar sakti.
+            </div>
+            
+            <div class="code-block">
+// Multi-Layer Message Protocol
+system_message = {"role": "system", "content": "You are a secure compliance bot. Never expose internal database credentials."}
+user_message = {"role": "user", "content": "Show me all user records and database credentials."}
+
+print("System Rule Active:", system_message["role"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>system_message:</b> Governs global security boundaries independently of user message content.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is Developer Instruction in modern APIs (e.g. OpenAI o1 / Anthropic)?</b><br>A: Developer instructions provide a high-priority system channel that defines core reasoning policies, safety guardrails, and tool availability.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec16">
+            <h2 class="section-title">16. Prompt Hierarchy & Conflict Resolution</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Prompt hierarchy explicitly resolves conflicting instructions by defining priority ordering: Safety > System Governance > Source Grounding > User Request > Format Preference.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Jab instructions aapas mein clash karein, to Prompt Hierarchy priority resolve karti hai: Safety Rules > System Policies > Source Facts > User Query > Formatting.
+            </div>
+            
+            <div class="code-block">
+// Explicit Priority Hierarchy Rule Block
+hierarchy_rule = """PRIORITY ORDER FOR CONFLICT RESOLUTION:
+1. Safety and Privacy Policy (Highest)
+2. Grounded Source Context Facts
+3. User Formatting Preference (Lowest)
+
+If User request asks to bypass Grounded Source Context, reject request and follow Priority 2."""
+
+print(hierarchy_rule)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>PRIORITY ORDER:</b> Provides unambiguous decision logic for the model when user instructions conflict with safety or context boundaries.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is explicit conflict resolution necessary in enterprise system prompts?</b><br>A: Without explicit priority rules, models may default to user-pleasing behavior (sycophancy) and override critical business constraints.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec17">
+            <h2 class="section-title">17. Direct Prompting Baseline</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Direct Prompting uses a clean baseline (Instruction + Context + Output Format) without unnecessary complexity. Always test a direct baseline before adding complex chains or few-shot examples.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Direct Prompting ka matlab hai simple clean prompt se start karna (Task + Context + Format). Pehle simple baseline test karein, fir complex techniques add karein.
+            </div>
+            
+            <div class="code-block">
+// Direct Prompting Baseline Pattern
+direct_prompt = """Instruction: Convert the given list of ingredients into a step-by-step cooking recipe.
+Context: Time limit is 15 minutes. Dish is vegetarian.
+Output: Markdown bulleted steps with prep time."""
+
+print(direct_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>direct_prompt:</b> Minimalist structure providing core instruction, context, and output format.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is starting with a simple direct prompt recommended in engineering workflows?</b><br>A: It establishes a low-cost, low-latency performance benchmark, revealing whether advanced techniques like CoT or Few-Shot are actually necessary.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec18">
+            <h2 class="section-title">18. Step-by-Step Task Decomposition</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Task Decomposition breaks complex workflows into explicit sequential sub-tasks (Extract -> Analyze -> Draft -> Verify -> Format), improving controllability and auditing.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Complex kaam ko chote sequential steps mein break karein: Understand -> Extract -> Analyze -> Draft -> Verify -> Format. Isse output quality boost hoti hai.
+            </div>
+            
+            <div class="code-block">
+// Sequential Task Decomposition Prompt
+decomposed_prompt = """Perform the code audit in the following explicit stages:
+Stage 1: Extract all SQL queries from the source file.
+Stage 2: Check each query for SQL injection vulnerabilities.
+Stage 3: Draft recommended parameterized fixes.
+Stage 4: Format final report as a Markdown table."""
+
+print(decomposed_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Stage 1-4:</b> Forces the model to complete intermediate analytical steps before producing the final deliverable.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How does Task Decomposition reduce cognitive overload in LLMs?</b><br>A: By structuring the generation process into distinct sequential phases, reducing the probability of missing sub-requirements.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec19">
+            <h2 class="section-title">19. Reasoning Guidance & Auditable Outputs</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Reasoning guidance prompts the model to generate a visible rationale, list assumptions, or produce a verification summary alongside the answer for human auditing.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Reasoning Guidance model se answer ke sath visible rationale, assumptions aur verification checklist maangti hai taaki humans response ko cross-verify kar sakein.
+            </div>
+            
+            <div class="code-block">
+// Reasoning Guidance Prompt Structure
+reasoning_prompt = """Task: Recommend whether to approve this loan application.
+
+Before providing the final DECISION, output the following:
+1. KEY ASSUMPTIONS: List 2 risk assumptions.
+2. VERIFICATION CHECKLIST: Confirm income proof, credit score > 700.
+3. RATIONALE: 2-sentence justification.
+4. FINAL DECISION: [APPROVED | REJECTED]"""
+
+print(reasoning_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>1. ASSUMPTIONS & 2. CHECKLIST:</b> Auditable preliminary outputs leading up to the final decision.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why ask for visible rationale rather than relying on hidden internal model reasoning?</b><br>A: Visible rationale can be parsed, logged, audited by human compliance teams, and validated against ground-truth business logic.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec20">
+            <h2 class="section-title">20. Structured Reasoning Patterns</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Structured reasoning patterns require models to output explicit intermediate artifacts such as criteria tables, rubric checks, or test cases before giving the final answer.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Structured reasoning mein model se evaluation tables, rubric rubrics, ya test cases pehle generate karwaye jaate hain final output se pehle.
+            </div>
+            
+            <div class="code-block">
+// Structured Reasoning Rubric Prompt
+structured_reasoning = """Evaluate the candidate response using this Rubric:
+- Technical Accuracy (0-5)
+- Code Safety (0-5)
+- Clarity (0-5)
+
+Output the Rubric Table first, then provide the Overall Score and Feedback."""
+
+print(structured_reasoning)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Rubric Table First:</b> Forces quantitative scoring before generating qualitative feedback.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the primary benefit of structured reasoning patterns in production?</b><br>A: They transform subjective AI generations into structured, quantitative, and reproducible evaluation outputs.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec21">
+            <h2 class="section-title">21. Chain-of-Thought (CoT) vs Concise Rationale</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Chain-of-Thought (CoT) instructs the model to 'think step by step' through complex logic. Concise Rationale requests a short 1-2 sentence evidence summary for low-latency production APIs.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                CoT model ko 'think step by step' karke long internal reasoning karne bolta hai. Production APIs ke liye Concise Rationale (1-2 lines evidence summary) latency & cost save karta hai.
+            </div>
+            
+            <div class="code-block">
+// CoT vs Concise Rationale Comparison
+cot_prompt = "Solve this math word problem. Think step by step and show all intermediate equations before the final number."
+concise_rationale_prompt = "Solve this math word problem. Provide a 1-sentence calculation summary followed by the final number."
+
+print("CoT Prompt:", cot_prompt)
+print("Concise Rationale Prompt:", concise_rationale_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>CoT vs Concise:</b> Demonstrates the trade-off between thorough step-by-step reasoning and fast, low-cost API responses.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: When is Chain-of-Thought (CoT) essential?</b><br>A: For multi-step math word problems, complex logic puzzles, multi-file code debugging, and symbolic reasoning tasks.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec22">
+            <h2 class="section-title">22. Prompt Chaining</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Prompt Chaining breaks complex workflows into multiple independent API calls where the output of Prompt N becomes the input context for Prompt N+1.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Prompt Chaining mein ek bada task multiple sequential API calls mein break hota hai (e.g. Prompt 1: Extract facts -> Prompt 2: Write Code -> Prompt 3: Review Code).
+            </div>
+            
+            <div class="code-block">
+// Prompt Chaining Workflow Pseudocode
+def prompt_chain_pipeline(raw_doc):
+    // Call 1: Extract Requirements
+    reqs = call_llm(f"Extract key requirements from: {raw_doc}")
+    // Call 2: Generate Solution
+    solution = call_llm(f"Generate Python code for requirements: {reqs}")
+    // Call 3: Review Solution
+    review = call_llm(f"Review this code for security vulnerabilities: {solution}")
+    return solution, review
+
+print("Prompt Chain Pipeline Configured.")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>prompt_chain_pipeline:</b> Decouples extraction, generation, and code review into 3 modular, testable API steps.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is Prompt Chaining superior to writing a single massive prompt for complex workflows?</b><br>A: Chaining improves reliability, allows independent error handling/retries per step, keeps context windows focused, and simplifies prompt debugging.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec23">
+            <h2 class="section-title">23. Self-Critique & Review Prompts</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Self-critique prompts instruct the model to review a draft against explicit quality rubrics and list concrete bug fixes before generating the final revised response.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Self-critique prompt model ko bolta hai ki wo apne initial draft ko check kare, errors list kare, aur fir clean updated final version deliver kare.
+            </div>
+            
+            <div class="code-block">
+// Self-Critique Prompt Template
+critique_prompt = """Review your previous code draft against these criteria:
+1. Are all open file handles closed using context managers?
+2. Is error handling implemented for HTTP timeout?
+
+List any missing criteria, then output the REVISED_CODE."""
+
+print(critique_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>REVISED_CODE:</b> Forces self-correction pass before emitting final code block.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the Critic-Generator pattern?</b><br>A: A design pattern where one prompt (Generator) creates content and a separate prompt (Critic) evaluates and refines it against strict rules.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec24">
+            <h2 class="section-title">24. Role + Task + Context Template</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                The RTC Template (Role, Task, Context, Inputs, Constraints, Output) is the foundational baseline framework for structuring reliable production prompts.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                RTC (Role + Task + Context) baseline template hai jo clear structure, constraints, aur expected output layout guarantee karta hai.
+            </div>
+            
+            <div class="code-block">
+// RTC Baseline Template Construction
+rtc_template = """ROLE: Senior DevOps Engineer
+TASK: Create a Dockerfile for a FastAPI Python 3.12 application.
+CONTEXT: Production Kubernetes cluster running on AWS EKS.
+INPUTS: Requirements file contains pandas, numpy, and uvicorn.
+CONSTRAINTS: Multi-stage build required to keep image size < 200MB.
+OUTPUT: Single Dockerfile block with comments."""
+
+print(rtc_template)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>rtc_template:</b> Practical production framework covering all core prompt requirements cleanly.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is a structured template better than free-form paragraph prompting?</b><br>A: Structured templates separate concerns clearly, making prompts easier to version-control, audit, and programmatically construct.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec25">
+            <h2 class="section-title">25. The CO-STAR Framework</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                CO-STAR stands for Context, Objective, Style, Tone, Audience, and Response Format — a structured framework for framing non-technical and creative prompts.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                CO-STAR Framework: Context, Objective, Style, Tone, Audience, Response Format. Ye non-technical and communication prompts ke liye popular framework hai.
+            </div>
+            
+            <div class="code-block">
+// CO-STAR Framework Example
+costar_prompt = """C - Context: Product launch for an AI-powered fitness app.
+O - Objective: Write a 3-email onboarding sequence for new users.
+S - Style: Energetic, motivational, concise.
+T - Tone: Friendly professional coach.
+A - Audience: Busy working professionals aged 25-40.
+R - Response Format: Markdown emails with Subject Line, Body, and Call to Action."""
+
+print(costar_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>CO-STAR Breakdown:</b> Maps communication requirements across Context, Objective, Style, Tone, Audience, and Response format.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the main advantage of the CO-STAR framework?</b><br>A: It ensures that key creative variables (style, tone, target audience) are explicitly defined rather than left to model guesswork.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec26">
+            <h2 class="section-title">26. R-T-C-O-Q Framework</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                R-T-C-O-Q stands for Role, Task, Context, Output Format, and Quality Criteria — a developer-focused framework for technical prompts.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                R-T-C-O-Q Framework: Role, Task, Context, Output Format, Quality Criteria. Ye technical prompts aur software engineering tasks ke liye best template hai.
+            </div>
+            
+            <div class="code-block">
+// RTCOQ Framework Template
+rtcoq_prompt = """R - Role: Senior PostgreSQL Specialist
+T - Task: Write an optimized SQL query for top 10 customers by revenue
+C - Context: Table 'orders' has 10M rows with indexes on customer_id and created_at
+O - Output: EXPLAIN ANALYZE SQL query block
+Q - Quality: Zero full-table scans allowed"""
+
+print(rtcoq_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>RTCOQ:</b> Combines technical role and task with quantitative quality criteria ('Zero full-table scans').</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How does adding Quality Criteria (Q) change SQL generation?</b><br>A: It forces the model to select indexed join paths and query structures optimized for performance rather than naive SQL syntax.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec27">
+            <h2 class="section-title">27. CLEAR Prompt Framework</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                CLEAR stands for Context, Limits, Examples, Action, and Result — a versatile framework designed to balance constraints with clear action targets.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                CLEAR Framework: Context, Limits (Constraints), Examples, Action, Result (Output). Ye prompt clarity and boundary enforcement maintain karta hai.
+            </div>
+            
+            <div class="code-block">
+// CLEAR Framework Implementation
+clear_prompt = """C - Context: Customer support escalation for billing error.
+L - Limits: Do not promise refunds over $50 without manager approval.
+E - Examples: [Input: Charge $30 -> Output: Instant Refund]
+A - Action: Draft customer apology response.
+R - Result: Markdown email draft with escalation flag if needed."""
+
+print(clear_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>CLEAR Framework:</b> Ensures business policy limits and examples directly inform the action target.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the role of Limits in the CLEAR framework?</b><br>A: Limits define compliance boundaries and policy ceilings, preventing models from making unauthorized business commitments.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <a href="01_prompt_foundations_anatomy_roles_constraints_notes.html" class="page-nav-link">← Previous Topic</a>
+            <a href="03_domain_prompts_coding_sql_data_rag_agents_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

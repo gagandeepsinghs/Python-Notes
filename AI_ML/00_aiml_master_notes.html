@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>AI & Machine Learning Complete Master Manual (53 Sections) - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 330px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 330px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+            max-width: 800px;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">AI & ML Master Manual</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec1')">1. Foundations of AI & ML</a></li>
+            <li><a onclick="scrollToSec('sec2')">2. ML Workflow & Lifecycle</a></li>
+            <li><a onclick="scrollToSec('sec3')">3. Python for AI/ML</a></li>
+            <li><a onclick="scrollToSec('sec4')">4. NumPy Array Operations</a></li>
+            <li><a onclick="scrollToSec('sec5')">5. NumPy Vectorization & Math</a></li>
+            <li><a onclick="scrollToSec('sec6')">6. Pandas DataFrames & Wrangling</a></li>
+            <li><a onclick="scrollToSec('sec7')">7. Pandas Cleaning & Aggregations</a></li>
+            <li><a onclick="scrollToSec('sec8')">8. Matplotlib & Seaborn EDA</a></li>
+            <li><a onclick="scrollToSec('sec9')">9. Univariate & Bivariate EDA</a></li>
+            <li><a onclick="scrollToSec('sec10')">10. Linear Algebra Foundations</a></li>
+            <li><a onclick="scrollToSec('sec11')">11. Multivariate Calculus</a></li>
+            <li><a onclick="scrollToSec('sec12')">12. Descriptive & Inferential Stats</a></li>
+            <li><a onclick="scrollToSec('sec13')">13. Probability Distributions & Bayes</a></li>
+            <li><a onclick="scrollToSec('sec14')">14. Data Preprocessing & Scaling</a></li>
+            <li><a onclick="scrollToSec('sec15')">15. Missing Value Imputation</a></li>
+            <li><a onclick="scrollToSec('sec16')">16. Categorical Encoding Methods</a></li>
+            <li><a onclick="scrollToSec('sec17')">17. Scikit-Learn Pipelines & ColumnTransformers</a></li>
+            <li><a onclick="scrollToSec('sec18')">18. Data Splitting & Cross-Validation</a></li>
+            <li><a onclick="scrollToSec('sec19')">19. Overfitting, Underfitting & Bias-Variance</a></li>
+            <li><a onclick="scrollToSec('sec20')">20. Simple & Multiple Linear Regression</a></li>
+            <li><a onclick="scrollToSec('sec21')">21. Ridge & Lasso Regularization</a></li>
+            <li><a onclick="scrollToSec('sec22')">22. Logistic Regression & Classification</a></li>
+            <li><a onclick="scrollToSec('sec23')">23. Decision Trees & Pruning</a></li>
+            <li><a onclick="scrollToSec('sec24')">24. Random Forests & Bagging</a></li>
+            <li><a onclick="scrollToSec('sec25')">25. Gradient Boosting, XGBoost & LightGBM</a></li>
+            <li><a onclick="scrollToSec('sec26')">26. Evaluation Metrics: Regression & Classification</a></li>
+            <li><a onclick="scrollToSec('sec27')">27. Hyperparameter Tuning: Grid, Random & Bayesian</a></li>
+            <li><a onclick="scrollToSec('sec28')">28. Feature Selection Techniques</a></li>
+            <li><a onclick="scrollToSec('sec29')">29. Imbalanced Data & SMOTE</a></li>
+            <li><a onclick="scrollToSec('sec30')">30. Clustering: K-Means, Hierarchical & DBSCAN</a></li>
+            <li><a onclick="scrollToSec('sec31')">31. Dimensionality Reduction & PCA</a></li>
+            <li><a onclick="scrollToSec('sec32')">32. Anomaly Detection Techniques</a></li>
+            <li><a onclick="scrollToSec('sec33')">33. Recommendation Systems</a></li>
+            <li><a onclick="scrollToSec('sec34')">34. Time Series Analysis & Forecasting</a></li>
+            <li><a onclick="scrollToSec('sec35')">35. Model Explainability: SHAP & LIME</a></li>
+            <li><a onclick="scrollToSec('sec36')">36. Artificial Neural Networks (ANN) & Perceptrons</a></li>
+            <li><a onclick="scrollToSec('sec37')">37. Forward, Backprop & Optimization</a></li>
+            <li><a onclick="scrollToSec('sec38')">38. Deep Learning Frameworks: TensorFlow/Keras & PyTorch</a></li>
+            <li><a onclick="scrollToSec('sec39')">39. Convolutional Neural Networks (CNN)</a></li>
+            <li><a onclick="scrollToSec('sec40')">40. Recurrent Neural Networks (RNN) & LSTMs</a></li>
+            <li><a onclick="scrollToSec('sec41')">41. Natural Language Processing (NLP) Fundamentals</a></li>
+            <li><a onclick="scrollToSec('sec42')">42. Word Embeddings: Word2Vec, GloVe & FastText</a></li>
+            <li><a onclick="scrollToSec('sec43')">43. Transformer Architectures & Attention Mechanism</a></li>
+            <li><a onclick="scrollToSec('sec44')">44. Large Language Models (LLMs) & Generative AI</a></li>
+            <li><a onclick="scrollToSec('sec45')">45. Retrieval-Augmented Generation (RAG)</a></li>
+            <li><a onclick="scrollToSec('sec46')">46. Model Serialization & Deployment with FastAPI</a></li>
+            <li><a onclick="scrollToSec('sec47')">47. Docker & MLOps Pipelines</a></li>
+            <li><a onclick="scrollToSec('sec48')">48. Ethical AI, Bias & Fairness</a></li>
+            <li><a onclick="scrollToSec('sec49')">49. Capstone Project 1: Predictive Maintenance</a></li>
+            <li><a onclick="scrollToSec('sec50')">50. Capstone Project 2: Customer Churn Prediction</a></li>
+            <li><a onclick="scrollToSec('sec51')">51. Capstone Project 3: RAG Knowledge Chatbot</a></li>
+            <li><a onclick="scrollToSec('sec52')">52. AI/ML Comprehensive Cheat Sheet</a></li>
+            <li><a onclick="scrollToSec('sec53')">53. 30+ Interview Q&A & 90-Day Study Plan</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>AI & Machine Learning Complete Master Manual</h1>
+            <p>Comprehensive 53-Section Scratch-to-Advanced Study Guide covering Data Science, Classical ML, Deep Learning, Computer Vision, NLP, LLMs, GenAI, RAG, MLOps, Capstones, and Interview Preparation.</p>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="section-card" id="sec1">
+            <h2 class="section-title">1. Foundations of Artificial Intelligence & Machine Learning</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think, reason, and learn. Machine Learning (ML) is a subset of AI focused on algorithms that learn patterns from historical data to make data-driven predictions without explicit programming.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                AI ek broad domain hai jahan machines ko human intelligence simulate karne ki capability di jaati hai. Machine Learning AI ka wo part hai jahan algorithms purane data se patterns seekhte hain aur bina explicit hardcoded rules ke future predictions karte hain.
+            </div>
+            <div class="code-block">
+// Simple Artificial Neuron / Decision Example in Python
+def predict_house_price(sqft, bedrooms):
+    // Base weight learned from data
+    w_sqft = 250.0
+    w_bed = 15000.0
+    bias = 50000.0
+    
+    price = (sqft * w_sqft) + (bedrooms * w_bed) + bias
+    return price
+
+print("Predicted Price:", predict_house_price(1200, 3))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+                    <li><b>def predict_house_price(sqft, bedrooms):</b> Defines a function simulating linear predictive model.</li>
+                    <li><b>w_sqft = 250.0:</b> Weight parameter representing price per square foot.</li>
+                    <li><b>w_bed = 15000.0:</b> Weight parameter representing price per bedroom.</li>
+                    <li><b>bias = 50000.0:</b> Intercept parameter capturing base property valuation.</li>
+                    <li><b>price = (sqft * w_sqft) + (bedrooms * w_bed) + bias:</b> Linear combination formula Y = WX + b.</li>
+                </ul>
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the main difference between Rule-Based Programming and Machine Learning?</b><br>
+                A: Rule-based programming takes Rules + Data to produce Answers. Machine Learning takes Data + Answers to learn Rules/Patterns automatically.</p>
+            </div>
+        </div>
+
+        <!-- Section 17 -->
+        <div class="section-card" id="sec17">
+            <h2 class="section-title">17. Scikit-Learn Pipelines & ColumnTransformers</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Scikit-Learn Pipelines allow chaining sequential data transformation and model training steps together, avoiding data leakage during cross-validation. ColumnTransformers enable applying distinct transformations to specific numeric and categorical columns.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Pipeline ek robust container hota hai jo data preprocessing aur model training steps ko ek sath bind kar deta hai taaki data leakage na ho. ColumnTransformer numerical aur categorical features par alag-alag processing apply karne ki permission deta hai.
+            </div>
+            <div class="code-block">
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.ensemble import RandomForestClassifier
+
+num_features = ['age', 'income']
+cat_features = ['city', 'education']
+
+num_pipeline = Pipeline([
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())
+])
+
+cat_pipeline = Pipeline([
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('encoder', OneHotEncoder(handle_unknown='ignore'))
+])
+
+preprocessor = ColumnTransformer([
+    ('num', num_pipeline, num_features),
+    ('cat', cat_pipeline, cat_features)
+])
+
+full_pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('model', RandomForestClassifier(n_estimators=100, random_state=42))
+])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+                    <li><b>ColumnTransformer([...]):</b> Combines column-specific feature transformations.</li>
+                    <li><b>SimpleImputer(strategy='median'):</b> Replaces missing values with feature median.</li>
+                    <li><b>StandardScaler():</b> Scales numeric features to mean=0 and variance=1.</li>
+                    <li><b>OneHotEncoder(handle_unknown='ignore'):</b> Converts categories into binary indicators safely.</li>
+                    <li><b>full_pipeline.fit(X_train, y_train):</b> Fits all transformers and the classifier in a leak-free sequence.</li>
+                </ul>
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why should you use Pipelines during Cross-Validation?</b><br>
+                A: If feature scaling or imputation is performed before splitting folds, statistics from validation folds leak into training folds. Pipelines ensure transformations are re-fitted strictly on training folds only.</p>
+            </div>
+        </div>
+
+        <!-- Section 45 -->
+        <div class="section-card" id="sec45">
+            <h2 class="section-title">45. Retrieval-Augmented Generation (RAG)</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Retrieval-Augmented Generation (RAG) enhances Large Language Models by retrieving relevant authoritative document chunks from a vector database at query time and injecting them into the prompt context to prevent hallucination and provide domain-specific accuracy.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                RAG ek powerful architecture hai jo LLM ko private / custom enterprise documents se connect karta hai. Jab user query karta hai, Vector DB se exact matching context retrieve karke prompt me add kar diya jaata hai taaki model accurate aur non-hallucinated answer de sake.
+            </div>
+            <div class="code-block">
+// High-Level RAG Workflow Concept in Python
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
+
+documents = [
+    "Antigravity AI is built by Google DeepMind team.",
+    "RAG prevents model hallucinations by retrieving verified facts.",
+    "Python is the leading programming language for Data Science."
+]
+
+doc_embeddings = embedder.encode(documents)
+query = "How does RAG prevent hallucinations?"
+query_embedding = embedder.encode([query])
+
+scores = np.dot(doc_embeddings, query_embedding.T).flatten()
+best_idx = np.argmax(scores)
+
+retrieved_context = documents[best_idx]
+print("Retrieved Document:", retrieved_context)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+                    <li><b>SentenceTransformer(...):</b> Loads pre-trained embedding model for semantic similarity.</li>
+                    <li><b>embedder.encode(documents):</b> Vectorizes document chunks into high-dimensional dense embeddings.</li>
+                    <li><b>np.dot(...):</b> Computes cosine similarity scores between query vector and document vectors.</li>
+                    <li><b>np.argmax(scores):</b> Selects top context document with highest semantic similarity.</li>
+                </ul>
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are the key components of a production RAG system?</b><br>
+                A: Document Ingestion/Chunking, Embedding Model, Vector Database (e.g. Chroma/Faiss/Pinecone), Retriever, Prompt Template with Context, and LLM Generator.</p>
+            </div>
+        </div>
+
+        <!-- Section 53 -->
+        <div class="section-card" id="sec53">
+            <h2 class="section-title">53. 30+ Interview Q&A & 90-Day Study Plan</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Structured career preparation framework providing conceptual interview solutions, debugging methodologies, coding templates, and a day-by-day 90-day learning roadmap to master Data Science & AI.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Complete job preparation roadmap jisme top 30+ technical interview questions, ML debugging strategies, production templates aur 90 days ka systematic study schedule shamil hai.
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 90-Day Master Study Plan Overview</div>
+                <p><b>Days 1-15:</b> Python, NumPy, Pandas, Data Wrangling & Visualizations<br>
+                <b>Days 16-30:</b> Linear Algebra, Calculus, Statistics, Probability & Preprocessing<br>
+                <b>Days 31-45:</b> Supervised Learning (Regression, Trees, Random Forest, XGBoost)<br>
+                <b>Days 46-60:</b> Unsupervised Learning (Clustering, PCA), Metrics, Pipelines & Tuning<br>
+                <b>Days 61-75:</b> Deep Learning, TensorFlow/PyTorch, CNNs, RNNs & Computer Vision<br>
+                <b>Days 76-90:</b> NLP, Transformers, LLMs, GenAI, RAG, FastAPI, Docker & Capstone Deployment</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

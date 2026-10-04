@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>01. Generative AI Foundations, Transformers & Embeddings - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 1: Foundations</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec1')">1. What is Generative AI?</a></li>
+<li><a onclick="scrollToSec('sec2')">2. AI vs ML vs Deep Learning vs Generative AI</a></li>
+<li><a onclick="scrollToSec('sec3')">3. Generative Models & Core Concepts</a></li>
+<li><a onclick="scrollToSec('sec4')">4. Neural Networks for GenAI</a></li>
+<li><a onclick="scrollToSec('sec5')">5. Transformers</a></li>
+<li><a onclick="scrollToSec('sec6')">6. Tokens & Tokenization</a></li>
+<li><a onclick="scrollToSec('sec7')">7. Embeddings</a></li>
+<li><a onclick="scrollToSec('sec8')">8. Large Language Models (LLMs)</a></li>
+<li><a onclick="scrollToSec('sec9')">9. Model Parameters & Context Window</a></li>
+<li><a onclick="scrollToSec('sec10')">10. Pretraining</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>01. Generative AI Foundations, Transformers & Embeddings</h1>
+            <p>Sections 1-10: GenAI Fundamentals, AI vs ML vs DL, Generative Models, Neural Nets, Transformers, Tokens, Embeddings, LLMs, Context Window & Pretraining.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec1">
+            <h2 class="section-title">1. What is Generative AI?</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Generative AI is a class of artificial intelligence systems that learn patterns from training data and generate brand new content such as text, code, images, audio, video, and structured data.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Simple language mein: traditional software rules follow karta hai, jabki GenAI learned patterns ke basis par new original content generate karta hai. Chatbots, image generators aur coding assistants iske major examples hain.
+            </div>
+            
+            <div class="code-block">
+// Basic Conceptual Representation of GenAI Inference
+def generate_content(user_prompt, model_parameters):
+    // 1. Process and tokenize user input prompt
+    tokens = tokenize(user_prompt)
+    // 2. Pass tokens through neural network layers
+    predictions = model_parameters.forward(tokens)
+    // 3. Decode output token probabilities into text
+    output_text = decode(predictions)
+    return output_text
+
+print(generate_content("Explain gravity", model_params=None))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>def generate_content(user_prompt, model_parameters):</b> Defines function taking prompt and model weight parameters.</li><li><b>tokens = tokenize(user_prompt):</b> Converts raw text into numerical token representation.</li><li><b>predictions = model_parameters.forward(tokens):</b> Computes probabilistic next token distribution.</li><li><b>output_text = decode(predictions):</b> Converts numeric output IDs back into readable natural language string.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What differentiates Generative AI from Discriminative AI?</b><br>A: Discriminative AI predicts labels or decisions given input data (P(Y|X)), whereas Generative AI models the underlying data distribution (P(X) or P(X,Y)) to produce whole new data samples.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec2">
+            <h2 class="section-title">2. AI vs ML vs Deep Learning vs Generative AI</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Artificial Intelligence is the broad umbrella of intelligent systems. Machine Learning is the data-driven subset. Deep Learning uses multi-layered artificial neural networks. Generative AI is a subfield of Deep Learning focused specifically on content generation.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Hierarchy ko yaad rakho: AI (Broadest Umbrella) → Machine Learning (Data-driven approach) → Deep Learning (Multi-layer Neural Nets) → Generative AI (Content Generation using Deep Nets).
+            </div>
+            
+            <div class="code-block">
+// Hierarchy representation in Python
+ai_ecosystem = {
+    "AI": "Broad umbrella of smart machines",
+    "ML": "Algorithms learning from data without hardcoding",
+    "DL": "Neural networks with multiple hidden layers",
+    "GenAI": "Deep learning models specialized in producing synthetic text, images & media"
+}
+print("GenAI Scope:", ai_ecosystem["GenAI"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>ai_ecosystem dictionary:</b> Maps each layer of the AI paradigm to its specific core objective.</li><li><b>GenAI:</b> Highlights that modern text/image GenAI relies heavily on deep transformer architectures.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Does all AI use Neural Networks?</b><br>A: No. AI includes expert systems and search algorithms. However, modern Generative AI relies almost exclusively on deep neural networks like Transformers and Diffusion models.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec3">
+            <h2 class="section-title">3. Generative Models & Core Concepts</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Generative models learn joint probability distributions P(X) or conditional distributions P(X|Y) to sample new realistic instances. Autoregressive models predict tokens sequentially, while Diffusion models generate images through iterative noise reduction.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Generative model training data se patterns seekhta hai. Text models token-by-token next word predict karte hain (Autoregressive), jabki Image models noise ko clean/denoise karke image banate hain (Diffusion).
+            </div>
+            
+            <div class="code-block">
+// Autoregressive Token Generation Simulation
+import numpy as np
+
+def sample_next_token(logits):
+    // Convert logits into probabilities via Softmax
+    probs = np.exp(logits) / np.sum(np.exp(logits))
+    // Sample next token ID based on probability distribution
+    token_id = np.random.choice(len(probs), p=probs)
+    return token_id
+
+logits_example = [1.2, 3.5, 0.4, 2.1]
+print("Sampled Token Index:", sample_next_token(logits_example))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>np.exp(logits) / np.sum(...):</b> Softmax function normalizing raw model logits into a valid probability distribution.</li><li><b>np.random.choice(...):</b> Samples a token index proportional to its computed probability.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is an Autoregressive Model?</b><br>A: An autoregressive model predicts the current output token conditioned on all previously generated tokens in the sequence (e.g., GPT family).</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec4">
+            <h2 class="section-title">4. Neural Networks for GenAI</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Neural networks are parameterized continuous functions composed of input layers, hidden weight transformations, activation functions, and output layers that adjust weights via backpropagation and gradient descent.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Neural network ko ek giant mathematical function samjho. Training mein error compute karke weights update hote hain (Backpropagation) taaki model better output generate kar sake.
+            </div>
+            
+            <div class="code-block">
+// Multi-layer Artificial Neuron Forward Pass
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def neuron_layer(X, W, b):
+    // Linear matrix multiplication plus bias
+    Z = np.dot(X, W) + b
+    // Non-linear activation function
+    A = sigmoid(Z)
+    return A
+
+X = np.array([0.5, 1.2])
+W = np.array([[0.8, -0.4], [0.3, 0.9]])
+b = np.array([0.1, -0.2])
+print("Layer Output:", neuron_layer(X, W, b))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>sigmoid(x):</b> Activation function mapping inputs into range (0, 1).</li><li><b>np.dot(X, W) + b:</b> Linear algebra transformation representing weighted input sum plus bias term.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why are non-linear activation functions crucial in Neural Networks?</b><br>A: Without non-linear activations (like ReLU, GELU, Sigmoid), stacking multiple neural layers would collapse mathematically into a simple single linear transformation.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec5">
+            <h2 class="section-title">5. Transformers</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                The Transformer is a deep learning architecture relying on self-attention mechanisms, eliminating recurrent loops and enabling massive parallel training across sequence tokens.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Transformer modern GenAI ka foundation hai. Self-attention mechanism tokens ke beech ke rich contextual relationships ko process karta hai aur parallel GPU computation allow karta hai.
+            </div>
+            
+            <div class="code-block">
+// Scaled Dot-Product Attention Concept
+import numpy as np
+
+def scaled_dot_product_attention(Q, K, V):
+    d_k = Q.shape[-1]
+    // 1. Matrix multiplication of Query and Key transpose
+    scores = np.matmul(Q, K.T) / np.sqrt(d_k)
+    // 2. Softmax normalization over last axis
+    weights = np.exp(scores) / np.sum(np.exp(scores), axis=-1, keepdims=True)
+    // 3. Multiply weights with Value matrix
+    output = np.matmul(weights, V)
+    return output, weights
+
+Q = np.random.randn(4, 64)
+K = np.random.randn(4, 64)
+V = np.random.randn(4, 64)
+attn_out, weights = scaled_dot_product_attention(Q, K, V)
+print("Attention Output Shape:", attn_out.shape)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>np.matmul(Q, K.T) / np.sqrt(d_k):</b> Calculates pairwise token similarity scores scaled by vector dimension sqrt(d_k).</li><li><b>weights * V:</b> Aggregates contextual information from Values based on computed attention weights.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are Query, Key, and Value vectors in Attention?</b><br>A: Query represents what token seeks, Key represents what token contains, and Value represents the actual vector information transferred when Query matches Key.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec6">
+            <h2 class="section-title">6. Tokens & Tokenization</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Tokens are the fundamental atomic units processed by language models. Tokenization converts raw text strings into numerical token IDs using algorithms like Byte-Pair Encoding (BPE) or WordPiece.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                LLM direct English ya Hindi words nahi samajhta. Tokenizer text ko subword pieces / IDs mein break karta hai aur final answer generate hone par IDs ko wapas human text mein convert karta hai.
+            </div>
+            
+            <div class="code-block">
+// Tokenization Demo with Python Regex & Dict mapping
+text = "Generative AI is revolutionary!"
+// Simple token splitter simulation
+subwords = ["Gen", "erative", " AI", " is", " rev", "olution", "ary", "!"]
+vocab_map = {word: idx for idx, word in enumerate(subwords)}
+
+token_ids = [vocab_map[w] for w in subwords]
+print("Tokens:", subwords)
+print("Token IDs:", token_ids)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>vocab_map:</b> Dictionary mapping string tokens to numerical integer identifiers.</li><li><b>token_ids:</b> Numerical sequence fed directly into embedding layer.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is subword tokenization preferred over word or character tokenization?</b><br>A: Subword tokenization balances vocabulary size and out-of-vocabulary (OOV) issues by breaking rare words into common subword chunks while keeping frequent words intact.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec7">
+            <h2 class="section-title">7. Embeddings</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                An embedding is a continuous dense numerical vector representation of text or tokens in a high-dimensional vector space where semantically similar items reside close to each other.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Embedding text ka mathematical vector hota hai. Jab do sentences ka matlab similar hota hai, to unki embedding vectors geometric space mein bilkul paas hoti hain.
+            </div>
+            
+            <div class="code-block">
+// Cosine Similarity between Embeddings
+import numpy as np
+
+def cosine_similarity(v1, v2):
+    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+
+vec_king = np.array([0.25, 0.88, 0.12])
+vec_queen = np.array([0.28, 0.85, 0.15])
+vec_apple = np.array([-0.90, 0.10, 0.82])
+
+print("Similarity (King, Queen):", cosine_similarity(vec_king, vec_queen))
+print("Similarity (King, Apple):", cosine_similarity(vec_king, vec_apple))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>np.dot(v1, v2):</b> Dot product measuring vector directional agreement.</li><li><b>np.linalg.norm(v1):</b> Magnitude normalization scaling cosine similarity output between -1 and +1.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do dense embeddings differ from sparse one-hot encodings?</b><br>A: One-hot vectors are high-dimensional and sparse with zero semantic relationship, whereas dense embeddings compress semantic features into fixed lower-dimensional continuous vectors.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec8">
+            <h2 class="section-title">8. Large Language Models (LLMs)</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Large Language Models are massive transformer-based neural networks trained on vast text corpora to model language semantics, follow complex instructions, and perform multi-domain reasoning.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                LLM billion-parameter deep neural network hota hai jo extensive data par pretrain hakar text generate karta hai. Remember: LLMs probability distribution par operate karte hain, automated fact lookup DB nahi hain.
+            </div>
+            
+            <div class="code-block">
+// High-Level Model Text Generation Loop Simulation
+class DummyLLM:
+    def __init__(self):
+        self.vocab = ["The", "future", "of", "AI", "is", "bright", "."]
+    
+    def generate(self, prompt, max_tokens=5):
+        output = prompt.split()
+        for i in range(max_tokens):
+            next_word = self.vocab[i % len(self.vocab)]
+            output.append(next_word)
+        return " ".join(output)
+
+llm = DummyLLM()
+print(llm.generate("User Input:"))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>DummyLLM.generate(...):</b> Simulates step-by-step next word prediction append loop common in autoregressive LLMs.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are hallucinations in LLMs?</b><br>A: Hallucinations occur when an LLM generates plausible-sounding but factually incorrect, ungrounded, or completely fabricated information due to probabilistic token sampling.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec9">
+            <h2 class="section-title">9. Model Parameters & Context Window</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Model parameters represent learned neural weights. The context window defines the maximum token capacity (prompt + history + response + retrieval) a model can process in a single inference call.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Parameters model ki learned knowledge & capacity hote hain. Context window wo maximum limit hai jitne tokens (system prompt, user input, chat memory, retrieved context) ek time par process ho sakte hain.
+            </div>
+            
+            <div class="code-block">
+// Context Window Budget Calculator in Python
+def check_context_limit(system_prompt, user_query, doc_context, max_window=8192):
+    // Estimate 1 token ~= 4 chars
+    total_chars = len(system_prompt) + len(user_query) + len(doc_context)
+    estimated_tokens = total_chars // 4
+    
+    remaining = max_window - estimated_tokens
+    if remaining < 0:
+        return False, f"Overflow by {-remaining} tokens"
+    return True, f"Valid. {remaining} tokens remaining for response."
+
+print(check_context_limit("You are helpful assistant.", "What is RAG?", "Deep document content..."*1000))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>estimated_tokens = total_chars // 4:</b> Practical rule-of-thumb estimating token count from character length.</li><li><b>remaining:</b> Ensures total context fits strictly within model window constraint.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Does a larger context window eliminate the need for Retrieval-Augmented Generation (RAG)?</b><br>A: No. Larger context windows incur high computational cost, high latency, and needle-in-a-haystack retrieval drop-offs, whereas RAG selectively retrieves precise relevant facts.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec10">
+            <h2 class="section-title">10. Pretraining</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Pretraining is the initial self-supervised training phase where an LLM learns language syntax, grammar, general reasoning, and world knowledge by predicting masked or next tokens across billions of web documents.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Pretraining base phase hai jahan model billions of text lines par self-supervised mode (next-token prediction) mein train hota hai. Complex compute & huge hardware cost is level par lagti hai.
+            </div>
+            
+            <div class="code-block">
+// Self-Supervised Next Token Prediction Loss Concept
+import torch
+import torch.nn as nn
+
+loss_fn = nn.CrossEntropyLoss()
+// Logits: [batch_size, vocab_size]
+logits = torch.tensor([[2.0, 0.5, 0.1], [0.1, 1.8, 0.3]])
+// Target Token IDs
+targets = torch.tensor([0, 1])
+
+loss = loss_fn(logits, targets)
+print("Pretraining Cross-Entropy Loss:", loss.item())
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>nn.CrossEntropyLoss():</b> Measures loss between model token probability distribution and actual target token ID.</li><li><b>loss.item():</b> Scalar value backpropagated to update model weights during pretraining.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What dataset objective is used in GPT pretraining?</b><br>A: Causal Language Modeling (CLM), where the model predicts token X_t given previous tokens [X_1, X_2, ..., X_{t-1}].</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <div></div>
+            <a href="02_llm_concepts_prompting_structured_tooluse_apis_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

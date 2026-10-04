@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>02. LLM Concepts, Prompting, Structured Outputs & APIs - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 2: LLM & Prompting</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec11')">11. Instruction Tuning and Alignment</a></li>
+<li><a onclick="scrollToSec('sec12')">12. Inference and Decoding</a></li>
+<li><a onclick="scrollToSec('sec13')">13. Temperature, Top-k and Top-p</a></li>
+<li><a onclick="scrollToSec('sec14')">14. Prompt Engineering</a></li>
+<li><a onclick="scrollToSec('sec15')">15. System, User and Assistant Messages</a></li>
+<li><a onclick="scrollToSec('sec16')">16. Few-shot and Chain-of-Thought Concepts</a></li>
+<li><a onclick="scrollToSec('sec17')">17. Structured Outputs and JSON</a></li>
+<li><a onclick="scrollToSec('sec18')">18. Function Calling / Tool Use</a></li>
+<li><a onclick="scrollToSec('sec19')">19. LLM APIs with Python</a></li>
+<li><a onclick="scrollToSec('sec20')">20. Open-Source Models & Hugging Face</a></li>
+<li><a onclick="scrollToSec('sec21')">21. Local LLMs & Model Quantization</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>02. LLM Concepts, Prompting, Structured Outputs & APIs</h1>
+            <p>Sections 11-21: Instruction Tuning, Alignment, Inference Decoding, Temperature, Prompt Engineering, Messages, Few-Shot/CoT, JSON Schemas, Function Calling, APIs & Quantization.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec11">
+            <h2 class="section-title">11. Instruction Tuning and Alignment</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Instruction tuning (SFT) fine-tunes base pretrained models on curated instruction-response pairs. Alignment techniques like RLHF and DPO shape model behavior toward helpfulness, honesty, and safety.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Base pre-trained model sirf text complete karta hai. Instruction tuning use assistant banana sikhata hai. Alignment (RLHF / DPO) toxic ya harmful outputs ko filter out karke safe responses align karta hai.
+            </div>
+            
+            <div class="code-block">
+// Supervised Fine-Tuning Data Structure Example
+sft_dataset_sample = {
+    "instruction": "Summarize the key benefit of transformers.",
+    "input": "Transformers allow parallel token processing via attention.",
+    "output": "The core benefit of transformers is parallelized processing using attention mechanisms."
+}
+print("SFT Target:", sft_dataset_sample["output"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>sft_dataset_sample:</b> Standard JSON key-value format for instruction tuning LLMs.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the difference between SFT and RLHF?</b><br>A: SFT trains the model directly on human-written gold responses, while RLHF optimizes model policies based on human preference feedback using a Reward Model.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec12">
+            <h2 class="section-title">12. Inference and Decoding</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Inference runs a trained model to generate predictions. Decoding algorithms (Greedy search, Beam search, Temperature sampling) determine how tokens are selected from predicted output probability distributions.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Training ke baad trained model par user query chalana inference hai. Decoding strategy decide karti hai ki high probability token direct lein (Greedy) ya creative variations add karein (Sampling).
+            </div>
+            
+            <div class="code-block">
+// Greedy vs Random Sampling Decoding Simulation
+import numpy as np
+
+logits = np.array([0.1, 0.7, 0.2]) // Token A, B, C
+
+// 1. Greedy Choice
+greedy_choice = np.argmax(logits)
+
+// 2. Softmax Sampling
+probs = np.exp(logits) / np.sum(np.exp(logits))
+sampled_choice = np.random.choice(len(probs), p=probs)
+
+print("Greedy Choice Index:", greedy_choice)
+print("Sampled Choice Index:", sampled_choice)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>np.argmax(logits):</b> Always picks token with highest probability (deterministic greedy decoding).</li><li><b>np.random.choice(..., p=probs):</b> Samples probabilistically, introducing creative response diversity.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is Beam Search?</b><br>A: Beam search maintains a fixed number (beam width) of top partial candidate sequences at each decoding step, yielding higher quality generations for translation or summarization.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec13">
+            <h2 class="section-title">13. Temperature, Top-k and Top-p</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Temperature scales logit sharpness (lower = deterministic, higher = creative). Top-k restricts sampling to the top k probable tokens. Top-p (nucleus sampling) dynamic cuts off the cumulative probability threshold p.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Temperature sampling ki randomness control karta hai. Top-k top k choices tak limit karta hai. Top-p (nucleus sampling) cumulative probability limit (like 0.9) rakhta hai taaki rare non-sense words eliminate ho sakein.
+            </div>
+            
+            <div class="code-block">
+// Temperature Scaling Function Implementation
+import numpy as np
+
+def apply_temperature(logits, temperature=0.7):
+    if temperature <= 0:
+        // Argmax fallback for zero temperature
+        res = np.zeros_like(logits)
+        res[np.argmax(logits)] = 1.0
+        return res
+    // Scale logits by temperature
+    scaled_logits = logits / temperature
+    probs = np.exp(scaled_logits) / np.sum(np.exp(scaled_logits))
+    return probs
+
+raw_logits = np.array([2.0, 1.0, 0.5])
+print("Temp 0.2 Probs:", apply_temperature(raw_logits, 0.2))
+print("Temp 1.5 Probs:", apply_temperature(raw_logits, 1.5))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>scaled_logits = logits / temperature:</b> Dividing by temperature > 1 flattens probability distribution (higher randomness); dividing by temperature < 1 sharpens peaks (higher determinism).</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Which decoding settings are best for SQL generation vs Creative Writing?</b><br>A: SQL generation requires low temperature (0.0 - 0.2) and low Top-p for strict precision. Creative writing benefits from higher temperature (0.7 - 0.9) and Top-p (0.9).</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec14">
+            <h2 class="section-title">14. Prompt Engineering</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Prompt engineering is the strategic design of instructions, context, constraints, and formatting rules to guide language models toward optimal, consistent outputs without changing model weights.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Prompt engineering ka matlab hai clear instruction, task description, context, constraints, and output format specification likhna taaki LLM exact desired answer de sake.
+            </div>
+            
+            <div class="code-block">
+// Structured Prompt Template Construction
+def build_prompt(role, task, context, constraints, output_format):
+    prompt = f"""Role: {role}
+Task: {task}
+Context: {context}
+Constraints: {constraints}
+Output Format: {output_format}"""
+    return prompt
+
+prompt = build_prompt(
+    role="Senior Python Engineer",
+    task="Review code snippet for memory leaks",
+    context="High-concurrency FastAPI server under heavy load",
+    constraints="Must list top 3 issues with fix recommendations",
+    output_format="JSON object with keys: issues, severity, fix"
+)
+print(prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>build_prompt(...):</b> Standardized template function structuring system role, task, context, constraints, and target schema.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are the core pillars of effective Prompt Engineering?</b><br>A: Explicit role assignment, unambiguous task definition, relevant domain context, strict boundary constraints, and explicit output formatting examples.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec15">
+            <h2 class="section-title">15. System, User and Assistant Messages</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Modern chat APIs separate prompts into System (developer policy/guidance), User (end-user request), and Assistant (model responses or conversational history) roles.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Chat format mein 3 roles hote hain: System (App guidelines/rules), User (End user query), and Assistant (AI model response/conversation history).
+            </div>
+            
+            <div class="code-block">
+// Standard OpenAI-style Message Array Payload
+messages = [
+    {"role": "system", "content": "You are a helpful customer support bot for an e-commerce platform."},
+    {"role": "user", "content": "My order ID-12345 has not arrived yet."},
+    {"role": "assistant", "content": "I apologize for the delay! Let me look up order ID-12345 in our database."},
+    {"role": "user", "content": "Thank you, please update me quickly."}
+]
+print("Last user message:", messages[-1]["content"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>messages payload:</b> Array of structured dictionary objects maintaining role attribution and conversation memory.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is it crucial to treat User messages as untrusted input?</b><br>A: Malicious users can attempt prompt injection inside the User role to override system instructions defined in the System role.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec16">
+            <h2 class="section-title">16. Few-shot and Chain-of-Thought Concepts</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Few-shot prompting provides input-output examples inside the prompt. Chain-of-Thought (CoT) guides models to decompose complex reasoning tasks step-by-step before producing the final answer.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Few-shot mein model ko 2-3 input-output examples diye jaate hain pattern samjhane ke liye. Chain-of-Thought (CoT) prompt model ko step-by-step reason karne bolta hai (e.g. 'Let's think step by step').
+            </div>
+            
+            <div class="code-block">
+// Few-Shot Prompt Template
+few_shot_prompt = """Classify customer feedback sentiment.
+
+Example 1:
+Input: "The product delivered two days early and works great!"
+Sentiment: Positive
+
+Example 2:
+Input: "Broken package, terrible service."
+Sentiment: Negative
+
+Input: "The device is okay, but delivery was average."
+Sentiment:"""
+print(few_shot_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>few_shot_prompt:</b> Formats past examples to anchor the LLM's output style and classification boundaries.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How does Chain-of-Thought improve reasoning in LLMs?</b><br>A: CoT forces the autoregressive model to generate intermediate reasoning tokens, giving the transformer additional computational steps to reach complex mathematical or logical conclusions.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec17">
+            <h2 class="section-title">17. Structured Outputs and JSON</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Structured output enforces or constrains model generation to conform strictly to a machine-readable JSON Schema or Pydantic class, preventing parsing errors in API integrations.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Structured output se model ka response strict JSON schema / Pydantic model mein milta hai, taaki backend code raw text parsing failures se bach sake.
+            </div>
+            
+            <div class="code-block">
+// Pydantic Schema Definition for Structured Output
+from pydantic import BaseModel, Field
+from typing import List
+
+class TechSkillExtraction(BaseModel):
+    candidate_name: str = Field(description="Name of the job applicant")
+    primary_skills: List[str] = Field(description="List of top programming languages")
+    years_experience: float = Field(description="Total years of technical experience")
+
+// Simulating validated JSON conversion
+sample_json = '{"candidate_name": "Gagan", "primary_skills": ["Python", "PyTorch"], "years_experience": 6.5}'
+parsed_data = TechSkillExtraction.model_validate_json(sample_json)
+print("Parsed Candidate:", parsed_data.candidate_name)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>TechSkillExtraction(BaseModel):</b> Defines strict static schema layout with field type hints.</li><li><b>model_validate_json(...):</b> Validates raw LLM response against Pydantic schema.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do modern provider APIs guarantee valid JSON outputs?</b><br>A: Provider APIs use grammar-guided decoding (e.g., JSON schema constraints directly applied to token probability sampling at inference time).</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec18">
+            <h2 class="section-title">18. Function Calling / Tool Use</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Function calling allows an LLM to detect when external code execution is required, outputting structured function names and arguments for the client application to run safely.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Function calling se LLM application ko batata hai ki kaunsa local function (e.g. database query, weather API, calculator) specific arguments ke sath call karna hai.
+            </div>
+            
+            <div class="code-block">
+// Function Calling Spec Definition in Python
+tools_schema = [
+    {
+        "name": "get_stock_price",
+        "description": "Retrieves live stock price for a given ticker symbol",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "ticker": {"type": "string", "description": "Stock symbol, e.g. GOOGL"}
+            },
+            "required": ["ticker"]
+        }
+    }
+]
+
+// Simulated Model Tool Call Output
+model_tool_call = {
+    "name": "get_stock_price",
+    "arguments": {"ticker": "GOOGL"}
+}
+print("Executing Tool:", model_tool_call["name"], "with args:", model_tool_call["arguments"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>tools_schema:</b> Standard OpenAPI JSON specification supplied to the LLM.</li><li><b>model_tool_call:</b> Model-generated function call intent consumed and executed by the backend server.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Does the LLM directly execute the external function during Function Calling?</b><br>A: No! The LLM only generates the JSON function call proposal. The hosting application validates arguments, executes the actual code, and returns the result back to the LLM.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec19">
+            <h2 class="section-title">19. LLM APIs with Python</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                LLM APIs allow Python applications to send HTTP requests to remote model inference servers securely using SDK clients, managing API keys via environment variables.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Python application API SDKs (like OpenAI, Anthropic, Gemini, Groq) to use karke securely environment variables se keys read karke model calls run karta hai.
+            </div>
+            
+            <div class="code-block">
+// Generic LLM API Call Pattern in Python
+import os
+
+def call_llm_api(prompt_text):
+    // Read secret API Key from environment
+    api_key = os.getenv("GENAI_API_KEY", "mock_key_for_demo")
+    
+    // Simulating SDK client request
+    payload = {
+        "model": "genai-v1-pro",
+        "messages": [{"role": "user", "content": prompt_text}],
+        "temperature": 0.3
+    }
+    return f"Response to '{prompt_text}' processed with key present ({bool(api_key)})"
+
+print(call_llm_api("Summarize GenAI Roadmap"))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>os.getenv('GENAI_API_KEY'):</b> Reads credentials safely from runtime OS environment without hardcoding secrets in source code.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why should API Keys never be committed to Git repositories?</b><br>A: Exposed API keys can be scraped by automated bots, leading to unauthorized API usage, quota exhaustion, data leakage, and unexpected billings.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec20">
+            <h2 class="section-title">20. Open-Source Models & Hugging Face</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Open-source foundation models (e.g. Llama 3, Mistral, Qwen) allow developers to inspect model weights, host private inference pipelines, and customize architectures using the Hugging Face Transformers ecosystem.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Open-source models (Llama, Mistral) developers ko full control, privacy aur custom hosting ki capability dete hain. Hugging Face `transformers` library se in models ko load aur run kiya ja sakta hai.
+            </div>
+            
+            <div class="code-block">
+// Hugging Face Transformers Pipeline Concept
+from transformers import pipeline
+
+// Load lightweight text generation pipeline concept
+// generator = pipeline("text-generation", model="gpt2")
+print("Hugging Face pipeline loaded successfully for local/cloud deployment.")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>pipeline('text-generation'):</b> High-level Hugging Face abstraction for tokenization, model forward pass, and decoding.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are the main trade-offs between Open-Source Models and Proprietary API Models?</b><br>A: Proprietary APIs offer instant state-of-the-art capability with zero GPU management. Open-source models offer complete data privacy, offline capability, zero per-token cost at scale, and full fine-tuning control.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec21">
+            <h2 class="section-title">21. Local LLMs & Model Quantization</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Quantization compresses model parameter precision (e.g., from FP16 to INT8 or INT4), reducing VRAM memory requirements dramatically to enable running LLMs on local consumer hardware.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Quantization neural weights ki numerical precision ko reduce karta hai (FP16 -> INT4). Isse memory usage 70% tak ghat jaati hai aur laptop GPU/CPU par local LLMs (Ollama/llama.cpp) smoothly chalte hain.
+            </div>
+            
+            <div class="code-block">
+// Memory Reduction Estimation for Quantization
+def calculate_model_vram(params_billions, precision_bits=16):
+    // 1 billion parameters at 16-bit (2 bytes) = 2 GB base weight size
+    bytes_per_param = precision_bits / 8
+    vram_gb = params_billions * bytes_per_param
+    // Add 20% overhead for activation context
+    return vram_gb * 1.2
+
+print("7B Model FP16 VRAM:", calculate_model_vram(7, 16), "GB")
+print("7B Model INT4 VRAM:", calculate_model_vram(7, 4), "GB")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>bytes_per_param = precision_bits / 8:</b> FP16 uses 2 bytes per parameter; INT4 uses 0.5 bytes per parameter.</li><li><b>INT4 VRAM:</b> Reduces 7B model memory footprint from ~16.8 GB down to ~4.2 GB.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is GGUF and AWQ?</b><br>A: GGUF is a file format optimized for CPU/GPU local inference with llama.cpp. AWQ (Activation-aware Weight Quantization) is a GPU quantization method that preserves model accuracy by protecting salient weight channels.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <a href="01_genai_foundations_transformers_tokens_embeddings_notes.html" class="page-nav-link">← Previous Topic</a>
+            <a href="03_rag_chunking_vectordb_retrieval_evaluation_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

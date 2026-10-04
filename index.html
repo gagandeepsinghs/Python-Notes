@@ -20,17 +20,6 @@
             --border: rgba(255, 255, 255, 0.15);
         }
 
-        body.light-theme {
-            --bg-dark: #f4f6f8;
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --primary: #d4af37; /* Darker gold for light theme */
-            --primary-glow: rgba(212, 175, 55, 0.4);
-            --secondary: #333333;
-            --text-main: #1a1a1a;
-            --text-muted: #555555;
-            --border: rgba(0, 0, 0, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -88,9 +77,6 @@
             animation-delay: -5s;
         }
 
-        body.light-theme .shape-1 { background: rgba(212, 175, 55, 0.15); }
-        body.light-theme .shape-2 { background: rgba(0, 0, 0, 0.05); }
-
         /* Floating Background Coding Icons */
         .floating-icons {
             position: fixed;
@@ -109,7 +95,6 @@
             animation: float-icon 15s infinite linear;
             transition: color 0.5s ease;
         }
-        body.light-theme .bg-icon { color: rgba(0, 0, 0, 0.03); }
         .icon-1 { top: 10%; left: 10%; animation-duration: 25s; }
         .icon-2 { top: 70%; left: 20%; font-size: 6rem; animation-duration: 35s; animation-direction: reverse;}
         .icon-3 { top: 30%; right: 15%; font-size: 5rem; animation-duration: 28s; }
@@ -149,11 +134,6 @@
             transition: all 0.4s ease;
         }
 
-        body.light-theme .custom-logo {
-            border-color: var(--primary);
-            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
-        }
-
         .custom-logo:hover {
             transform: scale(1.05);
             border-color: var(--primary);
@@ -170,12 +150,6 @@
             -webkit-text-fill-color: transparent;
             display: inline-block;
             transition: all 0.5s ease;
-        }
-
-        body.light-theme .hero-title {
-            background: linear-gradient(to right, #1a1a1a, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
@@ -215,10 +189,6 @@
             flex-direction: column;
         }
 
-        body.light-theme .card {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
         .card::before {
             content: '';
             position: absolute;
@@ -248,18 +218,10 @@
             pointer-events: none;
         }
 
-        body.light-theme .card::after {
-            background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0));
-        }
-
         .card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px var(--primary-glow);
             border-color: transparent;
-        }
-
-        body.light-theme .card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px var(--primary-glow);
         }
 
         .card:hover::before {
@@ -295,11 +257,6 @@
             border: 1px solid var(--border);
         }
 
-        body.light-theme .card-icon {
-            background: rgba(0, 0, 0, 0.03);
-            color: var(--primary);
-        }
-
         .card:hover .card-icon {
             transform: scale(1.1) rotate(5deg);
             background: var(--primary);
@@ -331,10 +288,6 @@
             overflow: hidden;
         }
 
-        body.light-theme .links-list li a {
-            background: rgba(0, 0, 0, 0.02);
-        }
-
         .links-list li a::before {
             content: '\f101';
             font-family: 'Font Awesome 6 Free';
@@ -353,11 +306,6 @@
             border-color: var(--border);
             transform: translateX(5px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-
-        body.light-theme .links-list li a:hover {
-            background: rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .links-list li a:hover::before {
@@ -490,10 +438,6 @@
             animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        body.light-theme .chatbot-window {
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
         .chatbot-window.active {
             display: flex;
         }
@@ -562,10 +506,6 @@
             max-width: 90%;
             animation: fadeIn 0.3s ease;
             word-wrap: break-word;
-        }
-        
-        body.light-theme .chat-message {
-            background: rgba(0,0,0,0.02);
         }
 
         .chat-message.user {
@@ -901,6 +841,32 @@
         .hero-text { text-align: center; }
         .hero-cursive { text-align: center; }
         .hero-title-new { font-size: 3rem; }
+        .profile-img-container { width: 220px; height: 220px; }
+        .accent-crown { top: -10px; left: 10px; font-size: 2rem; }
+        .accent-lines { left: -20px; }
+        
+        /* Chatbot adjustments for small screens */
+        .chatbot-float { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 1.8rem; }
+        .chatbot-window { bottom: 90px; right: 10px; max-width: calc(100vw - 20px); }
+    }
+    
+    @media (max-width: 480px) {
+        .hero { padding: 0 1rem; }
+        .profile-img-container { width: 180px; height: 180px; }
+        .accent-crown { font-size: 1.6rem; top: -5px; left: 15px; }
+        .accent-lines { left: -15px; }
+        .accent-lines span { width: 20px; height: 2px; }
+        
+        /* Fix squished connect button and grid */
+        .tag-grid { gap: 10px; }
+        .tag-btn { padding: 10px; font-size: 0.8rem; }
+        .tag-btn i { font-size: 1rem; }
+        
+        .connect-btn { padding: 0.8rem 1rem; gap: 12px; }
+        .wa-icon { width: 45px; height: 45px; font-size: 1.5rem; flex-shrink: 0; }
+        .wa-text p { font-size: 0.75rem; }
+        .wa-text h3 { font-size: 1.2rem; white-space: nowrap; }
+        .wa-arrow { font-size: 1.2rem; }
     }
     /* ------------------------------ */
     
@@ -927,19 +893,9 @@
         cursor: pointer;
     }
 
-    body.light-theme .mod-card {
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0,0,0,0.1);
-        color: #1a1a1a;
-    }
-
     .mod-card:hover {
         transform: translateY(-3px);
         background: rgba(30, 30, 30, 0.8);
-    }
-    
-    body.light-theme .mod-card:hover {
-        background: #ffffff;
     }
 
     .mod-icon {
@@ -952,11 +908,6 @@
         font-size: 1.6rem;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    body.light-theme .mod-icon {
-        background: rgba(0,0,0,0.03);
-        border-color: rgba(0,0,0,0.1);
     }
 
     .mod-info {
@@ -979,10 +930,6 @@
         transition: all 0.3s;
     }
     
-    body.light-theme .mod-open {
-        border-color: rgba(0,0,0,0.2);
-    }
-    
     .mod-open i {
         font-size: 0.7rem;
     }
@@ -999,10 +946,6 @@
     .mod-govt { border-color: rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05); }
     .mod-govt .mod-icon { color: #f8fafc; border-color: rgba(255, 255, 255, 0.3); }
     .mod-govt .mod-open { border-color: rgba(255, 255, 255, 0.3); color: #e2e8f0; }
-    
-    body.light-theme .mod-govt { border-color: rgba(0, 0, 0, 0.2); }
-    body.light-theme .mod-govt .mod-icon { color: #333; border-color: rgba(0, 0, 0, 0.2); }
-    body.light-theme .mod-govt .mod-open { border-color: rgba(0, 0, 0, 0.2); color: #333; }
 
     .mod-excel { border-color: rgba(34, 197, 94, 0.3); box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.05); }
     .mod-excel .mod-icon { color: #22c55e; border-color: rgba(34, 197, 94, 0.4); }
@@ -1019,10 +962,6 @@
     .mod-other { border-color: rgba(226, 232, 240, 0.2); box-shadow: inset 0 0 20px rgba(226, 232, 240, 0.05); }
     .mod-other .mod-icon { color: #e2e8f0; border-color: rgba(226, 232, 240, 0.3); }
     .mod-other .mod-open { border-color: rgba(226, 232, 240, 0.3); color: #e2e8f0; }
-    
-    body.light-theme .mod-other { border-color: rgba(0, 0, 0, 0.2); }
-    body.light-theme .mod-other .mod-icon { color: #555; border-color: rgba(0, 0, 0, 0.2); }
-    body.light-theme .mod-other .mod-open { border-color: rgba(0, 0, 0, 0.2); color: #333; }
 
     .mod-web { border-color: rgba(56, 189, 248, 0.3); box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.05); }
     .mod-web .mod-icon { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
@@ -1042,10 +981,6 @@
 
     .mod-card:hover .mod-open {
         background: rgba(255,255,255,0.1);
-    }
-    
-    body.light-theme .mod-card .mod-open {
-        color: #1a1a1a;
     }
 
     /* Add hover glows to cards */
@@ -1067,9 +1002,6 @@
     .mod-github .mod-icon { color: #f34f29; border-color: rgba(243, 79, 41, 0.4); }
     .mod-github .mod-open { border-color: rgba(243, 79, 41, 0.5); color: #e2e8f0; }
     .mod-github:hover { box-shadow: inset 0 0 20px rgba(243, 79, 41, 0.05), 0 0 20px rgba(243, 79, 41, 0.2); }
-    
-    body.light-theme .mod-govt:hover { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05), 0 0 20px rgba(0, 0, 0, 0.1); }
-    body.light-theme .mod-other:hover { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05), 0 0 20px rgba(0, 0, 0, 0.1); }
 
     @media (max-width: 1000px) {
         .modules-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1100,11 +1032,6 @@
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
     </div>
-
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">
-        <i class="fa-solid fa-sun"></i>
-    </button>
 
     <!-- Chatbot Floating Button -->
     <button class="chatbot-float" id="chatbotToggle" title="Chat with Assistant">
@@ -1173,11 +1100,11 @@
                 <div class="tag-btn"><i class="fa-solid fa-robot i-robot"></i> AI Agents</div>
             </div>
             
-            <a href="#" class="connect-btn">
+            <a href="https://wa.me/919289337268" class="connect-btn" target="_blank">
                 <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
                 <div class="wa-text">
                     <p>Connect with Me</p>
-                    <h3>+91 98765 43210</h3>
+                    <h3>+91 92893 37268</h3>
                 </div>
                 <i class="fa-regular fa-paper-plane wa-arrow"></i>
             </a>
@@ -1254,6 +1181,12 @@
                 <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
             </a>
 
+            <a href="Linux Administration/00_master_notes_portal.html" class="mod-card" style="border-color: rgba(250, 204, 21, 0.3); box-shadow: inset 0 0 20px rgba(250, 204, 21, 0.05);">
+                <div class="mod-icon" style="color: #facc15; border-color: rgba(250, 204, 21, 0.4);"><i class="fa-brands fa-linux"></i></div>
+                <div class="mod-info"><h3>Linux Admin</h3></div>
+                <div class="mod-open" style="border-color: rgba(250, 204, 21, 0.5); color: #e2e8f0;">Open <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
             <a href="full_stack_portal.html" class="mod-card mod-web">
                 <div class="mod-icon"><i class="fa-solid fa-laptop-code"></i></div>
                 <div class="mod-info"><h3>Full Stack</h3></div>
@@ -1264,6 +1197,24 @@
                 <div class="mod-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <div class="mod-info"><h3>Data Analytics</h3></div>
                 <div class="mod-open">Open <i class="fa-solid fa-chevron-down"></i></div>
+            </a>
+
+            <a href="AI_ML/00_master_notes_portal.html" class="mod-card" style="border-color: rgba(16, 185, 129, 0.3); box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.05);">
+                <div class="mod-icon" style="color: #10b981; border-color: rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-robot"></i></div>
+                <div class="mod-info"><h3>AI & Machine Learning</h3></div>
+                <div class="mod-open" style="border-color: rgba(16, 185, 129, 0.5); color: #e2e8f0;">Open <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="Gen AI/00_master_notes_portal.html" class="mod-card" style="border-color: rgba(139, 92, 246, 0.3); box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05);">
+                <div class="mod-icon" style="color: #8b5cf6; border-color: rgba(139, 92, 246, 0.4);"><i class="fa-solid fa-microchip"></i></div>
+                <div class="mod-info"><h3>Generative AI</h3></div>
+                <div class="mod-open" style="border-color: rgba(139, 92, 246, 0.5); color: #e2e8f0;">Open <i class="fa-solid fa-chevron-right"></i></div>
+            </a>
+
+            <a href="Prompt Engineering/00_master_notes_portal.html" class="mod-card" style="border-color: rgba(236, 72, 153, 0.3); box-shadow: inset 0 0 20px rgba(236, 72, 153, 0.05);">
+                <div class="mod-icon" style="color: #ec4899; border-color: rgba(236, 72, 153, 0.4);"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="mod-info"><h3>Prompt Engineering</h3></div>
+                <div class="mod-open" style="border-color: rgba(236, 72, 153, 0.5); color: #e2e8f0;">Open <i class="fa-solid fa-chevron-right"></i></div>
             </a>
 
         </div>
@@ -1287,32 +1238,7 @@
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const body = document.body;
-        
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        
-        if (savedTheme === 'light') {
-            body.classList.add('light-theme');
-            themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        } else {
-            themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        }
-        
-        themeToggleBtn.addEventListener('click', () => {
-            body.classList.toggle('light-theme');
-            const isLight = body.classList.contains('light-theme');
-            
-            if (isLight) {
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-                localStorage.setItem('theme', 'light');
-            } else {
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
-        // Chatbot Logic
+// Chatbot Logic
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const closeChatbot = document.getElementById('closeChatbot');

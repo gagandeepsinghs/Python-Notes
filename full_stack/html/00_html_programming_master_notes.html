@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Complete HTML5 Master Notes - Created by Gagan Sir - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(217, 119, 6);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+            padding: 20px 16px;
+            -webkit-overflow-scrolling: touch;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-sidebar-muted);
+            border: 1px solid rgb(51, 65, 85);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .sidebar-title {
+            color: var(--text-sidebar);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-subtitle {
+            color: var(--text-sidebar-muted);
+            font-size: 0.85rem;
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 12px;
+            color: rgb(203, 213, 225);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            word-break: break-word;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 35px;
+            max-width: 1200px;
+        }
+
+        .mobile-header {
+            display: none;
+            background: var(--bg-sidebar);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            color: white;
+        }
+
+        .hamburger {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent-orange);
+        }
+
+        .backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 95;
+        }
+
+        .header-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .header-card h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .header-card p {
+            font-size: 1.08rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 18px;
+            max-width: 950px;
+        }
+
+        .gagan-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .module-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .module-desc {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            margin-bottom: 20px;
+        }
+
+        .callout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .callout-box {
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .callout-blue {
+            background-color: var(--accent-blue-bg);
+            border: 1px solid var(--accent-blue-border);
+        }
+
+        .callout-title-blue {
+            color: var(--accent-blue-text);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .callout-yellow {
+            background-color: var(--accent-yellow-bg);
+            border: 1px solid var(--accent-yellow-border);
+        }
+
+        .callout-title-yellow {
+            color: var(--accent-yellow-text);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .callout-box ul {
+            padding-left: 20px;
+            color: var(--text-primary);
+        }
+
+        .callout-box li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .code-card {
+            background: rgb(15, 23, 42);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            margin-top: 20px;
+        }
+
+        .card-header {
+            background: rgb(30, 41, 59);
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgb(51, 65, 85);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .code-title {
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .author-tag {
+            color: rgb(192, 132, 252);
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .code-container {
+            padding: 18px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: rgb(10, 15, 30);
+        }
+
+        pre code {
+            font-family: 'Consolas', 'Courier New', Monaco, monospace;
+            color: rgb(226, 232, 240);
+            font-size: 0.95rem;
+            white-space: pre;
+        }
+
+        .output-container {
+            padding: 16px;
+            background: rgb(20, 29, 47);
+            border-top: 1px solid rgb(51, 65, 85);
+        }
+
+        .output-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: rgb(74, 222, 128);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .output-box {
+            background: rgb(5, 10, 20);
+            border-radius: 6px;
+            padding: 12px;
+            color: rgb(74, 222, 128);
+            font-family: 'Consolas', Monaco, monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .backdrop.active { display: block; }
+            .main-content { margin-left: 0; padding: 18px; }
+            .mobile-header { display: flex; align-items: center; justify-content: space-between; }
+            .header-card h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <a class="btn-home" onclick="window.location.href='master_notes_portal.html'">← Back to Home</a>
+        <div class="sidebar-title">HTML5 Master Notes</div>
+        <div class="sidebar-subtitle">Complete In-Depth Notes • By Gagan Sir</div>
+        <ul class="nav-list">
+            <li><a class="nav-link" href="#sec_1" onclick="if(window.innerWidth <= 900) toggleSidebar();">1. Ch 1: HTML HOME & Introduction Theory</a></li><li><a class="nav-link" href="#sec_2" onclick="if(window.innerWidth <= 900) toggleSidebar();">2. Ch 2: HTML Editors & Document Setup</a></li><li><a class="nav-link" href="#sec_3" onclick="if(window.innerWidth <= 900) toggleSidebar();">3. Ch 3: HTML Basic Elements & Document Structure</a></li><li><a class="nav-link" href="#sec_4" onclick="if(window.innerWidth <= 900) toggleSidebar();">4. Ch 4: HTML Elements & Nested Tags</a></li><li><a class="nav-link" href="#sec_5" onclick="if(window.innerWidth <= 900) toggleSidebar();">5. Ch 5: HTML Attributes Theory</a></li><li><a class="nav-link" href="#sec_6" onclick="if(window.innerWidth <= 900) toggleSidebar();">6. Ch 6: HTML Headings (h1 to h6)</a></li><li><a class="nav-link" href="#sec_7" onclick="if(window.innerWidth <= 900) toggleSidebar();">7. Ch 7: HTML Paragraphs & Line Breaks</a></li><li><a class="nav-link" href="#sec_8" onclick="if(window.innerWidth <= 900) toggleSidebar();">8. Ch 8: HTML Style Attribute & Inline CSS</a></li><li><a class="nav-link" href="#sec_9" onclick="if(window.innerWidth <= 900) toggleSidebar();">9. Ch 9: HTML Text Formatting Tags</a></li><li><a class="nav-link" href="#sec_10" onclick="if(window.innerWidth <= 900) toggleSidebar();">10. Ch 10: HTML Quotations & Citations</a></li><li><a class="nav-link" href="#sec_11" onclick="if(window.innerWidth <= 900) toggleSidebar();">11. Ch 11: HTML Comments</a></li><li><a class="nav-link" href="#sec_12" onclick="if(window.innerWidth <= 900) toggleSidebar();">12. Ch 12: HTML Color Models (RGB, RGBA, HSL)</a></li><li><a class="nav-link" href="#sec_13" onclick="if(window.innerWidth <= 900) toggleSidebar();">13. Ch 13: HTML CSS Integration Methods</a></li><li><a class="nav-link" href="#sec_14" onclick="if(window.innerWidth <= 900) toggleSidebar();">14. Ch 14: HTML Hyperlinks (Links)</a></li><li><a class="nav-link" href="#sec_15" onclick="if(window.innerWidth <= 900) toggleSidebar();">15. Ch 15: HTML Images & Alt Attribute</a></li><li><a class="nav-link" href="#sec_16" onclick="if(window.innerWidth <= 900) toggleSidebar();">16. Ch 16: HTML Favicon & Page Title</a></li><li><a class="nav-link" href="#sec_17" onclick="if(window.innerWidth <= 900) toggleSidebar();">17. Ch 17: HTML Data Tables</a></li><li><a class="nav-link" href="#sec_18" onclick="if(window.innerWidth <= 900) toggleSidebar();">18. Ch 18: HTML Lists (Unordered & Ordered)</a></li><li><a class="nav-link" href="#sec_19" onclick="if(window.innerWidth <= 900) toggleSidebar();">19. Ch 19: HTML Block vs Inline Elements</a></li><li><a class="nav-link" href="#sec_20" onclick="if(window.innerWidth <= 900) toggleSidebar();">20. Ch 20: HTML Class & Id Attributes</a></li><li><a class="nav-link" href="#sec_21" onclick="if(window.innerWidth <= 900) toggleSidebar();">21. Ch 21: HTML Iframes</a></li><li><a class="nav-link" href="#sec_22" onclick="if(window.innerWidth <= 900) toggleSidebar();">22. Ch 22: HTML JavaScript Integration</a></li><li><a class="nav-link" href="#sec_23" onclick="if(window.innerWidth <= 900) toggleSidebar();">23. Ch 23: HTML File Paths</a></li><li><a class="nav-link" href="#sec_24" onclick="if(window.innerWidth <= 900) toggleSidebar();">24. Ch 24: HTML Head Metadata</a></li><li><a class="nav-link" href="#sec_25" onclick="if(window.innerWidth <= 900) toggleSidebar();">25. Ch 25: HTML Semantic Layout Elements</a></li><li><a class="nav-link" href="#sec_26" onclick="if(window.innerWidth <= 900) toggleSidebar();">26. Ch 26: HTML Responsive Web Design</a></li><li><a class="nav-link" href="#sec_27" onclick="if(window.innerWidth <= 900) toggleSidebar();">27. Ch 27: HTML Computer Code Elements</a></li><li><a class="nav-link" href="#sec_28" onclick="if(window.innerWidth <= 900) toggleSidebar();">28. Ch 28: HTML Semantic Details & Summary</a></li><li><a class="nav-link" href="#sec_29" onclick="if(window.innerWidth <= 900) toggleSidebar();">29. Ch 29: HTML Character Entities</a></li><li><a class="nav-link" href="#sec_30" onclick="if(window.innerWidth <= 900) toggleSidebar();">30. Ch 30: HTML Symbols (Math & Currency)</a></li><li><a class="nav-link" href="#sec_31" onclick="if(window.innerWidth <= 900) toggleSidebar();">31. Ch 31: HTML Emojis & UTF-8</a></li><li><a class="nav-link" href="#sec_32" onclick="if(window.innerWidth <= 900) toggleSidebar();">32. Ch 32: HTML Charset Encodings</a></li><li><a class="nav-link" href="#sec_33" onclick="if(window.innerWidth <= 900) toggleSidebar();">33. Ch 33: HTML URL Encoding Rules</a></li><li><a class="nav-link" href="#sec_34" onclick="if(window.innerWidth <= 900) toggleSidebar();">34. Ch 34: HTML vs XHTML Standards</a></li><li><a class="nav-link" href="#sec_35" onclick="if(window.innerWidth <= 900) toggleSidebar();">35. Ch 35: HTML Forms Core</a></li><li><a class="nav-link" href="#sec_36" onclick="if(window.innerWidth <= 900) toggleSidebar();">36. Ch 36: HTML Form Elements Overview</a></li><li><a class="nav-link" href="#sec_37" onclick="if(window.innerWidth <= 900) toggleSidebar();">37. Ch 37: HTML Input Types Guide</a></li><li><a class="nav-link" href="#sec_38" onclick="if(window.innerWidth <= 900) toggleSidebar();">38. Ch 38: HTML Input Validation Attributes</a></li><li><a class="nav-link" href="#sec_39" onclick="if(window.innerWidth <= 900) toggleSidebar();">39. Ch 39: HTML Canvas vs SVG Graphics</a></li><li><a class="nav-link" href="#sec_40" onclick="if(window.innerWidth <= 900) toggleSidebar();">40. Ch 40: HTML Media Controls</a></li><li><a class="nav-link" href="#sec_41" onclick="if(window.innerWidth <= 900) toggleSidebar();">41. Ch 41: HTML Web APIs (Storage & Geolocation)</a></li>
+        </ul>
+    </div>
+
+    <div style="width: 100%;">
+        <div class="mobile-header">
+            <span class="hamburger" onclick="toggleSidebar()">☰</span>
+            <span style="font-weight: 700; color: white;">Complete HTML5 Master Notes - Created by Gagan Sir</span>
+            <span></span>
+        </div>
+
+        <div class="main-content">
+            <div class="header-card">
+                <h1>Complete HTML5 Master Notes - Created by Gagan Sir</h1>
+                <p>Full 41-Chapter Theory & Practical Manual • Master HTML5 Web Skeleton</p>
+                <div class="gagan-badge">Created by Gagan Sir</div>
+            </div>
+
+            
+        <section id="sec_1" class="module-card">
+            <h2>Module 1: Chapter 1: HTML HOME & Introduction Theory</h2>
+            <p class="module-desc">HTML (HyperText Markup Language) is the standard markup language for creating Web pages.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>HTML describes the structure of a Web page using markup elements.</li><li>HTML elements tell the browser how to display the content.</li><li>HTML elements label pieces of content such as 'this is a heading', 'this is a paragraph', 'this is a link'.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 1: HTML HOME & Introduction Theory builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 1: HTML HOME & Introduction Theory</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;HTML Introduction&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;My First Heading&lt;/h1&gt;
+    &lt;p&gt;My first paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Heading: My First Heading
+Paragraph: My first paragraph.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_2" class="module-card">
+            <h2>Module 2: Chapter 2: HTML Editors & Document Setup</h2>
+            <p class="module-desc">Web pages can be created and modified by using professional text editors or IDEs like VS Code.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Write HTML code in text editor.</li><li>Save with .html or .htm extension (e.g. index.html).</li><li>Open saved file in any browser to view rendered output.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 2: HTML Editors & Document Setup builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 2: HTML Editors & Document Setup</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h2&gt;HTML Setup Guide by Gagan Sir&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Heading: HTML Setup Guide by Gagan Sir</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_3" class="module-card">
+            <h2>Module 3: Chapter 3: HTML Basic Elements & Document Structure</h2>
+            <p class="module-desc">All HTML documents must start with a document type declaration: <!DOCTYPE html>.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><!DOCTYPE html> represents the document type and helps browsers render pages correctly.</li><li>The HTML document begins with <html> and ends with </html>.</li><li>The visible part is between <body> and </body>.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 3: HTML Basic Elements & Document Structure builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 3: HTML Basic Elements & Document Structure</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Document Structure&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;HTML5 Standard Skeleton&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Heading: HTML5 Standard Skeleton</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_4" class="module-card">
+            <h2>Module 4: Chapter 4: HTML Elements & Nested Tags</h2>
+            <p class="module-desc">An HTML element is defined by a start tag, content, and an end tag.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Syntax: <tagname>Content goes here...</tagname></li><li>HTML elements can be nested inside other elements.</li><li>Empty elements have no content and no end tag, like <br> and <img>.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 4: HTML Elements & Nested Tags builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 4: HTML Elements & Nested Tags</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;div&gt;
+    &lt;h2&gt;Nested Heading&lt;/h2&gt;
+    &lt;p&gt;This paragraph is &lt;b&gt;nested inside&lt;/b&gt; a container div.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Nested Heading
+This paragraph is nested inside a container div.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_5" class="module-card">
+            <h2>Module 5: Chapter 5: HTML Attributes Theory</h2>
+            <p class="module-desc">Attributes provide additional information about HTML elements.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>All HTML elements can have attributes.</li><li>Attributes provide additional information about elements.</li><li>Attributes are always specified in the start tag in name="value" pairs.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 5: HTML Attributes Theory builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 5: HTML Attributes Theory</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;a href="https://www.example.com" target="_blank" title="Gagan Sir Website"&gt;Visit Gagan Sir Notes&lt;/a&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Clickable link: Visit Gagan Sir Notes (opens in new tab with tooltip)</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_6" class="module-card">
+            <h2>Module 6: Chapter 6: HTML Headings (h1 to h6)</h2>
+            <p class="module-desc">HTML headings are titles or subtitles that you want to display on a webpage.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><h1> to <h6> tags define headings.</li><li><h1> defines the most important heading (main title).</li><li><h6> defines the least important heading.</li><li>Browsers automatically add margins before and after headings.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 6: HTML Headings (h1 to h6) builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 6: HTML Headings (h1 to h6)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;h1&gt;Heading Level 1&lt;/h1&gt;
+&lt;h2&gt;Heading Level 2&lt;/h2&gt;
+&lt;h3&gt;Heading Level 3&lt;/h3&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Heading Level 1
+Heading Level 2
+Heading Level 3</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_7" class="module-card">
+            <h2>Module 7: Chapter 7: HTML Paragraphs & Line Breaks</h2>
+            <p class="module-desc">The HTML <p> element defines a paragraph.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>A paragraph always starts on a new line.</li><li><br> defines a line break.</li><li><pre> defines preformatted text (preserves white spaces and line breaks).</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 7: HTML Paragraphs & Line Breaks builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 7: HTML Paragraphs & Line Breaks</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p&gt;First paragraph with a &lt;br&gt;line break.&lt;/p&gt;
+&lt;pre&gt;
+Preformatted text
+  preserves spaces
+&lt;/pre&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">First paragraph with a
+line break.
+Preformatted text
+  preserves spaces</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_8" class="module-card">
+            <h2>Module 8: Chapter 8: HTML Style Attribute & Inline CSS</h2>
+            <p class="module-desc">The HTML style attribute is used to add styles to an element.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Syntax: <tagname style="property:value;"></li><li>background-color, color, font-family, font-size, text-align.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 8: HTML Style Attribute & Inline CSS builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 8: HTML Style Attribute & Inline CSS</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;h2 style="color: rgb(56, 189, 248); text-align: center;"&gt;Centered Blue Heading&lt;/h2&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Centered text in blue color.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_9" class="module-card">
+            <h2>Module 9: Chapter 9: HTML Text Formatting Tags</h2>
+            <p class="module-desc">Special formatting tags for text emphasis.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><b> & <strong>: Bold / Important text.</li><li><i> & <em>: Italic / Emphasized text.</li><li><mark>: Marked/highlighted text.</li><li><sub> & <sup>: Subscript and Superscript.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 9: HTML Text Formatting Tags builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 9: HTML Text Formatting Tags</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p&gt;&lt;strong&gt;Important&lt;/strong&gt; and &lt;em&gt;Emphasized&lt;/em&gt; text.&lt;/p&gt;
+&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O and X&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Important and Emphasized text.
+H2O and X2</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_10" class="module-card">
+            <h2>Module 10: Chapter 10: HTML Quotations & Citations</h2>
+            <p class="module-desc">HTML <blockquote>, <q>, <abbr>, <address>, and <cite> elements.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><blockquote> defines an indented block quotation.</li><li><q> defines a short inline quote.</li><li><abbr> defines an abbreviation with title tooltip.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 10: HTML Quotations & Citations builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 10: HTML Quotations & Citations</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;blockquote&gt;Quote text from Gagan Sir Master Notes.&lt;/blockquote&gt;
+&lt;p&gt;&lt;abbr title="World Health Organization"&gt;WHO&lt;/abbr&gt;&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Indented Quote text.
+WHO (with tooltip)</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_11" class="module-card">
+            <h2>Module 11: Chapter 11: HTML Comments</h2>
+            <p class="module-desc">HTML comments document source code without being displayed by browsers.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Syntax: <!-- Comment text --></li><li>Comments help explain code and hide draft elements.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 11: HTML Comments builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 11: HTML Comments</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;!-- Comment by Gagan Sir --&gt;
+&lt;p&gt;Visible Content&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Visible Content</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_12" class="module-card">
+            <h2>Module 12: Chapter 12: HTML Color Models (RGB, RGBA, HSL)</h2>
+            <p class="module-desc">Specifying colors in HTML.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>RGB(red, green, blue): values 0-255.</li><li>RGBA(red, green, blue, alpha): alpha opacity 0.0 to 1.0.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 12: HTML Color Models (RGB, RGBA, HSL) builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 12: HTML Color Models (RGB, RGBA, HSL)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;div style="background-color: rgb(30, 41, 59); color: rgb(74, 222, 128); padding: 10px;"&gt;RGB Colored Container&lt;/div&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Container with dark background and green text.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_13" class="module-card">
+            <h2>Module 13: Chapter 13: HTML CSS Integration Methods</h2>
+            <p class="module-desc">Three ways to integrate CSS.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Inline: style attribute.</li><li>Internal: <style> block in <head>.</li><li>External: <link rel="stylesheet" href="styles.css">.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 13: HTML CSS Integration Methods builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 13: HTML CSS Integration Methods</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;style&gt;
+  h1 { color: rgb(56, 189, 248); }
+&lt;/style&gt;
+&lt;h1&gt;Internal CSS Heading&lt;/h1&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Heading styled via internal CSS.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_14" class="module-card">
+            <h2>Module 14: Chapter 14: HTML Hyperlinks (Links)</h2>
+            <p class="module-desc">HTML links allow users to navigate web pages.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>href specifies URL destination.</li><li>target="_blank" opens link in new tab.</li><li>mailto: opens email program.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 14: HTML Hyperlinks (Links) builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 14: HTML Hyperlinks (Links)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;a href="https://www.example.com" target="_blank"&gt;Visit Gagan Sir Notes&lt;/a&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Clickable link destination.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_15" class="module-card">
+            <h2>Module 15: Chapter 15: HTML Images & Alt Attribute</h2>
+            <p class="module-desc">Embedding images into web pages.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><img> is a self-closing tag.</li><li>src specifies image path.</li><li>alt provides alternate text for SEO and accessibility.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 15: HTML Images & Alt Attribute builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 15: HTML Images & Alt Attribute</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;img src="https://via.placeholder.com/300x200" alt="Chania Landscape" width="300" height="200"&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">300x200 pixels image display.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_16" class="module-card">
+            <h2>Module 16: Chapter 16: HTML Favicon & Page Title</h2>
+            <p class="module-desc">Tab icon and document title.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><title> sets browser tab title.</li><li><link rel="icon"> adds favicon icon to browser tab.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 16: HTML Favicon & Page Title builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 16: HTML Favicon & Page Title</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;title&gt;Document Title&lt;/title&gt;
+&lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Configured browser tab title and icon.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_17" class="module-card">
+            <h2>Module 17: Chapter 17: HTML Data Tables</h2>
+            <p class="module-desc">Arranging data into rows and columns.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><table>, <tr> (row), <th> (header cell), <td> (data cell).</li><li>colspan merges columns; rowspan merges rows.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 17: HTML Data Tables builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 17: HTML Data Tables</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;table border="1"&gt;
+  &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Role&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Gagan Sir&lt;/td&gt;&lt;td&gt;Trainer&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Table grid with Name and Role headers.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_18" class="module-card">
+            <h2>Module 18: Chapter 18: HTML Lists (Unordered & Ordered)</h2>
+            <p class="module-desc">Grouping related list items.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><ul> & <li>: Unordered bulleted list.</li><li><ol> & <li>: Ordered numbered list.</li><li><dl>, <dt>, <dd>: Description lists.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 18: HTML Lists (Unordered & Ordered) builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 18: HTML Lists (Unordered & Ordered)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;ul&gt;&lt;li&gt;HTML&lt;/li&gt;&lt;li&gt;CSS&lt;/li&gt;&lt;/ul&gt;
+&lt;ol&gt;&lt;li&gt;Step 1&lt;/li&gt;&lt;li&gt;Step 2&lt;/li&gt;&lt;/ol&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Bulleted list + Numbered list.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_19" class="module-card">
+            <h2>Module 19: Chapter 19: HTML Block vs Inline Elements</h2>
+            <p class="module-desc">Display behaviors of HTML elements.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Block elements (<div>, <p>, <h1>) start on new line and take full width.</li><li>Inline elements (<span>, <a>, <b>) stay on same line and take required width.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 19: HTML Block vs Inline Elements builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 19: HTML Block vs Inline Elements</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;div&gt;Block Container&lt;/div&gt;
+&lt;p&gt;Paragraph with &lt;span&gt;Inline Span&lt;/span&gt; inside.&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Block container + Inline span.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_20" class="module-card">
+            <h2>Module 20: Chapter 20: HTML Class & Id Attributes</h2>
+            <p class="module-desc">Identifying HTML elements for styling and scripting.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>class attribute can be shared across multiple elements.</li><li>id attribute MUST be unique within the page.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 20: HTML Class & Id Attributes builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 20: HTML Class & Id Attributes</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;div class="card"&gt;Card 1&lt;/div&gt;
+&lt;div class="card"&gt;Card 2&lt;/div&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Two elements sharing the same class styles.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_21" class="module-card">
+            <h2>Module 21: Chapter 21: HTML Iframes</h2>
+            <p class="module-desc">Embedding external web pages.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><iframe src="URL" width="100%" height="200"></iframe></li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 21: HTML Iframes builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 21: HTML Iframes</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;iframe src="https://www.example.com" width="100%" height="200"&gt;&lt;/iframe&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Embedded web page frame.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_22" class="module-card">
+            <h2>Module 22: Chapter 22: HTML JavaScript Integration</h2>
+            <p class="module-desc">Adding client-side dynamic interactivity.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><script> tag embeds JavaScript code.</li><li>DOM manipulation via document.getElementById().</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 22: HTML JavaScript Integration builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 22: HTML JavaScript Integration</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;script&gt;
+  console.log("JavaScript execution cleanly integrated.");
+&lt;/script&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Console log script execution.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_23" class="module-card">
+            <h2>Module 23: Chapter 23: HTML File Paths</h2>
+            <p class="module-desc">File location references.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Absolute Path: Full web URL (https://...).</li><li>Relative Path: Local folder path (images/pic.jpg).</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 23: HTML File Paths builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 23: HTML File Paths</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;img src="images/logo.png" alt="Local Logo"&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Relative image reference.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_24" class="module-card">
+            <h2>Module 24: Chapter 24: HTML Head Metadata</h2>
+            <p class="module-desc">Page metadata container.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><meta charset="UTF-8"></li><li><meta name="viewport" content="width=device-width, initial-scale=1.0"></li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 24: HTML Head Metadata builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 24: HTML Head Metadata</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Metadata Page&lt;/title&gt;
+&lt;/head&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Configured page head section.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_25" class="module-card">
+            <h2>Module 25: Chapter 25: HTML Semantic Layout Elements</h2>
+            <p class="module-desc">Meaningful structural elements.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><header>, <nav>, <main>, <section>, <article>, <aside>, <footer>.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 25: HTML Semantic Layout Elements builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 25: HTML Semantic Layout Elements</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;header&gt;Banner&lt;/header&gt;
+&lt;main&gt;Content&lt;/main&gt;
+&lt;footer&gt;Footer&lt;/footer&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Semantic structured web layout.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_26" class="module-card">
+            <h2>Module 26: Chapter 26: HTML Responsive Web Design</h2>
+            <p class="module-desc">Designing pages for all screen devices.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Viewport meta tag.</li><li>Responsive images (max-width: 100%; height: auto).</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 26: HTML Responsive Web Design builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 26: HTML Responsive Web Design</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;img src="pic.jpg" style="max-width: 100%; height: auto;"&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Fluid responsive image.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_27" class="module-card">
+            <h2>Module 27: Chapter 27: HTML Computer Code Elements</h2>
+            <p class="module-desc">Code formatting tags.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><code>, <kbd>, <samp>, <var>, <pre>.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 27: HTML Computer Code Elements builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 27: HTML Computer Code Elements</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p&gt;Press &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt; to copy.&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Keyboard shortcut representation.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_28" class="module-card">
+            <h2>Module 28: Chapter 28: HTML Semantic Details & Summary</h2>
+            <p class="module-desc">Interactive disclosure widgets.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><details> & <summary> create expandable accordion content without JS.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 28: HTML Semantic Details & Summary builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 28: HTML Semantic Details & Summary</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;details&gt;
+  &lt;summary&gt;Click to Expand&lt;/summary&gt;
+  &lt;p&gt;Expanded details content.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Expandable details accordion.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_29" class="module-card">
+            <h2>Module 29: Chapter 29: HTML Character Entities</h2>
+            <p class="module-desc">Reserved characters replacement.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>&lt; for <, &gt; for >, &amp; for &, &copy; for copyright.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 29: HTML Character Entities builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 29: HTML Character Entities</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p&gt;&amp;amp;lt;div&amp;amp;gt; renders &amp;lt;div&amp;gt;&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">&amp;lt;div&amp;gt; text display.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_30" class="module-card">
+            <h2>Module 30: Chapter 30: HTML Symbols (Math & Currency)</h2>
+            <p class="module-desc">Mathematical and currency signs.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>&euro; (€), &pound; (£), &yen; (¥), &sum; (∑), &infin; (∞).</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 30: HTML Symbols (Math & Currency) builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 30: HTML Symbols (Math & Currency)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p&gt;Currency: &amp;euro; | &amp;pound; | &amp;yen;&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Currency symbols € | £ | ¥.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_31" class="module-card">
+            <h2>Module 31: Chapter 31: HTML Emojis & UTF-8</h2>
+            <p class="module-desc">Emojis in UTF-8 character encoding.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Emojis are UTF-8 characters.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 31: HTML Emojis & UTF-8 builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 31: HTML Emojis & UTF-8</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p style="font-size: 2rem;"&gt;🚀 🎓 💻 ⚡ 🔥&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Rendered emoji icons.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_32" class="module-card">
+            <h2>Module 32: Chapter 32: HTML Charset Encodings</h2>
+            <p class="module-desc">Character set standards.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>UTF-8 is default HTML5 character set.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 32: HTML Charset Encodings builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 32: HTML Charset Encodings</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;meta charset="UTF-8"&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">UTF-8 meta configuration.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_33" class="module-card">
+            <h2>Module 33: Chapter 33: HTML URL Encoding Rules</h2>
+            <p class="module-desc">URL encoding for web transmission.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>Spaces replaced by %20 or +.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 33: HTML URL Encoding Rules builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 33: HTML URL Encoding Rules</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;p&gt;hello%20world&lt;/p&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Encoded URL format.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_34" class="module-card">
+            <h2>Module 34: Chapter 34: HTML vs XHTML Standards</h2>
+            <p class="module-desc">Stricter XML-based HTML syntax.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>XHTML requires lowercase tags and self-closing void elements.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 34: HTML vs XHTML Standards builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 34: HTML vs XHTML Standards</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;br /&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Self-closing tag format.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_35" class="module-card">
+            <h2>Module 35: Chapter 35: HTML Forms Core</h2>
+            <p class="module-desc">Collecting user data.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><form action="URL" method="POST"></li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 35: HTML Forms Core builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 35: HTML Forms Core</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;form action="submit.php" method="POST"&gt;
+  &lt;input type="text" name="user"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Form input field and submit button.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_36" class="module-card">
+            <h2>Module 36: Chapter 36: HTML Form Elements Overview</h2>
+            <p class="module-desc">Form controls.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><input>, <label>, <select>, <textarea>, <button>, <fieldset>, <legend>.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 36: HTML Form Elements Overview builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 36: HTML Form Elements Overview</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;fieldset&gt;&lt;legend&gt;Title&lt;/legend&gt;&lt;input type="text"&gt;&lt;/fieldset&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Fieldset box with title legend.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_37" class="module-card">
+            <h2>Module 37: Chapter 37: HTML Input Types Guide</h2>
+            <p class="module-desc">Input types.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>text, password, email, number, date, color, range, file, radio, checkbox.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 37: HTML Input Types Guide builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 37: HTML Input Types Guide</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;input type="color"&gt; &lt;input type="date"&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Color picker and date picker widgets.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_38" class="module-card">
+            <h2>Module 38: Chapter 38: HTML Input Validation Attributes</h2>
+            <p class="module-desc">Validation rules.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>required, placeholder, readonly, disabled, pattern, autofocus.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 38: HTML Input Validation Attributes builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 38: HTML Input Validation Attributes</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;input type="text" placeholder="Required" required&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Required input field.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_39" class="module-card">
+            <h2>Module 39: Chapter 39: HTML Canvas vs SVG Graphics</h2>
+            <p class="module-desc">Raster vs Vector graphics.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><canvas> (raster/JS drawing) vs <svg> (vector XML tags).</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 39: HTML Canvas vs SVG Graphics builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 39: HTML Canvas vs SVG Graphics</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;svg width="100" height="100"&gt;&lt;circle cx="50" cy="50" r="40" fill="rgb(74, 222, 128)" /&gt;&lt;/svg&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">SVG green circle graphic.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_40" class="module-card">
+            <h2>Module 40: Chapter 40: HTML Media Controls</h2>
+            <p class="module-desc">Native video and audio playback.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li><video controls></li><li><audio controls></li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 40: HTML Media Controls builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 40: HTML Media Controls</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>&lt;audio controls&gt;&lt;source src="sound.mp3" type="audio/mpeg"&gt;&lt;/audio&gt;</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Native audio player widget.</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sec_41" class="module-card">
+            <h2>Module 41: Chapter 41: HTML Web APIs (Storage & Geolocation)</h2>
+            <p class="module-desc">Browser Web APIs.</p>
+            
+            <div class="callout-grid">
+                
+        <div class="callout-box callout-blue">
+            <h4 class="callout-title-blue">Core Theory & Principles</h4>
+            <ul>
+                <li>localStorage, sessionStorage, Geolocation API.</li>
+            </ul>
+        </div>
+        
+                
+        <div class="callout-box callout-yellow">
+            <h4 class="callout-title-yellow">Practical Key Takeaways</h4>
+            <p>Mastering Chapter 41: HTML Web APIs (Storage & Geolocation) builds fundamental development capability. Review practical code and outputs carefully.</p>
+        </div>
+        
+            </div>
+            
+            <div class="code-card">
+                <div class="card-header">
+                    <span class="code-title">💻 Practical Code Example - Chapter 41: HTML Web APIs (Storage & Geolocation)</span>
+                    <span class="author-tag">Created by Gagan Sir</span>
+                </div>
+                <div class="code-container">
+                    <pre><code>localStorage.setItem("key", "value");</code></pre>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">📤 Expected Output / Browser Rendered Result:</div>
+                    <div class="output-box">Client storage API execution.</div>
+                </div>
+            </div>
+        </section>
+        
+
+            <div class="footer">
+                <p>Master Notes Suite • Created by Gagan Sir • All Rights Reserved</p>
+                <p style="font-size: 0.85rem; color: var(--accent-orange); margin-top: 6px;">Zero Hash Compliant • Optimized for All Screen Sizes</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('backdrop').classList.toggle('active');
+        }
+
+        function scrollToSection(idx) {
+            document.getElementById('sec_' + idx).scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 900) {
+                toggleSidebar();
+            }
+        }
+    </script>
+</body>
+</html>

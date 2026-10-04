@@ -20,17 +20,6 @@
             --border: rgba(255, 255, 255, 0.15);
         }
 
-        body.light-theme {
-            --bg-dark: #f4f6f8;
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --primary: #d4af37; /* Darker gold for light theme */
-            --primary-glow: rgba(212, 175, 55, 0.4);
-            --secondary: #333333;
-            --text-main: #1a1a1a;
-            --text-muted: #555555;
-            --border: rgba(0, 0, 0, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -88,9 +77,6 @@
             animation-delay: -5s;
         }
 
-        body.light-theme .shape-1 { background: rgba(212, 175, 55, 0.15); }
-        body.light-theme .shape-2 { background: rgba(0, 0, 0, 0.05); }
-
         /* Floating Background Coding Icons */
         .floating-icons {
             position: fixed;
@@ -109,7 +95,6 @@
             animation: float-icon 15s infinite linear;
             transition: color 0.5s ease;
         }
-        body.light-theme .bg-icon { color: rgba(0, 0, 0, 0.03); }
         .icon-1 { top: 10%; left: 10%; animation-duration: 25s; }
         .icon-2 { top: 70%; left: 20%; font-size: 6rem; animation-duration: 35s; animation-direction: reverse;}
         .icon-3 { top: 30%; right: 15%; font-size: 5rem; animation-duration: 28s; }
@@ -149,11 +134,6 @@
             transition: all 0.4s ease;
         }
 
-        body.light-theme .custom-logo {
-            border-color: var(--primary);
-            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
-        }
-
         .custom-logo:hover {
             transform: scale(1.05);
             border-color: var(--primary);
@@ -170,12 +150,6 @@
             -webkit-text-fill-color: transparent;
             display: inline-block;
             transition: all 0.5s ease;
-        }
-
-        body.light-theme .hero-title {
-            background: linear-gradient(to right, #1a1a1a, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
@@ -215,10 +189,6 @@
             flex-direction: column;
         }
 
-        body.light-theme .card {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
         .card::before {
             content: '';
             position: absolute;
@@ -248,18 +218,10 @@
             pointer-events: none;
         }
 
-        body.light-theme .card::after {
-            background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0));
-        }
-
         .card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px var(--primary-glow);
             border-color: transparent;
-        }
-
-        body.light-theme .card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px var(--primary-glow);
         }
 
         .card:hover::before {
@@ -295,11 +257,6 @@
             border: 1px solid var(--border);
         }
 
-        body.light-theme .card-icon {
-            background: rgba(0, 0, 0, 0.03);
-            color: var(--primary);
-        }
-
         .card:hover .card-icon {
             transform: scale(1.1) rotate(5deg);
             background: var(--primary);
@@ -331,10 +288,6 @@
             overflow: hidden;
         }
 
-        body.light-theme .links-list li a {
-            background: rgba(0, 0, 0, 0.02);
-        }
-
         .links-list li a::before {
             content: '\f101';
             font-family: 'Font Awesome 6 Free';
@@ -353,11 +306,6 @@
             border-color: var(--border);
             transform: translateX(5px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-
-        body.light-theme .links-list li a:hover {
-            background: rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .links-list li a:hover::before {
@@ -490,10 +438,6 @@
             animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        body.light-theme .chatbot-window {
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
         .chatbot-window.active {
             display: flex;
         }
@@ -562,10 +506,6 @@
             max-width: 90%;
             animation: fadeIn 0.3s ease;
             word-wrap: break-word;
-        }
-        
-        body.light-theme .chat-message {
-            background: rgba(0,0,0,0.02);
         }
 
         .chat-message.user {
@@ -687,11 +627,6 @@
         <div class="shape shape-2"></div>
     </div>
 
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">
-        <i class="fa-solid fa-sun"></i>
-    </button>
-
     <!-- Chatbot Floating Button -->
     <button class="chatbot-float" id="chatbotToggle" title="Chat with Assistant">
         <i class="fa-brands fa-whatsapp"></i>
@@ -724,6 +659,23 @@
     <div class="container" style="max-width: 95%; padding-top: 100px;">
         <div class="grid">
 
+            <!-- HTML -->
+            <div class="card">
+                <h2><span class="card-icon"><i class="fa-brands fa-html5" style="color: #e34f26;"></i></span> HTML</h2>
+                <ul class="links-list">
+                    <li><a href="full_stack/html/01_html_basics_theory_notes.html">01. Basics & Theory</a></li>
+                    <li><a href="full_stack/html/02_html_styles_colors_theory_notes.html">02. Styles & Colors</a></li>
+                    <li><a href="full_stack/html/03_html_links_images_theory_notes.html">03. Links & Images</a></li>
+                    <li><a href="full_stack/html/04_html_tables_lists_theory_notes.html">04. Tables & Lists</a></li>
+                    <li><a href="full_stack/html/05_html_forms_inputs_theory_notes.html">05. Forms & Inputs</a></li>
+                    <li><a href="full_stack/html/06_html_semantics_layout_theory_notes.html">06. Semantics & Layout</a></li>
+                    <li><a href="full_stack/html/07_html_media_graphics_theory_notes.html">07. Media & Graphics</a></li>
+                    <li><a href="full_stack/html/08_html_advanced_apis_theory_notes.html">08. Advanced APIs</a></li>
+                    <li><a href="full_stack/html/00_html_programming_master_notes.html">HTML Master Notes</a></li>
+                    <li><a href="full_stack/html/00_master_notes_portal.html">HTML Notes Portal</a></li>
+                </ul>
+            </div>
+
             <!-- CSS -->
             <div class="card">
                 <h2><span class="card-icon"><i class="fa-brands fa-css3-alt" style="color: #264de4;"></i></span> CSS</h2>
@@ -740,11 +692,40 @@
                     <li><a href="full_stack/css/00_master_notes_portal.html">CSS Notes Portal</a></li>
                 </ul>
             </div>
-            
-            <!-- Coming Soon -->
-            <div class="card" style="justify-content: center; align-items: center; text-align: center; opacity: 0.7; border: 2px dashed var(--border); background: rgba(20, 20, 20, 0.4);">
-                <h2><span class="card-icon"><i class="fa-solid fa-hourglass-half"></i></span> Coming Soon</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 0.5rem;">HTML, JS, React, Node.js, and MongoDB notes are on the way!</p>
+
+            <!-- JavaScript (Coming Soon) -->
+            <div class="card" style="opacity: 0.7;">
+                <h2><span class="card-icon"><i class="fa-brands fa-js" style="color: #f7df1e;"></i></span> JavaScript</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-top: 1rem; text-align: center;">Modules coming soon!</p>
+            </div>
+
+            <!-- React (Coming Soon) -->
+            <div class="card" style="opacity: 0.7;">
+                <h2><span class="card-icon"><i class="fa-brands fa-react" style="color: #61dafb;"></i></span> React</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-top: 1rem; text-align: center;">Modules coming soon!</p>
+            </div>
+
+            <!-- Bootstrap -->
+            <div class="card">
+                <h2><span class="card-icon"><i class="fa-brands fa-bootstrap" style="color: #7952b3;"></i></span> Bootstrap</h2>
+                <ul class="links-list">
+                    <li><a href="full_stack/bootstrap/01_bootstrap_intro_cdn_containers_grid_notes.html">01. Setup & Grid</a></li>
+                    <li><a href="full_stack/bootstrap/02_bootstrap_typography_utilities_flexbox_notes.html">02. Utilities & Flexbox</a></li>
+                    <li><a href="full_stack/bootstrap/03_bootstrap_tables_buttons_alerts_badges_notes.html">03. Tables, Buttons & Cards</a></li>
+                    <li><a href="full_stack/bootstrap/04_bootstrap_js_components_modal_navbar_notes.html">04. JS Components & Navbar</a></li>
+                    <li><a href="full_stack/bootstrap/05_bootstrap_forms_validation_inputgroups_notes.html">05. Forms & Validation</a></li>
+                    <li><a href="full_stack/bootstrap/06_bootstrap_js_api_icons_accessibility_customization_notes.html">06. Icons & Customization</a></li>
+                    <li><a href="full_stack/bootstrap/07_bootstrap_integrations_patterns_debugging_projects_notes.html">07. Projects & Debugging</a></li>
+                    <li><a href="full_stack/bootstrap/08_bootstrap_interview_prep_checklist_notes.html">08. Interview Prep</a></li>
+                    <li><a href="full_stack/bootstrap/00_bootstrap_master_notes.html">Bootstrap Master Notes</a></li>
+                    <li><a href="full_stack/bootstrap/00_master_notes_portal.html">Bootstrap Notes Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- MongoDB (Coming Soon) -->
+            <div class="card" style="opacity: 0.7;">
+                <h2><span class="card-icon"><i class="fa-solid fa-leaf" style="color: #47a248;"></i></span> MongoDB</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-top: 1rem; text-align: center;">Modules coming soon!</p>
             </div>
 
 </div>
@@ -769,32 +750,7 @@
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const body = document.body;
-        
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        
-        if (savedTheme === 'light') {
-            body.classList.add('light-theme');
-            themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        } else {
-            themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        }
-        
-        themeToggleBtn.addEventListener('click', () => {
-            body.classList.toggle('light-theme');
-            const isLight = body.classList.contains('light-theme');
-            
-            if (isLight) {
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-                localStorage.setItem('theme', 'light');
-            } else {
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-
-        // Chatbot Logic
+// Chatbot Logic
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const closeChatbot = document.getElementById('closeChatbot');

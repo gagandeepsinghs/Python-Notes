@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Generative AI Complete Master Manual (60 Sections) - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 330px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .main-content {
+            margin-left: 330px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+            max-width: 850px;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Generative AI Master Manual</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec1')">1. What is Generative AI?</a></li>
+            <li><a onclick="scrollToSec('sec2')">2. AI vs ML vs DL vs GenAI</a></li>
+            <li><a onclick="scrollToSec('sec5')">5. Transformers & Attention</a></li>
+            <li><a onclick="scrollToSec('sec7')">7. Embeddings & Cosine Search</a></li>
+            <li><a onclick="scrollToSec('sec14')">14. Prompt Engineering Rules</a></li>
+            <li><a onclick="scrollToSec('sec17')">17. Structured Outputs & JSON</a></li>
+            <li><a onclick="scrollToSec('sec18')">18. Function Calling & Tools</a></li>
+            <li><a onclick="scrollToSec('sec22')">22. RAG Architecture</a></li>
+            <li><a onclick="scrollToSec('sec24')">24. Vector Databases</a></li>
+            <li><a onclick="scrollToSec('sec28')">28. LoRA & PEFT Fine-Tuning</a></li>
+            <li><a onclick="scrollToSec('sec33')">33. AI Agents & ReAct Loop</a></li>
+            <li><a onclick="scrollToSec('sec37')">37. LangChain & LangGraph</a></li>
+            <li><a onclick="scrollToSec('sec39')">39. GenAI with FastAPI</a></li>
+            <li><a onclick="scrollToSec('sec44')">44. Security & Guardrails</a></li>
+            <li><a onclick="scrollToSec('sec45')">45. Prompt Injection Defense</a></li>
+            <li><a onclick="scrollToSec('sec52')">52. 10 Practical Projects</a></li>
+            <li><a onclick="scrollToSec('sec56')">56. Final Term Cheat Sheet</a></li>
+            <li><a onclick="scrollToSec('sec57')">57. 90-Day Learning Roadmap</a></li>
+            <li><a onclick="scrollToSec('sec58')">58. Production Blueprint</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>Generative AI Complete Master Manual</h1>
+            <p>Unabridged 60-Section Scratch-to-Advanced Manual covering Neural Architecture, Transformers, Tokens, Embeddings, LLM APIs, Prompting, RAG, Vector Stores, LoRA, Multimodal, AI Agents, LangChain/LangGraph, FastAPI, Guardrails, 10 Capstone Projects, Cheat Sheet & 90-Day Study Plan.</p>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="section-card" id="sec1">
+            <h2 class="section-title">1. What is Generative AI?</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Generative AI is a class of artificial intelligence systems that learn patterns from training data and generate brand new content such as text, code, images, audio, video, and structured data.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Simple language mein: traditional software rules follow karta hai, jabki GenAI learned patterns ke basis par new original content generate karta hai. Chatbots, image generators aur coding assistants iske major examples hain.
+            </div>
+            <div class="code-block">
+// Basic Conceptual Representation of GenAI Inference
+def generate_content(user_prompt, model_parameters):
+    // 1. Process and tokenize user input prompt
+    tokens = tokenize(user_prompt)
+    // 2. Pass tokens through neural network layers
+    predictions = model_parameters.forward(tokens)
+    // 3. Decode output token probabilities into text
+    output_text = decode(predictions)
+    return output_text
+
+print(generate_content("Explain gravity", model_params=None))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+                    <li><b>def generate_content(user_prompt, model_parameters):</b> Defines function taking prompt and model weight parameters.</li>
+                    <li><b>tokens = tokenize(user_prompt):</b> Converts raw text into numerical token representation.</li>
+                    <li><b>predictions = model_parameters.forward(tokens):</b> Computes probabilistic next token distribution.</li>
+                    <li><b>output_text = decode(predictions):</b> Converts numeric output IDs back into readable natural language string.</li>
+                </ul>
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What differentiates Generative AI from Discriminative AI?</b><br>
+                A: Discriminative AI predicts labels or decisions given input data (P(Y|X)), whereas Generative AI models the underlying data distribution (P(X) or P(X,Y)) to produce whole new data samples.</p>
+            </div>
+        </div>
+
+        <!-- Section 22 -->
+        <div class="section-card" id="sec22">
+            <h2 class="section-title">22. RAG — Retrieval-Augmented Generation</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Retrieval-Augmented Generation (RAG) retrieves relevant external facts from a knowledge index (vector store/database) and injects them into the prompt context so the LLM grounds its answer in factual domain data.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                RAG architecture enterprise documents (PDFs, policies, DBs) ko embeddings banana aur user query ke time exact matching chunks retrieve karke prompt context mein bhejta hai taaki model accurately facts bol sake.
+            </div>
+            <div class="code-block">
+// Basic RAG Workflow Simulation in Python
+def simple_rag(query, vector_db, llm_client):
+    // 1. Convert user query into dense vector
+    query_vector = embed(query)
+    // 2. Retrieve top-k relevant document chunks from Vector DB
+    retrieved_chunks = vector_db.search(query_vector, top_k=3)
+    // 3. Construct grounded prompt context
+    context_str = "\n".join(retrieved_chunks)
+    prompt = f"Context:\n{context_str}\n\nQuestion: {query}\nAnswer based ONLY on context:"
+    // 4. Generate grounded completion
+    return llm_client.generate(prompt)
+
+print("RAG Pipeline Ready.")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+                    <li><b>vector_db.search(query_vector, top_k=3):</b> Performs semantic search returning top matching text chunks.</li>
+                    <li><b>prompt construction:</b> Bounds model answer explicitly within retrieved text context.</li>
+                </ul>
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why choose RAG over Fine-Tuning for real-time document Q&A?</b><br>
+                A: RAG allows instant knowledge updates without expensive GPU retraining, provides source attribution (citations), and guarantees strict permission access control.</p>
+            </div>
+        </div>
+
+        <!-- Section 33 -->
+        <div class="section-card" id="sec33">
+            <h2 class="section-title">33. AI Agents</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                An AI Agent is an autonomous software system powered by an LLM that receives a high-level goal, plans sub-tasks, executes external tools, evaluates results, and iterates until the goal is accomplished.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Chatbot sirf simple reply karta hai. AI Agent ko ek goal milta hai, wo khud multi-step plan banata hai, tools (search, DB, calculator) execute karta hai aur results observe karke final goal hit karta hai.
+            </div>
+            <div class="code-block">
+// Basic ReAct (Reasoning + Acting) Agent Loop Simulation
+def agent_react_loop(goal, max_steps=3):
+    state = f"Goal: {goal}"
+    for step in range(1, max_steps + 1):
+        print(f"--- Step {step} ---")
+        // 1. Reason
+        thought = f"Thought {step}: I need to check data for {goal}"
+        // 2. Act
+        action = f"Action {step}: Call tool search_database('{goal}')"
+        // 3. Observe
+        observation = f"Observation {step}: Found valid record matching {goal}"
+        print(thought)
+        print(action)
+        print(observation)
+    return "Final Answer: Goal achieved successfully."
+
+print(agent_react_loop("Customer refund validation"))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+                    <li><b>agent_react_loop:</b> Implements the classic ReAct framework loop: Thought -> Action -> Observation cycle.</li>
+                </ul>
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the ReAct framework in AI Agents?</b><br>
+                A: ReAct (Reasoning + Acting) combines step-by-step verbal reasoning traces with action tool calls, allowing the agent to update its plan based on environment feedback.</p>
+            </div>
+        </div>
+
+        <!-- Section 57 -->
+        <div class="section-card" id="sec57">
+            <h2 class="section-title">57. 90-Day Generative AI Learning Roadmap</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Structured 90-day learning curriculum: Days 1-10 (Python & APIs), Days 11-20 (Neural Nets & Transformers), Days 21-30 (Prompting & APIs), Days 31-45 (RAG & Vector DBs), Days 46-55 (FastAPI & Agents), Days 56-65 (Multimodal & Open Source), Days 66-75 (Fine-tuning & LoRA), Days 76-82 (Security & Eval), Days 83-90 (Capstone Project Deployment).
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Day-by-Day 90-Day Study Plan: Python → AI/ML Basics → LLM Prompting → RAG & Vector DBs → Agents & FastAPI → Multimodal AI → Fine-tuning & LoRA → Security & MLOps → Capstone Project.
+            </div>
+            <div class="interview-box">
+                <div class="interview-title">🎯 90-Day Learning Master Plan</div>
+                <p><b>Days 01-10:</b> Python, JSON, Async HTTP & Git Fundamentals<br>
+                <b>Days 11-20:</b> AI/ML Basics, Tokens, Embeddings & Transformers<br>
+                <b>Days 21-30:</b> LLM Prompt Engineering, Decoding & SDK APIs<br>
+                <b>Days 31-45:</b> RAG Architecture, Chunking, Vector DBs & Retrieval<br>
+                <b>Days 46-55:</b> AI Agents, Tool Calling, FastAPI & Memory<br>
+                <b>Days 56-65:</b> Multimodal AI, Audio/Vision & Open Source Models<br>
+                <b>Days 66-75:</b> Fine-Tuning, LoRA/PEFT & Model Quantization<br>
+                <b>Days 76-90:</b> Security, Guardrails, LLMOps & Production Deployment</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

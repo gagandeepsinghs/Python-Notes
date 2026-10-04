@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>03. Domain Prompts: Coding, SQL, Data, RAG & Agents - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 3: Domain Prompts</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec28')">28. Prompt for Summarization</a></li>
+<li><a onclick="scrollToSec('sec29')">29. Prompt for Extraction</a></li>
+<li><a onclick="scrollToSec('sec30')">30. Prompt for Classification</a></li>
+<li><a onclick="scrollToSec('sec31')">31. Prompt for Rewriting</a></li>
+<li><a onclick="scrollToSec('sec32')">32. Prompt for Translation</a></li>
+<li><a onclick="scrollToSec('sec33')">33. Prompt for Coding</a></li>
+<li><a onclick="scrollToSec('sec34')">34. Prompt for Debugging</a></li>
+<li><a onclick="scrollToSec('sec35')">35. Prompt for SQL</a></li>
+<li><a onclick="scrollToSec('sec36')">36. Prompt for Data Analysis</a></li>
+<li><a onclick="scrollToSec('sec37')">37. Prompt for Research</a></li>
+<li><a onclick="scrollToSec('sec38')">38. Prompt for Web / Tool Use</a></li>
+<li><a onclick="scrollToSec('sec39')">39. Prompt for RAG</a></li>
+<li><a onclick="scrollToSec('sec40')">40. Prompt for RAG Grounding</a></li>
+<li><a onclick="scrollToSec('sec41')">41. Prompt for Agents</a></li>
+<li><a onclick="scrollToSec('sec42')">42. Tool Calling</a></li>
+<li><a onclick="scrollToSec('sec43')">43. Function Calling Schema</a></li>
+<li><a onclick="scrollToSec('sec44')">44. JSON / Structured Output</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>03. Domain Prompts: Coding, SQL, Data, RAG & Agents</h1>
+            <p>Sections 28-44: Prompts for Summarization, Extraction, Classification, Rewriting, Translation, Coding, Debugging, SQL, Data Analysis, Research, Tool Use, RAG Grounding, Agents & Function Schemas.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec28">
+            <h2 class="section-title">28. Prompt for Summarization</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Summarization prompts must explicitly specify source material, target audience, word/bullet constraints, information to preserve/omit, and strict source-fidelity rules.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Summarization prompt mein source text, length limit, target audience, preserve karne wali details, aur 'do not invent facts' constraint mention hona chahiye.
+            </div>
+            
+            <div class="code-block">
+// Summarization Prompt Template
+summarize_prompt = """Task: Summarize the attached transcript.
+Audience: Executive Board Members.
+Length: Maximum 5 bullet points, under 150 words total.
+Preserve: Key financial figures, dates, and risk decisions.
+Omit: Informal small talk and introductory pleasantries.
+Constraint: Rely ONLY on the text below. Do not add outside knowledge.
+
+<transcript>
+{TRANSCRIPT_TEXT}
+</source_transcript>"""
+
+print(summarize_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Preserve vs Omit:</b> Gives explicit filtering criteria to select relevant details from long source texts.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you prevent a summarization prompt from adding hallucinated background details?</b><br>A: Include a strict grounding constraint: 'Rely ONLY on the provided text. Do not assume or extrapolate unstated facts.'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec29">
+            <h2 class="section-title">29. Prompt for Extraction</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Extraction prompts require explicit field names, data types, missing value rules, and strict schema formatting (such as JSON) to turn unstructured text into clean data.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Extraction prompt unstructured text se specific fields (Name, Date, Amount) nikalta hai into a clean JSON format. Missing fields ke liye explicit 'null' rule specify karein.
+            </div>
+            
+            <div class="code-block">
+// Structured Data Extraction Prompt
+extraction_prompt = """Extract customer details from the email below.
+
+Return ONLY a valid JSON object matching this schema:
+{
+    "customer_name": "string or null",
+    "order_number": "string or null",
+    "issue_category": "REFUND | LATE_DELIVERY | WRONG_ITEM | OTHER",
+    "urgency_score": "integer 1 to 5"
+}
+
+Rule: If a field is absent, set value to null. Do not guess missing numbers.
+
+<email>
+Hi, my order ID-98765 was delayed by 3 days. Please help. - Amit
+</email>"""
+
+print(extraction_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>JSON Schema & Null Rule:</b> Explicitly dictates keys, allowed enums, and missing value behavior (`null`).</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is specifying missing-value behavior essential in extraction prompts?</b><br>A: If missing value behavior is omitted, LLMs often fabricate realistic-looking placeholders (e.g. inventing an order ID when none exists).</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec30">
+            <h2 class="section-title">30. Prompt for Classification</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Classification prompts define explicit label names, label descriptions, decision boundaries, edge-case handling rules, and few-shot examples for ambiguous categories.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Classification prompt categories define karta hai (e.g. SPAM, HAM, INQUIRY) with decision boundaries. Edge-case labeling logic define karna zaroori hai.
+            </div>
+            
+            <div class="code-block">
+// Classification Prompt Template
+classification_prompt = """Classify the support ticket into EXACTLY ONE category:
+- BILLING: Invoices, payment failures, subscription changes.
+- TECHNICAL: App crashes, bug reports, API errors.
+- GENERAL: Feature requests, account settings, general questions.
+
+Rule: If a ticket mentions both billing and technical crash, prioritize TECHNICAL.
+
+Ticket: "I cannot update my credit card and the checkout page crashes with error 500."
+Category:"""
+
+print(classification_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Prioritization Rule:</b> Resolves multi-category ambiguity by providing explicit tie-breaking logic.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you handle edge cases where a text belongs to multiple classification categories?</b><br>A: Define explicit priority hierarchy rules (e.g. 'Prioritize TECHNICAL over BILLING when both appear') or allow multi-label classification.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec31">
+            <h2 class="section-title">31. Prompt for Rewriting</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Rewriting prompts specify original text, target tone, target audience, forbidden terms, length constraints, and whether factual information must remain strictly invariant.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Rewriting prompt text ka tone, clarity ya format badalta hai (e.g. Technical -> ELI5) while keeping facts strictly unchanged.
+            </div>
+            
+            <div class="code-block">
+// Text Rewriting Prompt Template
+rewrite_prompt = """Rewrite the technical release note for a non-technical marketing email.
+Target Audience: End consumers.
+Tone: Friendly, excited, easy to understand.
+Constraint: Keep all feature names and dates 100% accurate. Do not change facts.
+
+Original: "Version 2.4 deploys non-blocking async IO sockets, reducing server P99 latency by 45%."
+Rewritten Email:"""
+
+print(rewrite_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Tone & Audience:</b> Transforms technical jargon into consumer-friendly marketing prose while preserving facts.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the main risk when asking an LLM to rewrite text?</b><br>A: Factual distortion or drift, where the model accidentally alters numbers, dates, or technical facts while trying to improve tone.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec32">
+            <h2 class="section-title">32. Prompt for Translation</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Translation prompts define source and target languages, regional dialect, formality level, audience context, and rules for preserving technical terms, brand names, and code blocks.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Translation prompt language, dialect, formality (Formal/Informal) aur brand names/code blocks ko un-translated rakhne ka constraint specify karta hai.
+            </div>
+            
+            <div class="code-block">
+// Technical Translation Prompt
+translation_prompt = """Translate the following documentation from English to Hindi.
+Formality: Professional / Formal (Aap / Technical Hindi).
+Constraint: Preserve code blocks, variables, and brand names in original English.
+
+Source: "Deploy the FastAPI container using Docker on AWS ECS."
+Translation:"""
+
+print(translation_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Preserve English Terms:</b> Prevents weird translations of technical terms like 'FastAPI' or 'Docker'.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you handle domain-specific terminology during translation?</b><br>A: Provide a glossary dictionary in the prompt (e.g. 'Kubernetes -> Kubernetes', 'Pod -> Pod') to prevent inappropriate literal translations.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec33">
+            <h2 class="section-title">33. Prompt for Coding</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Coding prompts must state programming language, exact version, environment specs, input/output types, algorithmic constraints, code style, and test requirements.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Coding prompt mein Python version, libraries, input/output data types, constraints (e.g. O(N) time complexity) aur unit test requirement likhein.
+            </div>
+            
+            <div class="code-block">
+// Code Generation Prompt Template
+coding_prompt = """ROLE: Senior Python Engineer
+TASK: Write a function to check if a binary tree is height-balanced.
+ENVIRONMENT: Python 3.12, type hints required.
+CONSTRAINTS: Time complexity must be O(N), Space complexity O(H).
+OUTPUT: Complete Python code with docstring, type annotations, and 2 unit tests."""
+
+print(coding_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>ENVIRONMENT & CONSTRAINTS:</b> Specifies Python 3.12 type hints and O(N) time complexity bounds.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is specifying the exact environment and library versions essential for code generation?</b><br>A: Language syntax and library methods change across versions (e.g. Pydantic v1 vs v2, Python 3.8 vs 3.12); specifying versions prevents deprecated code generation.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec34">
+            <h2 class="section-title">34. Prompt for Debugging</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Debugging prompts require providing exact error stack traces, relevant code snippets, runtime environment details, and expected vs actual behavior.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Debugging prompt mein exact error message, stack trace, original code aur runtime environment dekar root cause + minimal safe fix maangein.
+            </div>
+            
+            <div class="code-block">
+// Code Debugging Prompt Template
+debug_prompt = """ROLE: Expert Python Debugger
+TASK: Diagnose and fix the error below.
+ENVIRONMENT: Python 3.11, FastAPI 0.100.
+
+CODE:
+<code_snippet>
+@app.get("/users/{user_id}")
+def get_user(user_id: int):
+    return await db.fetch_user(user_id)
+</code_snippet>
+
+ERROR:
+<error_log>
+SyntaxError: 'await' outside async function
+</error_log>
+
+REQUIREMENTS:
+1. Explain root cause in 2 sentences.
+2. Provide corrected code snippet.
+3. Do not rewrite unrelated lines."""
+
+print(debug_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>CODE & ERROR:</b> Isolated within XML tags to give exact reproducible evidence for debugging.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What constraint prevents LLMs from rewriting your entire codebase during a bug fix?</b><br>A: Include the constraint: 'Provide a minimal safe fix. Do not rewrite or modify unrelated working code.'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec35">
+            <h2 class="section-title">35. Prompt for SQL</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                SQL prompts must supply database dialect (PostgreSQL, MySQL, Snowflake), schema definitions, sample table rows, performance constraints, and explicit output formatting rules.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                SQL prompt mein DB dialect (PostgreSQL 15), table schema with indexes, sample data, and performance rules ('Only SELECT, no DELETE') zaroori hain.
+            </div>
+            
+            <div class="code-block">
+// SQL Generation Prompt Template
+sql_prompt = """ROLE: Lead Database Architect
+DIALECT: PostgreSQL 15
+
+SCHEMA:
+CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100), created_at TIMESTAMP);
+CREATE TABLE orders (id INT PRIMARY KEY, user_id INT, amount DECIMAL(10,2), status VARCHAR(20));
+
+TASK: Write a query to find the top 5 users by total completed order amount in 2026.
+CONSTRAINTS: Return ONLY executable SQL. Use INNER JOIN and index-friendly WHERE filtering."""
+
+print(sql_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>SCHEMA & CONSTRAINTS:</b> Provides CREATE TABLE DDLs and forces raw SQL generation without conversational text.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you prevent SQL injection and unauthorized data modification in SQL prompts?</b><br>A: Add strict constraints: 'Generate READ-ONLY SELECT queries. Do not generate INSERT, UPDATE, DELETE, or DROP statements.'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec36">
+            <h2 class="section-title">36. Prompt for Data Analysis</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Data analysis prompts specify dataset schema, key performance indicators (KPIs), analytical objectives, business context, statistical checks, and required visualization recommendations.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Data Analysis prompt dataset schema, target business KPI, analysis goal, aur expected deliverable (e.g. Summary, Top 3 findings, Chart recommendations) define karta hai.
+            </div>
+            
+            <div class="code-block">
+// Data Analysis Prompt Template
+data_analysis_prompt = """ROLE: Senior Data Analyst
+TASK: Analyze customer churn data and identify top 3 churn drivers.
+CONTEXT: SaaS platform with monthly recurring subscription model.
+INPUT SCHEMA: user_id, tenure_months, support_tickets, monthly_spend, churned (0/1).
+OUTPUT:
+1. Executive Summary (100 words)
+2. Top 3 Data Findings with evidence
+3. Recommended retention actions"""
+
+print(data_analysis_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>INPUT SCHEMA & OUTPUT:</b> Guides model from raw schema to executive insights and business retention recommendations.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you instruct an LLM to avoid drawing false causal conclusions in data analysis?</b><br>A: Include the constraint: 'Distinguish correlation from causation. State limitations and underlying data assumptions explicitly.'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec37">
+            <h2 class="section-title">37. Prompt for Research</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Research prompts define research topic, geographic/temporal scope, source quality rules, mandatory citations, comparison matrices, and explicit uncertainty handling.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Research prompt research topic, date range, authoritative source guidelines, citation rules, aur unknown/uncertain facts ko explicitly flag karne ka instruction deta hai.
+            </div>
+            
+            <div class="code-block">
+// Technical Research Prompt Template
+research_prompt = """TASK: Compare Vector Database indexing algorithms (HNSW vs IVF-PQ).
+SCOPE: High-concurrency production deployments (10M+ vectors).
+CRITERIA: Build a Markdown comparison table across Recall Rate, Search Latency, Index Build Time, and VRAM Memory Usage.
+REQUIREMENTS: Cite authoritative papers/benchmarks. Explicitly state trade-offs."""
+
+print(research_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Markdown comparison table:</b> Forces structured side-by-side evaluation across defined technical criteria.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you prevent AI research prompts from citing non-existent papers?</b><br>A: Require URL/DOI verification, use Web/RAG search tools, and instruct: 'If specific citation details are unverified, label them as [Citation Needed].'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec38">
+            <h2 class="section-title">38. Prompt for Web / Tool Use</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Tool use prompts define conditions when external web search or API tools should be triggered, required input schemas, and how to synthesize tool results into final answers.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Tool Use prompt LLM ko batata hai ki external web search ya tool kab invoke karna hai aur search results ko response mein kaise verify karke cite karna hai.
+            </div>
+            
+            <div class="code-block">
+// Tool Use Instruction Prompt
+tool_use_prompt = """AVAILABLE TOOLS:
+- web_search(query): Searches live Google web index.
+- get_weather(city): Fetches current weather.
+
+POLICY:
+- Use web_search ONLY when answering questions about current events after 2024.
+- Always cite verified search result URLs in response.
+
+User Question: What were the top tech news headlines today?"""
+
+print(tool_use_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>AVAILABLE TOOLS & POLICY:</b> Defines exact tool capabilities and triggers search only for real-time post-2024 questions.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you handle tool execution failures gracefully in prompts?</b><br>A: Instruct the model: 'If tool execution returns an error or empty result, inform the user and ask for clarification rather than hallucinating answers.'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec39">
+            <h2 class="section-title">39. Prompt for RAG</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                RAG prompts supply retrieved context documents, establish strict source-grounding rules, mandate inline citations, and specify exact fallback behavior when context is insufficient.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                RAG prompt retrieved text chunks context mein supply karta hai and strict rule deta hai: 'Ans only using context. If context doesn't contain answer, say context insufficient.'
+            </div>
+            
+            <div class="code-block">
+// Production RAG Prompt Template
+rag_prompt = """SYSTEM POLICY: You are an enterprise Q&A assistant.
+Answer factual queries relying ONLY on the provided context documents.
+
+RULES:
+1. Cite source document IDs inline like [Doc 1].
+2. If context is insufficient, respond: "The provided context does not contain enough information to answer."
+3. Do NOT use prior knowledge outside the context.
+
+<context>
+{RETRIEVED_CHUNKS}
+</context>
+
+Question: {USER_QUESTION}"""
+
+print(rag_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>RULES 1-3:</b> Establishes strict grounding, inline citations `[Doc 1]`, and standardized fallback text.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the single most important rule in a RAG prompt?</b><br>A: The strict fallback rule ('If context is insufficient, state so') which prevents the model from falling back on generic pre-trained knowledge.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec40">
+            <h2 class="section-title">40. Prompt for RAG Grounding</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                RAG Grounding prompts explicitly distinguish between direct facts stated in context and model-derived inferences, preventing unsupported claims.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                RAG Grounding prompt direct facts aur assumptions ke beech clear separation force karta hai taaki corporate compliance requirements complete ho sakein.
+            </div>
+            
+            <div class="code-block">
+// Grounding Differentiation Prompt
+grounding_prompt = """Format your response into two distinct sections:
+1. DIRECT EVIDENCE: Exact facts supported directly by the context chunks (with citations).
+2. INFERRED LOGIC: Any logical deductions or assumptions derived from the evidence.
+
+If no direct evidence exists, list 'NONE' under Direct Evidence."""
+
+print(grounding_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>DIRECT EVIDENCE vs INFERRED LOGIC:</b> Forces clear segregation of backed facts from probabilistic reasoning.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How does Grounding Evaluation differ from Retrieval Evaluation?</b><br>A: Retrieval evaluation checks if the right documents were found; Grounding evaluation checks if the final LLM response is strictly truthful to those retrieved documents.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec41">
+            <h2 class="section-title">41. Prompt for Agents</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Agent prompts define identity, high-level goal, available tool schemas, step-by-step decision rules, tool permission boundaries, and explicit stop conditions.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Agent prompt Agent identity, high-level goal, tools list, decision rules, permission boundaries aur explicit stop condition define karta hai.
+            </div>
+            
+            <div class="code-block">
+// Autonomous Agent System Prompt
+agent_prompt = """IDENTITY: Autonomous Customer Refund Agent
+GOAL: Investigate customer refund request and issue refund if criteria met.
+
+AVAILABLE TOOLS:
+- check_order_status(order_id)
+- verify_payment(transaction_id)
+- issue_refund(order_id, amount)
+
+RULES:
+- Never issue refund exceeding $100 without manager approval.
+- Stop execution after calling issue_refund and output final summary.
+
+STOP CONDITION: Refund issued OR request escalated to human manager."""
+
+print(agent_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>STOP CONDITION & RULES:</b> Prevents infinite agent loops and enforces financial spending ceilings ($100).</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why do AI Agents require explicit stop conditions in their system prompts?</b><br>A: Without explicit stop conditions, autonomous agent loops can get trapped in repetitive tool execution loops, draining API budgets.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec42">
+            <h2 class="section-title">42. Tool Calling</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Tool calling prompts give tools unambiguous names, descriptive descriptions, explicit parameter type hints, and usage constraints for accurate model function selection.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Tool Calling prompts tools ko clear names, detailed descriptions aur parameter types dete hain taaki model sahi tool pick kare.
+            </div>
+            
+            <div class="code-block">
+// Tool Definition Protocol
+tool_def = {
+    "name": "calculate_mortgage",
+    "description": "Calculates monthly mortgage payments based on principal, annual interest rate, and term years.",
+    "parameters": {
+        "principal": {"type": "float", "description": "Loan amount in USD"},
+        "rate": {"type": "float", "description": "Annual interest rate percentage e.g. 6.5"},
+        "years": {"type": "int", "description": "Loan duration in years e.g. 30"}
+    },
+    "required": ["principal", "rate", "years"]
+}
+
+print("Tool Definition:", tool_def["name"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>tool_def:</b> Clear parameter descriptions and required fields array ensuring the LLM supplies all necessary inputs.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do descriptive tool descriptions improve function calling accuracy?</b><br>A: LLMs select tools by comparing user query semantics against tool description vectors; detailed descriptions prevent wrong tool invocation.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec43">
+            <h2 class="section-title">43. Function Calling Schema</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Function calling schemas strictly define types, enums, required fields, and parameter boundaries, requiring client-side validation before executing functions.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Function Calling Schema strict data types & required fields enforce karta hai. App backend ko execution se pehle argument validation zaroor karni chahiye.
+            </div>
+            
+            <div class="code-block">
+// Function Calling Validation Pseudocode
+def validate_and_execute_tool(model_call_json):
+    tool_name = model_call_json.get("name")
+    args = model_call_json.get("arguments")
+    
+    // Client-side schema validation
+    if tool_name == "calculate_mortgage":
+        if args["principal"] <= 0 or args["rate"] <= 0:
+            return "Error: Arguments must be positive numbers."
+        return f"Executing {tool_name} with principal=${args['principal']}"
+    return "Unknown Tool"
+
+print(validate_and_execute_tool({"name": "calculate_mortgage", "arguments": {"principal": 300000, "rate": 6.5, "years": 30}}))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>validate_and_execute_tool:</b> Client-side argument validation protecting application backend from malformed LLM tool arguments.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why should you never execute LLM function calls without client-side validation?</b><br>A: Because LLMs can hallucinate invalid arguments, out-of-range numbers, or wrong parameter types that crash backend services.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec44">
+            <h2 class="section-title">44. JSON / Structured Output</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Structured output prompts enforce rigid JSON schemas, defining field keys, data types, allowed enums, and explicit missing-field behavior for reliable backend parsing.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Structured JSON Prompt model ko exact schema layout mein answer dene bolta hai without extra text, enabling seamless Pydantic parsing in APIs.
+            </div>
+            
+            <div class="code-block">
+// JSON Schema Enforcer Prompt
+json_enforcer = """Respond ONLY with a raw JSON object matching this schema:
+{
+    "status": "SUCCESS | ERROR",
+    "data": {
+        "items_count": integer,
+        "total_cost": float
+    },
+    "errors": ["string"]
+}
+
+Rule: Do not include markdown code block formatting like ```json. Return raw JSON string only."""
+
+print(json_enforcer)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Raw JSON Rule:</b> Instructs model to omit markdown backticks for immediate string deserialization.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do JSON mode and Grammar-Guided Decoding improve output reliability?</b><br>A: They constrain token generation probabilities at the API inference layer, ensuring 100% syntactically valid JSON output.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <a href="02_prompt_techniques_fewshot_cot_chaining_frameworks_notes.html" class="page-nav-link">← Previous Topic</a>
+            <a href="04_prompt_security_injection_privacy_context_tokens_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

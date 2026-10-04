@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>08. Line-by-Line Prompts, 10 Projects & 90-Day Roadmap - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 8: Templates & Roadmap</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec96')">96. Master Prompt Template — Line by Line</a></li>
+<li><a onclick="scrollToSec('sec97')">97. Coding Prompt — Line by Line</a></li>
+<li><a onclick="scrollToSec('sec98')">98. RAG Prompt — Grounded Answering</a></li>
+<li><a onclick="scrollToSec('sec99')">99. Structured JSON Prompt</a></li>
+<li><a onclick="scrollToSec('sec100')">100. Agent Prompt</a></li>
+<li><a onclick="scrollToSec('sec101')">101. Prompt Evaluation Rubric</a></li>
+<li><a onclick="scrollToSec('sec102')">102. Prompt Debugging Example</a></li>
+<li><a onclick="scrollToSec('sec103')">103. Prompt Engineering Projects</a></li>
+<li><a onclick="scrollToSec('sec104')">104. Prompt Engineering Interview Questions</a></li>
+<li><a onclick="scrollToSec('sec105')">105. 90-Day Prompt Engineering Roadmap</a></li>
+<li><a onclick="scrollToSec('sec106')">106. Final Prompt Engineering Checklist</a></li>
+<li><a onclick="scrollToSec('sec107')">107. Golden Rule of Prompt Engineering</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>08. Line-by-Line Prompts, 10 Projects & 90-Day Roadmap</h1>
+            <p>Sections 96-107: Line-by-Line Breakdown of Master, Coding, RAG, JSON & Agent Prompts; Evaluation Rubrics; Debugging Examples; 10 Projects; 20 Interview Q&A; 90-Day Roadmap; Audit Checklist & The Golden Rule.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec96">
+            <h2 class="section-title">96. Master Prompt Template — Line by Line</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A line-by-line breakdown of a production Master Prompt Template spanning Role, Objective, Context, Input Delimiters, Constraints, and Structured Output.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Line-by-Line Master Prompt Explanation: Role (Perspective), Objective (Exact Task), Context (Business Goal), Input (Delimited Data), Constraints (Boundaries), Output (Exact Structure).
+            </div>
+            
+            <div class="code-block">
+ROLE: You are a senior data analyst.
+OBJECTIVE: Analyze the provided sales data and identify the three biggest drivers of declining revenue.
+CONTEXT: The business sells products online. The audience is the management team.
+INPUT:
+<sales_data>
+{{DATA}}
+</sales_data>
+CONSTRAINTS:
+- Use only the provided data.
+- Do not invent missing values.
+- State assumptions explicitly.
+- Keep the response under 500 words.
+OUTPUT:
+1. Executive summary
+2. Top 3 findings
+3. Evidence for each finding
+4. Recommended actions
+5. Data limitations
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>ROLE:</b> Sets senior data analyst perspective.</li><li><b>OBJECTIVE:</b> Identifies top 3 declining revenue drivers.</li><li><b>CONTEXT:</b> Online sales business context for executive audience.</li><li><b>INPUT:</b> Delimits raw sales data safely inside `<sales_data>`.</li><li><b>CONSTRAINTS:</b> Bans inventing missing values and caps response under 500 words.</li><li><b>OUTPUT:</b> Dictates exact 5-part structure for easy evaluation.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why does line-by-line breakdown of templates improve engineering rigor?</b><br>A: Because every single line in a production prompt serves an explicit functional purpose: establishing role, bounding context, preventing hallucinations, or dictating output schema.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec97">
+            <h2 class="section-title">97. Coding Prompt — Line by Line</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A line-by-line breakdown of a production Code Debugging & Fixing Prompt covering Role, Task, Environment, Code, Error Stack, and Minimal-Fix Requirements.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Line-by-Line Coding Prompt: Role (Senior Dev), Task (Fix Bug), Environment (Python 3.12, FastAPI), Code/Error (Delimited evidence), Requirements (Minimal fix + Unit test).
+            </div>
+            
+            <div class="code-block">
+ROLE: Act as a senior Python developer.
+TASK: Fix the bug in the code below.
+ENVIRONMENT: Python 3.12, FastAPI, Windows.
+CODE:
+```python
+{{CODE}}
+```
+ERROR:
+```text
+{{ERROR}}
+```
+REQUIREMENTS:
+- Identify the root cause.
+- Provide the minimal safe fix.
+- Return corrected code.
+- Explain each changed line.
+- Add one test case.
+- Do not rewrite unrelated code.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>ENVIRONMENT:</b> Specifies Python 3.12, FastAPI, Windows runtime.</li><li><b>CODE / ERROR:</b> Encloses code and error log inside code fences.</li><li><b>REQUIREMENTS:</b> Demands root cause, minimal fix, line explanations, test case, and bans rewriting unrelated code.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is 'Do not rewrite unrelated code' a critical line in coding prompts?</b><br>A: Without this line, LLMs frequently refactor surrounding variable names, reformat style, or break working helper functions.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec98">
+            <h2 class="section-title">98. RAG Prompt — Grounded Answering</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A line-by-line breakdown of a Production RAG Grounding Prompt establishing system policy, delimited context, user question, and strict fallback rules.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Line-by-Line RAG Grounded Prompt: System Policy (Answer only using context), Context (`<context>`), Question, and Strict Fallback Rules (Cite docs, Say insufficient if facts missing).
+            </div>
+            
+            <div class="code-block">
+SYSTEM POLICY: Answer factual questions using the supplied context.
+CONTEXT:
+<context>
+{{RETRIEVED_DOCUMENTS}}
+</context>
+USER QUESTION:
+{{QUESTION}}
+RULES:
+1. Use the context for factual claims.
+2. If the context is insufficient, say: "The provided context is insufficient."
+3. Do not invent citations.
+4. Keep the answer concise.
+5. Distinguish direct evidence from inference.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>SYSTEM POLICY:</b> Dictates grounded behavior.</li><li><b>CONTEXT:</b> Delimits retrieved chunks.</li><li><b>RULES 1-5:</b> Standardizes exact fallback sentence, bans fake citations, and requires evidence separation.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What makes this RAG prompt robust against hallucinations?</b><br>A: The combination of XML context isolation, strict non-extrapolation rules, and a mandatory exact fallback phrase when context lacks evidence.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec99">
+            <h2 class="section-title">99. Structured JSON Prompt</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A line-by-line breakdown of a Structured Extraction Prompt enforcing raw JSON output schemas, null field handling, and enum value constraints.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Line-by-Line Structured JSON Prompt: Task (Extract info), Schema (Exact JSON shape), Rules (Do not guess, Use null for missing, Enum validation).
+            </div>
+            
+            <div class="code-block">
+TASK: Extract customer information from the text.
+RETURN ONLY JSON:
+{
+  "name": "string or null",
+  "email": "string or null",
+  "phone": "string or null",
+  "intent": "sales|support|billing|other"
+}
+RULES:
+- Do not guess.
+- Use null when a field is absent.
+- intent must be one of the listed values.
+- Preserve the customer's spelling.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>RETURN ONLY JSON:</b> Forces pure JSON response layout.</li><li><b>Schema:</b> Specifies allowed data types and enum options for `intent`.</li><li><b>RULES:</b> Anti-guessing, null handling, and exact spelling preservation rules.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why specify 'intent must be one of the listed values'?</b><br>A: Enforcing exact enum choices prevents the model from generating custom intent labels (e.g. 'refund_inquiry') that break downstream backend switch statements.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec100">
+            <h2 class="section-title">100. Agent Prompt</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A line-by-line breakdown of an Autonomous Agent System Prompt defining Role, Goal, Tools List, Execution Rules, and Stop Conditions.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Line-by-Line Agent Prompt: Role (Support assistant), Goal (Resolve issue), Tools (search_kb, create_ticket), Rules (Search before policy answer, Never invent policy), Stop Condition.
+            </div>
+            
+            <div class="code-block">
+ROLE: You are a customer-support assistant.
+GOAL: Resolve the user's issue using approved tools.
+TOOLS:
+- search_kb(query): search the knowledge base.
+- create_ticket(summary): create a support ticket.
+RULES:
+- Search the knowledge base before answering policy questions.
+- Never invent company policy.
+- Ask for missing required information.
+- Create a ticket only when escalation criteria are met.
+- Do not expose internal tool details.
+STOP CONDITION: Return a concise customer-facing answer after the issue is resolved or escalation is created.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>ROLE & GOAL:</b> Establishes identity and task target.</li><li><b>TOOLS:</b> Explicitly lists tool names and signatures.</li><li><b>RULES:</b> Mandatory search policy and anti-invention constraint.</li><li><b>STOP CONDITION:</b> Prevents infinite tool loops by defining exact task completion state.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is 'Do not expose internal tool details' included in agent prompts?</b><br>A: To prevent technical leakages (e.g. exposing internal function names or database keys) in end-user chat interfaces.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec101">
+            <h2 class="section-title">101. Prompt Evaluation Rubric</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A complete 0-to-2 quantitative scoring rubric evaluating outputs across Accuracy, Completeness, Format, and Grounding.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Prompt Evaluation Rubric: Accuracy (0-2), Completeness (0-2), Format (0-2), Grounding (0-2). Total = 8 Points.
+            </div>
+            
+            <div class="code-block">
+Score each response from 0 to 2:
+Accuracy:
+0 = incorrect | 1 = partly correct | 2 = correct
+
+Completeness:
+0 = major requirements missing | 1 = some requirements missing | 2 = all required elements present
+
+Format:
+0 = unusable format | 1 = minor deviations | 2 = exact required format
+
+Grounding:
+0 = unsupported claims | 1 = mixed support | 2 = claims supported by supplied evidence
+
+Total = Accuracy + Completeness + Format + Grounding (Max Score = 8)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Rubric Matrix:</b> Evaluates 4 dimensions on a 0-2 scale, yielding a composite score out of 8.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How does a quantitative rubric help in prompt engineering?</b><br>A: It turns subjective impressions ('the output looks okay') into measurable data points to compare candidate prompts against baseline prompts.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec102">
+            <h2 class="section-title">102. Prompt Debugging Example</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A concrete before-and-after debugging example comparing a weak unconstrained prompt with an improved, schema-enforced prompt.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Prompt Debugging Example: Problem (Model invents missing details). Weak Prompt ('Extract customer info') vs Improved Prompt ('Extract name, email, phone. Return null if absent. Return ONLY JSON').
+            </div>
+            
+            <div class="code-block">
+Problem: The model keeps inventing missing customer details.
+
+Weak prompt:
+"Extract customer information."
+
+Improved prompt:
+"Extract name, email and phone from the supplied text.
+Return null when a field is absent.
+Never infer or invent values.
+Return only the defined JSON schema."
+
+Why weak prompt fails: missing schema and missing-value behavior.
+Why improved prompt is stronger: fields, fallback, anti-guessing rule and output contract are explicit.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Weak vs Improved:</b> Highlights how adding schema, null fallback, and anti-guessing rules eliminates hallucinations.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are the 3 most common reasons a prompt fails in production?</b><br>A: 1. Missing explicit schema, 2. Unstated missing-value behavior, 3. Lack of input delimiters separating instructions from user data.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec103">
+            <h2 class="section-title">103. Prompt Engineering Projects</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                10 Industry-standard project blueprints covering Resume Analyzer, PDF Q&A RAG, SQL Assistant, Customer Support Copilot, AI Research Assistant, Code Review Assistant, Meeting Assistant, Data Analyst Agent, Multimodal Document Extractor, and Production Prompt Evaluation Platform.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Top 10 Prompt Projects: 1. Resume Analyzer, 2. PDF Q&A RAG, 3. SQL Assistant, 4. Customer Support Copilot, 5. AI Research Assistant, 6. Code Review Assistant, 7. Meeting Assistant, 8. Data Analyst Agent, 9. Multimodal Document Extractor, 10. Production Evaluation Platform.
+            </div>
+            
+            <div class="code-block">
+PROJECT BLUEPRINTS SUMMARY:
+1. Resume Analyzer: extraction + scoring rubric + JSON output
+2. PDF Q&A RAG: retrieval + citations + fallback
+3. SQL Assistant: schema-aware SQL generation + validation
+4. Customer Support Copilot: RAG + tool calling + escalation
+5. AI Research Assistant: search + source evaluation + citations
+6. Code Review Assistant: static checks + rubric + test generation
+7. Meeting Assistant: transcript extraction + action items
+8. Data Analyst Agent: SQL + Python tools + chart recommendations
+9. Multimodal Document Extractor: image/PDF + structured JSON
+10. Production Evaluation Platform: golden dataset + A/B testing + metrics
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Projects 1-10:</b> Comprehensive practical project portfolio covering all modern LLM architectural patterns.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Which project best demonstrates production prompt engineering skills?</b><br>A: Project 10 (Production Evaluation Platform) because it proves you can measure, benchmark, version, and scientifically optimize prompts.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec104">
+            <h2 class="section-title">104. Prompt Engineering Interview Questions</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                20 Core interview questions covering definitions, prompt components, zero-shot vs few-shot, prompt chaining, hallucinations, prompt injection, structured outputs, evaluation, and security.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Top 20 Technical Interview Questions covering prompt anatomy, few-shot, chaining, injection defense, RAG grounding, evaluation rubrics, and production safety.
+            </div>
+            
+            <div class="code-block">
+TOP INTERVIEW QUESTIONS SAMPLE:
+1. What is prompt engineering? -> Systematic practice of designing instructions/context for reliable LLM outputs.
+2. Zero-shot vs few-shot? -> Zero-shot has no examples; few-shot provides 2-5 gold examples.
+3. How do you reduce hallucinations? -> RAG context grounding, explicit fallback rules, low temperature (0.0).
+4. What is prompt injection? -> Untrusted user input attempting to override system instructions.
+5. How do you evaluate prompts? -> Run against golden datasets using quantitative rubrics (Accuracy, Format, Grounding).
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Top Questions:</b> High-frequency technical interview questions and concise gold answers.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you protect a RAG system from untrusted instructions in ingested documents?</b><br>A: Treat retrieved text strictly as passive data inside XML delimiters, harden the system prompt to ignore commands inside data tags, and sanitize inputs.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec105">
+            <h2 class="section-title">105. 90-Day Prompt Engineering Roadmap</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Structured 90-day learning curriculum: Days 1-10 (LLM basics & tokens), Days 11-20 (Zero/few-shot & roles), Days 21-30 (Coding, SQL & Extraction), Days 31-40 (RAG & Injection), Days 41-50 (Tool calling & Agents), Days 51-60 (Multimodal), Days 61-70 (Evals & A/B testing), Days 71-80 (Versioning & Cost), Days 81-90 (Capstone Application Deployment).
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Day-by-Day 90-Day Study Plan: LLM Basics → Roles & Constraints → Coding & SQL → RAG & Injection → Tools & Agents → Multimodal → Evals & Rubrics → Versioning & Security → Production Capstone App.
+            </div>
+            
+            <div class="code-block">
+90-DAY ROADMAP PHASES:
+- Days 1-10: LLM basics, tokens, context, prompt anatomy and output control.
+- Days 11-20: zero-shot, few-shot, roles, constraints, examples and structured outputs.
+- Days 21-30: coding, SQL, data analysis, summarization and extraction prompts.
+- Days 31-40: RAG, grounding, citations and prompt injection.
+- Days 41-50: tool calling, function schemas and agents.
+- Days 51-60: multimodal prompting and domain-specific workflows.
+- Days 61-70: evaluation datasets, rubrics, A/B testing and regression tests.
+- Days 71-80: prompt versioning, security, privacy, cost and latency.
+- Days 81-90: build a production-style AI application with prompts, tools, evaluation and monitoring.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Days 1-90:</b> Complete step-by-step learning progression from beginner to production engineer.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What order should you follow when learning Prompt Engineering?</b><br>A: Anatomy & Roles -> Constraints & Formats -> Few-Shot & CoT -> Domain Prompts (Coding/SQL) -> RAG Grounding -> Injection Defense -> Evals & Rubrics -> Production LLMOps.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec106">
+            <h2 class="section-title">106. Final Prompt Engineering Checklist</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A 19-point comprehensive prompt audit checklist covering task specificity, context delimiters, constraint measurability, missing value handling, edge case testing, tool permissions, golden datasets, versioning, fallback, and cost measurement.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Final 19-Point Audit Checklist: Task specific? Context included? Data isolated? Constraints measurable? Output explicit? Missing values handled? Examples provided? Edge cases tested? Tool permissions enforced? Prompts versioned?
+            </div>
+            
+            <div class="code-block">
+FINAL AUDIT CHECKLIST:
+[x] Is the task specific?
+[x] Is the required context included?
+[x] Are instructions separated from untrusted data?
+[x] Are constraints measurable?
+[x] Is the output format explicit?
+[x] Are missing values handled?
+[x] Are edge cases tested?
+[x] Is hallucination/grounding behavior defined?
+[x] Are tool permissions enforced outside the prompt?
+[x] Is there a golden evaluation set & quality rubric?
+[x] Is the prompt versioned & monitored in production?
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Audit Checklist:</b> Ensures every production prompt is audited for security, schema, and performance before release.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is an audit checklist essential before pushing a prompt to production?</b><br>A: Because missing a single item (like data isolation or missing-value rules) can expose the app to prompt injection or parsing crashes.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec107">
+            <h2 class="section-title">107. Golden Rule of Prompt Engineering</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                The Golden Rule: Clear Task + Relevant Context + Explicit Constraints + Examples When Useful + Structured Output + Verification + Evaluation = Better Prompt Engineering.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Golden Rule: Prompt ko unnecessarily bada nahi, clear aur testable banao. AI ko guess karne ki jagah requirements, context aur expected output provide karo. Production mein prompt ko security boundary mat samjho — application-level validation aur permissions zaroor rakho.
+            </div>
+            
+            <div class="code-block">
+GOLDEN FORMULA:
+Clear Task + Relevant Context + Explicit Constraints + Examples When Useful + Structured Output + Verification + Evaluation = Better Prompt Engineering.
+
+Hinglish Summary:
+Prompt ko clear aur testable banao. AI ko guess karne ki jagah requirements, context aur expected output provide karo. Production mein prompt ko security boundary mat samjho — application-level validation aur permissions zaroor rakho.
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>GOLDEN FORMULA:</b> The ultimate core principle summarizing all 107 sections of Prompt Engineering.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Summarize Prompt Engineering in one sentence for an executive.</b><br>A: Prompt engineering is defining clear tasks, context, constraints, and schemas so AI models deliver reliable, secure, and testable business outputs.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <a href="07_advanced_patterns_critic_guardrails_optimization_notes.html" class="page-nav-link">← Previous Topic</a>
+            <div></div>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

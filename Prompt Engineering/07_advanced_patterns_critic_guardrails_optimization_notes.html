@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>07. Advanced Patterns, Guardrails & Optimization - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 7: Advanced Patterns</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec84')">84. Complete Prompt Chaining Example</a></li>
+<li><a onclick="scrollToSec('sec85')">85. Self-Consistency / Multiple Candidates</a></li>
+<li><a onclick="scrollToSec('sec86')">86. Critic-Generator Pattern</a></li>
+<li><a onclick="scrollToSec('sec87')">87. Guardrails Architecture</a></li>
+<li><a onclick="scrollToSec('sec88')">88. Human-in-the-Loop (HITL)</a></li>
+<li><a onclick="scrollToSec('sec89')">89. Prompt Failure Modes</a></li>
+<li><a onclick="scrollToSec('sec90')">90. Debugging a Bad Prompt</a></li>
+<li><a onclick="scrollToSec('sec91')">91. Prompt Optimization Workflow</a></li>
+<li><a onclick="scrollToSec('sec92')">92. Production Checklist</a></li>
+<li><a onclick="scrollToSec('sec93')">93. Practical Prompt Templates</a></li>
+<li><a onclick="scrollToSec('sec94')">94. Interview Preparation</a></li>
+<li><a onclick="scrollToSec('sec95')">95. Final Master Checklist</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>07. Advanced Patterns, Guardrails & Optimization</h1>
+            <p>Sections 84-95: Prompt Chaining Examples, Self-Consistency, Critic-Generator Pattern, Guardrails Architecture, Human-in-the-Loop Triggers, Failure Modes, Debugging Bad Prompts, Optimization Workflow, Production Checklist & Practical Templates.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec84">
+            <h2 class="section-title">84. Complete Prompt Chaining Example</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A complete 3-step prompt chain demonstrating data extraction, logic implementation, and code review across sequential API calls.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Step-by-step 3-stage Prompt Chaining example: Step 1 (Extract Rules) -> Step 2 (Write Python Code) -> Step 3 (Security Audit).
+            </div>
+            
+            <div class="code-block">
+// 3-Stage Prompt Chain Implementation
+stage_1 = "Stage 1: Extract business rules from contract text -> JSON output."
+stage_2 = "Stage 2: Input Stage 1 JSON -> Generate Python validation function."
+stage_3 = "Stage 3: Input Stage 2 Python -> Audit for edge cases and return final code."
+
+print("Chain Step 1:", stage_1)
+print("Chain Step 2:", stage_2)
+print("Chain Step 3:", stage_3)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Stage 1-3:</b> Demonstrates clean input-output handoffs across multi-call LLM workflows.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you handle error retries in a prompt chain?</b><br>A: Validate output schema after each chain link; if validation fails, re-run only that specific stage rather than restarting the entire chain.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec85">
+            <h2 class="section-title">85. Self-Consistency / Multiple Candidates</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Self-Consistency samples multiple candidate answers at Temperature > 0 and selects the majority or best candidate using a verification rubric.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Self-Consistency: Same prompt ke 3-5 candidates generate karein and majority voting ya rubric evaluation se best answer select karein.
+            </div>
+            
+            <div class="code-block">
+// Self-Consistency Majority Voting Simulation
+candidate_answers = ["42", "42", "43", "42", "45"]
+from collections import Counter
+
+majority_vote = Counter(candidate_answers).most_common(1)[0][0]
+print("Majority Voting Winner:", majority_vote)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>most_common(1):</b> Picks candidate answer with highest frequency across independent generation paths.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How does Self-Consistency improve reasoning accuracy?</b><br>A: Probabilistic models can make isolated decoding errors; sampling multiple paths and taking a majority vote filters out random decoding errors.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec86">
+            <h2 class="section-title">86. Critic-Generator Pattern</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                The Critic-Generator pattern pairs a Generator Prompt (creates draft) with an independent Critic Prompt (audits draft against rubrics) to refine outputs.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Critic-Generator Pattern: Generator Prompt draft banata hai; Critic Prompt use strict criteria ke against audit karke fixes suggest karta hai.
+            </div>
+            
+            <div class="code-block">
+// Critic Prompt Template
+critic_prompt = """ROLE: Senior Code Review Critic
+TASK: Audit the Generator's code below.
+
+CHECKLIST:
+1. Is error handling present?
+2. Are variables typed?
+
+If issues exist, output FAIL and list fixes. Otherwise output PASS.
+
+<generated_code>
+{CODE_DRAFT}
+</generated_code>"""
+
+print(critic_prompt)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>PASS / FAIL:</b> Provides unambiguous binary gate for automated iteration pipelines.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why use a separate Critic prompt rather than asking the Generator to critique itself in one turn?</b><br>A: Separate prompts isolate context and prevent the model from defending its own initial generation errors.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec87">
+            <h2 class="section-title">87. Guardrails Architecture</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Guardrails are validation gates (programmatic code checks + specialized moderation models) that sanitize inputs and block policy-violating outputs.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Guardrails Architecture: Input Sanitizer -> System Prompt -> Model -> Output Validator -> Final User Response.
+            </div>
+            
+            <div class="code-block">
+// Guardrail Verification Pipeline Pseudocode
+def run_guardrail_pipeline(user_prompt):
+    // Gate 1: Check prompt injection
+    if "ignore previous" in user_prompt.lower():
+        return "Blocked by Safety Guardrail."
+    // Gate 2: LLM Generation
+    output = "Model answer"
+    // Gate 3: Check PII in output
+    if "SSN" in output:
+        return "Blocked by Data Leak Guardrail."
+    return output
+
+print(run_guardrail_pipeline("Safe prompt"))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Gate 1-3:</b> Multi-stage defense checking inputs and outputs before reaching end users.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Where should Guardrails be implemented in a software stack?</b><br>A: Guardrails should be implemented as deterministic software code gates surrounding the LLM API, not relying solely on system prompts.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec88">
+            <h2 class="section-title">88. Human-in-the-Loop (HITL)</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Human-in-the-Loop rules define explicit triggers (e.g. actions exceeding $100, data deletion, low confidence score) that halt automated execution for human approval.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Human-in-the-Loop (HITL): High-impact decisions (money transfer, DB delete, low confidence) par automated flow pause karke human approval require karein.
+            </div>
+            
+            <div class="code-block">
+// HITL Trigger Logic Pseudocode
+def evaluate_hitl_trigger(action_type, amount, confidence_score):
+    if action_type == "REFUND" and amount > 100:
+        return True, "HITL Triggered: High financial refund requires manager sign-off."
+    if confidence_score < 0.70:
+        return True, "HITL Triggered: Low model confidence score."
+    return False, "Approved for Auto-Execution"
+
+print(evaluate_hitl_trigger("REFUND", 250, 0.95))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>evaluate_hitl_trigger:</b> Returns explicit boolean flag pausing execution when spending limits or confidence thresholds fail.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What are the main triggers for Human-in-the-Loop in production AI systems?</b><br>A: Irreversible data deletion, high financial transactions, legal/compliance outputs, low model confidence scores, and safety boundary flags.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec89">
+            <h2 class="section-title">89. Prompt Failure Modes</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Common prompt failure modes include vague tasks, missing context, contradictory constraints, attention decay, prompt injection vulnerability, and unconstrained formatting.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Prompt Failure Modes: Vague instructions, missing context, conflicting rules, context overflow, prompt injection vulnerability, aur conversational fluff.
+            </div>
+            
+            <div class="code-block">
+// Failure Mode Diagnostic Checklist
+failure_modes = {
+    "Vague Task": "Symptom: Generic low-quality response. Fix: Add strong action verbs and scope.",
+    "Format Drift": "Symptom: Conversational text in JSON. Fix: Add 'RETURN ONLY RAW JSON'.",
+    "Hallucination": "Symptom: Fabricated facts. Fix: Add strict RAG fallback grounding rule.",
+    "Injection": "Symptom: System rules bypassed. Fix: Isolate user data inside XML delimiters."
+}
+
+for mode, fix in failure_modes.items():
+    print(f"[{mode}] -> {fix}")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>failure_modes:</b> Maps common LLM output errors to concrete prompt fix strategies.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you fix 'Format Drift' where the model intermittently includes conversational text around JSON?</b><br>A: Use API-level JSON mode / structured outputs, add a few-shot JSON example, and enforce: 'Return ONLY raw JSON. Do not include markdown code fences.'</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec90">
+            <h2 class="section-title">90. Debugging a Bad Prompt</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Debugging a bad prompt follows a systematic single-variable diagnostic process: isolate input, check context placement, verify constraints, inspect raw API output, and build a minimal reproducible prompt.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Debugging Bad Prompt: Ek time par ek variable change karein. Raw API output inspect karein, instructions simplify karein, and minimal reproducible prompt banayein.
+            </div>
+            
+            <div class="code-block">
+// Single Variable Prompt Debugging Helper
+def debug_prompt_step(variable_changed, result_score):
+    return f"Variable Edit: [{variable_changed}] -> New Quality Score: {result_score}/10"
+
+print(debug_prompt_step("Added XML Delimiters around User Data", 9))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>Single Variable Debugging:</b> Isolates the exact prompt modification responsible for accuracy gains.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: Why is single-variable debugging crucial when optimizing prompts?</b><br>A: If you edit multiple prompt sections at once, you cannot determine which edit improved performance and which edit caused hidden regressions.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec91">
+            <h2 class="section-title">91. Prompt Optimization Workflow</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                The iterative prompt optimization workflow: Baseline -> Collect Failures -> Categorize Errors -> Revise Prompt -> Run Golden Dataset -> Compare Metrics -> Deploy Version.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Prompt Optimization Loop: Baseline -> Collect Failures -> Edit Prompt -> Test Golden Dataset -> Compare Metrics -> Deploy Version.
+            </div>
+            
+            <div class="code-block">
+// Optimization Loop State Tracker
+optimization_cycle = [
+    "1. Define Baseline Prompt (v1.0)",
+    "2. Run against 50 Golden Test Cases",
+    "3. Identify 5 JSON Parsing Failure Cases",
+    "4. Add Few-Shot JSON Example -> Create (v1.1)",
+    "5. Re-run Golden Dataset -> Confirm 100% Pass Rate",
+    "6. Promote (v1.1) to Production"
+]
+
+for step in optimization_cycle:
+    print(step)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>optimization_cycle:</b> Systematic engineering loop for continuously improving prompt reliability.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you know when a prompt is optimized enough for production?</b><br>A: When it achieves acceptable SLA target scores (e.g. >98% accuracy) across your golden dataset without regressions.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec92">
+            <h2 class="section-title">92. Production Checklist</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A 10-point production deployment checklist ensuring prompt versioning, schema validation, input sanitization, grounding rules, rate limits, logging, and rollback procedures are active.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Production Deployment Checklist: Versioning, Schema Validation, Injection Defense, Grounding Fallback, Logging, Privacy Controls, Monitoring, and Rollback Configured.
+            </div>
+            
+            <div class="code-block">
+// Production Readiness Checklist Matrix
+prod_checklist = [
+    "[CONFIRMED] Prompt version registered in repository",
+    "[CONFIRMED] XML delimiters isolating untrusted user text",
+    "[CONFIRMED] Fallback rule for missing RAG context active",
+    "[CONFIRMED] Client-side JSON schema validation in place",
+    "[CONFIRMED] Telemetry logging token usage and latency"
+]
+
+for item in prod_checklist:
+    print(item)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>prod_checklist:</b> Final operational pre-flight checklist for launching LLM features.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the risk of deploying un-versioned prompts to production?</b><br>A: Inability to track which prompt version generated a flawed output, lack of audit trail, and inability to perform instant rollbacks.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec93">
+            <h2 class="section-title">93. Practical Prompt Templates</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                A library of production-ready templates for Summarization, Extraction, Classification, Coding, RAG, Agents, and JSON formatting.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Reusable Practical Templates for Summarization, Structured Extraction, Code Review, SQL, RAG, and ReAct Agents.
+            </div>
+            
+            <div class="code-block">
+// Reusable Production Template Object
+PROMPT_LIBRARY = {
+    "RAG": "System: Grounded Q&A Assistant. Rule: Ans ONLY from <context>.",
+    "JSON": "Task: Extract fields. Output ONLY raw JSON matching schema.",
+    "CODE": "Role: Senior Engineer. Task: Fix bug. Constraint: Minimal diff."
+}
+
+print("Template Library Loaded:", len(PROMPT_LIBRARY))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>PROMPT_LIBRARY:</b> High-density collection of battle-tested prompt design templates.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do reusable prompt libraries accelerate enterprise AI development?</b><br>A: They standardize prompt patterns, enforce corporate security policies automatically, and prevent developers from reinventing prompt baselines.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec94">
+            <h2 class="section-title">94. Interview Preparation</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Comprehensive interview preparation guide covering key concepts: zero-shot vs few-shot, CoT, prompt injection, RAG grounding, structured outputs, rubrics, and failure modes.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Interview Prep: Master Definitions, Prompt Components, Few-Shot vs Zero-Shot, CoT, RAG Grounding, Injection Defense, and Evaluation Rubrics.
+            </div>
+            
+            <div class="code-block">
+// Key Interview Concepts Summary Map
+interview_concepts = {
+    "Prompt Injection": "Attacks overriding system instructions with untrusted input.",
+    "Chain-of-Thought": "Prompting strategy asking model to think step-by-step.",
+    "Few-Shot": "Providing 2-5 input-output examples in prompt context.",
+    "RAG Grounding": "Restricting answers strictly to retrieved context documents."
+}
+
+for concept, defn in interview_concepts.items():
+    print(f"{concept:20} -> {defn}")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>interview_concepts:</b> Essential definitions for technical prompt engineering interviews.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do you answer 'How do you prevent hallucinations in LLM apps?' in an interview?</b><br>A: Explain a multi-layer approach: 1. Strict RAG source grounding prompts, 2. Explicit fallback rules ('If unknown, say so'), 3. Low temperature (0.0), 4. Automated evaluation checks.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec95">
+            <h2 class="section-title">95. Final Master Checklist</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                The ultimate master checklist verifying task specificity, context quality, data separation, measurable constraints, format schemas, edge case testing, and production monitoring.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Final Master Checklist: Task specific? Context included? Data isolated? Constraints measurable? Format explicit? Edge cases tested? Prompts versioned?
+            </div>
+            
+            <div class="code-block">
+// Final Master Checklist Verification Function
+def verify_master_checklist(prompt_object):
+    checks = {
+        "is_task_specific": True,
+        "is_context_delimited": True,
+        "is_schema_explicit": True,
+        "is_fallback_defined": True
+    }
+    all_passed = all(checks.values())
+    return "PROMPT READY FOR PRODUCTION" if all_passed else "REVISION REQUIRED"
+
+print(verify_master_checklist({}))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Prompt / Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>verify_master_checklist:</b> Final verification logic ensuring all prompt safety criteria are met.
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the golden rule of production prompt engineering?</b><br>A: Make instructions explicit, isolate untrusted data, enforce structured outputs, evaluate on golden datasets, and never rely on natural language as your only security boundary.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <a href="06_usecase_prompts_business_education_marketing_code_review_notes.html" class="page-nav-link">← Previous Topic</a>
+            <a href="08_line_by_line_prompts_rubrics_projects_interview_roadmap_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>

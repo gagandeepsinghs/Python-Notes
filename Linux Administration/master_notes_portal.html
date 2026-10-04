@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Linux Administration Master Suite & Interactive Portal - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-text: rgb(29, 78, 216);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .portal-header {
+            background-color: var(--bg-sidebar);
+            color: rgb(255, 255, 255);
+            padding: 40px 48px;
+            border-bottom: 4px solid var(--accent-orange);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .portal-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .portal-header p {
+            color: rgb(148, 163, 184);
+            font-size: 1.1rem;
+        }
+
+        .portal-container {
+            display: flex;
+            gap: 32px;
+            padding: 40px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cards-area {
+            flex: 1;
+        }
+
+        .master-banner {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            border-radius: 12px;
+            padding: 28px 32px;
+            color: rgb(255, 255, 255);
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .master-banner h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .master-banner p {
+            color: rgb(148, 163, 184);
+            font-size: 0.95rem;
+        }
+
+        .btn-master {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-master:hover {
+            transform: translateY(-2px);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .portal-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+            border-color: rgb(191, 219, 254);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgb(239, 246, 255);
+            color: rgb(29, 78, 216);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .portal-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .portal-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-card {
+            display: block;
+            text-align: center;
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-card:hover {
+            background-color: var(--accent-orange);
+        }
+
+        /* Right Side Filter Panel */
+        .filter-sidebar {
+            width: 340px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 28px;
+            height: fit-content;
+            position: sticky;
+            top: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-sidebar h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-orange);
+        }
+
+        .tag-group-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .tag-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tag-btn {
+            background-color: rgb(241, 245, 249);
+            color: var(--text-primary);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag-btn.active, .tag-btn:hover {
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+        }
+
+        .filter-stats {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 12px 0;
+            border-top: 1px solid var(--border-light);
+            margin-bottom: 16px;
+        }
+
+        .btn-reset {
+            width: 100%;
+            background-color: rgb(241, 245, 249);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-reset:hover {
+            background-color: rgb(226, 232, 240);
+        }
+
+        @media (max-width: 1050px) {
+            .portal-container { flex-direction: column; padding: 20px; }
+            .filter-sidebar { width: 100%; position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="portal-header">
+        <span class="brand-badge">Created by Gagan Sir</span>
+        <h1>Linux Administration Master Learning Suite</h1>
+        <p>Interactive Search Portal & Chapter Navigator covering all 44 Linux modules: System Admin, Networking, Storage/LVM, Security, Cloud, Docker, Ansible, and Interview Scenarios.</p>
+    </header>
+
+    <div class="portal-container">
+
+        <!-- Left Area: Cards -->
+        <main class="cards-area">
+
+            <!-- Banner for Unabridged Master Manual -->
+            <div class="master-banner">
+                <div>
+                    <h2>📖 Read Complete 44-Module Master Manual</h2>
+                    <p>Single unabridged HTML manual with all topics, lab commands, & interview question banks.</p>
+                </div>
+                <a href="00_linux_administration_master_notes.html" class="btn-master">Open Master Manual</a>
+            </div>
+
+            <div id="portalCardsContainer" class="cards-grid">
+
+                <div class="portal-card" data-category="basics" data-title="linux fundamentals kernel bash shell vm setup iso virtualbox hyperv">
+                    <div>
+                        <span class="card-tag">Fundamentals & Setup</span>
+                        <h3>01. Linux Fundamentals & VM Setup</h3>
+                        <p>Kernel vs Distros, Bash shell, root/sudo elevation, VirtualBox/VMware VM setup, ISO boot & networking.</p>
+                    </div>
+                    <a href="01_linux_fundamentals_setup_notes.html" class="btn-card">Open Module 01 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="basics" data-title="filesystem hierarchy directory structure file management cp mv rm find stat du df">
+                    <div>
+                        <span class="card-tag">Filesystem & Files</span>
+                        <h3>02. Filesystem & File Operations</h3>
+                        <p>Linux filesystem hierarchy (/etc, /var, /proc), absolute paths, cp, mv, rm, find, stat, du, and df commands.</p>
+                    </div>
+                    <a href="02_filesystem_directory_management_notes.html" class="btn-card">Open Module 02 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="security" data-title="permissions chmod chown suid sgid sticky bit acl getfacl setfacl useradd usermod passwd shadow">
+                    <div>
+                        <span class="card-tag">Permissions & Users</span>
+                        <h3>03. Permissions, Users & ACL</h3>
+                        <p>Octal 755/644, SUID, SGID, Sticky bit, getfacl/setfacl ACLs, useradd, usermod, /etc/passwd & /etc/shadow.</p>
+                    </div>
+                    <a href="03_permissions_users_groups_acl_notes.html" class="btn-card">Open Module 03 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="basics" data-title="grep sed awk text processing regex processes ps top kill sigterm sigkill cron crontab timers">
+                    <div>
+                        <span class="card-tag">Text, Processes & Cron</span>
+                        <h3>04. Text, Processes & Cron</h3>
+                        <p>grep, sed, awk text parsing, ps, top process control, SIGTERM/SIGKILL signals, crontab & systemd timers.</p>
+                    </div>
+                    <a href="04_text_processing_processes_cron_notes.html" class="btn-card">Open Module 04 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="storage" data-title="apt dnf dpkg rpm package management systemd systemctl grub boot lvm pv vg lv raid">
+                    <div>
+                        <span class="card-tag">Packages, Boot & LVM</span>
+                        <h3>05. Packages, Boot, LVM & RAID</h3>
+                        <p>apt/dnf package management, systemctl services, GRUB boot process, ext4/XFS filesystems, LVM & RAID.</p>
+                    </div>
+                    <a href="05_packages_systemd_boot_storage_notes.html" class="btn-card">Open Module 05 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="network" data-title="networking ip route ss dns dig nslookup ssh keygen ufw firewalld selinux enforcing">
+                    <div>
+                        <span class="card-tag">Networking & Security</span>
+                        <h3>06. Networking, SSH & SELinux</h3>
+                        <p>IP routing, listening ports (ss), DNS resolution (dig), SSH key auth, UFW/firewalld & SELinux enforcing mode.</p>
+                    </div>
+                    <a href="06_networking_dns_ssh_security_notes.html" class="btn-card">Open Module 06 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="admin" data-title="logs journalctl system monitoring vmstat iostat performance tuning backup rsync bash scripting hardening">
+                    <div>
+                        <span class="card-tag">Logs, Monitoring & Scripting</span>
+                        <h3>07. Logs, Performance & Scripting</h3>
+                        <p>journalctl logs, vmstat/iostat resource monitoring, backup tar/rsync, production Bash scripting & server hardening.</p>
+                    </div>
+                    <a href="07_logs_monitoring_performance_scripting_notes.html" class="btn-card">Open Module 07 Notes</a>
+                </div>
+
+                <div class="portal-card" data-category="advanced" data-title="nfs samba nginx apache docker containers cloud aws ansible automation interview preparation l1 l2 l3">
+                    <div>
+                        <span class="card-tag">Enterprise, Cloud & Interviews</span>
+                        <h3>08. Enterprise, Cloud & Interviews</h3>
+                        <p>NFS/Samba, Nginx reverse proxy, Docker containers, AWS Cloud, Ansible playbooks, Troubleshooting & L1/L2/L3 Interview Prep.</p>
+                    </div>
+                    <a href="08_services_containers_cloud_ansible_interviews_notes.html" class="btn-card">Open Module 08 Notes</a>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Side Working Filter Panel -->
+        <aside class="filter-sidebar">
+            <h3>🔍 Live Topic Filter</h3>
+            
+            <input type="text" id="portalSearchInput" class="search-input" placeholder="Search Linux, LVM, SSH, Docker..." onkeyup="filterPortalCards()" />
+
+            <div class="tag-group-title">Filter by Category</div>
+            <div class="tag-buttons">
+                <button class="tag-btn active" onclick="setCategoryFilter('all', this)">All</button>
+                <button class="tag-btn" onclick="setCategoryFilter('basics', this)">Basics & CLI</button>
+                <button class="tag-btn" onclick="setCategoryFilter('storage', this)">Storage & LVM</button>
+                <button class="tag-btn" onclick="setCategoryFilter('network', this)">Networking & SSH</button>
+                <button class="tag-btn" onclick="setCategoryFilter('security', this)">Security & ACL</button>
+                <button class="tag-btn" onclick="setCategoryFilter('admin', this)">Logs & Scripting</button>
+                <button class="tag-btn" onclick="setCategoryFilter('advanced', this)">Enterprise & Cloud</button>
+            </div>
+
+            <div id="filterStats" class="filter-stats">Showing all 8 modules (44 Chapters)</div>
+
+            <button class="btn-reset" onclick="resetPortalFilter()">Reset All Filters</button>
+        </aside>
+
+    </div>
+
+    <script>
+        var currentActiveCategory = 'all';
+
+        function filterPortalCards() {
+            var searchVal = document.getElementById('portalSearchInput').value.toLowerCase().trim();
+            var cards = document.getElementsByClassName('portal-card');
+            var visibleCount = 0;
+
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                var title = card.getAttribute('data-title') || '';
+                var category = card.getAttribute('data-category') || '';
+                var cardText = card.innerText.toLowerCase();
+
+                var matchesSearch = (searchVal === '') || (title.indexOf(searchVal) !== -1) || (cardText.indexOf(searchVal) !== -1);
+                var matchesCategory = (currentActiveCategory === 'all') || (category === currentActiveCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+
+            document.getElementById('filterStats').innerText = 'Showing ' + visibleCount + ' of ' + cards.length + ' topic modules';
+        }
+
+        function setCategoryFilter(categoryName, btnElement) {
+            currentActiveCategory = categoryName;
+            var buttons = document.getElementsByClassName('tag-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            if (btnElement) {
+                btnElement.classList.add('active');
+            }
+            filterPortalCards();
+        }
+
+        function resetPortalFilter() {
+            document.getElementById('portalSearchInput').value = '';
+            var buttons = document.getElementsByClassName('tag-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            if (buttons.length > 0) {
+                buttons[0].classList.add('active');
+            }
+            currentActiveCategory = 'all';
+            filterPortalCards();
+        }
+    </script>
+</body>
+</html>

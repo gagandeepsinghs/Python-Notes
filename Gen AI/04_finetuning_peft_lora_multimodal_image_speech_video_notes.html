@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>04. Fine-Tuning, LoRA, Multimodal AI, Image & Audio - Created by Gagan Sir</title>
+    <style>
+        :root {
+            --bg-page: rgb(248, 250, 252);
+            --bg-sidebar: rgb(15, 23, 42);
+            --card-bg: rgb(255, 255, 255);
+            --text-primary: rgb(15, 23, 42);
+            --text-secondary: rgb(100, 116, 139);
+            --text-sidebar: rgb(241, 245, 249);
+            --text-sidebar-muted: rgb(148, 163, 184);
+            --accent-orange: rgb(249, 115, 22);
+            --accent-blue-bg: rgb(239, 246, 255);
+            --accent-blue-border: rgb(191, 219, 254);
+            --accent-blue-text: rgb(29, 78, 216);
+            --accent-yellow-bg: rgb(254, 243, 199);
+            --accent-yellow-border: rgb(253, 230, 138);
+            --accent-yellow-text: rgb(146, 64, 14);
+            --border-light: rgb(226, 232, 240);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            padding: 24px 18px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgb(51, 65, 85);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: var(--accent-orange);
+            color: rgb(255, 255, 255);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 6px;
+        }
+
+        .nav-list a {
+            color: var(--text-sidebar-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+        }
+
+        .portal-btn {
+            display: block;
+            margin-top: 20px;
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgb(51, 65, 85);
+            transition: background-color 0.2s;
+        }
+
+        .portal-btn:hover {
+            background-color: var(--accent-orange);
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 48px;
+            max-width: 1100px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+            color: rgb(255, 255, 255);
+            padding: 36px;
+            border-radius: 16px;
+            margin-bottom: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .header-card p {
+            color: rgb(203, 213, 225);
+            font-size: 1.05rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgb(241, 245, 249);
+        }
+
+        .def-box-blue {
+            background-color: var(--accent-blue-bg);
+            border-left: 4px solid var(--accent-blue-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            color: var(--accent-blue-text);
+        }
+
+        .def-box-yellow {
+            background-color: var(--accent-yellow-bg);
+            border-left: 4px solid var(--accent-yellow-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            color: var(--accent-yellow-text);
+        }
+
+        .def-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .code-block {
+            background-color: rgb(15, 23, 42);
+            color: rgb(241, 245, 249);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-box {
+            background-color: rgb(248, 250, 252);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .breakdown-title {
+            font-weight: 700;
+            color: rgb(15, 23, 42);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .breakdown-list {
+            list-style: none;
+        }
+
+        .breakdown-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed rgb(226, 232, 240);
+            font-size: 0.93rem;
+        }
+
+        .breakdown-list li:last-child {
+            border-bottom: none;
+        }
+
+        .interview-box {
+            background-color: rgb(240, 253, 244);
+            border: 1px solid rgb(187, 247, 208);
+            border-radius: 8px;
+            padding: 20px;
+            color: rgb(20, 83, 45);
+        }
+
+        .interview-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: rgb(22, 101, 52);
+        }
+
+        .page-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .page-nav-link {
+            background-color: rgb(15, 23, 42);
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .page-nav-link:hover {
+            background-color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="00_master_notes_portal.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #f97316; cursor: pointer;">← Back to Modules</a>
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <div class="sidebar-title">Module 4: Fine-Tuning & Multimodal</div>
+        </div>
+        <ul class="nav-list">
+            <li><a onclick="scrollToSec('sec27')">27. Fine-Tuning</a></li>
+<li><a onclick="scrollToSec('sec28')">28. LoRA and PEFT</a></li>
+<li><a onclick="scrollToSec('sec29')">29. Multimodal Generative AI</a></li>
+<li><a onclick="scrollToSec('sec30')">30. Image Generation</a></li>
+<li><a onclick="scrollToSec('sec31')">31. Speech and Audio AI</a></li>
+<li><a onclick="scrollToSec('sec32')">32. Video Generation Concepts</a></li>
+
+        </ul>
+        <a href="00_master_notes_portal.html" class="portal-btn">🏠 Master Portal</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-card">
+            <span class="brand-badge">Created by Gagan Sir</span>
+            <h1>04. Fine-Tuning, LoRA, Multimodal AI, Image & Audio</h1>
+            <p>Sections 27-32: Fine-Tuning, LoRA/PEFT, Multimodal AI, Image Generation, Speech/Audio AI & Video Generation Concepts.</p>
+        </div>
+
+        
+        <div class="section-card" id="sec27">
+            <h2 class="section-title">27. Fine-Tuning</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Fine-tuning updates model parameters using a task-specific dataset to adapt model tone, style, output formatting, or specialized domain behavior beyond zero-shot prompting capabilities.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Fine-tuning model ke underlying neural weights ko update karta hai. Factual knowledge store karne ke bajaye, ye model ki style, tone, format aur specific task execution behavior ko change karne mein sabse effective hai.
+            </div>
+            
+            <div class="code-block">
+// Fine-Tuning Training Loop Pseudocode (PyTorch style)
+import torch
+
+def train_epoch(model, dataloader, optimizer):
+    model.train()
+    total_loss = 0
+    for batch in dataloader:
+        optimizer.zero_grad()
+        outputs = model(input_ids=batch['input_ids'], labels=batch['labels'])
+        loss = outputs.loss
+        loss.backward()
+        optimizer.step()
+        total_loss += loss.item()
+    return total_loss / len(dataloader)
+
+print("Training Loop Pseudocode Initialized.")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>loss.backward():</b> Computes gradients of loss function with respect to model trainable weights.</li><li><b>optimizer.step():</b> Updates neural network parameters to minimize task error.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: When should you choose Fine-Tuning over Prompt Engineering or RAG?</b><br>A: Choose fine-tuning when you need to enforce a specific complex output structure, customize model tone/style, or reduce latency/token consumption on repeated complex tasks.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec28">
+            <h2 class="section-title">28. LoRA and PEFT</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Parameter-Efficient Fine-Tuning (PEFT) techniques like LoRA (Low-Rank Adaptation) freeze base model weights and inject trainable low-rank decomposition matrices, reducing GPU memory by 80%+.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                LoRA (Low-Rank Adaptation) base model ke giant weight matrices (W) ko freeze kar deta hai aur chote low-rank matrices (A aur B) inject karta hai. Isse VRAM usage dramatic reduce hoti hai aur training ultra-fast ho jaati hai.
+            </div>
+            
+            <div class="code-block">
+// Low-Rank Decomposition Weight Update (W = W0 + B * A)
+import numpy as np
+
+d, k = 4096, 4096  // Base linear layer dimensions
+r = 16            // Low rank factor
+
+// Full Rank Matrix size: 4096 x 4096 = 16,777,216 params
+full_params = d * k
+
+// LoRA Low-Rank Matrices: (4096 x 16) + (16 x 4096) = 131,072 params
+lora_params = (d * r) + (r * k)
+
+print(f"Original Params: {full_params:,}")
+print(f"LoRA Params: {lora_params:,} ({(lora_params/full_params)*100:.2f}% of original)")
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>d, k, r:</b> Shows how rank r=16 reduces trainable parameters from ~16.7M down to ~131K (99.2% parameter reduction!).</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is QLoRA?</b><br>A: QLoRA quantizes the frozen base model to 4-bit NormalFloat (NF4) and adds 16-bit LoRA adapter matrices, allowing fine-tuning of a 65B parameter model on a single 48GB GPU.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec29">
+            <h2 class="section-title">29. Multimodal Generative AI</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Multimodal AI models process and generate multiple data modalities (text, vision, audio, video) simultaneously by mapping different input encoders into a shared latent space.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Multimodal AI images, text, audio aur video ko ek sath process kar sakta hai. Vision-language models image + text question input lekar detailed natural language answer provide karte hain.
+            </div>
+            
+            <div class="code-block">
+// Multimodal Prompt Payload Concept (Text + Image)
+multimodal_request = {
+    "model": "genai-vision-v1",
+    "messages": [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "What is shown in this diagram and what are its key components?"},
+                {"type": "image_url", "image_url": "https://example.com/system_architecture.png"}
+            ]
+        }
+    ]
+}
+print("Multimodal Request Target:", multimodal_request["messages"][0]["content"][0]["text"])
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>multimodal_request:</b> Payload combining text prompt objects with base64/URL image objects.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: How do Vision Transformers (ViT) process images?</b><br>A: ViTs break an image into a grid of non-overlapping patches (e.g. 16x16 pixels), flatten patches into 1D vectors, add positional embeddings, and feed them into a standard Transformer encoder.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec30">
+            <h2 class="section-title">30. Image Generation</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Image generation models (Stable Diffusion, Midjourney, DALL-E) rely on Latent Diffusion models that gradually denoise random Gaussian noise conditioned on text prompt embeddings.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Image generation models Latent Diffusion process par kaam karte hain. Text prompt embedding noise reduction loop ko guide karti hai step-by-step jab tak high resolution final image na ban jaaye.
+            </div>
+            
+            <div class="code-block">
+// Conceptual Diffusion Denoising Step Simulation
+import numpy as np
+
+def denoise_step(latent_noise, text_embedding, timestep):
+    // Simulate UNet noise prediction guided by text prompt vector
+    predicted_noise = np.sin(latent_noise + timestep) * 0.1
+    // Subtract predicted noise
+    cleaned_latent = latent_noise - predicted_noise
+    return cleaned_latent
+
+initial_noise = np.random.randn(1, 4, 64, 64)
+step1 = denoise_step(initial_noise, text_embedding=None, timestep=1000)
+print("Denoised Latent Shape:", step1.shape)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>denoise_step:</b> Simulates iterative UNet reverse diffusion pass converting random noise into clear structured image latents.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the role of the VAE (Variational Autoencoder) in Latent Diffusion?</b><br>A: The VAE encoder compresses high-resolution pixel images into lower-dimensional latent space for efficient diffusion training, and the VAE decoder reconstructs latent vectors back into pixel images.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec31">
+            <h2 class="section-title">31. Speech and Audio AI</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Speech AI includes Automatic Speech Recognition (ASR e.g. Whisper) to transcribe spoken audio into text, and Text-to-Speech (TTS) models to synthesize natural human voice audio.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Speech AI do main parts mein divided hai: ASR (Whisper) jo spoken voice ko text banata hai, aur TTS jo generated text ko realistic audio output mein synthesize karta hai.
+            </div>
+            
+            <div class="code-block">
+// Speech Pipeline Flow Representation
+def audio_pipeline_flow(audio_input):
+    // 1. ASR Transcribe Audio -> Text
+    transcript = "User said: What is the weather today?"
+    // 2. LLM Process Transcript -> Answer Text
+    answer_text = "The weather is sunny with 24C."
+    // 3. TTS Synthesize Answer Text -> Audio Waveform
+    audio_output = f"Synthesizing speech for: '{answer_text}'"
+    return transcript, answer_text, audio_output
+
+print(audio_pipeline_flow("sample_mic_input.wav"))
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>audio_pipeline_flow:</b> End-to-end voice assistant flow connecting ASR -> LLM -> TTS.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What architecture powers OpenAI Whisper?</b><br>A: Whisper is an encoder-decoder Transformer trained on 680,000 hours of multilingual and multitask supervised audio data using log-Mel spectrogram inputs.</p>
+            </div>
+            
+        </div>
+        
+        <div class="section-card" id="sec32">
+            <h2 class="section-title">32. Video Generation Concepts</h2>
+            <div class="def-box-blue">
+                <div class="def-label">🇬🇧 English Definition</div>
+                Video generation models extend 2D diffusion architectures with temporal 3D self-attention mechanisms, ensuring frame-to-frame motion consistency and physical realism.
+            </div>
+            <div class="def-box-yellow">
+                <div class="def-label">🇮🇳 Hinglish Definition</div>
+                Video generation image generation se complex hai kyunki har consecutive frame mein object shape, motion aur lighting consistent rehni chahiye (Temporal Consistency).
+            </div>
+            
+            <div class="code-block">
+// Video Latent Frame Tensor Dimensions
+import numpy as np
+
+// [Batch, Frames, Channels, Height, Width]
+video_tensor = np.zeros((1, 16, 4, 64, 64))
+print(f"Video Tensor Shape (Frames={video_tensor.shape[1]}, Spatial={video_tensor.shape[3]}x{video_tensor.shape[4]}):", video_tensor.shape)
+            </div>
+            <div class="breakdown-box">
+                <div class="breakdown-title">🔍 Line-by-Line Code Breakdown</div>
+                <ul class="breakdown-list">
+<li><b>video_tensor:</b> 5D tensor adding time dimension (Frames) to standard spatial latent representations.</li>
+                </ul>
+            </div>
+            
+            
+            <div class="interview-box">
+                <div class="interview-title">🎯 Interview Focus & Questions</div>
+                <p><b>Q: What is the primary bottleneck in AI Video Generation?</b><br>A: Temporal consistency (preventing flickering across frames), high VRAM memory consumption for 3D attention, and physical motion modeling realism.</p>
+            </div>
+            
+        </div>
+        
+
+        <div class="page-nav-footer">
+            <a href="03_rag_chunking_vectordb_retrieval_evaluation_notes.html" class="page-nav-link">← Previous Topic</a>
+            <a href="05_ai_agents_multiagent_langchain_langgraph_llamaindex_notes.html" class="page-nav-link">Next Topic →</a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSec(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
