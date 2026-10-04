@@ -453,7 +453,42 @@
                 min-width: 60px; /* Line numbers or short features can be smaller */
             }
         }
-</style>
+
+        /* Mobile UI Fixes */
+        @media (max-width: 900px) {
+            body { 
+                flex-direction: column !important; 
+                display: flex !important;
+            }
+            .sidebar { 
+                width: 100% !important; 
+                position: relative !important; 
+                height: auto !important; 
+                padding: 20px !important;
+                border-bottom: 2px solid var(--border-light, #e2e8f0);
+            }
+            .main-content { 
+                margin-left: 0 !important; 
+                padding: 20px 15px !important; 
+                width: 100% !important;
+            }
+            .def-box-blue, .def-box-yellow {
+                border-radius: 8px !important;
+                padding: 15px !important;
+            }
+            .code-block, pre, .output-box {
+                font-size: 0.8rem !important;
+                overflow-x: auto !important;
+            }
+            .header-card h1 {
+                font-size: 1.5rem !important;
+            }
+            .brand-badge {
+                display: inline-block !important;
+                margin-bottom: 10px !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
