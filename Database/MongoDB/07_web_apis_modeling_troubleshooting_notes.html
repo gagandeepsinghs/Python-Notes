@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 07: Web APIs, Data Modeling & Troubleshooting — Created by Gagan Sir</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background-color: rgb(248, 250, 252);
+    color: rgb(15, 23, 42);
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 300px;
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+.sidebar-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(249, 115, 22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-subtitle {
+    font-size: 12px;
+    color: rgb(148, 163, 184);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+.nav-group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgb(148, 163, 184);
+    margin: 16px 0 8px 8px;
+    font-weight: 700;
+}
+.nav-item {
+    display: block;
+    padding: 10px 14px;
+    color: rgb(203, 213, 225);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.nav-item:hover {
+    background-color: rgb(30, 41, 59);
+    color: rgb(255, 255, 255);
+    transform: translateX(4px);
+}
+.nav-item.active {
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+.main-content {
+    margin-left: 300px;
+    flex: 1;
+    padding: 40px;
+    max-width: 1200px;
+}
+.header-banner {
+    background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+    color: rgb(255, 255, 255);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.badge-creator {
+    display: inline-block;
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+.topic-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: rgb(255, 255, 255);
+    margin-bottom: 8px;
+}
+.topic-desc {
+    font-size: 15px;
+    color: rgb(203, 213, 225);
+    line-height: 1.6;
+}
+.card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 28px;
+    border: 1px solid rgb(226, 232, 240);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgb(241, 245, 249);
+}
+.card-num {
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(15, 23, 42);
+}
+.bilingual-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.def-english {
+    background-color: rgb(240, 249, 255);
+    border-left: 4px solid rgb(3, 105, 161);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-hinglish {
+    background-color: rgb(254, 252, 232);
+    border-left: 4px solid rgb(180, 83, 9);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+.def-english .def-label { color: rgb(3, 105, 161); }
+.def-hinglish .def-label { color: rgb(180, 83, 9); }
+.def-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(30, 41, 59);
+}
+.code-container {
+    background-color: rgb(15, 23, 42);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    color: rgb(241, 245, 249);
+    line-height: 1.5;
+}
+.breakdown-box {
+    background-color: rgb(248, 250, 252);
+    border: 1px solid rgb(203, 213, 225);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+}
+.breakdown-header {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgb(15, 118, 110);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.breakdown-list {
+    list-style-type: none;
+}
+.breakdown-list li {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: rgb(51, 65, 85);
+    padding-left: 16px;
+    position: relative;
+}
+.breakdown-list li::before {
+    content: '•';
+    color: rgb(15, 118, 110);
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+}
+.interview-box {
+    background-color: rgb(254, 242, 242);
+    border-left: 4px solid rgb(185, 28, 28);
+    padding: 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+}
+.interview-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: rgb(185, 28, 28);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+.interview-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(127, 29, 29);
+}
+.table-container {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgb(226, 232, 240);
+}
+th {
+    background-color: rgb(241, 245, 249);
+    color: rgb(15, 23, 42);
+    font-weight: 700;
+}
+tr:hover {
+    background-color: rgb(248, 250, 252);
+}
+
+/* Responsive Design for Modules */
+@media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; padding: 16px; overflow-y: visible; }
+    .main-content { margin-left: 0; padding: 20px; }
+}
+@media (max-width: 480px) {
+    .header-banner { padding: 20px; }
+    .topic-title { font-size: 20px !important; }
+    .card { padding: 16px; }
+    .table-container { overflow-x: auto; }
+}
+
+</style>
+</head>
+<body>
+<div class="sidebar">
+        <a href="master_notes_portal.html" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; color: white; padding: 10px; border-radius: 5px; cursor: pointer;">← Back to Portal</a>
+    <div class="sidebar-brand">🍃 MongoDB Notes</div>
+    <div class="sidebar-subtitle">Created by Gagan Sir</div>
+    <div class="nav-group-title">Modules Navigation</div>
+    <a class="nav-item " onclick="window.location.href='01_mongodb_foundations_shell_crud_notes.html'">01. Foundations & Basic CRUD</a>
+    <a class="nav-item " onclick="window.location.href='02_query_operators_arrays_cursors_notes.html'">02. Query Operators & Cursors</a>
+    <a class="nav-item " onclick="window.location.href='03_update_operators_bulk_db_commands_notes.html'">03. Updates, Bulk & Commands</a>
+    <a class="nav-item " onclick="window.location.href='04_indexes_optimization_aggregation_pipeline_notes.html'">04. Indexes & Core Aggregation</a>
+    <a class="nav-item " onclick="window.location.href='05_advanced_aggregation_transactions_replica_notes.html'">05. Advanced Aggregation & Replica</a>
+    <a class="nav-item " onclick="window.location.href='06_sharding_security_backup_drivers_notes.html'">06. Sharding, Security & Drivers</a>
+    <a class="nav-item active" onclick="window.location.href='07_web_apis_modeling_troubleshooting_notes.html'">07. Web APIs & Data Modeling</a>
+    <a class="nav-item " onclick="window.location.href='08_architecture_projects_interview_roadmap_notes.html'">08. Projects & Interview Bank</a>
+    <div class="nav-group-title" style="margin-top: 24px;">Master Navigation</div>
+    <a class="nav-item" onclick="window.location.href='00_master_notes_portal.html'">🌐 Interactive Master Portal</a>
+    <a class="nav-item" onclick="window.location.href='00_mongodb_master_notes.html'">📖 Full Master Manual</a>
+</div>
+<div class="main-content">
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 07: Web APIs, Data Modeling & Troubleshooting</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">51</div><div class="card-title">FastAPI + MongoDB API Skeleton</div></div>
+        <div class="code-container">
+from fastapi import FastAPI
+from pymongo import MongoClient
+import os
+
+app = FastAPI()
+client = MongoClient(os.environ["MONGO_URI"])
+db = client["college"]
+students = db["students"]
+
+@app.post("/students")
+def create_student(data: dict):
+    result = students.insert_one(data)
+    return {"id": str(result.inserted_id)}
+
+@app.get("/students")
+def get_students():
+    return list(students.find({}, {"_id": 0}))
+
+@app.delete("/students/{name}")
+def delete_student(name: str):
+    result = students.delete_one({"name": name})
+    return {"deleted": result.deleted_count}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">52</div><div class="card-title">Flask + MongoDB API Pattern</div></div>
+        <div class="code-container">
+from flask import Flask, request, jsonify
+from pymongo import MongoClient
+import os
+
+app = Flask(__name__)
+client = MongoClient(os.environ["MONGO_URI"])
+db = client["college"]
+
+@app.post("/students")
+def create_student():
+    data = request.get_json()
+    result = db.students.insert_one(data)
+    return jsonify({"id": str(result.inserted_id)}), 201
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">53</div><div class="card-title">MongoDB + JavaScript ObjectId</div></div>
+        <div class="code-container">
+const { ObjectId } = require("mongodb");
+const id = new ObjectId("507f1f77bcf86cd799439011");
+const student = await students.findOne({ _id: id });
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">54</div><div class="card-title">Common MQL Query Patterns</div></div>
+        <div class="code-container">
+// Exists
+db.users.find({ email: { $exists: true } })
+
+// Range filter
+db.products.find({ price: { $gte: 500, $lte: 2000 } })
+
+// Nested object field filter
+db.users.find({ "address.city": "Ludhiana" })
+
+// Array element filter
+db.users.find({ skills: "Python" })
+
+// Multiple conditions
+db.users.find({ age: { $gte: 18 }, active: true })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">55</div><div class="card-title">Pagination Patterns (Skip/Limit vs Cursor)</div></div>
+        <div class="code-container">
+// 1. Simple Skip/Limit (For small datasets)
+db.products.find({})
+  .sort({ _id: 1 })
+  .skip(20)
+  .limit(10)
+
+// 2. Cursor/Range-Based Pagination (High performance on large collections)
+const lastId = ObjectId("...");
+db.products.find({ _id: { $gt: lastId } })
+  .sort({ _id: 1 })
+  .limit(10)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">56</div><div class="card-title">Data Modeling Example — E-commerce</div></div>
+        <div class="code-container">
+{
+  _id: ObjectId("..."),
+  customerId: ObjectId("..."),
+  status: "paid",
+  items: [
+    { productId: ObjectId("..."), name: "Shoes", qty: 2, price: 1500 },
+    { productId: ObjectId("..."), name: "Belt", qty: 1, price: 500 }
+  ],
+  total: 3500,
+  createdAt: ISODate("2026-10-05T10:00:00Z")
+}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">57</div><div class="card-title">Time Series Collection Example</div></div>
+        <div class="code-container">
+db.createCollection("temperatures", {
+  timeseries: {
+    timeField: "timestamp",
+    metaField: "sensor",
+    granularity: "minutes"
+  }
+})
+
+db.temperatures.insertOne({
+  timestamp: new Date(),
+  sensor: { id: "S01", room: "A" },
+  temperature: 28.4
+})
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">58</div><div class="card-title">Change Streams Example</div></div>
+        <div class="code-container">
+const changeStream = db.collection("orders").watch();
+changeStream.on("change", change => {
+  console.log(change);
+});
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">59</div><div class="card-title">Common Errors & Fixes</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Problem / Error</th><th>Likely Cause</th><th>What to Check & Fix</th></tr></thead>
+                <tbody>
+                    <tr><td>ECONNREFUSED</td><td>Server not running / wrong port</td><td>mongod service status, port 27017, connection string</td></tr>
+                    <tr><td>Authentication failed</td><td>Wrong user / auth DB / password</td><td>Credentials, authSource=admin, user roles</td></tr>
+                    <tr><td>Duplicate key</td><td>Unique index violation</td><td>Existing duplicates in collection, index definition</td></tr>
+                    <tr><td>Slow query</td><td>Missing / poor index or bad shape</td><td>explain(), index usage, schema design</td></tr>
+                    <tr><td>Document too large</td><td>Document exceeds 16MB BSON limit</td><td>Schema design, unbounded arrays, switch to GridFS/object storage</td></tr>
+                    <tr><td>Timeout</td><td>Network / server load / query deadlock</td><td>Timeouts, server metrics, query plan optimization</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">60</div><div class="card-title">Performance Checklist</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">📋 12-Step Query Tuning Protocol</div>
+            <ul class="breakdown-list">
+                <li>1. Reproduce the slow query in a non-production test environment.</li>
+                <li>2. Run `explain('executionStats')` to inspect query execution metrics.</li>
+                <li>3. Check index usage (IXSCAN vs COLLSCAN).</li>
+                <li>4. Compare total documents examined vs documents returned.</li>
+                <li>5. Check sort behavior (in-memory sort vs index sort).</li>
+                <li>6. Review projection to avoid unnecessary field transfers.</li>
+                <li>7. Review schema and document size.</li>
+                <li>8. Check server CPU / memory / disk I/O metrics.</li>
+                <li>9. Check connection pool size and driver settings.</li>
+                <li>10. Apply one controlled index or query structure change at a time.</li>
+                <li>11. Re-test execution stats to confirm improvement.</li>
+                <li>12. Monitor production performance metrics continuous feedback.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">61</div><div class="card-title">Security Checklist</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">🛡️ Enterprise Security Practices</div>
+            <ul class="breakdown-list">
+                <li>✔ Enable authentication on all production servers.</li>
+                <li>✔ Enforce Role-Based Access Control (RBAC) & Least Privilege.</li>
+                <li>✔ Enforce TLS/SSL encryption for all data in transit.</li>
+                <li>✔ Apply network level restrictions & firewall IP whitelisting.</li>
+                <li>✔ Secure management of secrets and environment variables.</li>
+                <li>✔ Regular patch/update lifecycle maintenance.</li>
+                <li>✔ Enable auditing for security compliant environments.</li>
+                <li>✔ Secure backup storage and regular restore verification tests.</li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+</body>
+</html>

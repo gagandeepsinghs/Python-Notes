@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Master Notes Portal — Created by Gagan Sir</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background-color: rgb(248, 250, 252);
+    color: rgb(15, 23, 42);
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 300px;
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+.sidebar-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(249, 115, 22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.sidebar-subtitle {
+    font-size: 12px;
+    color: rgb(148, 163, 184);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+.filter-category {
+    padding: 8px 12px;
+    color: rgb(203, 213, 225);
+    font-size: 13px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.filter-category:hover, .filter-category.active {
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+.main-layout {
+    margin-left: 300px;
+    flex: 1;
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+}
+.content-area {
+    flex: 1;
+}
+.header-banner {
+    background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+    color: rgb(255, 255, 255);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+}
+.badge-creator {
+    display: inline-block;
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+.portal-card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid rgb(226, 232, 240);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.portal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.1);
+    border-color: rgb(249, 115, 22);
+}
+.portal-card-num {
+    display: inline-block;
+    background-color: rgb(241, 245, 249);
+    color: rgb(15, 23, 42);
+    font-weight: 800;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+.portal-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(15, 23, 42);
+    margin-bottom: 8px;
+}
+.portal-card-desc {
+    font-size: 13.5px;
+    color: rgb(100, 116, 139);
+    line-height: 1.5;
+}
+.right-filter-bar {
+    width: 320px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 16px;
+    padding: 24px;
+    height: fit-content;
+    position: sticky;
+    top: 40px;
+    border: 1px solid rgb(226, 232, 240);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.filter-search-box {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid rgb(226, 232, 240);
+    font-size: 14px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.filter-search-box:focus {
+    border-color: rgb(249, 115, 22);
+}
+.topic-counter {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgb(100, 116, 139);
+    margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+    <a href="../index.html" style="display: inline-block; background: #ffcc00; color: #000; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-family: 'Outfit', sans-serif; margin-bottom: 24px; font-size: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        ← Back to Portal
+    </a>
+    <div class="sidebar-brand">🐙 GitHub Notes</div>
+    <div class="sidebar-subtitle">Created by Gagan Sir</div>
+    <div style="font-size: 11px; text-transform: uppercase; color: rgb(148, 163, 184); margin-bottom: 12px; font-weight: 700;">Categories Filter</div>
+    <div class="filter-category active" onclick="filterCategory('all', this)">All 8 Modules</div>
+    <div class="filter-category" onclick="filterCategory('git', this)">Git Core & Lifecycle</div>
+    <div class="filter-category" onclick="filterCategory('workflow', this)">PRs & Code Review</div>
+    <div class="filter-category" onclick="filterCategory('actions', this)">Actions & CI/CD</div>
+    <div class="filter-category" onclick="filterCategory('security', this)">Security & Scanning</div>
+    <div class="filter-category" onclick="filterCategory('apis', this)">REST & GraphQL APIs</div>
+    <div class="filter-category" onclick="filterCategory('interview', this)">150+ Interview Q&A</div>
+</div>
+
+<div class="main-layout">
+    <div class="content-area">
+        <div class="header-banner">
+            <div class="badge-creator">Created by Gagan Sir</div>
+            <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">GitHub Interactive Master Portal</h1>
+            <p style="font-size: 15px; color: rgb(203, 213, 225);">Search and browse all 64 topics across 25 pages with real-time live keyword filtering</p>
+        </div>
+
+        <div class="portal-grid" id="portalGrid">
+            <div class="portal-card" data-cat="git" onclick="window.location.href='01_github_foundations_installation_auth_notes.html'">
+                <span class="portal-card-num">MODULE 01</span>
+                <div class="portal-card-title">Foundations, Installation & Auth</div>
+                <div class="portal-card-desc">Git & GitHub mental model flowchart, CLI installation, global config, SSH/token auth, repo creation & structure (.git, CODEOWNERS, .github).</div>
+            </div>
+
+            <div class="portal-card" data-cat="git" onclick="window.location.href='02_git_lifecycle_branching_rebase_notes.html'">
+                <span class="portal-card-num">MODULE 02</span>
+                <div class="portal-card-title">Git Lifecycle, Branching & Rebase</div>
+                <div class="portal-card-desc">File lifecycle flowchart, status/diff/add/commit workflow, conventional commits, branching, fast-forward merge, conflict resolution & interactive rebase.</div>
+            </div>
+
+            <div class="portal-card" data-cat="git" onclick="window.location.href='03_history_recovery_remotes_lfs_notes.html'">
+                <span class="portal-card-num">MODULE 03</span>
+                <div class="portal-card-title">History Recovery, Remotes & Git LFS</div>
+                <div class="portal-card-desc">Restore vs reset vs revert, reflog history recovery, stash, remote fetch/pull/push, tags & releases, cherry-pick, bisect, worktree, submodules & Git LFS.</div>
+            </div>
+
+            <div class="portal-card" data-cat="workflow" onclick="window.location.href='04_github_workflow_prs_code_review_notes.html'">
+                <span class="portal-card-num">MODULE 04</span>
+                <div class="portal-card-title">GitHub PRs, Code Review & Rulesets</div>
+                <div class="portal-card-desc">GitHub UI, Issues & project planning, PR lifecycle, reviewer checklist, fork & open-source workflow flowchart, CODEOWNERS & branch protection rules.</div>
+            </div>
+
+            <div class="portal-card" data-cat="actions" onclick="window.location.href='05_github_actions_yaml_triggers_matrix_notes.html'">
+                <span class="portal-card-num">MODULE 05</span>
+                <div class="portal-card-title">Actions YAML, Triggers & Matrix</div>
+                <div class="portal-card-desc">Actions architecture flowchart, workflow YAML syntax, event triggers, runners, context expressions, matrix strategy & dependency caching.</div>
+            </div>
+
+            <div class="portal-card" data-cat="actions" onclick="window.location.href='06_advanced_actions_containers_ci_cd_notes.html'">
+                <span class="portal-card-num">MODULE 06</span>
+                <div class="portal-card-title">Service Containers & CI/CD Pipelines</div>
+                <div class="portal-card-desc">PostgreSQL/Redis service containers, reusable workflows, composite actions, permissions, deployment environments, CI flowchart & CD deployment flowchart.</div>
+            </div>
+
+            <div class="portal-card" data-cat="security apis" onclick="window.location.href='07_security_apis_hooks_internals_notes.html'">
+                <span class="portal-card-num">MODULE 07</span>
+                <div class="portal-card-title">Security, APIs, Hooks & Internals</div>
+                <div class="portal-card-desc">Dependabot, secret scanning, GHCR, Releases, GitHub CLI (gh), REST API, GraphQL basics, Webhooks, local Git hooks, Git object model flowchart & Dev Containers.</div>
+            </div>
+
+            <div class="portal-card" data-cat="interview" onclick="window.location.href='08_troubleshooting_projects_interview_roadmap_notes.html'">
+                <span class="portal-card-num">MODULE 08</span>
+                <div class="portal-card-title">Projects & 150+ Interview Q&A Bank</div>
+                <div class="portal-card-desc">Troubleshooting guide, real company workflow flowchart, 10 portfolio projects, 150+ technical/scenario Q&A, command cheat sheet, 90-day roadmap & readiness checklist.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side Live Search Filter -->
+    <div class="right-filter-bar">
+        <h3 style="font-size: 16px; font-weight: 800; color: rgb(15, 23, 42); margin-bottom: 12px;">Live Topics Filter</h3>
+        <input type="text" id="searchInput" class="filter-search-box" placeholder="Type keyword (e.g. rebase, actions, reflog)..." onkeyup="filterTopics()">
+        <div class="topic-counter" id="topicCounter">Showing 8 of 8 Modules</div>
+        <div style="font-size: 13px; line-height: 1.6; color: rgb(100, 116, 139);">
+            <b>Quick Links:</b><br/>
+            • <a href="00_github_master_notes.html" style="color: rgb(249, 115, 22); text-decoration: none; font-weight: 700;">Open Complete Manual</a><br/>
+            • <a href="05_github_actions_yaml_triggers_matrix_notes.html" style="color: rgb(3, 105, 161); text-decoration: none;">View GitHub Actions</a><br/>
+            • <a href="08_troubleshooting_projects_interview_roadmap_notes.html" style="color: rgb(15, 118, 110); text-decoration: none;">View 150+ Interview Q&A</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterTopics() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.portal-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+            card.style.display = 'block';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    document.getElementById('topicCounter').innerText = `Showing ${visibleCount} of ${cards.length} Modules`;
+}
+
+function filterCategory(cat, element) {
+    document.querySelectorAll('.filter-category').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+
+    const cards = document.querySelectorAll('.portal-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const cardCat = card.getAttribute('data-cat') || '';
+        if (cat === 'all' || cardCat.includes(cat)) {
+            card.style.display = 'block';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    document.getElementById('topicCounter').innerText = `Showing ${visibleCount} of ${cards.length} Modules`;
+}
+</script>
+</body>
+</html>

@@ -27,8 +27,8 @@
             font-size: 1.45rem;
             color: rgb(30, 58, 138); border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
         .section-num { background: rgb(59, 130, 246); color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; }
-        .hinglish-box { background: rgba(16, 185, 129, 0.08); border-left: 4px solid rgb(59, 130, 246); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.92rem; color: rgb(167, 243, 208); }
-        .mnemonic-box { background: rgba(168, 85, 247, 0.08); border-left: 4px solid rgb(59, 130, 246); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.92rem; color: rgb(243, 232, 255); }
+        .hinglish-box { background: rgba(16, 185, 129, 0.08); border-left: 4px solid rgb(59, 130, 246); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.92rem; color: #000000; }
+        .mnemonic-box { background: rgba(168, 85, 247, 0.08); border-left: 4px solid rgb(59, 130, 246); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.92rem; color: #000000; }
         .summary-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.88rem; }
         .summary-table th, .summary-table td { border: 1px solid var(--border-color); padding: 10px 12px; }
         .summary-table th { background: var(--bg-tertiary); color: rgb(59, 130, 246); }
@@ -165,7 +165,9 @@
                 margin-bottom: 10px !important;
             }
         }
-    </style>
+    
+        .hinglish-box strong, .mnemonic-box strong { color: #b91c1c !important; background-color: #fef08a !important; padding: 2px 4px; border-radius: 4px; }
+</style>
 </head>
 <body>
         <div class="sidebar">

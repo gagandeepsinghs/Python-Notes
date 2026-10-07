@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 7: Master Tables & Practice</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Strategy: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+
+        /* Practice section */
+        .practice-box { border: 1px solid var(--border-color); background: #f8fafc; padding: 20px; margin-bottom: 15px; border-radius: 8px; }
+        .practice-box p { font-weight: bold; }
+        .answer-box { background: #ecfdf5; border-left: 4px solid var(--accent-green); padding: 10px; margin-top: 10px; color: #064e3b; display: none; }
+        .show-btn { background: var(--accent-blue); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .show-btn:hover { background: #1e40af; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Grammar_Master_Notes.html" style="background: var(--accent-blue); color: white; text-align: center; font-weight: bold; margin-bottom: 15px; padding: 10px; border-radius: 5px; display: block;">&larr; Back to Master</a>
+        <h2>Unit 7: Master Tables</h2>
+        <a href="#t1">Tense Master Table</a>
+        <a href="#t2">Narration Table</a>
+        <a href="#t3">Articles Table</a>
+        <a href="#t4">High-Frequency Grammar</a>
+        <a href="#t5">Voice Quick Flow</a>
+        <a href="#practice">Error-Spotting Practice</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 7: Master Tables & Practice</h1>
+
+        <section id="t1">
+            <h2>Tense Master Table</h2>
+            <table>
+                <tr><th>Tense</th><th>Structure</th><th>Example</th></tr>
+                <tr><td>Present Simple</td><td>V1 / V1+s</td><td>He works.</td></tr>
+                <tr><td>Present Continuous</td><td>am/is/are + V-ing</td><td>He is working.</td></tr>
+                <tr><td>Present Perfect</td><td>has/have + V3</td><td>He has worked.</td></tr>
+                <tr><td>Present Perfect Continuous</td><td>has/have been + V-ing</td><td>He has been working.</td></tr>
+                <tr><td>Past Simple</td><td>V2 / did + V1</td><td>He worked. Did he work?</td></tr>
+                <tr><td>Past Continuous</td><td>was/were + V-ing</td><td>He was working.</td></tr>
+                <tr><td>Past Perfect</td><td>had + V3</td><td>He had worked.</td></tr>
+                <tr><td>Future Simple</td><td>will + V1</td><td>He will work.</td></tr>
+                <tr><td>First Conditional</td><td>If + present, will + V1</td><td>If he comes, I will go.</td></tr>
+                <tr><td>Second Conditional</td><td>If + past, would + V1</td><td>If I were rich, I would travel.</td></tr>
+                <tr><td>Third Conditional</td><td>If + past perfect, would have + V3</td><td>If he had studied, he would have passed.</td></tr>
+            </table>
+        </section>
+
+        <section id="t2">
+            <h2>Narration Quick Table (Backshifting)</h2>
+            <table>
+                <tr><th>Direct</th><th>Common reported form</th></tr>
+                <tr><td>Present Simple</td><td>Past Simple after suitable past reporting verb</td></tr>
+                <tr><td>Present Continuous</td><td>Past Continuous</td></tr>
+                <tr><td>Present Perfect</td><td>Past Perfect</td></tr>
+                <tr><td>Past Simple</td><td>Past Perfect where backshift applies</td></tr>
+                <tr><td>Will</td><td>Would</td></tr>
+                <tr><td>Can</td><td>Could</td></tr>
+                <tr><td>May</td><td>Might</td></tr>
+                <tr><td>Question</td><td>Statement word order</td></tr>
+                <tr><td>Command</td><td>told/ordered + object + to V1</td></tr>
+            </table>
+        </section>
+
+        <section id="t3">
+            <h2>Articles Fast Revision</h2>
+            <table>
+                <tr><th>Use</th><th>Example</th></tr>
+                <tr><td>a + consonant sound</td><td>a university</td></tr>
+                <tr><td>an + vowel sound</td><td>an hour</td></tr>
+                <tr><td>the + specific noun</td><td>the book on the table</td></tr>
+                <tr><td>no article + general plural</td><td>Books are useful</td></tr>
+                <tr><td>uncountable general noun</td><td>Information is useful</td></tr>
+            </table>
+        </section>
+
+        <section id="t4">
+            <h2>High-Frequency SSC Grammar Table</h2>
+            <table>
+                <tr><th>Pattern</th><th>Correct structure</th><th>Example</th></tr>
+                <tr><td>Each/Every</td><td>singular noun + singular verb</td><td>Each student has</td></tr>
+                <tr><td>A number of</td><td>plural noun + plural verb</td><td>A number of students are</td></tr>
+                <tr><td>The number of</td><td>plural noun + singular verb</td><td>The number of students is</td></tr>
+                <tr><td>One of</td><td>one of + plural noun + singular verb</td><td>One of my friends is</td></tr>
+                <tr><td>Many a</td><td>many a + singular noun + singular verb</td><td>Many a student has</td></tr>
+                <tr><td>Prefer</td><td>prefer X to Y</td><td>prefer tea to coffee</td></tr>
+                <tr><td>Senior etc.</td><td>senior/superior + to</td><td>senior to me</td></tr>
+                <tr><td>Look forward to</td><td>to + V-ing</td><td>look forward to meeting</td></tr>
+                <tr><td>Used to</td><td>used to + V1</td><td>used to play</td></tr>
+                <tr><td>Be used to</td><td>be used to + V-ing/noun</td><td>used to playing</td></tr>
+                <tr><td>Modal</td><td>modal + V1</td><td>can go</td></tr>
+                <tr><td>Did</td><td>did + V1</td><td>did he go?</td></tr>
+                <tr><td>No sooner</td><td>no sooner...than</td><td>no sooner had...than</td></tr>
+                <tr><td>Hardly/Scarcely</td><td>hardly/scarcely...when</td><td>hardly had...when</td></tr>
+                <tr><td>Let's</td><td>let's...shall we?</td><td>Let's go, shall we?</td></tr>
+            </table>
+        </section>
+
+        <section id="t5">
+            <h2>Voice Quick Flow (Active → Passive)</h2>
+            <div class="visual-container">
+                <h3 style="margin-top: 0; color: var(--accent-blue);">Active to Passive Steps</h3>
+                <svg viewBox="0 0 500 200">
+                    <rect x="50" y="20" width="100" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="100" y="45" font-size="12" text-anchor="middle">Find object</text>
+                    
+                    <path d="M 150 40 L 190 40" stroke="#000" marker-end="url(#arrow)"/>
+                    
+                    <rect x="190" y="20" width="120" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="250" y="38" font-size="10" text-anchor="middle">Move object to</text>
+                    <text x="250" y="52" font-size="10" text-anchor="middle">subject position</text>
+                    
+                    <path d="M 310 40 L 350 40" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="350" y="20" width="120" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="410" y="45" font-size="12" text-anchor="middle">Choose BE form</text>
+
+                    <path d="M 410 60 L 410 100" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="350" y="100" width="120" height="40" rx="5" fill="#dc2626" stroke="#cbd5e1"/>
+                    <text x="410" y="125" fill="#fff" font-size="12" text-anchor="middle">Use V3</text>
+
+                    <path d="M 350 120 L 310 120" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="190" y="100" width="120" height="40" rx="5" fill="#059669" stroke="#cbd5e1"/>
+                    <text x="250" y="118" fill="#fff" font-size="10" text-anchor="middle">Add by + agent</text>
+                    <text x="250" y="132" fill="#fff" font-size="10" text-anchor="middle">(if useful)</text>
+                </svg>
+            </div>
+        </section>
+
+        <section id="practice">
+            <h2>SSC Error-Spotting Mini Practice</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Original SSC-style practice for application of the rules.</div>
+            
+            <div class="practice-box">
+                <p>1. Each of the boys have a notebook.</p>
+                <button class="show-btn" onclick="toggleAnswer('a1')">Show Error</button>
+                <div id="a1" class="answer-box"><strong>Error:</strong> has. <br><strong>Rule:</strong> 'Each' takes a singular verb.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>2. He did not went to school.</p>
+                <button class="show-btn" onclick="toggleAnswer('a2')">Show Error</button>
+                <div id="a2" class="answer-box"><strong>Error:</strong> go. <br><strong>Rule:</strong> Did + V1.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>3. She is senior than me.</p>
+                <button class="show-btn" onclick="toggleAnswer('a3')">Show Error</button>
+                <div id="a3" class="answer-box"><strong>Error:</strong> to. <br><strong>Rule:</strong> Senior + to.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>4. I look forward to meet you.</p>
+                <button class="show-btn" onclick="toggleAnswer('a4')">Show Error</button>
+                <div id="a4" class="answer-box"><strong>Error:</strong> meeting. <br><strong>Rule:</strong> 'To' is a preposition here, so use V-ing.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>5. One of my friends are a doctor.</p>
+                <button class="show-btn" onclick="toggleAnswer('a5')">Show Error</button>
+                <div id="a5" class="answer-box"><strong>Error:</strong> is. <br><strong>Rule:</strong> 'One of' takes a plural noun but a singular verb.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>6. He is good in English.</p>
+                <button class="show-btn" onclick="toggleAnswer('a6')">Show Error</button>
+                <div id="a6" class="answer-box"><strong>Error:</strong> at. <br><strong>Rule:</strong> Good at (skill).</div>
+            </div>
+
+            <div class="practice-box">
+                <p>7. Neither Ram nor his friends is ready.</p>
+                <button class="show-btn" onclick="toggleAnswer('a7')">Show Error</button>
+                <div id="a7" class="answer-box"><strong>Error:</strong> are. <br><strong>Rule:</strong> Verb agrees with the nearest subject ("friends").</div>
+            </div>
+
+            <div class="practice-box">
+                <p>8. She has been study for two hours.</p>
+                <button class="show-btn" onclick="toggleAnswer('a8')">Show Error</button>
+                <div id="a8" class="answer-box"><strong>Error:</strong> studying. <br><strong>Rule:</strong> Present perfect continuous takes V-ing.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>9. He is a honest man.</p>
+                <button class="show-btn" onclick="toggleAnswer('a9')">Show Error</button>
+                <div id="a9" class="answer-box"><strong>Error:</strong> an honest. <br><strong>Rule:</strong> Honest starts with a vowel sound.</div>
+            </div>
+
+            <div class="practice-box">
+                <p>10. Let's go, will we?</p>
+                <button class="show-btn" onclick="toggleAnswer('a10')">Show Error</button>
+                <div id="a10" class="answer-box"><strong>Error:</strong> shall we? <br><strong>Rule:</strong> 'Let's' takes the tag 'shall we?'.</div>
+            </div>
+        </section>
+
+        <div class="box-trick" style="margin-top: 40px;">
+            <strong>GOLDEN SSC RULE FOR ERROR SPOTTING:</strong><br>
+            When stuck, use this fixed scan order to save time:<br>
+            Subject → Verb → Tense → Pronoun → Article → Preposition → Comparison → Conjunction → Parallelism.
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const panel = document.getElementById(id);
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

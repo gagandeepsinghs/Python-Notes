@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 5: Programming & Modern Tech</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Exam Tip / Trick: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+
+        /* PYQ CSS */
+        .pyq-container { margin-top: 40px; border-top: 3px dashed var(--border-color); padding-top: 20px; }
+        .pyq-title { color: var(--accent-red); margin-bottom: 15px; font-size: 1.5rem; }
+        .question-card { background-color: #f8fafc; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .q-text { font-weight: bold; margin-bottom: 10px; color: var(--text-main); }
+        .q-exam { font-size: 0.85rem; background-color: var(--accent-red); color: white; padding: 3px 8px; border-radius: 4px; float: right; font-weight: bold;}
+        .options { list-style-type: none; margin-left: 0; }
+        .options li { padding: 10px; background-color: white; margin-bottom: 5px; border-radius: 4px; border: 1px solid var(--border-color); transition: 0.2s; }
+        .options li:hover { background-color: #e2e8f0; cursor: pointer; }
+        .btn-answer { background-color: var(--accent-blue); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .btn-answer:hover { background-color: #1e40af; }
+        .answer-panel { display: none; margin-top: 10px; padding: 15px; background-color: #ecfdf5; border-left: 5px solid var(--accent-green); border-radius: 4px; color: #064e3b; }
+        .answer-panel.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../index.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back</a>
+        <h2>Unit 5: Modern Tech</h2>
+        <a href="#ch27">27. Encryption & Auth</a>
+        <a href="#ch28">28. Algorithms & Flowcharts</a>
+        <a href="#ch29">29. Programming Basics</a>
+        <a href="#ch30">30. AI & Machine Learning</a>
+        <a href="#ch31">31. Cyber Hygiene</a>
+        <a href="#pyq">📝 Practice MCQs</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 5: Programming & Modern Tech</h1>
+
+        <section id="ch27">
+            <h2>Chapter 27: Encryption & Authentication</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Encryption data ko unreadable form me convert karta hai. Digital signature document/message ki authenticity aur integrity verify karne me help karta hai.</div>
+            <ul>
+                <li><strong>Symmetric encryption:</strong> uses <span class="highlight-red">one shared key</span> for encryption/decryption.</li>
+                <li><strong>Asymmetric cryptography:</strong> uses <span class="highlight-blue">public/private key pairs</span>.</li>
+                <li><strong>Hashing:</strong> produces a fixed-size digest and is designed to be one-way.</li>
+                <li><strong>MFA:</strong> uses more than one authentication factor.</li>
+            </ul>
+        </section>
+
+        <section id="ch28">
+            <h2>Chapter 28: Algorithms & Flowcharts</h2>
+            <p><strong>English Definition:</strong> An algorithm is a finite sequence of logical steps for solving a problem; a flowchart represents those steps graphically.</p>
+
+            <div class="visual-container">
+                <h3 style="margin-top: 0; color: var(--accent-blue);">Decision Flowchart Example</h3>
+                <svg viewBox="0 0 400 350">
+                    <ellipse cx="200" cy="30" rx="80" ry="20" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="35" fill="#000" text-anchor="middle">Start</text>
+                    <path d="M 200 50 L 200 70" stroke="#000" marker-end="url(#arrow)"/>
+                    
+                    <polygon points="120,70 280,70 260,110 100,110" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="190" y="95" fill="#000" text-anchor="middle">Enter marks</text>
+                    <path d="M 200 110 L 200 130" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <polygon points="200,130 280,160 200,190 120,160" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="165" fill="#000" text-anchor="middle">Marks >= 40?</text>
+                    
+                    <path d="M 200 190 L 200 210" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="215" y="205" fill="#000">Yes</text>
+
+                    <rect x="150" y="210" width="100" height="30" fill="#059669" stroke="#cbd5e1"/>
+                    <text x="200" y="230" fill="#fff" text-anchor="middle">Pass</text>
+                </svg>
+            </div>
+
+            <table>
+                <tr><th>Symbol</th><th>Meaning</th></tr>
+                <tr><td>Oval</td><td>Start/End</td></tr>
+                <tr><td>Rectangle</td><td>Process</td></tr>
+                <tr><td>Diamond</td><td><span class="highlight-red">Decision</span></td></tr>
+                <tr><td>Parallelogram</td><td>Input/Output</td></tr>
+            </table>
+        </section>
+
+        <section id="ch29">
+            <h2>Chapter 29: Programming Fundamentals</h2>
+            <ul>
+                <li><strong>Variable:</strong> stores a value/reference.</li>
+                <li><strong>Data types:</strong> describe kinds of values.</li>
+                <li><strong>Conditional statements:</strong> choose paths (e.g., <code>if marks >= 40</code>).</li>
+                <li><strong>Loops:</strong> repeat instructions (e.g., <code>for / while</code>).</li>
+                <li><strong>Function:</strong> groups reusable logic.</li>
+                <li><strong>Bug:</strong> Program error.</li>
+            </ul>
+        </section>
+
+        <section id="ch30">
+            <h2>Chapter 30: AI, ML & Generative AI</h2>
+            <p><strong>English Definition:</strong> AI is the broad field of building systems that perform tasks associated with human intelligence; ML learns patterns from data.</p>
+            <ul>
+                <li><strong>Supervised learning:</strong> uses <span class="highlight-red">labeled data</span>.</li>
+                <li><strong>Unsupervised learning:</strong> finds patterns without target labels.</li>
+                <li><strong>Generative AI:</strong> can produce <span class="highlight-blue">text, images, audio or code</span>.</li>
+                <li><strong>Prompt:</strong> is an instruction/input given to a generative model.</li>
+            </ul>
+        </section>
+
+        <section id="ch31">
+            <h2>Chapter 31: Cyber Hygiene & Safe Computing</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Daily safe habits cyber attacks ka risk kaafi reduce kar sakte hain.</div>
+            <ul>
+                <li>Use unique strong passwords and a password manager.</li>
+                <li>Enable <span class="highlight-red">MFA</span> (Stops many account takeover attempts).</li>
+                <li>Keep OS/apps/browser updated (Patch vulnerabilities).</li>
+                <li>Back up important data (Recovery).</li>
+                <li>Verify URLs and senders before clicking (Avoid phishing).</li>
+            </ul>
+        </section>
+
+        <!-- PYQ Section -->
+        <section id="pyq" class="pyq-container">
+            <h2 class="pyq-title">📝 SSC Practice MCQs (Unit 5)</h2>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CGL</span>
+                <p class="q-text">Q1. Which flowchart symbol represents a decision?</p>
+                <ul class="options">
+                    <li>A. Oval</li>
+                    <li>B. Rectangle</li>
+                    <li>C. Diamond</li>
+                    <li>D. Circle</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans1')">Show Answer & Solution</button>
+                <div id="ans1" class="answer-panel">
+                    <strong>Answer: C. Diamond</strong><br>
+                    <strong>Solution:</strong> The diamond shape in a flowchart represents a decision point (e.g., Yes/No, True/False).
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="q-exam">SSC CHSL</span>
+                <p class="q-text">Q2. Which is a primary key property?</p>
+                <ul class="options">
+                    <li>A. Can identify a record uniquely</li>
+                    <li>B. Must always be text</li>
+                    <li>C. Stores images only</li>
+                    <li>D. Deletes a table</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans2')">Show Answer & Solution</button>
+                <div id="ans2" class="answer-panel">
+                    <strong>Answer: A. Can identify a record uniquely</strong><br>
+                    <strong>Solution:</strong> A primary key is a field in a database table that uniquely identifies each row/record.
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CPO</span>
+                <p class="q-text">Q3. Which type of learning uses labeled data?</p>
+                <ul class="options">
+                    <li>A. Unsupervised learning</li>
+                    <li>B. Supervised learning</li>
+                    <li>C. Generative AI</li>
+                    <li>D. Deep learning</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans3')">Show Answer & Solution</button>
+                <div id="ans3" class="answer-panel">
+                    <strong>Answer: B. Supervised learning</strong><br>
+                    <strong>Solution:</strong> Supervised learning requires labeled data to train the model, whereas unsupervised learning looks for patterns in unlabeled data.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const panel = document.getElementById(id);
+            if (panel.classList.contains('show')) {
+                panel.classList.remove('show');
+            } else {
+                panel.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>

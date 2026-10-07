@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 2: Grammar Rules 21–40</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .rule-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .rule-title { font-size: 1.3rem; font-weight: bold; color: var(--accent-blue); margin-bottom: 10px; }
+        .example-box { background: #f1f5f9; padding: 10px; border-left: 4px solid var(--accent-blue); margin-top: 10px; font-family: monospace; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Grammar_Master_Notes.html" style="background: var(--accent-blue); color: white; text-align: center; font-weight: bold; margin-bottom: 15px; padding: 10px; border-radius: 5px; display: block;">&larr; Back to Master</a>
+        <h2>Unit 2: Rules 21-40</h2>
+        <a href="#r21">Rule 21-22: Possessives</a>
+        <a href="#r23">Rule 23-26: Articles</a>
+        <a href="#r27">Rule 27: Uncountables</a>
+        <a href="#r28">Rule 28-32: Quantifiers</a>
+        <a href="#r33">Rule 33-35: Prepositions</a>
+        <a href="#r36">Rule 36: Much/Very</a>
+        <a href="#r37">Rule 37-39: Comparisons</a>
+        <a href="#r40">Rule 40: Good at</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 2: Rules 21–40 (Articles, Determiners & Prepositions)</h1>
+
+        <div class="rule-card" id="r21">
+            <div class="rule-title">Rule 21: Possessive pronouns</div>
+            <p><strong>English Rule:</strong> Mine, yours, his, hers, ours, theirs do not take apostrophes.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Possessive pronouns me apostrophe nahi.</div>
+            <div class="example-box">Example: This book is <span class="highlight-red">mine</span>.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 22: Its / It's</div>
+            <p><strong>English Rule:</strong> Its = possession; it's = it is/it has.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Its uska; it's = it is/has.</div>
+            <div class="example-box">Example: The dog wagged <span class="highlight-red">its</span> tail. <span class="highlight-blue">It's</span> raining.</div>
+        </div>
+
+        <div class="rule-card" id="r23">
+            <div class="rule-title">Rule 23: A/An by sound</div>
+            <p><strong>English Rule:</strong> Use 'a' before consonant sound and 'an' before vowel sound.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Letter nahi, sound dekho.</div>
+            <div class="example-box">Example: <span class="highlight-red">a</span> university; <span class="highlight-blue">an</span> hour.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 24: The</div>
+            <p><strong>English Rule:</strong> 'The' is used for specific/identified nouns and many unique references.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Specific cheez ke liye 'the'.</div>
+            <div class="example-box">Example: I saw a dog. <span class="highlight-red">The</span> dog was black.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 25: Profession article</div>
+            <p><strong>English Rule:</strong> Singular countable profession nouns generally need a/an.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Profession ke singular noun se pehle article.</div>
+            <div class="example-box">Example: He is <span class="highlight-red">an</span> engineer.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 26: Plural general nouns</div>
+            <p><strong>English Rule:</strong> Plural nouns used generally may appear without an article.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> General plural ke saath article zaroori nahi.</div>
+            <div class="example-box">Example: Books are useful.</div>
+        </div>
+
+        <div class="rule-card" id="r27">
+            <div class="rule-title">Rule 27: Uncountable nouns</div>
+            <p><strong>English Rule:</strong> Advice, information, furniture, luggage etc. normally do not take a/an.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Inko uncountable treat karo.</div>
+            <div class="example-box">Example: <span class="highlight-blue">some information</span>, not 'an information'.</div>
+        </div>
+
+        <div class="rule-card" id="r28">
+            <div class="rule-title">Rule 28: Few / A few</div>
+            <p><strong>English Rule:</strong> Few = almost none; a few = some.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Few negative sense; a few positive limited sense.</div>
+            <div class="example-box">Example: I have <span class="highlight-red">a few</span> friends.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 29: Little / A little</div>
+            <p><strong>English Rule:</strong> Little = almost none; a little = some amount.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Little negative; a little positive.</div>
+            <div class="example-box">Example: There is <span class="highlight-red">a little</span> water.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 30: Fewer / Less</div>
+            <p><strong>English Rule:</strong> Fewer for countable nouns; less for uncountable quantities.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Fewer books; less water.</div>
+            <div class="example-box">Example: <span class="highlight-red">Fewer</span> students, <span class="highlight-blue">less</span> money.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 31: Much / Many</div>
+            <p><strong>English Rule:</strong> Much with uncountable; many with plural countable.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Much water; many books.</div>
+            <div class="example-box">Example: Do not say 'many water'.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 32: Some / Any</div>
+            <p><strong>English Rule:</strong> Some is common in affirmative; any in negatives/questions, with exceptions.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Some positive; any negative/question.</div>
+            <div class="example-box">Example: I have <span class="highlight-red">some</span> money. I don't have <span class="highlight-blue">any</span>.</div>
+        </div>
+
+        <div class="rule-card" id="r33">
+            <div class="rule-title">Rule 33: Since / For</div>
+            <p><strong>English Rule:</strong> Since marks starting point; for marks duration.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Since = kab se; for = kitne time se.</div>
+            <div class="example-box">Example: <span class="highlight-red">since</span> Monday; <span class="highlight-blue">for</span> two days.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 34: Between / Among</div>
+            <p><strong>English Rule:</strong> Between is common for two/distinct items; among for a group.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Between = pair/different entities; among = group.</div>
+            <div class="example-box">Example: <span class="highlight-red">between</span> Ram and Shyam; <span class="highlight-blue">among</span> friends.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 35: Beside / Besides</div>
+            <p><strong>English Rule:</strong> Beside = next to; besides = in addition.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Beside = paas; besides = additionally.</div>
+            <div class="example-box">Example: Sit <span class="highlight-red">beside</span> me. <span class="highlight-blue">Besides</span> English, he knows Hindi.</div>
+        </div>
+
+        <div class="rule-card" id="r36">
+            <div class="rule-title">Rule 36: Much vs Very</div>
+            <p><strong>English Rule:</strong> Very commonly modifies adjectives/adverbs; much commonly modifies comparatives.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Very tall; much better.</div>
+            <div class="example-box">Example: Not 'much beautiful' in standard exam usage.</div>
+        </div>
+
+        <div class="rule-card" id="r37">
+            <div class="rule-title">Rule 37: Prefer</div>
+            <p><strong>English Rule:</strong> Prefer X to Y.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Prefer ke saath 'to'.</div>
+            <div class="example-box">Example: I prefer tea <span class="highlight-red">to</span> coffee.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 38: Senior/Junior/Superior/Inferior</div>
+            <p><strong>English Rule:</strong> These generally take 'to', not 'than'.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Senior ke baad 'to'.</div>
+            <div class="example-box">Example: He is senior <span class="highlight-red">to</span> me.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 39: Different from</div>
+            <p><strong>English Rule:</strong> Formal exam usage generally prefers 'different from'.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Different ke saath 'from'.</div>
+            <div class="example-box">Example: This is different <span class="highlight-red">from</span> that.</div>
+        </div>
+
+        <div class="rule-card" id="r40">
+            <div class="rule-title">Rule 40: Good at</div>
+            <p><strong>English Rule:</strong> Good + at for skill.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Skill ke liye 'good at'.</div>
+            <div class="example-box">Example: She is good <span class="highlight-red">at</span> maths.</div>
+            <div class="box-trick">Do not say "good in English." It is "good at English."</div>
+        </div>
+
+    </div>
+</body>
+</html>

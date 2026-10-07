@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 01: Git & GitHub Foundations, Installation & Repository Setup — Created by Gagan Sir</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background-color: rgb(248, 250, 252);
+    color: rgb(15, 23, 42);
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 300px;
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+.sidebar-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(249, 115, 22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-subtitle {
+    font-size: 12px;
+    color: rgb(148, 163, 184);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+.nav-group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgb(148, 163, 184);
+    margin: 16px 0 8px 8px;
+    font-weight: 700;
+}
+.nav-item {
+    display: block;
+    padding: 10px 14px;
+    color: rgb(203, 213, 225);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.nav-item:hover {
+    background-color: rgb(30, 41, 59);
+    color: rgb(255, 255, 255);
+    transform: translateX(4px);
+}
+.nav-item.active {
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+.main-content {
+    margin-left: 300px;
+    flex: 1;
+    padding: 40px;
+    max-width: 1200px;
+}
+.header-banner {
+    background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+    color: rgb(255, 255, 255);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.badge-creator {
+    display: inline-block;
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+.topic-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: rgb(255, 255, 255);
+    margin-bottom: 8px;
+}
+.topic-desc {
+    font-size: 15px;
+    color: rgb(203, 213, 225);
+    line-height: 1.6;
+}
+.card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 28px;
+    border: 1px solid rgb(226, 232, 240);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgb(241, 245, 249);
+}
+.card-num {
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(15, 23, 42);
+}
+.flowchart-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: rgb(240, 249, 255);
+    border: 1px solid rgb(186, 230, 253);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+.flowchart-step {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(3, 105, 161);
+    border-radius: 8px;
+    padding: 14px 18px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: rgb(3, 105, 161);
+    flex: 1;
+    min-width: 120px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.flowchart-arrow {
+    font-size: 20px;
+    font-weight: 900;
+    color: rgb(249, 115, 22);
+}
+.bilingual-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.def-english {
+    background-color: rgb(240, 249, 255);
+    border-left: 4px solid rgb(3, 105, 161);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-hinglish {
+    background-color: rgb(254, 252, 232);
+    border-left: 4px solid rgb(180, 83, 9);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+.def-english .def-label { color: rgb(3, 105, 161); }
+.def-hinglish .def-label { color: rgb(180, 83, 9); }
+.def-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(30, 41, 59);
+}
+.code-container {
+    background-color: rgb(15, 23, 42);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    color: rgb(241, 245, 249);
+    line-height: 1.5;
+}
+.breakdown-box {
+    background-color: rgb(248, 250, 252);
+    border: 1px solid rgb(203, 213, 225);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+}
+.breakdown-header {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgb(15, 118, 110);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.breakdown-list {
+    list-style-type: none;
+}
+.breakdown-list li {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: rgb(51, 65, 85);
+    padding-left: 16px;
+    position: relative;
+}
+.breakdown-list li::before {
+    content: '•';
+    color: rgb(15, 118, 110);
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+}
+.interview-box {
+    background-color: rgb(254, 242, 242);
+    border-left: 4px solid rgb(185, 28, 28);
+    padding: 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+}
+.interview-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: rgb(185, 28, 28);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+.interview-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(127, 29, 29);
+}
+.table-container {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgb(226, 232, 240);
+}
+th {
+    background-color: rgb(241, 245, 249);
+    color: rgb(15, 23, 42);
+    font-weight: 700;
+}
+tr:hover {
+    background-color: rgb(248, 250, 252);
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand">🐙 GitHub Notes</div>
+    <div class="sidebar-subtitle">Created by Gagan Sir</div>
+    <div class="nav-group-title">Modules Navigation</div>
+    <a class="nav-item active" onclick="window.location.href='01_github_foundations_installation_auth_notes.html'">01. Foundations & Auth</a>
+    <a class="nav-item " onclick="window.location.href='02_git_lifecycle_branching_rebase_notes.html'">02. Lifecycle & Branching</a>
+    <a class="nav-item " onclick="window.location.href='03_history_recovery_remotes_lfs_notes.html'">03. Recovery, Remotes & LFS</a>
+    <a class="nav-item " onclick="window.location.href='04_github_workflow_prs_code_review_notes.html'">04. PRs, Code Review & Rules</a>
+    <a class="nav-item " onclick="window.location.href='05_github_actions_yaml_triggers_matrix_notes.html'">05. Actions YAML & Matrix</a>
+    <a class="nav-item " onclick="window.location.href='06_advanced_actions_containers_ci_cd_notes.html'">06. CI/CD & Service Containers</a>
+    <a class="nav-item " onclick="window.location.href='07_security_apis_hooks_internals_notes.html'">07. Security, APIs & Internals</a>
+    <a class="nav-item " onclick="window.location.href='08_troubleshooting_projects_interview_roadmap_notes.html'">08. Projects & 150+ Q&A Bank</a>
+    <div class="nav-group-title" style="margin-top: 24px;">Master Navigation</div>
+    <a class="nav-item" onclick="window.location.href='00_master_notes_portal.html'">🌐 Interactive Master Portal</a>
+    <a class="nav-item" onclick="window.location.href='00_github_master_notes.html'">📖 Full Master Manual</a>
+</div>
+<div class="main-content">
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 01: Git & GitHub Foundations, Installation & Repository Setup</div>
+        <div class="topic-desc">Git Basics + GitHub Workflows + Actions CI/CD + Security + Releases + CLI + REST/GraphQL APIs + 150+ Q&A</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">1</div><div class="card-title">Git and GitHub Fundamentals & Mental Model</div></div>
+        <div class="bilingual-box">
+            <div class="def-english"><div class="def-label">🇬🇧 English Definition</div><div class="def-text">Git is a distributed version-control system that tracks local file changes, commits, and branch history. GitHub is a cloud hosting platform for Git repositories that adds collaboration tools like Pull Requests, Code Review, Issues, Actions CI/CD, and Security scanning.</div></div>
+            <div class="def-hinglish"><div class="def-label">🇮🇳 Hinglish Definition</div><div class="def-text">Git tumhare local machine par code changes aur history ko track karta hai. GitHub isi code ko online host karke team collaboration, review aur automation provide karta hai.</div></div>
+        </div>
+        <div style="font-weight: 700; margin-bottom: 10px; color: rgb(15, 23, 42);">🔄 Mental Model Architecture Flowchart</div>
+        <div class="flowchart-container">
+            <div class="flowchart-step">Working Tree<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Edited files</small></div>
+            <div class="flowchart-arrow">➔</div>
+            <div class="flowchart-step">Staging Area<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Staged changes</small></div>
+            <div class="flowchart-arrow">➔</div>
+            <div class="flowchart-step">Local Git Repo<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Committed snapshots</small></div>
+            <div class="flowchart-arrow">➔</div>
+            <div class="flowchart-step">GitHub Remote<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Cloud repository</small></div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td>Repository</td><td>Project + Git history database</td><td>.git directory + project files</td></tr>
+                    <tr><td>Working tree</td><td>Files currently being edited</td><td>app.py modified</td></tr>
+                    <tr><td>Staging area</td><td>Next commit selection buffer</td><td>git add app.py</td></tr>
+                    <tr><td>Commit</td><td>Recorded snapshot in history</td><td>abc1234 SHA hash</td></tr>
+                    <tr><td>Branch</td><td>Movable commit pointer reference</td><td>main, feature/login</td></tr>
+                    <tr><td>Remote</td><td>Named external GitHub repository</td><td>origin</td></tr>
+                    <tr><td>Pull request</td><td>Proposed change for peer review</td><td>feature/login ➔ main</td></tr>
+                    <tr><td>Workflow</td><td>GitHub Actions CI/CD automation</td><td>.github/workflows/ci.yml</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">2</div><div class="card-title">Install Git and GitHub CLI</div></div>
+        <div class="code-container">
+// Verify Git installation
+git --version
+git --help
+
+// Verify GitHub CLI installation
+gh --version
+
+// Authenticate GitHub CLI with browser/token
+gh auth login
+gh auth status
+        </div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Tool</th><th>Purpose / Description</th></tr></thead>
+                <tbody>
+                    <tr><td>Git</td><td>Core version control engine</td></tr>
+                    <tr><td>Git Bash</td><td>Unix-like terminal shell on Windows</td></tr>
+                    <tr><td>PowerShell</td><td>Windows terminal automation shell</td></tr>
+                    <tr><td>GitHub CLI (gh)</td><td>GitHub interaction directly from terminal</td></tr>
+                    <tr><td>VS Code / IDE</td><td>Code editing, Git integration and visual diff debugging</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">3</div><div class="card-title">First-Time Git Configuration</div></div>
+        <div class="code-container">
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main
+
+// Inspect active configuration
+git config --global --list
+git config --list --show-origin
+
+// Recommended optional settings
+git config --global core.autocrlf true
+git config --global fetch.prune true
+git config --global pull.rebase false
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">4</div><div class="card-title">Authentication: HTTPS, SSH and Tokens</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Method</th><th>Use Case</th><th>Key Security Idea</th></tr></thead>
+                <tbody>
+                    <tr><td>HTTPS</td><td>Clone/push over HTTPS</td><td>Requires Personal Access Token or Credential Helper</td></tr>
+                    <tr><td>SSH</td><td>Clone/push with key pair</td><td>Private key stays safe on your machine</td></tr>
+                    <tr><td>Token (PAT)</td><td>API / HTTPS authentication</td><td>Treat like password; scope narrowly</td></tr>
+                    <tr><td>GitHub CLI auth</td><td>Terminal authentication</td><td>`gh auth login` automates secure token exchange</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-container">
+// SSH Key Generation (ed25519)
+ssh-keygen -t ed25519 -C "you@example.com"
+
+// Add ~/.ssh/id_ed25519.pub to GitHub Account Settings -> SSH Keys
+// Test SSH Connection
+ssh -T git@github.com
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">5</div><div class="card-title">Create / Clone a Repository</div></div>
+        <div class="code-container">
+// Clone existing remote repo
+git clone git@github.com:USERNAME/REPO.git
+cd REPO
+git remote -v
+git status
+
+// Initialize local repo and connect to GitHub remote
+mkdir my-project
+cd my-project
+git init
+git branch -M main
+git remote add origin git@github.com:USERNAME/my-project.git
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">6</div><div class="card-title">Repository Structure & Important Configuration Files</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Path / File</th><th>Purpose & Best Practice</th></tr></thead>
+                <tbody>
+                    <tr><td>.git/</td><td>Git metadata and internal object database</td></tr>
+                    <tr><td>README.md</td><td>Project overview, setup guidelines & usage documentation</td></tr>
+                    <tr><td>.gitignore</td><td>Excludes build artifacts, secrets, and node_modules from Git</td></tr>
+                    <tr><td>LICENSE</td><td>Legal open-source or proprietary licensing terms</td></tr>
+                    <tr><td>CONTRIBUTING.md</td><td>Guidelines for external open-source contributors</td></tr>
+                    <tr><td>SECURITY.md</td><td>Vulnerability reporting instructions & contact details</td></tr>
+                    <tr><td>CODEOWNERS</td><td>Defines path-based review ownership rules</td></tr>
+                    <tr><td>.github/workflows/</td><td>GitHub Actions CI/CD automation workflow YAML files</td></tr>
+                    <tr><td>.github/ISSUE_TEMPLATE/</td><td>Standardized issue submission forms</td></tr>
+                    <tr><td>.github/PULL_REQUEST_TEMPLATE.md</td><td>Standardized PR submission checklist</td></tr>
+                    <tr><td>.github/dependabot.yml</td><td>Automated dependency update configuration</td></tr>
+                    <tr><td>CHANGELOG.md</td><td>Human-readable version release history</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>
+</body>
+</html>

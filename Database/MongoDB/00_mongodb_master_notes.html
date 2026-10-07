@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MongoDB Complete Master Manual — Created by Gagan Sir</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background-color: rgb(248, 250, 252);
+    color: rgb(15, 23, 42);
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 300px;
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+.sidebar-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(249, 115, 22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.sidebar-subtitle {
+    font-size: 12px;
+    color: rgb(148, 163, 184);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+.nav-group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgb(148, 163, 184);
+    margin: 16px 0 8px 8px;
+    font-weight: 700;
+}
+.nav-item {
+    display: block;
+    padding: 10px 14px;
+    color: rgb(203, 213, 225);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+.nav-item:hover {
+    background-color: rgb(30, 41, 59);
+    color: rgb(255, 255, 255);
+}
+.main-content {
+    margin-left: 300px;
+    flex: 1;
+    padding: 40px;
+    max-width: 1200px;
+}
+.header-banner {
+    background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+    color: rgb(255, 255, 255);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+}
+.badge-creator {
+    display: inline-block;
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 28px;
+    border: 1px solid rgb(226, 232, 240);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgb(241, 245, 249);
+}
+.card-num {
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(15, 23, 42);
+}
+.bilingual-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.def-english {
+    background-color: rgb(240, 249, 255);
+    border-left: 4px solid rgb(3, 105, 161);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-hinglish {
+    background-color: rgb(254, 252, 232);
+    border-left: 4px solid rgb(180, 83, 9);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.def-english .def-label { color: rgb(3, 105, 161); }
+.def-hinglish .def-label { color: rgb(180, 83, 9); }
+.def-text { font-size: 14px; line-height: 1.6; color: rgb(30, 41, 59); }
+.code-container {
+    background-color: rgb(15, 23, 42);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', monospace;
+    font-size: 13.5px;
+    color: rgb(241, 245, 249);
+    line-height: 1.5;
+}
+.breakdown-box {
+    background-color: rgb(248, 250, 252);
+    border: 1px solid rgb(203, 213, 225);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+}
+.breakdown-header {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgb(15, 118, 110);
+    margin-bottom: 10px;
+}
+.breakdown-list { list-style-type: none; }
+.breakdown-list li {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: rgb(51, 65, 85);
+    padding-left: 16px;
+    position: relative;
+}
+.breakdown-list li::before {
+    content: '•';
+    color: rgb(15, 118, 110);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+.interview-box {
+    background-color: rgb(254, 242, 242);
+    border-left: 4px solid rgb(185, 28, 28);
+    padding: 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+}
+.interview-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: rgb(185, 28, 28);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+.interview-text { font-size: 14px; line-height: 1.6; color: rgb(127, 29, 29); }
+.table-container { overflow-x: auto; margin: 16px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgb(226, 232, 240); }
+th { background-color: rgb(241, 245, 249); color: rgb(15, 23, 42); font-weight: 700; }
+
+/* Responsive Design for Modules */
+@media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; padding: 16px; overflow-y: visible; }
+    .main-content { margin-left: 0; padding: 20px; }
+}
+@media (max-width: 480px) {
+    .header-banner { padding: 20px; }
+    .topic-title { font-size: 20px !important; }
+    .card { padding: 16px; }
+    .table-container { overflow-x: auto; }
+}
+
+</style>
+</head>
+<body>
+<div class="sidebar">
+        <a href="master_notes_portal.html" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; color: white; padding: 10px; border-radius: 5px; cursor: pointer;">← Back to Portal</a>
+    <div class="sidebar-brand">🍃 MongoDB Notes</div>
+    <div class="sidebar-subtitle">Created by Gagan Sir</div>
+    <div class="nav-group-title">Master Navigation</div>
+    <a class="nav-item" onclick="window.location.href='00_master_notes_portal.html'">🌐 Interactive Master Portal</a>
+    <a class="nav-item" onclick="window.location.href='01_mongodb_foundations_shell_crud_notes.html'">01. Foundations & CRUD</a>
+    <a class="nav-item" onclick="window.location.href='02_query_operators_arrays_cursors_notes.html'">02. Query Operators</a>
+    <a class="nav-item" onclick="window.location.href='03_update_operators_bulk_db_commands_notes.html'">03. Updates & Commands</a>
+    <a class="nav-item" onclick="window.location.href='04_indexes_optimization_aggregation_pipeline_notes.html'">04. Indexes & Aggregation</a>
+    <a class="nav-item" onclick="window.location.href='05_advanced_aggregation_transactions_replica_notes.html'">05. Advanced & Replica</a>
+    <a class="nav-item" onclick="window.location.href='06_sharding_security_backup_drivers_notes.html'">06. Sharding & Drivers</a>
+    <a class="nav-item" onclick="window.location.href='07_web_apis_modeling_troubleshooting_notes.html'">07. APIs & Modeling</a>
+    <a class="nav-item" onclick="window.location.href='08_architecture_projects_interview_roadmap_notes.html'">08. Projects & Q&A</a>
+</div>
+<div class="main-content">
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">MongoDB Complete Master Manual</h1>
+        <p style="font-size: 15px; color: rgb(203, 213, 225);">Complete Comprehensive Reference covering all 72 Topics & 16 Document Pages</p>
+    </div>
+    
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 01: MongoDB Foundations, Shell Navigation & Basic CRUD</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">1</div><div class="card-title">MongoDB Mental Model & SQL Comparison</div></div>
+        <div class="bilingual-box">
+            <div class="def-english"><div class="def-label">🇬🇧 English Definition</div><div class="def-text">MongoDB is a document-oriented NoSQL database storing flexible BSON records. Unlike relational databases, MongoDB organizes documents inside collections.</div></div>
+            <div class="def-hinglish"><div class="def-label">🇮🇳 Hinglish Definition</div><div class="def-text">MongoDB ko samajhne ka easiest framework hai: <b>Database → Collection → Document → Field</b>.</div></div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>SQL Concept</th><th>MongoDB Concept</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td>Database</td><td>Database</td><td>Container</td></tr>
+                    <tr><td>Table</td><td>Collection</td><td>Group of records/documents</td></tr>
+                    <tr><td>Row</td><td>Document</td><td>One BSON record</td></tr>
+                    <tr><td>Column</td><td>Field</td><td>One key-value property</td></tr>
+                    <tr><td>JOIN</td><td>$lookup / Data Modeling</td><td>Combine referenced data when needed</td></tr>
+                    <tr><td>GROUP BY</td><td>$group</td><td>Aggregation grouping</td></tr>
+                    <tr><td>WHERE</td><td>Query filter / $match</td><td>Filter documents</td></tr>
+                    <tr><td>ORDER BY</td><td>sort() / $sort</td><td>Order results</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">2</div><div class="card-title">Installation & Starting MongoDB</div></div>
+        <div class="code-container">
+// Shell version check
+mongosh --version
+
+// Connect to default server
+mongosh "mongodb://localhost:27017"
+
+// Run daemon manually
+mongod --dbpath /path/to/data
+        </div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">🔍 Line-by-Line Breakdown</div>
+            <ul class="breakdown-list">
+                <li>`mongod`: The background database server daemon process.</li>
+                <li>`mongosh`: Interactive client shell for database queries and administration.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">3</div><div class="card-title">Shell Navigation Commands</div></div>
+        <div class="code-container">
+show dbs
+use college
+db
+show collections
+db.getName()
+db.stats()
+db.version()
+db.serverStatus()
+db.getCollectionNames()
+db.getCollectionInfos()
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">4</div><div class="card-title">Create Database & Collection</div></div>
+        <div class="code-container">
+use college
+db.createCollection("students")
+show collections
+
+// Capped Collection Example
+db.createCollection("logs", {
+  capped: true,
+  size: 100000
+})
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">5</div><div class="card-title">Insert Commands — insertOne & insertMany</div></div>
+        <div class="code-container">
+// Single insert
+db.students.insertOne({ name: "Aman", age: 22, course: "MCA" })
+
+// Batch insert
+db.students.insertMany([
+  { name: "Aman", age: 22, course: "MCA" },
+  { name: "Riya", age: 21, course: "BCA" }
+])
+
+// Unordered batch insert
+db.students.insertMany(
+  [{ name: "A" }, { name: "B" }],
+  { ordered: false }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">6</div><div class="card-title">Read / Find Syntax & Projection</div></div>
+        <div class="code-container">
+db.students.find()
+db.students.find({ age: 22 })
+db.students.findOne({ name: "Aman" })
+db.students.find({ age: { $gte: 18 } })
+db.students.find(
+  { course: "MCA" },
+  { name: 1, age: 1, _id: 0 }
+)
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 02: Query Operators, Element/Null, Regex, Arrays & Cursors</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">7</div><div class="card-title">Equality & Comparison Operators</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Operator</th><th>Syntax Example</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td>$eq</td><td>{age: {$eq: 22}}</td><td>Equals</td></tr>
+                    <tr><td>$ne</td><td>{age: {$ne: 22}}</td><td>Not equal</td></tr>
+                    <tr><td>$gt</td><td>{age: {$gt: 22}}</td><td>Greater than</td></tr>
+                    <tr><td>$gte</td><td>{age: {$gte: 22}}</td><td>Greater or equal</td></tr>
+                    <tr><td>$lt</td><td>{age: {$lt: 22}}</td><td>Less than</td></tr>
+                    <tr><td>$lte</td><td>{age: {$lte: 22}}</td><td>Less or equal</td></tr>
+                    <tr><td>$in</td><td>{city: {$in: ['Delhi','Ludhiana']}}</td><td>Matches any in array</td></tr>
+                    <tr><td>$nin</td><td>{city: {$nin: ['Delhi','Mumbai']}}</td><td>Matches none in array</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">8</div><div class="card-title">Logical Operators ($and, $or, $nor, $not)</div></div>
+        <div class="code-container">
+// AND — Implicit
+db.students.find({ age: { $gte: 18 }, course: "MCA" })
+
+// OR
+db.students.find({
+  $or: [
+    { city: "Ludhiana" },
+    { city: "Chandigarh" }
+  ]
+})
+
+// AND — Explicit
+db.students.find({
+  $and: [
+    { age: { $gte: 18 } },
+    { course: "MCA" }
+  ]
+})
+
+// NOR
+db.students.find({
+  $nor: [
+    { city: "Delhi" },
+    { city: "Mumbai" }
+  ]
+})
+
+// NOT
+db.students.find({
+  age: { $not: { $gt: 30 } }
+})
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">9</div><div class="card-title">Element Operators ($exists, $type)</div></div>
+        <div class="code-container">
+db.students.find({ phone: { $exists: true } })
+db.students.find({ phone: { $exists: false } })
+db.students.find({ age: { $type: "int" } })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">10</div><div class="card-title">Null & Missing Fields</div></div>
+        <div class="code-container">
+// Matches both null value and missing field
+db.students.find({ phone: null })
+
+// Matches strictly missing field
+db.students.find({ phone: { $exists: false } })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">11</div><div class="card-title">Regex / Pattern Queries</div></div>
+        <div class="code-container">
+// Starts with 'A'
+db.students.find({ name: { $regex: "^A" } })
+
+// Case-insensitive regex matching "an"
+db.students.find({ name: { $regex: "an", $options: "i" } })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">12</div><div class="card-title">Array Queries ($all, $size, $elemMatch)</div></div>
+        <div class="code-container">
+// Contains element
+db.students.find({ skills: "Python" })
+
+// Contains ALL elements
+db.students.find({ skills: { $all: ["Python", "MongoDB"] } })
+
+// Array size check
+db.students.find({ skills: { $size: 2 } })
+
+// Element match condition
+db.students.find({ skills: { $elemMatch: { $eq: "Python" } } })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">13</div><div class="card-title">Embedded Document Queries (Dot Notation)</div></div>
+        <div class="code-container">
+db.students.find({ "address.city": "Ludhiana" })
+db.students.find({ "address.pin": { $gte: 141000 } })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">14</div><div class="card-title">Query Cursor Methods</div></div>
+        <div class="code-container">
+// Sorting (-1 descending, 1 ascending)
+db.students.find().sort({ age: -1 })
+
+// Pagination limits
+db.students.find().limit(10)
+db.students.find().skip(20)
+
+// Document counting & distinct values
+db.students.countDocuments({ course: "MCA" })
+db.students.distinct("city")
+
+// Iterate cursor with forEach
+db.students.find().forEach(x => print(x))
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 03: Update Operators, Deletes, Bulk Writes & DB Commands</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">15</div><div class="card-title">Update Operators</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Operator</th><th>Example</th><th>Use Case</th></tr></thead>
+                <tbody>
+                    <tr><td>$set</td><td>{$set: {city: 'Delhi'}}</td><td>Set or change field value</td></tr>
+                    <tr><td>$unset</td><td>{$unset: {temp: ''}}</td><td>Remove field from document</td></tr>
+                    <tr><td>$inc</td><td>{$inc: {age: 1}}</td><td>Increment / decrement number</td></tr>
+                    <tr><td>$mul</td><td>{$mul: {price: 1.1}}</td><td>Multiply number field</td></tr>
+                    <tr><td>$min</td><td>{$min: {score: 50}}</td><td>Update only if smaller</td></tr>
+                    <tr><td>$max</td><td>{$max: {score: 90}}</td><td>Update only if larger</td></tr>
+                    <tr><td>$rename</td><td>{$rename: {'old': 'new'}}</td><td>Rename field key</td></tr>
+                    <tr><td>$push</td><td>{$push: {skills: 'SQL'}}</td><td>Append item to array</td></tr>
+                    <tr><td>$addToSet</td><td>{$addToSet: {skills: 'SQL'}}</td><td>Append item only if unique</td></tr>
+                    <tr><td>$pop</td><td>{$pop: {skills: 1}}</td><td>Remove first (-1) or last (1) item</td></tr>
+                    <tr><td>$pull</td><td>{$pull: {skills: 'SQL'}}</td><td>Remove matching items from array</td></tr>
+                    <tr><td>$pullAll</td><td>{$pullAll: {skills: ['SQL','Python']}}</td><td>Remove all listed items</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">16</div><div class="card-title">Update One / Many / Replace</div></div>
+        <div class="code-container">
+db.students.updateOne(
+  { name: "Aman" },
+  { $set: { city: "Ludhiana" } }
+)
+
+db.students.updateMany(
+  { course: "MCA" },
+  { $inc: { age: 1 } }
+)
+
+db.students.replaceOne(
+  { name: "Aman" },
+  { name: "Aman", age: 23, course: "MCA" }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">17</div><div class="card-title">Upsert Pattern</div></div>
+        <div class="code-container">
+db.students.updateOne(
+  { email: "aman@example.com" },
+  { $set: { name: "Aman", age: 22 } },
+  { upsert: true }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">18</div><div class="card-title">Delete Commands</div></div>
+        <div class="code-container">
+db.students.deleteOne({ name: "Aman" })
+db.students.deleteMany({ course: "BCA" })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">19</div><div class="card-title">Atomic Find and Modify Helpers</div></div>
+        <div class="code-container">
+db.students.findOneAndUpdate(
+  { email: "aman@example.com" },
+  { $set: { verified: true } },
+  { returnDocument: "after" }
+)
+
+db.students.findOneAndDelete({ email: "old@example.com" })
+
+db.students.findOneAndReplace(
+  { email: "aman@example.com" },
+  { email: "aman@example.com", name: "Aman", age: 23 }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">20</div><div class="card-title">Bulk Write Operations</div></div>
+        <div class="code-container">
+db.students.bulkWrite([
+  { insertOne: { document: { name: "A" } } },
+  { updateOne: { filter: { name: "A" }, update: { $set: { age: 22 } } } },
+  { deleteOne: { filter: { name: "Old" } } }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">21</div><div class="card-title">Database Commands vs mongosh Helpers</div></div>
+        <div class="code-container">
+db.runCommand({ hello: 1 })
+db.adminCommand({ serverStatus: 1 })
+db.runCommand({ ping: 1 })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">22</div><div class="card-title">Useful Database Commands Table</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Command</th><th>Example</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td>hello</td><td>db.runCommand({hello:1})</td><td>Server & connection info</td></tr>
+                    <tr><td>ping</td><td>db.runCommand({ping:1})</td><td>Test server responsiveness</td></tr>
+                    <tr><td>buildInfo</td><td>db.runCommand({buildInfo:1})</td><td>Build information</td></tr>
+                    <tr><td>connectionStatus</td><td>db.runCommand({connectionStatus:1})</td><td>Auth & connection status</td></tr>
+                    <tr><td>serverStatus</td><td>db.adminCommand({serverStatus:1})</td><td>Server statistics & metrics</td></tr>
+                    <tr><td>dbStats</td><td>db.runCommand({dbStats:1})</td><td>Database statistics</td></tr>
+                    <tr><td>collStats</td><td>db.runCommand({collStats:'students'})</td><td>Collection statistics</td></tr>
+                    <tr><td>listDatabases</td><td>db.adminCommand({listDatabases:1})</td><td>List databases</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">23</div><div class="card-title">Collection Management</div></div>
+        <div class="code-container">
+db.createCollection("students")
+db.getCollection("students")
+db.students.renameCollection("learners")
+db.students.drop()
+db.dropDatabase()
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 04: Indexes, Optimization & Core Aggregation Pipeline</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">24</div><div class="card-title">Index Basics</div></div>
+        <div class="code-container">
+// Create ascending index
+db.students.createIndex({ email: 1 })
+
+// Inspect indexes
+db.students.getIndexes()
+
+// Drop specific index
+db.students.dropIndex({ email: 1 })
+
+// Drop all non-id indexes
+db.students.dropIndexes()
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">25</div><div class="card-title">Compound Index</div></div>
+        <div class="code-container">
+db.students.createIndex({
+  course: 1,
+  age: -1
+})
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">26</div><div class="card-title">Unique, Sparse and Partial Indexes</div></div>
+        <div class="code-container">
+// Unique Index
+db.users.createIndex({ email: 1 }, { unique: true })
+
+// Sparse Index
+db.users.createIndex({ phone: 1 }, { sparse: true })
+
+// Partial Index
+db.users.createIndex(
+  { email: 1 },
+  { unique: true, partialFilterExpression: { active: true } }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">27</div><div class="card-title">TTL (Time-To-Live) Index</div></div>
+        <div class="code-container">
+db.sessions.createIndex(
+  { createdAt: 1 },
+  { expireAfterSeconds: 3600 }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">28</div><div class="card-title">Index Inspection & Query Execution Explanation</div></div>
+        <div class="code-container">
+db.students.getIndexes()
+db.students.aggregate([ { $indexStats: {} } ])
+db.students.find({ email: "aman@example.com" }).explain("executionStats")
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">29</div><div class="card-title">Hint Operator</div></div>
+        <div class="code-container">
+db.students.find({ course: "MCA" }).hint({ course: 1 })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">30</div><div class="card-title">Aggregation Pipeline Syntax</div></div>
+        <div class="code-container">
+db.collection.aggregate([
+  { stage1: { /* ... */ } },
+  { stage2: { /* ... */ } },
+  { stage3: { /* ... */ } }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">31</div><div class="card-title">Core Aggregation Stages Reference</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Stage</th><th>Purpose / Function</th></tr></thead>
+                <tbody>
+                    <tr><td>$match</td><td>Filter documents</td></tr>
+                    <tr><td>$project</td><td>Select/compute fields</td></tr>
+                    <tr><td>$set / $addFields</td><td>Add or modify fields</td></tr>
+                    <tr><td>$unset</td><td>Remove fields</td></tr>
+                    <tr><td>$group</td><td>Group and calculate aggregates ($sum, $avg, $max, $min)</td></tr>
+                    <tr><td>$sort</td><td>Sort pipeline results</td></tr>
+                    <tr><td>$limit</td><td>Limit document count</td></tr>
+                    <tr><td>$skip</td><td>Skip document count</td></tr>
+                    <tr><td>$unwind</td><td>Expand array elements into separate documents</td></tr>
+                    <tr><td>$lookup</td><td>Left outer join to another collection</td></tr>
+                    <tr><td>$facet</td><td>Execute multiple aggregation sub-pipelines</td></tr>
+                    <tr><td>$count</td><td>Count documents passing through stage</td></tr>
+                    <tr><td>$sample</td><td>Random sample of documents</td></tr>
+                    <tr><td>$replaceWith</td><td>Replace root document with expression result</td></tr>
+                    <tr><td>$merge</td><td>Write pipeline results to collection (upsert/insert)</td></tr>
+                    <tr><td>$out</td><td>Write pipeline results to target collection</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">32</div><div class="card-title">$match + $project Pipeline Example</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  { $match: { status: "paid" } },
+  { $project: { customer: 1, amount: 1, _id: 0 } }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">33</div><div class="card-title">$group Sales Aggregation Example</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customer",
+      totalSales: { $sum: "$amount" },
+      avgOrder: { $avg: "$amount" },
+      orders: { $sum: 1 }
+    }
+  }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">34</div><div class="card-title">$sort + $limit Pipeline Example</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  { $sort: { amount: -1 } },
+  { $limit: 10 }
+])
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 05: Advanced Aggregation, Transactions & Replica Sets</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">35</div><div class="card-title">$unwind Array Expansion</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  { $unwind: "$items" },
+  {
+    $project: {
+      customer: 1,
+      product: "$items.product",
+      qty: "$items.qty"
+    }
+  }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">36</div><div class="card-title">$lookup Foreign Collection Join</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customer"
+    }
+  }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">37</div><div class="card-title">$facet Multi-Pipeline Analytics</div></div>
+        <div class="code-container">
+db.products.aggregate([
+  {
+    $facet: {
+      byCategory: [
+        { $group: { _id: "$category", count: { $sum: 1 } } }
+      ],
+      topProducts: [
+        { $sort: { sales: -1 } },
+        { $limit: 5 }
+      ]
+    }
+  }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">38</div><div class="card-title">Aggregation Expressions ($multiply, $year)</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  {
+    $project: {
+      customer: 1,
+      total: { $multiply: ["$price", "$quantity"] },
+      year: { $year: "$createdAt" }
+    }
+  }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">39</div><div class="card-title">Aggregation Output via $out & $merge</div></div>
+        <div class="code-container">
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$customer",
+      total: { $sum: "$amount" }
+    }
+  },
+  {
+    $merge: {
+      into: "customer_totals"
+    }
+  }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">40</div><div class="card-title">ACID Transactions — Session Pattern</div></div>
+        <div class="code-container">
+const session = db.getMongo().startSession();
+const sdb = session.getDatabase("college");
+
+try {
+  session.startTransaction();
+  
+  sdb.students.updateOne(
+    { name: "Aman" },
+    { $inc: { balance: -100 } }
+  );
+  
+  sdb.fees.updateOne(
+    { student: "Aman" },
+    { $inc: { paid: 100 } }
+  );
+  
+  session.commitTransaction();
+} catch (e) {
+  session.abortTransaction();
+} finally {
+  session.endSession();
+}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">41</div><div class="card-title">Replica Set Core Commands</div></div>
+        <div class="code-container">
+rs.status()
+rs.conf()
+rs.isMaster() // Legacy helper; use hello command for current server discovery
+db.adminCommand({ hello: 1 })
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 06: Sharding, Security, Backup & Drivers</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">42</div><div class="card-title">Sharding Commands & Concepts</div></div>
+        <div class="code-container">
+sh.enableSharding("college")
+sh.shardCollection("college.students", { studentId: "hashed" })
+sh.status()
+sh.listShards()
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">43</div><div class="card-title">Security — User Management & RBAC</div></div>
+        <div class="code-container">
+use admin
+db.createUser({
+  user: "appUser",
+  pwd: "CHANGE_ME",
+  roles: [
+    { role: "readWrite", db: "college" }
+  ]
+})
+
+db.getUsers()
+db.grantRolesToUser("appUser", [{ role: "read", db: "reporting" }])
+db.revokeRolesFromUser("appUser", [{ role: "read", db: "reporting" }])
+db.dropUser("appUser")
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">44</div><div class="card-title">Authentication Connection Examples</div></div>
+        <div class="code-container">
+// Shell connection with auth credentials
+mongosh --host localhost --port 27017 --username appUser --authenticationDatabase admin
+
+// URI Connection
+mongosh "mongodb://appUser:PASSWORD@localhost:27017/college?authSource=admin"
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">45</div><div class="card-title">MongoDB Connection String Anatomy</div></div>
+        <div class="code-container">
+// Standard URI
+mongodb://username:password@host:27017/database?authSource=admin
+
+// DNS SRV Seedlist Connection (Atlas / Cloud)
+mongodb+srv://username:password@cluster.example.mongodb.net/database
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">46</div><div class="card-title">Backup & Restore Command Reference</div></div>
+        <div class="code-container">
+// Dump database to folder
+mongodump --uri="mongodb://localhost:27017/college" --out=./backup
+
+// Restore database from folder
+mongorestore --uri="mongodb://localhost:27017/college" ./backup/college
+
+// Dump database to archive file
+mongodump --uri="mongodb://localhost:27017/college" --archive=college.archive
+
+// Restore database from archive file
+mongorestore --uri="mongodb://localhost:27017/college" --archive=college.archive
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">47</div><div class="card-title">Export / Import Reference</div></div>
+        <div class="code-container">
+mongoexport --uri="mongodb://localhost:27017/college" --collection=students --out=students.json
+mongoimport --uri="mongodb://localhost:27017/college" --collection=students --file=students.json --jsonArray
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">48</div><div class="card-title">Python PyMongo — Full CRUD</div></div>
+        <div class="code-container">
+from pymongo import MongoClient
+
+client = MongoClient("mongodb://localhost:27017")
+db = client["college"]
+students = db["students"]
+
+// Insert
+students.insert_one({"name": "Aman", "age": 22, "course": "MCA"})
+
+// Read
+student = students.find_one({"name": "Aman"})
+print(student)
+
+// Update
+students.update_one({"name": "Aman"}, {"$set": {"city": "Ludhiana"}})
+
+// Delete
+students.delete_one({"name": "Aman"})
+
+client.close()
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">49</div><div class="card-title">Python Aggregation Pipeline</div></div>
+        <div class="code-container">
+pipeline = [
+  {"$match": {"course": "MCA"}},
+  {"$group": {"_id": "$city", "count": {"$sum": 1}}},
+  {"$sort": {"count": -1}}
+]
+
+for row in students.aggregate(pipeline):
+    print(row)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">50</div><div class="card-title">Node.js Native Driver Full CRUD</div></div>
+        <div class="code-container">
+const { MongoClient } = require("mongodb");
+const client = new MongoClient(process.env.MONGO_URI);
+
+async function main() {
+  await client.connect();
+  const db = client.db("college");
+  const students = db.collection("students");
+
+  await students.insertOne({ name: "Aman", age: 22 });
+  console.log(await students.find({}).toArray());
+  await students.updateOne({ name: "Aman" }, { $set: { city: "Ludhiana" } });
+  await students.deleteOne({ name: "Aman" });
+
+  await client.close();
+}
+main().catch(console.error);
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 07: Web APIs, Data Modeling & Troubleshooting</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">51</div><div class="card-title">FastAPI + MongoDB API Skeleton</div></div>
+        <div class="code-container">
+from fastapi import FastAPI
+from pymongo import MongoClient
+import os
+
+app = FastAPI()
+client = MongoClient(os.environ["MONGO_URI"])
+db = client["college"]
+students = db["students"]
+
+@app.post("/students")
+def create_student(data: dict):
+    result = students.insert_one(data)
+    return {"id": str(result.inserted_id)}
+
+@app.get("/students")
+def get_students():
+    return list(students.find({}, {"_id": 0}))
+
+@app.delete("/students/{name}")
+def delete_student(name: str):
+    result = students.delete_one({"name": name})
+    return {"deleted": result.deleted_count}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">52</div><div class="card-title">Flask + MongoDB API Pattern</div></div>
+        <div class="code-container">
+from flask import Flask, request, jsonify
+from pymongo import MongoClient
+import os
+
+app = Flask(__name__)
+client = MongoClient(os.environ["MONGO_URI"])
+db = client["college"]
+
+@app.post("/students")
+def create_student():
+    data = request.get_json()
+    result = db.students.insert_one(data)
+    return jsonify({"id": str(result.inserted_id)}), 201
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">53</div><div class="card-title">MongoDB + JavaScript ObjectId</div></div>
+        <div class="code-container">
+const { ObjectId } = require("mongodb");
+const id = new ObjectId("507f1f77bcf86cd799439011");
+const student = await students.findOne({ _id: id });
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">54</div><div class="card-title">Common MQL Query Patterns</div></div>
+        <div class="code-container">
+// Exists
+db.users.find({ email: { $exists: true } })
+
+// Range filter
+db.products.find({ price: { $gte: 500, $lte: 2000 } })
+
+// Nested object field filter
+db.users.find({ "address.city": "Ludhiana" })
+
+// Array element filter
+db.users.find({ skills: "Python" })
+
+// Multiple conditions
+db.users.find({ age: { $gte: 18 }, active: true })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">55</div><div class="card-title">Pagination Patterns (Skip/Limit vs Cursor)</div></div>
+        <div class="code-container">
+// 1. Simple Skip/Limit (For small datasets)
+db.products.find({})
+  .sort({ _id: 1 })
+  .skip(20)
+  .limit(10)
+
+// 2. Cursor/Range-Based Pagination (High performance on large collections)
+const lastId = ObjectId("...");
+db.products.find({ _id: { $gt: lastId } })
+  .sort({ _id: 1 })
+  .limit(10)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">56</div><div class="card-title">Data Modeling Example — E-commerce</div></div>
+        <div class="code-container">
+{
+  _id: ObjectId("..."),
+  customerId: ObjectId("..."),
+  status: "paid",
+  items: [
+    { productId: ObjectId("..."), name: "Shoes", qty: 2, price: 1500 },
+    { productId: ObjectId("..."), name: "Belt", qty: 1, price: 500 }
+  ],
+  total: 3500,
+  createdAt: ISODate("2026-10-05T10:00:00Z")
+}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">57</div><div class="card-title">Time Series Collection Example</div></div>
+        <div class="code-container">
+db.createCollection("temperatures", {
+  timeseries: {
+    timeField: "timestamp",
+    metaField: "sensor",
+    granularity: "minutes"
+  }
+})
+
+db.temperatures.insertOne({
+  timestamp: new Date(),
+  sensor: { id: "S01", room: "A" },
+  temperature: 28.4
+})
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">58</div><div class="card-title">Change Streams Example</div></div>
+        <div class="code-container">
+const changeStream = db.collection("orders").watch();
+changeStream.on("change", change => {
+  console.log(change);
+});
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">59</div><div class="card-title">Common Errors & Fixes</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Problem / Error</th><th>Likely Cause</th><th>What to Check & Fix</th></tr></thead>
+                <tbody>
+                    <tr><td>ECONNREFUSED</td><td>Server not running / wrong port</td><td>mongod service status, port 27017, connection string</td></tr>
+                    <tr><td>Authentication failed</td><td>Wrong user / auth DB / password</td><td>Credentials, authSource=admin, user roles</td></tr>
+                    <tr><td>Duplicate key</td><td>Unique index violation</td><td>Existing duplicates in collection, index definition</td></tr>
+                    <tr><td>Slow query</td><td>Missing / poor index or bad shape</td><td>explain(), index usage, schema design</td></tr>
+                    <tr><td>Document too large</td><td>Document exceeds 16MB BSON limit</td><td>Schema design, unbounded arrays, switch to GridFS/object storage</td></tr>
+                    <tr><td>Timeout</td><td>Network / server load / query deadlock</td><td>Timeouts, server metrics, query plan optimization</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">60</div><div class="card-title">Performance Checklist</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">📋 12-Step Query Tuning Protocol</div>
+            <ul class="breakdown-list">
+                <li>1. Reproduce the slow query in a non-production test environment.</li>
+                <li>2. Run `explain('executionStats')` to inspect query execution metrics.</li>
+                <li>3. Check index usage (IXSCAN vs COLLSCAN).</li>
+                <li>4. Compare total documents examined vs documents returned.</li>
+                <li>5. Check sort behavior (in-memory sort vs index sort).</li>
+                <li>6. Review projection to avoid unnecessary field transfers.</li>
+                <li>7. Review schema and document size.</li>
+                <li>8. Check server CPU / memory / disk I/O metrics.</li>
+                <li>9. Check connection pool size and driver settings.</li>
+                <li>10. Apply one controlled index or query structure change at a time.</li>
+                <li>11. Re-test execution stats to confirm improvement.</li>
+                <li>12. Monitor production performance metrics continuous feedback.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">61</div><div class="card-title">Security Checklist</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">🛡️ Enterprise Security Practices</div>
+            <ul class="breakdown-list">
+                <li>✔ Enable authentication on all production servers.</li>
+                <li>✔ Enforce Role-Based Access Control (RBAC) & Least Privilege.</li>
+                <li>✔ Enforce TLS/SSL encryption for all data in transit.</li>
+                <li>✔ Apply network level restrictions & firewall IP whitelisting.</li>
+                <li>✔ Secure management of secrets and environment variables.</li>
+                <li>✔ Regular patch/update lifecycle maintenance.</li>
+                <li>✔ Enable auditing for security compliant environments.</li>
+                <li>✔ Secure backup storage and regular restore verification tests.</li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 08: Architecture, Projects & Interview Bank</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">62</div><div class="card-title">Sharding Architecture</div></div>
+        <div class="code-container">
+Client -> mongos router -> Shard 1 (Replica Set)
+                        -> Shard 2 (Replica Set)
+                        -> Shard 3 (Replica Set)
+         Config Server Replica Set
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">63</div><div class="card-title">Shard Key Strategy</div></div>
+        <div class="bilingual-box">
+            <div class="def-english"><div class="def-label">🇬🇧 English Definition</div><div class="def-text">A shard key determines how data is distributed across cluster shards. Targeted queries including the shard key avoid scatter-gather broadcasts across all nodes.</div></div>
+            <div class="def-hinglish"><div class="def-label">🇮🇳 Hinglish Definition</div><div class="def-text">Shard key choose karte waqt high cardinality aur query targeting ka dhyan rakhna chahiye taaki data evenly distribute ho.</div></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">64</div><div class="card-title">Replica Set Architecture</div></div>
+        <div class="code-container">
+Application -> Primary (Writes) -> Replication -> Secondary 1 (Reads)
+                                                -> Secondary 2 (Reads)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">65</div><div class="card-title">SQL → MongoDB Translation Cheat Sheet</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>SQL Statement</th><th>MongoDB MQL Equivalent</th></tr></thead>
+                <tbody>
+                    <tr><td>SELECT * FROM users</td><td>db.users.find()</td></tr>
+                    <tr><td>WHERE age > 18</td><td>db.users.find({age: {$gt: 18}})</td></tr>
+                    <tr><td>SELECT name FROM users</td><td>db.users.find({}, {name:1, _id:0})</td></tr>
+                    <tr><td>ORDER BY age DESC</td><td>db.users.find().sort({age:-1})</td></tr>
+                    <tr><td>LIMIT 10</td><td>db.users.find().limit(10)</td></tr>
+                    <tr><td>GROUP BY city</td><td>db.users.aggregate([{$group:{_id:'$city',count:{$sum:1}}}])</td></tr>
+                    <tr><td>UPDATE users SET age=23 WHERE name='Aman'</td><td>db.users.updateOne({name:'Aman'},{$set:{age:23}})</td></tr>
+                    <tr><td>DELETE FROM users WHERE name='Aman'</td><td>db.users.deleteOne({name:'Aman'})</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">66</div><div class="card-title">20 Must-Know Commands — Quick Revision</div></div>
+        <div class="code-container">
+show dbs
+use college
+db
+show collections
+db.createCollection("students")
+db.students.insertOne({...})
+db.students.insertMany([...])
+db.students.find()
+db.students.findOne({...})
+db.students.updateOne({...}, {...})
+db.students.updateMany({...}, {...})
+db.students.replaceOne({...}, {...})
+db.students.deleteOne({...})
+db.students.deleteMany({...})
+db.students.createIndex({...})
+db.students.getIndexes()
+db.students.aggregate([...])
+db.stats()
+db.runCommand({ping:1})
+db.adminCommand({serverStatus:1})
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">67</div><div class="card-title">10 Practical Real-World Projects</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">🚀 Portfolio Projects Overview</div>
+            <ul class="breakdown-list">
+                <li>1. <b>Student Management System</b> — CRUD + Schema Validation + Compound Indexes.</li>
+                <li>2. <b>Employee Management System</b> — Filters + Pagination + Department Aggregation.</li>
+                <li>3. <b>E-commerce Backend</b> — Products + Orders + Customers + Embedded Data Modeling.</li>
+                <li>4. <b>Blog API</b> — Users + Posts + Comments + Text Search Indexing.</li>
+                <li>5. <b>Hospital Database</b> — Patients + Appointments + Doctor Shift Reports.</li>
+                <li>6. <b>Inventory API</b> — Stock Updates + Multi-Document Transactions.</li>
+                <li>7. <b>Job Portal API</b> — Search + Filters + Cursor Pagination + Skill Match Aggregation.</li>
+                <li>8. <b>Expense Tracker</b> — Dynamic Categories + Monthly Aggregation Pipelines.</li>
+                <li>9. <b>Real-Time Chat Backend</b> — Messages + Indexes + Real-Time Change Streams.</li>
+                <li>10. <b>Production FastAPI/Node API</b> — MongoDB + Auth + Validation + Indexes + Monitoring.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">68</div><div class="card-title">Scenario-Based Interview Questions</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">💡 Real-World Troubleshooting Scenarios</div>
+            <ul class="breakdown-list">
+                <li><b>Slow Query:</b> Use `explain()` → check index usage → compare examined vs returned docs → review schema & projection.</li>
+                <li><b>Duplicate Records:</b> Verify unique business rules → clean duplicates → create unique index.</li>
+                <li><b>High Memory Usage:</b> Inspect working set size → evaluate index count → optimize query patterns.</li>
+                <li><b>Primary Node Failure:</b> Inspect replica set status & election logs → verify driver failover retry logic.</li>
+                <li><b>Horizontal Scale Requirement:</b> Measure performance → optimize indexes → evaluate sharding architecture.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">69</div><div class="card-title">Interview Question Bank (35 Questions)</div></div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">❓ Core Concept Interview Q&A</div>
+            <ul class="breakdown-list">
+                <li><b>Q: What is BSON?</b> Binary JSON storing typed key-value pairs (e.g., Date, ObjectId, Int64).</li>
+                <li><b>Q: `insertOne` vs `insertMany`?</b> `insertOne` writes single doc; `insertMany` writes array batch with optional `{ordered: false}`.</li>
+                <li><b>Q: Difference between `updateOne` and `replaceOne`?</b> `updateOne` modifies specific fields via `$set`/`$inc`, while `replaceOne` overwrites entire matching document.</li>
+                <li><b>Q: What is an index scan vs collection scan?</b> IXSCAN uses index B-tree; COLLSCAN scans every document sequentially (slow).</li>
+                <li><b>Q: How does `$lookup` work?</b> Performs left outer join between local collection field and foreign collection field.</li>
+                <li><b>Q: What are Change Streams?</b> Real-time notification mechanism listening to collection changes via `watch()`.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">70</div><div class="card-title">90-Day MongoDB Learning Roadmap</div></div>
+        <div class="bilingual-box">
+            <div class="def-english">
+                <div class="def-label">🇬🇧 Detailed Schedule</div>
+                <div class="def-text">
+                    <b>Days 1–15:</b> Installation, shell, database/collection/document, BSON, CRUD basics.<br/>
+                    <b>Days 16–30:</b> Filters, operators, arrays, embedded documents, updates, deletes, pagination.<br/>
+                    <b>Days 31–45:</b> Schema design, embedding/reference, validation, indexes and explain.<br/>
+                    <b>Days 46–60:</b> Aggregation stages and real reporting queries.<br/>
+                    <b>Days 61–75:</b> Transactions, replication, security, backup/restore, monitoring.<br/>
+                    <b>Days 76–90:</b> Sharding, Python/Node APIs, Atlas, projects, performance and interviews.
+                </div>
+            </div>
+            <div class="def-hinglish">
+                <div class="def-label">🇮🇳 Hinglish Guidance</div>
+                <div class="def-text">Step-by-step 90 days ka structured plan follow karke basic CRUD se lekar production sharding aur enterprise security tak master karein!</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">71 & 72</div><div class="card-title">Final Master Checklist & Golden Rule</div></div>
+        <div class="interview-box">
+            <div class="interview-header">🌟 The Golden Rule of MongoDB</div>
+            <div class="interview-text">
+                <b>Design for Access Patterns + Use Safe Queries + Index Real Workloads + Measure with Evidence + Secure and Back Up Production Data.</b><br/>
+                <i>Hinglish: MongoDB flexible hai, par production DB ko properly design, secure, monitor aur backup karna equally important hai.</i>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+</body>
+</html>

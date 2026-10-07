@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Master Notes Hub</title>
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #0ea5e9; /* Docker Blue */
+            --accent-green: #059669;
+            --accent-purple: #7c3aed;
+            --accent-amber: #d97706;
+            --accent-rose: #dc2626;
+            --accent-cyan: #0891b2;
+            --border-color: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); padding: 50px 20px; display: flex; flex-direction: column; align-items: center; }
+
+        .header-section { text-align: center; margin-bottom: 50px; max-width: 800px; }
+        .header-title { color: var(--text-main); font-size: 3.5rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase;}
+        .header-subtitle { color: var(--text-main); font-size: 1.3rem; margin-bottom: 20px; font-weight: 600; }
+        .header-desc { color: #334155; font-size: 1.1rem;}
+
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; width: 100%; }
+
+        .module-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .module-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+
+        .card-icon { font-size: 2.8rem; margin-bottom: 15px; }
+        .card-title { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; }
+        .card-desc { color: #334155; font-size: 1rem; line-height: 1.6; }
+
+        /* Specific Card Colors */
+        .card-1:hover { border-color: var(--accent-blue); }
+        .card-1 .card-title { color: var(--accent-blue); }
+
+        .card-2:hover { border-color: var(--accent-green); }
+        .card-2 .card-title { color: var(--accent-green); }
+
+        .card-3:hover { border-color: var(--accent-purple); }
+        .card-3 .card-title { color: var(--accent-purple); }
+
+        .card-4:hover { border-color: var(--accent-rose); }
+        .card-4 .card-title { color: var(--accent-rose); }
+
+        .card-5:hover { border-color: var(--accent-amber); }
+        .card-5 .card-title { color: var(--accent-amber); }
+
+        .card-6:hover { border-color: var(--text-main); }
+        .card-6 .card-title { color: var(--text-main); }
+
+    </style>
+</head>
+<body>
+    <a href="../index.html" style="position: absolute; top: 20px; left: 20px; text-decoration: none; font-weight: bold; padding: 10px 15px; background-color: var(--accent-blue); color: white; border-radius: 8px;">← Back to Main Portal</a>
+
+    <div class="header-section">
+        <h1 class="header-title">Docker Master Notes</h1>
+        <p class="header-subtitle">Scratch → Advanced | English + Hinglish</p>
+        <p class="header-desc">Complete edition combining fundamentals, CLI, Dockerfiles, Compose, networking, troubleshooting, and interview prep.</p>
+    </div>
+
+    <div class="modules-grid">
+        <a href="01_Fundamentals_and_Installation.html" class="module-card card-1" target="_blank">
+            <div>
+                <div class="card-icon">🐳</div>
+                <div class="card-title">Unit 1: Fundamentals</div>
+                <div class="card-desc">Docker vs VMs, Architecture, Objects, Installation, and the "First Day" Lab.</div>
+            </div>
+        </a>
+
+        <a href="02_Docker_CLI_and_Dockerfile.html" class="module-card card-2" target="_blank">
+            <div>
+                <div class="card-icon">⌨️</div>
+                <div class="card-title">Unit 2: CLI & Dockerfile</div>
+                <div class="card-desc">Complete core CLI commands, Dockerfile syntax, caching, and multi-stage builds.</div>
+            </div>
+        </a>
+
+        <a href="03_Networking_Volumes_and_Compose.html" class="module-card card-3" target="_blank">
+            <div>
+                <div class="card-icon">🏗️</div>
+                <div class="card-title">Unit 3: Storage & Compose</div>
+                <div class="card-desc">Volumes vs Bind Mounts, Networking, Ports, and writing multi-service Compose files.</div>
+            </div>
+        </a>
+
+        <a href="04_Real_Apps_and_Labs.html" class="module-card card-4" target="_blank">
+            <div>
+                <div class="card-icon">💻</div>
+                <div class="card-title">Unit 4: Real Apps & Labs</div>
+                <div class="card-desc">Dockerizing Python/Flask, Node.js, and running databases (PostgreSQL/MongoDB).</div>
+            </div>
+        </a>
+
+        <a href="05_Optimization_and_Troubleshooting.html" class="module-card card-5" target="_blank">
+            <div>
+                <div class="card-icon">🔧</div>
+                <div class="card-title">Unit 5: Troubleshooting</div>
+                <div class="card-desc">Master debugging flow, image optimization, monitoring, and common failure scenarios.</div>
+            </div>
+        </a>
+
+        <a href="06_CICD_Interview_and_Roadmap.html" class="module-card card-6" target="_blank">
+            <div>
+                <div class="card-icon">🚀</div>
+                <div class="card-title">Unit 6: Career & Next Steps</div>
+                <div class="card-desc">CI/CD pipelines, Docker Hub, Swarm/K8s, Interview Scenarios, and a 90-Day Roadmap.</div>
+            </div>
+        </a>
+    </div>
+
+</body>
+</html>

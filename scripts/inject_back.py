@@ -69,7 +69,7 @@ for note_path, back_link in file_to_portal.items():
 
     # The sidebar header looks like:
     # <div class="sidebar-header">
-    #     <span class="brand-badge">Created by Gagan Sir</span>
+    #     
     
     back_button_html = f'''<a href="{back_link}" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>'''
     

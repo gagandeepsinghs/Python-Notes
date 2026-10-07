@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 02: Git Core Lifecycle, Branching, Merging & Rebase — Created by Gagan Sir</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background-color: rgb(248, 250, 252);
+    color: rgb(15, 23, 42);
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 300px;
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+.sidebar-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(249, 115, 22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-subtitle {
+    font-size: 12px;
+    color: rgb(148, 163, 184);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+.nav-group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgb(148, 163, 184);
+    margin: 16px 0 8px 8px;
+    font-weight: 700;
+}
+.nav-item {
+    display: block;
+    padding: 10px 14px;
+    color: rgb(203, 213, 225);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.nav-item:hover {
+    background-color: rgb(30, 41, 59);
+    color: rgb(255, 255, 255);
+    transform: translateX(4px);
+}
+.nav-item.active {
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+.main-content {
+    margin-left: 300px;
+    flex: 1;
+    padding: 40px;
+    max-width: 1200px;
+}
+.header-banner {
+    background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+    color: rgb(255, 255, 255);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.badge-creator {
+    display: inline-block;
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+.topic-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: rgb(255, 255, 255);
+    margin-bottom: 8px;
+}
+.topic-desc {
+    font-size: 15px;
+    color: rgb(203, 213, 225);
+    line-height: 1.6;
+}
+.card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 28px;
+    border: 1px solid rgb(226, 232, 240);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgb(241, 245, 249);
+}
+.card-num {
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(15, 23, 42);
+}
+.flowchart-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: rgb(240, 249, 255);
+    border: 1px solid rgb(186, 230, 253);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+.flowchart-step {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(3, 105, 161);
+    border-radius: 8px;
+    padding: 14px 18px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: rgb(3, 105, 161);
+    flex: 1;
+    min-width: 120px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.flowchart-arrow {
+    font-size: 20px;
+    font-weight: 900;
+    color: rgb(249, 115, 22);
+}
+.bilingual-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.def-english {
+    background-color: rgb(240, 249, 255);
+    border-left: 4px solid rgb(3, 105, 161);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-hinglish {
+    background-color: rgb(254, 252, 232);
+    border-left: 4px solid rgb(180, 83, 9);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+.def-english .def-label { color: rgb(3, 105, 161); }
+.def-hinglish .def-label { color: rgb(180, 83, 9); }
+.def-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(30, 41, 59);
+}
+.code-container {
+    background-color: rgb(15, 23, 42);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    color: rgb(241, 245, 249);
+    line-height: 1.5;
+}
+.breakdown-box {
+    background-color: rgb(248, 250, 252);
+    border: 1px solid rgb(203, 213, 225);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+}
+.breakdown-header {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgb(15, 118, 110);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.breakdown-list {
+    list-style-type: none;
+}
+.breakdown-list li {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: rgb(51, 65, 85);
+    padding-left: 16px;
+    position: relative;
+}
+.breakdown-list li::before {
+    content: '•';
+    color: rgb(15, 118, 110);
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+}
+.interview-box {
+    background-color: rgb(254, 242, 242);
+    border-left: 4px solid rgb(185, 28, 28);
+    padding: 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+}
+.interview-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: rgb(185, 28, 28);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+.interview-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(127, 29, 29);
+}
+.table-container {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgb(226, 232, 240);
+}
+th {
+    background-color: rgb(241, 245, 249);
+    color: rgb(15, 23, 42);
+    font-weight: 700;
+}
+tr:hover {
+    background-color: rgb(248, 250, 252);
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand">🐙 GitHub Notes</div>
+    <div class="sidebar-subtitle">Created by Gagan Sir</div>
+    <div class="nav-group-title">Modules Navigation</div>
+    <a class="nav-item " onclick="window.location.href='01_github_foundations_installation_auth_notes.html'">01. Foundations & Auth</a>
+    <a class="nav-item active" onclick="window.location.href='02_git_lifecycle_branching_rebase_notes.html'">02. Lifecycle & Branching</a>
+    <a class="nav-item " onclick="window.location.href='03_history_recovery_remotes_lfs_notes.html'">03. Recovery, Remotes & LFS</a>
+    <a class="nav-item " onclick="window.location.href='04_github_workflow_prs_code_review_notes.html'">04. PRs, Code Review & Rules</a>
+    <a class="nav-item " onclick="window.location.href='05_github_actions_yaml_triggers_matrix_notes.html'">05. Actions YAML & Matrix</a>
+    <a class="nav-item " onclick="window.location.href='06_advanced_actions_containers_ci_cd_notes.html'">06. CI/CD & Service Containers</a>
+    <a class="nav-item " onclick="window.location.href='07_security_apis_hooks_internals_notes.html'">07. Security, APIs & Internals</a>
+    <a class="nav-item " onclick="window.location.href='08_troubleshooting_projects_interview_roadmap_notes.html'">08. Projects & 150+ Q&A Bank</a>
+    <div class="nav-group-title" style="margin-top: 24px;">Master Navigation</div>
+    <a class="nav-item" onclick="window.location.href='00_master_notes_portal.html'">🌐 Interactive Master Portal</a>
+    <a class="nav-item" onclick="window.location.href='00_github_master_notes.html'">📖 Full Master Manual</a>
+</div>
+<div class="main-content">
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 02: Git Core Lifecycle, Branching, Merging & Rebase</div>
+        <div class="topic-desc">Git Basics + GitHub Workflows + Actions CI/CD + Security + Releases + CLI + REST/GraphQL APIs + 150+ Q&A</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">7</div><div class="card-title">Git File Lifecycle</div></div>
+        <div class="bilingual-box">
+            <div class="def-english"><div class="def-label">🇬🇧 English Definition</div><div class="def-text">Git moves changes through 4 main states: Untracked/Modified, Staged (index buffer), Committed (local repository snapshot), and Pushed (GitHub remote repository).</div></div>
+            <div class="def-hinglish"><div class="def-label">🇮🇳 Hinglish Definition</div><div class="def-text">File pehle working tree mein change hoti hai, phir `git add` se staging area mein jaati hai, `commit` se local history mein aur `push` se GitHub par.</div></div>
+        </div>
+        <div style="font-weight: 700; margin-bottom: 10px; color: rgb(15, 23, 42);">🔄 File Lifecycle Flowchart</div>
+        <div class="flowchart-container">
+            <div class="flowchart-step">Untracked / Modified<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Working Tree</small></div>
+            <div class="flowchart-arrow">➔</div>
+            <div class="flowchart-step">Staged<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Index Buffer</small></div>
+            <div class="flowchart-arrow">➔</div>
+            <div class="flowchart-step">Committed<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Local History</small></div>
+            <div class="flowchart-arrow">➔</div>
+            <div class="flowchart-step">Pushed to GitHub<br/><small style="font-weight: normal; color: rgb(100, 116, 139);">Remote Repo</small></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">8</div><div class="card-title">Essential Git Command Reference Table</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Command</th><th>Syntax Example</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td>init</td><td>git init</td><td>Create new local repository</td></tr>
+                    <tr><td>clone</td><td>git clone URL</td><td>Copy remote repository</td></tr>
+                    <tr><td>status</td><td>git status</td><td>Inspect current repository state</td></tr>
+                    <tr><td>add</td><td>git add .</td><td>Stage modified files</td></tr>
+                    <tr><td>commit</td><td>git commit -m "msg"</td><td>Create permanent commit snapshot</td></tr>
+                    <tr><td>log</td><td>git log --oneline --graph</td><td>View commit history graph</td></tr>
+                    <tr><td>show</td><td>git show SHA</td><td>Inspect specific commit details</td></tr>
+                    <tr><td>diff</td><td>git diff</td><td>Inspect unstaged differences</td></tr>
+                    <tr><td>switch</td><td>git switch -c branch</td><td>Create and switch branch</td></tr>
+                    <tr><td>branch</td><td>git branch -a</td><td>List local and remote branches</td></tr>
+                    <tr><td>merge</td><td>git merge branch</td><td>Combine history of branches</td></tr>
+                    <tr><td>rebase</td><td>git rebase origin/main</td><td>Replay commits on new base</td></tr>
+                    <tr><td>fetch</td><td>git fetch origin</td><td>Download remote references</td></tr>
+                    <tr><td>pull</td><td>git pull</td><td>Fetch + integrate remote changes</td></tr>
+                    <tr><td>push</td><td>git push -u origin branch</td><td>Upload local commits to remote</td></tr>
+                    <tr><td>restore</td><td>git restore file</td><td>Discard uncommitted local changes</td></tr>
+                    <tr><td>reset</td><td>git reset --soft HEAD~1</td><td>Move branch pointer backwards</td></tr>
+                    <tr><td>revert</td><td>git revert SHA</td><td>Create inverse commit safely</td></tr>
+                    <tr><td>stash</td><td>git stash push -m "WIP"</td><td>Temporarily shelve changes</td></tr>
+                    <tr><td>tag</td><td>git tag -a v1.0.0 -m "msg"</td><td>Create annotated version tag</td></tr>
+                    <tr><td>remote</td><td>git remote -v</td><td>Display configured remote URLs</td></tr>
+                    <tr><td>clean</td><td>git clean -n</td><td>Preview untracked files cleanup</td></tr>
+                    <tr><td>reflog</td><td>git reflog</td><td>Inspect reference log for recovery</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">9</div><div class="card-title">git status / diff / add / commit Workflow</div></div>
+        <div class="code-container">
+git status
+git diff
+git add .
+git diff --cached
+git commit -m "feat: add user registration"
+
+// Stage specific file
+git add app.py
+
+// Stage selected interactive chunks (patch mode)
+git add -p
+        </div>
+        <div class="breakdown-box">
+            <div class="breakdown-header">🔍 Recommended Habit</div>
+            <div class="breakdown-list">
+                <li>status ➔ diff ➔ stage ➔ diff --cached ➔ commit. This prevents accidental secret files from entering history.</li>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">10</div><div class="card-title">Commit Messages & Conventional Commits</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Type</th><th>Example</th><th>Use Case</th></tr></thead>
+                <tbody>
+                    <tr><td>feat</td><td>feat: add payment API</td><td>New feature for end user</td></tr>
+                    <tr><td>fix</td><td>fix: handle null user input</td><td>Bug fix</td></tr>
+                    <tr><td>docs</td><td>docs: update setup guide</td><td>Documentation only</td></tr>
+                    <tr><td>refactor</td><td>refactor: simplify auth middleware</td><td>Code change without behavior alteration</td></tr>
+                    <tr><td>test</td><td>test: add login integration test</td><td>Adding or modifying tests</td></tr>
+                    <tr><td>chore</td><td>chore: update dependencies</td><td>Maintenance task</td></tr>
+                    <tr><td>build</td><td>build: update Docker toolchain</td><td>Build system / external dependencies</td></tr>
+                    <tr><td>ci</td><td>ci: add GitHub Actions matrix</td><td>CI/CD workflow changes</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-container">
+git log --oneline --graph --decorate --all
+git show HEAD
+git show HEAD~1
+git log --since="2 weeks ago"
+git log --author="Name"
+git log -- path/to/file.py
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">11</div><div class="card-title">Branches and Naming Conventions</div></div>
+        <div class="code-container">
+git branch
+git branch -a
+git switch -c feature/login
+git switch main
+git branch -m feature/login feature/user-login
+git branch -d feature/user-login
+
+// Push new branch to remote
+git push -u origin feature/user-login
+git push origin --delete feature/user-login
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">12</div><div class="card-title">Merge and Fast-Forward</div></div>
+        <div class="code-container">
+git switch main
+git pull --ff-only
+git merge feature/user-login
+
+// Abort conflicted merge
+git merge --abort
+        </div>
+        <div class="bilingual-box">
+            <div class="def-english"><div class="def-label">🇬🇧 Fast-Forward Merge</div><div class="def-text">Fast-forward occurs when the target branch HEAD has no divergent commits; Git moves the main pointer forward directly without creating an explicit merge commit.</div></div>
+            <div class="def-hinglish"><div class="def-label">🇮🇳 Non-Fast-Forward Merge</div><div class="def-text">Jab dono branches par alag-alag commits ban jaate hain, toh Git divergent histories ko merge commit ke through combine karta hai.</div></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">13</div><div class="card-title">Merge Conflicts Resolution</div></div>
+        <div class="code-container">
+git status
+git diff
+
+// Resolution Steps:
+// 1. Manually edit file to remove conflict markers and select clean code
+// 2. Stage resolved file:
+git add app.py
+git commit -m "fix: resolve merge conflict in app.py"
+
+// Cancel merge if needed:
+git merge --abort
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">14</div><div class="card-title">Rebase and Interactive Rebase</div></div>
+        <div class="code-container">
+git fetch origin
+git switch feature/login
+git rebase origin/main
+
+// Interactive Rebase (Clean last 5 commits)
+git rebase -i HEAD~5
+        </div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Action</th><th>Meaning</th></tr></thead>
+                <tbody>
+                    <tr><td>pick</td><td>Keep commit in history as is</td></tr>
+                    <tr><td>reword</td><td>Keep commit but edit commit message</td></tr>
+                    <tr><td>edit</td><td>Pause rebase to modify commit content</td></tr>
+                    <tr><td>squash</td><td>Combine commit into previous commit</td></tr>
+                    <tr><td>fixup</td><td>Combine commit into previous commit and discard message</td></tr>
+                    <tr><td>drop</td><td>Remove commit completely from history</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="interview-box">
+            <div class="interview-header">🎯 Golden Rule of Rebase</div>
+            <div class="interview-text">Never rebase commits that have already been pushed to a shared/protected public branch. Use rebase strictly for cleaning up private local feature branches before merging.</div>
+        </div>
+    </div>
+    
+</div>
+</body>
+</html>

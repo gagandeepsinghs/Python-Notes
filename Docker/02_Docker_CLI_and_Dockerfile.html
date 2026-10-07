@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 2: Docker CLI & Dockerfile</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 Pro Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        pre { background-color: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px; font-family: 'Consolas', monospace; }
+        code { font-family: 'Consolas', monospace; background-color: #f1f5f9; padding: 2px 5px; border-radius: 4px; color: #dc2626; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Docker_Master_Notes.html" style="background-color: var(--accent-blue); color: white; text-align: center; margin-bottom: 20px; display: block; padding: 10px; border-radius: 5px; text-decoration: none;">← Back to Portal</a>
+        <h2>Unit 2: CLI & Build</h2>
+        <a href="#partD">Part D: CLI Core</a>
+        <a href="#partE">Part E: Dockerfile</a>
+        <a href="#multistage">Multi-Stage Builds</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 2: Docker CLI Complete Core & Dockerfile</h1>
+
+        <section id="partD">
+            <h2>Part D: Docker CLI Complete Core</h2>
+            
+            <h3>1. Image Commands</h3>
+            <table>
+                <tr><th>Command</th><th>Purpose</th></tr>
+                <tr><td><code>docker pull IMAGE[:TAG]</code></td><td>Download image</td></tr>
+                <tr><td><code>docker images</code> / <code>ls</code></td><td>List images</td></tr>
+                <tr><td><code>docker build -t NAME:TAG .</code></td><td>Build image from Dockerfile</td></tr>
+                <tr><td><code>docker rmi IMAGE</code></td><td>Remove image</td></tr>
+            </table>
+
+            <h3>2. Container Commands</h3>
+            <table>
+                <tr><th>Command</th><th>Purpose</th></tr>
+                <tr><td><code>docker run [OPTIONS] IMAGE</code></td><td>Create + start container</td></tr>
+                <tr><td><code>docker ps -a</code></td><td>List all containers</td></tr>
+                <tr><td><code>docker rm CONTAINER</code></td><td>Remove stopped container</td></tr>
+                <tr><td><code>docker logs -f CONTAINER</code></td><td>Follow logs</td></tr>
+                <tr><td><code>docker exec -it CONTAINER sh</code></td><td><span class="highlight-red">Open shell inside container</span></td></tr>
+                <tr><td><code>docker stats</code></td><td>Live resource usage</td></tr>
+            </table>
+
+            <h3>3. Cleanup Commands</h3>
+            <div class="box-trick">Review carefully before using prune commands, especially volume prune! Data-loss risk.</div>
+            <ul>
+                <li><code>docker system df</code> (Inspect disk use)</li>
+                <li><code>docker system prune</code> (Remove unused objects)</li>
+                <li><code>docker image prune</code> (Remove unused images)</li>
+            </ul>
+        </section>
+
+        <section id="partE">
+            <h2>Part E: Dockerfile From Zero</h2>
+            <p>Dockerfile defines how an image is built layer by layer.</p>
+            
+            <h3>1. Instruction Reference</h3>
+            <table>
+                <tr><th>Instruction</th><th>Meaning</th><th>Example</th></tr>
+                <tr><td>FROM</td><td>Base image</td><td><code>FROM python:3.12-slim</code></td></tr>
+                <tr><td>WORKDIR</td><td>Set working directory</td><td><code>WORKDIR /app</code></td></tr>
+                <tr><td>COPY</td><td>Copy local files</td><td><code>COPY . .</code></td></tr>
+                <tr><td>RUN</td><td>Execute build-time command</td><td><code>RUN pip install -r requirements.txt</code></td></tr>
+                <tr><td>ENV</td><td>Set env variable</td><td><code>ENV PYTHONUNBUFFERED=1</code></td></tr>
+                <tr><td>EXPOSE</td><td>Document intended port</td><td><code>EXPOSE 8000</code></td></tr>
+                <tr><td>CMD</td><td><span class="highlight-red">Default command</span></td><td><code>CMD ["python","app.py"]</code></td></tr>
+            </table>
+
+            <h3>2. Master Python Dockerfile & Cache Strategy</h3>
+            <div class="hinglish"><strong>Hinglish:</strong> Stable files (jaise requirements.txt) ko pehle copy karo aur install karo. Source code (jo baar-baar change hota hai) baad me copy karo taaki Docker build cache use kar sake.</div>
+<pre><code># syntax=docker/dockerfile:1
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Copy requirements FIRST to use layer caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the code later
+COPY . .
+
+ENV PYTHONUNBUFFERED=1
+EXPOSE 8000
+
+CMD ["python", "app.py"]</code></pre>
+
+            <h3 id="multistage">3. Multi-Stage Builds</h3>
+            <p>Use multiple <code>FROM</code> stages so build tools stay in the build stage and only required runtime artifacts enter the final image. This drastically reduces image size and attack surface.</p>
+<pre><code>FROM node:22 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Second stage: only the runtime
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html</code></pre>
+        </section>
+    </div>
+</body>
+</html>

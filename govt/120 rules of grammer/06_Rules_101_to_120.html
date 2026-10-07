@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 6: Grammar Rules 101–120</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .rule-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .rule-title { font-size: 1.3rem; font-weight: bold; color: var(--accent-blue); margin-bottom: 10px; }
+        .example-box { background: #f1f5f9; padding: 10px; border-left: 4px solid var(--accent-blue); margin-top: 10px; font-family: monospace; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Grammar_Master_Notes.html" style="background: var(--accent-blue); color: white; text-align: center; font-weight: bold; margin-bottom: 15px; padding: 10px; border-radius: 5px; display: block;">&larr; Back to Master</a>
+        <h2>Unit 6: Rules 101-120</h2>
+        <a href="#r101">Rule 101-103: Tags</a>
+        <a href="#r104">Rule 104-105: Negatives</a>
+        <a href="#r106">Rule 106: Intensifiers</a>
+        <a href="#r107">Rule 107-109: Parallelism</a>
+        <a href="#r110">Rule 110-113: Pairs</a>
+        <a href="#r114">Rule 114-117: Confusing</a>
+        <a href="#r118">Rule 118: Checklist</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 6: Rules 101–120 (Tags, Parallelism & Error Spotting)</h1>
+
+        <div class="rule-card" id="r101">
+            <div class="rule-title">Rule 101: I am tag</div>
+            <p><strong>English Rule:</strong> I am... usually takes aren't I?</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Special tag form.</div>
+            <div class="example-box">Example: I am late, <span class="highlight-red">aren't I</span>?</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 102: Imperative tags</div>
+            <p><strong>English Rule:</strong> Commands often take will you/won't you/can you/could you depending on context.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Imperative ka tag context-based.</div>
+            <div class="example-box">Example: Open the door, <span class="highlight-red">will you</span>?</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 103: Let's tag</div>
+            <p><strong>English Rule:</strong> Let's... → shall we?</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Let's ka tag shall we.</div>
+            <div class="example-box">Example: Let's go, <span class="highlight-red">shall we</span>?</div>
+        </div>
+
+        <div class="rule-card" id="r104">
+            <div class="rule-title">Rule 104: Negative words</div>
+            <p><strong>English Rule:</strong> Never, hardly, scarcely, rarely already carry negative sense.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Extra 'not' avoid karo.</div>
+            <div class="example-box">Example: He <span class="highlight-red">never</span> goes there. (Not: He never does not go there).</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 105: Double negatives</div>
+            <p><strong>English Rule:</strong> Formal standard English normally avoids two negatives for one negative meaning.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Do negatives ek hi meaning ke liye avoid karo.</div>
+            <div class="example-box">Example: I don't know anything. (Not: I don't know nothing).</div>
+        </div>
+
+        <div class="rule-card" id="r106">
+            <div class="rule-title">Rule 106: Much/far + comparative</div>
+            <p><strong>English Rule:</strong> Much, far, even, still can intensify comparatives.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Much better, far greater.</div>
+            <div class="example-box">Example: <span class="highlight-red">Much</span> better (Not 'very better').</div>
+        </div>
+
+        <div class="rule-card" id="r107">
+            <div class="rule-title">Rule 107: Parallelism</div>
+            <p><strong>English Rule:</strong> Joined elements should have the same grammatical form.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> And/or ke dono sides same structure.</div>
+            <div class="example-box">Example: <span class="highlight-red">reading, writing and swimming</span></div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 108: Correlative conjunctions</div>
+            <p><strong>English Rule:</strong> Both...and, either...or, neither...nor, not only...but also should connect parallel forms.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Dono sides grammatical parallel rakho.</div>
+            <div class="example-box">Example: Not only <span class="highlight-red">smart</span> but also <span class="highlight-blue">hardworking</span>.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 109: Not only inversion</div>
+            <p><strong>English Rule:</strong> When 'not only' starts a clause, auxiliary may come before subject.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Inversion yaad rakho. (Not only did he sing...)</div>
+            <div class="example-box">Example: <span class="highlight-red">Not only did</span> he sing, but he also danced.</div>
+        </div>
+
+        <div class="rule-card" id="r110">
+            <div class="rule-title">Rule 110: Either/or agreement</div>
+            <p><strong>English Rule:</strong> Verb generally follows nearer subject.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Nearest subject rule.</div>
+            <div class="example-box">Example: Either Ram or his friends <span class="highlight-red">are</span> coming.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 111: Neither/nor agreement</div>
+            <p><strong>English Rule:</strong> Verb generally follows nearer subject.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Nearest subject.</div>
+            <div class="example-box">Example: Neither boys nor teacher <span class="highlight-red">is</span> ready.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 112: Both/and</div>
+            <p><strong>English Rule:</strong> 'Both' takes plural reference and pairs with 'and'.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Both Ram and Shyam are here.</div>
+            <div class="example-box">Example: Not 'both...or'.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 113: Each other / One another</div>
+            <p><strong>English Rule:</strong> Traditional exam distinction: 'each other' for two, 'one another' for more than two.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Traditional SSC distinction yaad rakho.</div>
+            <div class="example-box">Example: The two helped <span class="highlight-red">each other</span>.</div>
+        </div>
+
+        <div class="rule-card" id="r114">
+            <div class="rule-title">Rule 114: Whose / Who's</div>
+            <p><strong>English Rule:</strong> Whose = possessive; who's = who is/who has.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Whose ka ownership; who's contraction.</div>
+            <div class="example-box">Example: <span class="highlight-red">Whose</span> book? <span class="highlight-blue">Who's</span> coming?</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 115: Then / Than</div>
+            <p><strong>English Rule:</strong> Than = comparison; then = time/sequence.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Than comparison; then sequence.</div>
+            <div class="example-box">Example: Better <span class="highlight-red">than</span>; <span class="highlight-blue">then</span> we left.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 116: Affect / Effect</div>
+            <p><strong>English Rule:</strong> Affect commonly verb = influence; effect commonly noun = result.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Affect influence; effect result.</div>
+            <div class="example-box">Example: The medicine <span class="highlight-red">affected</span> him. The <span class="highlight-blue">effect</span> was strong.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 117: Principal / Principle</div>
+            <p><strong>English Rule:</strong> Principal = head/main; principle = rule/belief.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Principal head/main; principle rule.</div>
+            <div class="example-box">Example: The <span class="highlight-red">principal</span> explained the <span class="highlight-blue">principle</span>.</div>
+        </div>
+
+        <div class="rule-card" id="r118">
+            <div class="rule-title">Rule 118-120: Error spotting checklist</div>
+            <p><strong>English Rule:</strong> Scan subject-verb, tense, pronoun, article, preposition, comparison, conjunction, parallelism, word choice.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Fixed scan order speed badhata hai.</div>
+            <div class="example-box">Example: He did not went → did not <span class="highlight-red">go</span>.</div>
+            <div class="box-trick">GOLDEN SSC RULE: When stuck in error spotting: subject → verb → tense → pronoun → article → preposition → comparison → conjunction → parallelism. This fixed scan saves time.</div>
+        </div>
+
+    </div>
+</body>
+</html>

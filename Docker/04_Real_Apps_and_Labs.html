@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 4: Real Apps & Labs</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 Lab Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        pre { background-color: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px; font-family: 'Consolas', monospace; }
+        code { font-family: 'Consolas', monospace; background-color: #f1f5f9; padding: 2px 5px; border-radius: 4px; color: #dc2626; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Docker_Master_Notes.html" style="background-color: var(--accent-blue); color: white; text-align: center; margin-bottom: 20px; display: block; padding: 10px; border-radius: 5px; text-decoration: none;">← Back to Portal</a>
+        <h2>Unit 4: Real Apps & Labs</h2>
+        <a href="#partF">Part F: Real Apps</a>
+        <a href="#partQ">Part Q: Python Lab</a>
+        <a href="#partR">Part R: Compose Lab</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 4: Dockerizing Real Applications & Labs</h1>
+
+        <section id="partF">
+            <h2>Part F: Dockerizing Real Applications</h2>
+            
+            <h3>1. Pattern & Node.js Example</h3>
+            <p><strong>Pattern:</strong> Base image → WORKDIR → requirements copy/install → source copy → EXPOSE → CMD.</p>
+<pre><code>FROM node:22
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+EXPOSE 3000
+CMD ["npm","start"]</code></pre>
+            <div class="hinglish"><strong>Hinglish:</strong> <code>npm ci</code> use karo package-lock.json ke liye taaki reproducible installs ho.</div>
+
+            <h3>2. Databases (MongoDB, PostgreSQL, MySQL, Redis)</h3>
+            <p>Use a separate database service in Compose, persist data with a named volume, and connect using the Compose service name (e.g. <code>mongodb://mongo:27017</code>, not localhost).</p>
+        </section>
+
+        <section id="partQ">
+            <h2>Part Q: Complete Python/Flask Lab</h2>
+            <div class="box-trick">Follow this step-by-step to dockerize a simple Python API.</div>
+            
+            <h3>1. Create Files</h3>
+            <p><strong>app.py:</strong></p>
+<pre><code>from flask import Flask
+app = Flask(__name__)
+@app.route("/")
+def home():
+    return "Hello from Docker!"
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)</code></pre>
+            
+            <p><strong>requirements.txt:</strong></p>
+<pre><code>Flask</code></pre>
+
+            <p><strong>Dockerfile:</strong></p>
+<pre><code>FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py .
+EXPOSE 8000
+CMD ["python", "app.py"]</code></pre>
+
+            <p><strong>.dockerignore:</strong></p>
+<pre><code>__pycache__
+*.pyc
+.venv</code></pre>
+
+            <h3>2. Build, Run & Test</h3>
+<pre><code>docker build -t my-python-app:1.0 .
+docker run -d --name python-demo -p 8000:8000 my-python-app:1.0
+docker logs python-demo</code></pre>
+            <p>Open <code>http://localhost:8000</code>. Expect "Hello from Docker!".</p>
+        </section>
+
+        <section id="partR">
+            <h2>Part R: Complete Compose + Postgres Lab</h2>
+            <p>This lab demonstrates running an app and a database together using Docker Compose.</p>
+
+            <h3>1. compose.yaml</h3>
+<pre><code>services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+    depends_on:
+      - db
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: change-me
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:</code></pre>
+
+            <h3>2. Manage Stack</h3>
+<pre><code>docker compose up -d --build
+docker compose ps
+docker compose logs -f
+docker compose down</code></pre>
+            <div class="hinglish"><strong>Hinglish:</strong> <code>docker compose down -v</code> mat chalana unless aap sach me database data delete karna chahte ho. <code>-v</code> named volume ko hamesha ke liye uda dega.</div>
+        </section>
+    </div>
+</body>
+</html>

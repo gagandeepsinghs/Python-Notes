@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 2: Operating System & MS Office</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Exam Tip / Trick: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+
+        /* PYQ CSS */
+        .pyq-container { margin-top: 40px; border-top: 3px dashed var(--border-color); padding-top: 20px; }
+        .pyq-title { color: var(--accent-red); margin-bottom: 15px; font-size: 1.5rem; }
+        .question-card { background-color: #f8fafc; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .q-text { font-weight: bold; margin-bottom: 10px; color: var(--text-main); }
+        .q-exam { font-size: 0.85rem; background-color: var(--accent-red); color: white; padding: 3px 8px; border-radius: 4px; float: right; font-weight: bold;}
+        .options { list-style-type: none; margin-left: 0; }
+        .options li { padding: 10px; background-color: white; margin-bottom: 5px; border-radius: 4px; border: 1px solid var(--border-color); transition: 0.2s; }
+        .options li:hover { background-color: #e2e8f0; cursor: pointer; }
+        .btn-answer { background-color: var(--accent-blue); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .btn-answer:hover { background-color: #1e40af; }
+        .answer-panel { display: none; margin-top: 10px; padding: 15px; background-color: #ecfdf5; border-left: 5px solid var(--accent-green); border-radius: 4px; color: #064e3b; }
+        .answer-panel.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../index.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back</a>
+        <h2>Unit 2: OS & MS Office</h2>
+        <a href="#ch7">7. Number System & Data</a>
+        <a href="#ch8">8. Operating Systems</a>
+        <a href="#ch9">9. Windows & Files</a>
+        <a href="#ch10">10. MS Word</a>
+        <a href="#ch11">11. MS Excel</a>
+        <a href="#ch12">12. MS PowerPoint</a>
+        <a href="#pyq">📝 Practice MCQs</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 2: Operating System & MS Office</h1>
+        
+        <section id="ch7">
+            <h2>Chapter 7: Number System & Data Representation</h2>
+            <p><strong>English Definition:</strong> A number system represents numbers using a defined base and set of symbols.</p>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Computer internally binary use karta hai because digital circuits commonly work with two states: 0 and 1.</div>
+            
+            <ul>
+                <li><strong>Binary</strong> base 2: <span class="highlight-red">0,1</span>.</li>
+                <li><strong>Octal</strong> base 8: 0–7.</li>
+                <li><strong>Decimal</strong> base 10: 0–9.</li>
+                <li><strong>Hexadecimal</strong> base 16: 0–9 and A–F.</li>
+                <li><span class="highlight-blue">1 byte = 8 bits.</span></li>
+                <li><strong>ASCII</strong> represents characters using codes; <strong>Unicode</strong> supports a much wider range of scripts and symbols.</li>
+            </ul>
+
+            <table>
+                <tr><th>System</th><th>Base</th><th>Digits</th></tr>
+                <tr><td>Binary</td><td>2</td><td>0–1</td></tr>
+                <tr><td>Octal</td><td>8</td><td>0–7</td></tr>
+                <tr><td>Decimal</td><td>10</td><td>0–9</td></tr>
+                <tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td></tr>
+            </table>
+        </section>
+
+        <section id="ch8">
+            <h2>Chapter 8: Operating Systems</h2>
+            <p><strong>English Definition:</strong> An operating system is system software that manages hardware, software resources, files and user interaction.</p>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Operating System computer aur user/applications ke beech bridge ka kaam karta hai.</div>
+
+            <ul>
+                <li><strong>Functions:</strong> process management, memory management, file management, device management, security and user interface.</li>
+                <li><strong>Examples:</strong> Windows, Linux, macOS, Android, iOS.</li>
+                <li><strong>GUI</strong> uses graphical elements; <strong>CLI</strong> uses text commands.</li>
+                <li><strong>Booting</strong> means starting the computer and loading the operating system.</li>
+                <li><strong>Multitasking</strong> allows multiple tasks/processes to be handled concurrently.</li>
+            </ul>
+
+            <table>
+                <tr><th>OS function</th><th>What it does</th></tr>
+                <tr><td>Process management</td><td>Runs/schedules processes</td></tr>
+                <tr><td>Memory management</td><td>Allocates memory</td></tr>
+                <tr><td>File management</td><td>Organizes files/folders</td></tr>
+                <tr><td>Device management</td><td>Controls peripherals</td></tr>
+                <tr><td>Security</td><td>Access/authentication controls</td></tr>
+            </table>
+        </section>
+
+        <section id="ch9">
+            <h2>Chapter 9: Windows & File Management</h2>
+            <ul>
+                <li>File extension often indicates file type: <span class="highlight-red">.docx, .xlsx, .pptx, .pdf, .jpg, .mp3, .exe</span>.</li>
+                <li><strong>Recycle Bin</strong> temporarily holds many deleted files.</li>
+                <li><strong>Copy</strong> duplicates; <strong>Cut + Paste</strong> moves.</li>
+                <li><strong>Compression</strong> reduces file size; <span class="highlight-blue">ZIP</span> is a common archive format.</li>
+            </ul>
+
+            <div class="box-trick">
+                <strong>Shortcut Trick:</strong><br>
+                Ctrl + C (Copy)<br>
+                Ctrl + X (Cut - X looks like scissors)<br>
+                Ctrl + V (Paste - V looks like an arrow inserting something)
+            </div>
+
+            <table>
+                <tr><th>Action</th><th>Common shortcut</th></tr>
+                <tr><td>Copy</td><td>Ctrl + C</td></tr>
+                <tr><td>Cut</td><td>Ctrl + X</td></tr>
+                <tr><td>Paste</td><td>Ctrl + V</td></tr>
+                <tr><td>Rename</td><td>F2</td></tr>
+                <tr><td>Permanent delete</td><td><span class="highlight-red">Shift + Delete</span></td></tr>
+            </table>
+        </section>
+
+        <section id="ch10">
+            <h2>Chapter 10: MS Word</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Word documents banane, formatting, tables, headers, footers, mail merge aur printing ke liye use hota hai.</div>
+
+            <ul>
+                <li><strong>Common features:</strong> font formatting, paragraph alignment, styles, tables, headers/footers, page numbers.</li>
+                <li><strong>Mail Merge</strong> creates personalized documents for <span class="highlight-red">multiple recipients</span>.</li>
+                <li><strong>Spell Check</strong> helps identify spelling/grammar issues.</li>
+                <li><strong>Track Changes</strong> records edits.</li>
+                <li><strong>Common extensions:</strong> .docx; older .doc.</li>
+            </ul>
+        </section>
+
+        <section id="ch11">
+            <h2>Chapter 11: MS Excel</h2>
+            <ul>
+                <li>Workbook contains worksheets; a cell is identified by <span class="highlight-red">column letter + row number</span> (e.g., A1).</li>
+                <li>Formula begins with <span class="highlight-blue">=</span>.</li>
+                <li>Functions: SUM, AVERAGE, COUNT, MAX, MIN, IF.</li>
+                <li><strong>Relative reference</strong> changes when copied; <strong>absolute reference</strong> uses $ such as <span class="highlight-red">$A$1</span>.</li>
+            </ul>
+
+            <div class="visual-container">
+                <h3 style="margin-top: 0; color: var(--accent-blue);">Excel Calculation Flow</h3>
+                <svg viewBox="0 0 400 350">
+                    <rect x="100" y="20" width="200" height="40" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="45" fill="#000" text-anchor="middle">Enter data</text>
+                    <path d="M 200 60 L 200 80" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="100" y="80" width="200" height="40" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="105" fill="#000" text-anchor="middle">Write formula (=)</text>
+                    <path d="M 200 120 L 200 140" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="100" y="140" width="200" height="40" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="165" fill="#000" text-anchor="middle">Press Enter</text>
+                    <path d="M 200 180 L 200 200" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="100" y="200" width="200" height="40" fill="#059669" stroke="#cbd5e1"/>
+                    <text x="200" y="225" fill="#fff" font-weight="bold" text-anchor="middle">Result displayed</text>
+                </svg>
+            </div>
+
+            <table>
+                <tr><th>Function</th><th>Purpose</th><th>Example</th></tr>
+                <tr><td>SUM</td><td>Total</td><td>=SUM(A1:A10)</td></tr>
+                <tr><td>AVERAGE</td><td>Mean</td><td>=AVERAGE(A1:A10)</td></tr>
+                <tr><td>COUNT</td><td>Count numbers</td><td>=COUNT(A1:A10)</td></tr>
+                <tr><td>MAX</td><td>Largest</td><td>=MAX(A1:A10)</td></tr>
+            </table>
+        </section>
+
+        <section id="ch12">
+            <h2>Chapter 12: MS PowerPoint</h2>
+            <ul>
+                <li>Presentation consists of slides. Common extension: <span class="highlight-red">.pptx</span>.</li>
+                <li><strong>Transitions</strong> occur between slides; <strong>animations</strong> affect objects on a slide.</li>
+                <li><strong>Slide Master</strong> controls consistent design/layout.</li>
+                <li><span class="highlight-blue">F5 starts slide show from beginning</span> in many desktop versions.</li>
+            </ul>
+        </section>
+
+        <!-- PYQ Section -->
+        <section id="pyq" class="pyq-container">
+            <h2 class="pyq-title">📝 SSC Practice MCQs (Unit 2)</h2>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CGL</span>
+                <p class="q-text">Q1. Which number system has base 2?</p>
+                <ul class="options">
+                    <li>A. Decimal</li>
+                    <li>B. Octal</li>
+                    <li>C. Binary</li>
+                    <li>D. Hexadecimal</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans1')">Show Answer & Solution</button>
+                <div id="ans1" class="answer-panel">
+                    <strong>Answer: C. Binary</strong><br>
+                    <strong>Solution:</strong> Binary number system has base 2 (0 and 1). Decimal has 10, Octal has 8, Hexadecimal has 16.
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="q-exam">SSC CHSL</span>
+                <p class="q-text">Q2. In Excel, a formula normally starts with:</p>
+                <ul class="options">
+                    <li>A. #</li>
+                    <li>B. =</li>
+                    <li>C. @</li>
+                    <li>D. &</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans2')">Show Answer & Solution</button>
+                <div id="ans2" class="answer-panel">
+                    <strong>Answer: B. =</strong><br>
+                    <strong>Solution:</strong> Every formula in Microsoft Excel must begin with an equals sign (=).
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC MTS</span>
+                <p class="q-text">Q3. Which key combination copies selected content?</p>
+                <ul class="options">
+                    <li>A. Ctrl+X</li>
+                    <li>B. Ctrl+C</li>
+                    <li>C. Ctrl+V</li>
+                    <li>D. Ctrl+P</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans3')">Show Answer & Solution</button>
+                <div id="ans3" class="answer-panel">
+                    <strong>Answer: B. Ctrl+C</strong><br>
+                    <strong>Solution:</strong> Ctrl+C is used to copy. Ctrl+X is cut, Ctrl+V is paste, Ctrl+P is print.
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CPO</span>
+                <p class="q-text">Q4. Which Excel function returns the largest value?</p>
+                <ul class="options">
+                    <li>A. MIN</li>
+                    <li>B. MAX</li>
+                    <li>C. COUNT</li>
+                    <li>D. IF</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans4')">Show Answer & Solution</button>
+                <div id="ans4" class="answer-panel">
+                    <strong>Answer: B. MAX</strong><br>
+                    <strong>Solution:</strong> The MAX function returns the largest numeric value in a range of values.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const panel = document.getElementById(id);
+            if (panel.classList.contains('show')) {
+                panel.classList.remove('show');
+            } else {
+                panel.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>

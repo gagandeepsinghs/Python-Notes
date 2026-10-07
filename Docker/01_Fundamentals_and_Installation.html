@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 1: Docker Fundamentals</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 Pro Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+        
+        pre { background-color: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px; font-family: 'Consolas', monospace; }
+        code { font-family: 'Consolas', monospace; background-color: #f1f5f9; padding: 2px 5px; border-radius: 4px; color: #dc2626; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Docker_Master_Notes.html" style="background-color: var(--accent-blue); color: white; text-align: center; margin-bottom: 20px; display: block; padding: 10px; border-radius: 5px; text-decoration: none;">← Back to Portal</a>
+        <h2>Unit 1: Fundamentals</h2>
+        <a href="#partA">Part A: Fundamentals</a>
+        <a href="#partB">Part B: Installation</a>
+        <a href="#partC">Part C: First 30 Mins</a>
+        <a href="#partP">Part P: First Day Lab</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 1: Docker Fundamentals & Installation</h1>
+
+        <section id="partA">
+            <h2>Part A: Docker Fundamentals</h2>
+            
+            <h3>1. What is Docker?</h3>
+            <p>Docker is a platform for developing, shipping and running applications in lightweight isolated environments called containers.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Docker code + dependencies + runtime/configuration ko package karke consistent environment mein run karne deta hai. Isse "mere system par chal raha hai" problem reduce hoti hai.</div>
+            
+            <h3>2. Docker vs Virtual Machine</h3>
+            <div class="hinglish"><strong>Hinglish:</strong> VM generally heavier hoti hai; containers lightweight aur fast start hote hain.</div>
+            <div class="visual-container">
+                <svg viewBox="0 0 600 100">
+                    <rect x="10" y="30" width="100" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="60" y="55" font-size="12" text-anchor="middle">Host OS</text>
+                    <path d="M 110 50 L 140 50" stroke="#000" marker-end="url(#arrow)"/>
+                    
+                    <rect x="140" y="30" width="120" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="55" font-size="12" text-anchor="middle">Docker Engine</text>
+                    <path d="M 260 50 L 290 50" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="290" y="30" width="100" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="340" y="55" font-size="12" text-anchor="middle">Containers</text>
+                    <path d="M 390 50 L 420 50" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="420" y="30" width="150" height="40" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="495" y="55" font-size="12" text-anchor="middle">App + Dependencies</text>
+                </svg>
+            </div>
+
+            <h3>3. Docker Architecture & Objects</h3>
+            <ul>
+                <li><strong>Docker CLI/client:</strong> sends API requests to the daemon.</li>
+                <li><strong>dockerd (Daemon):</strong> manages Docker objects.</li>
+                <li><strong>Image:</strong> <span class="highlight-blue">read-only template</span>.</li>
+                <li><strong>Container:</strong> <span class="highlight-red">image ka running instance</span>.</li>
+                <li><strong>Registry:</strong> images store/share karne ki jagah (e.g. Docker Hub).</li>
+                <li><strong>Volume:</strong> persistent storage.</li>
+            </ul>
+
+            <h3>4. Container & Image Lifecycle</h3>
+            <p><strong>Container:</strong> Image exists → container created → started → running → stopped/restarted → removed.</p>
+            <div class="box-trick">Stop karne se container automatically delete nahi hota. Use <code>docker rm</code>.</div>
+            <p><strong>Image:</strong> Dockerfile → build → image → run → container → tag → push → registry.</p>
+        </section>
+
+        <section id="partB">
+            <h2>Part B: Installation & Opening Docker</h2>
+            
+            <h3>Windows/macOS</h3>
+            <p>Download Docker Desktop, run installer. For Windows, keep the recommended WSL 2 option. Restart if requested.</p>
+            
+            <h3>Verify Installation</h3>
+            <p>Open Terminal/PowerShell and run:</p>
+<pre><code>docker version
+docker info</code></pre>
+            <div class="hinglish"><strong>Hinglish:</strong> Agar <code>docker version</code> Client aur Server dono dikhaye, iska matlab CLI Docker engine se communicate kar paa raha hai.</div>
+        </section>
+
+        <section id="partC">
+            <h2>Part C: First 30 Minutes with Docker</h2>
+            
+            <h3>1. First Container — hello-world</h3>
+            <p>Docker downloads the image if needed, creates a container, runs it, prints a message, and exits.</p>
+<pre><code>docker run hello-world</code></pre>
+
+            <h3>2. First Real Server — Nginx</h3>
+            <p>Run Nginx detached (<code>-d</code>) and publish port 80 inside the container to host port 8080.</p>
+<pre><code>docker pull nginx
+docker run -d --name mynginx -p 8080:80 nginx</code></pre>
+            <p>Open browser: <span class="highlight-red">http://localhost:8080</span></p>
+
+            <h3>3. Stop / Start / Remove</h3>
+            <div class="hinglish"><strong>Hinglish:</strong> Stop karne ka matlab delete karna nahi hai. Stop sirf process ko rokti hai. Remove karne ke liye 'rm' use hota hai.</div>
+<pre><code>docker stop mynginx
+docker start mynginx
+docker rm mynginx  # Only works if stopped
+docker rmi nginx   # Removes the image</code></pre>
+        </section>
+
+        <section id="partP">
+            <h2>Part P: First Day Practical Lab (Do This Exactly)</h2>
+            <div class="box-trick">Follow these exact steps in your terminal to get comfortable with basic Docker commands.</div>
+<pre><code># 1. Verify
+docker version
+
+# 2. Test
+docker run hello-world
+
+# 3. List
+docker ps
+docker ps -a
+
+# 4. Pull & Run Nginx
+docker pull nginx
+docker run -d --name mynginx -p 8080:80 nginx
+
+# 5. Check Logs
+docker logs mynginx
+docker logs -f mynginx
+
+# 6. Stop & Remove
+docker stop mynginx
+docker rm mynginx</code></pre>
+        </section>
+
+    </div>
+</body>
+</html>

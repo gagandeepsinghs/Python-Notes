@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 3: Networking, Volumes & Compose</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 Pro Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        pre { background-color: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px; font-family: 'Consolas', monospace; }
+        code { font-family: 'Consolas', monospace; background-color: #f1f5f9; padding: 2px 5px; border-radius: 4px; color: #dc2626; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Docker_Master_Notes.html" style="background-color: var(--accent-blue); color: white; text-align: center; margin-bottom: 20px; display: block; padding: 10px; border-radius: 5px; text-decoration: none;">← Back to Portal</a>
+        <h2>Unit 3: Storage & Compose</h2>
+        <a href="#partG">Part G: Volumes & Net</a>
+        <a href="#partH">Part H: Docker Compose</a>
+        <a href="#partI">Part I: Env & Secrets</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 3: Networking, Volumes & Docker Compose</h1>
+
+        <section id="partG">
+            <h2>Part G: Volumes, Storage & Networking</h2>
+            
+            <h3>1. Volumes (Persistent Data)</h3>
+            <p>Named volumes are Docker-managed persistent stores. A container can be deleted/recreated while important database data remains safe.</p>
+<pre><code>docker volume create mydata
+docker run -d --name db -v mydata:/data IMAGE</code></pre>
+            <div class="hinglish"><strong>Hinglish:</strong> Production data ko container ki writable layer par depend mat karo; persistent storage/volumes use karo.</div>
+
+            <h3>2. Bind Mounts</h3>
+            <p>A bind mount maps a host path/file into a container. It is useful for local development to sync code.</p>
+<pre><code>docker run -it --rm -v ${PWD}:/app IMAGE sh</code></pre>
+
+            <h3>3. Port Mapping & The localhost Rule</h3>
+            <p>Syntax is <code>-p HOST_PORT:CONTAINER_PORT</code>. Example <code>-p 8080:80</code> means host 8080 forwards to container 80.</p>
+            <div class="box-trick">Inside a container, 'localhost' means that same container. If your app and database are separate containers, the app must connect using the database's service/container name (e.g., 'db'), NOT 'localhost'.</div>
+        </section>
+
+        <section id="partH">
+            <h2>Part H: Docker Compose Complete</h2>
+            <p>Compose defines multi-container applications in YAML (<code>compose.yaml</code>) and manages services, networks, and volumes together.</p>
+            
+            <h3>1. Master compose.yaml</h3>
+<pre><code>services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: change-me
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:</code></pre>
+            <p>Compose services on the same network can discover each other by service name (e.g., <code>DB_HOST: db</code>).</p>
+
+            <h3>2. Compose Commands</h3>
+            <ul>
+                <li><code>docker compose up -d</code> (Start in background)</li>
+                <li><code>docker compose down</code> (Stop and remove containers/networks)</li>
+                <li><code>docker compose logs -f</code> (Tail logs)</li>
+                <li><code>docker compose exec app sh</code> (Open shell in app service)</li>
+            </ul>
+
+            <div class="box-trick"><strong>Compose Data Warning:</strong> <code>docker compose down -v</code> will remove named volumes and therefore delete your database data. Never use it casually!</div>
+        </section>
+
+        <section id="partI">
+            <h2>Part I: Environment Variables & Secrets</h2>
+            
+            <h3>1. Environment Variables</h3>
+            <p>Use <code>-e KEY=value</code> for one variable or <code>--env-file .env</code> for a file.</p>
+<pre><code>docker run -e APP_ENV=dev my-app:1.0</code></pre>
+
+            <h3>2. Secrets Security</h3>
+            <div class="hinglish"><strong>Hinglish:</strong> Secrets (passwords, API keys) Dockerfile mein hard-code mat karo! Use environment variables injected at runtime, or proper secret-management mechanisms.</div>
+        </section>
+
+    </div>
+</body>
+</html>

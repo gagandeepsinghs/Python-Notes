@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>2. React Props, State (useState) & Event Handling - Created by Gagan Sir</title>
+    <title>2. React Props, State (useState) & Event Handling</title>
     <style>
         :root {
             --bg-page: rgb(248, 250, 252);
@@ -380,7 +380,7 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <a href="../index.html" class="brand-badge" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; cursor: pointer;">← Back to Portal</a>
-            <span class="brand-badge">Created by Gagan Sir</span>
+            
             <h2 class="sidebar-title">React Syllabus Modules</h2>
         </div>
         <ul class="nav-list">
@@ -390,7 +390,7 @@
 
     <main class="main-content">
         <header class="header-card">
-            <span class="brand-badge">Created by Gagan Sir</span>
+            
             <h1>2. React Props, State (useState) & Event Handling</h1>
             <p>Comprehensive Guide: Passing data with props, state immutability, useState hook & handling synthetic browser events</p>
         </header>
@@ -433,7 +433,7 @@
             <div class="code-card">
                 <div class="card-header">
                     <span class="code-title">💻 Practical Code Example - React Props (Properties) & Data Passing</span>
-                    <span class="author-tag">Created by Gagan Sir</span>
+                    
                 </div>
                 <div class="code-container">
                     <pre><code>function CourseCard({ title, duration, instructor, children }) {
@@ -449,7 +449,7 @@
 
 export default function App() {
   return (
-    &lt;CourseCard title="React Masterclass" duration={25} instructor="Gagan Sir"&gt;
+    &lt;CourseCard title="React Masterclass" duration={25} instructor="Instructor"&gt;
       &lt;span style={{ color: "green" }}&gt;Includes Working Portal Filter&lt;/span&gt;
     &lt;/CourseCard&gt;
   );
@@ -458,7 +458,7 @@ export default function App() {
                 <div class="output-container">
                     <div class="output-header">📤 Expected Output / Browser UI Render:</div>
                     <div class="output-box">CourseCard Rendered:
-Title: React Masterclass | Duration: 25 Hours | Instructor: Gagan Sir
+Title: React Masterclass | Duration: 25 Hours | Instructor: Instructor
 Child Content: Includes Working Portal Filter</div>
                 </div>
             </div>
@@ -501,7 +501,7 @@ Child Content: Includes Working Portal Filter</div>
             <div class="code-card">
                 <div class="card-header">
                     <span class="code-title">💻 Practical Code Example - React State & useState Hook</span>
-                    <span class="author-tag">Created by Gagan Sir</span>
+                    
                 </div>
                 <div class="code-container">
                     <pre><code>import React, { useState } from "react";
@@ -569,7 +569,7 @@ export default function Counter() {
             <div class="code-card">
                 <div class="card-header">
                     <span class="code-title">💻 Practical Code Example - Handling Browser Events in React</span>
-                    <span class="author-tag">Created by Gagan Sir</span>
+                    
                 </div>
                 <div class="code-container">
                     <pre><code>export default function EventDemo() {
@@ -583,7 +583,7 @@ export default function Counter() {
 
   return (
     &lt;div&gt;
-      &lt;button onClick={() =&gt; handleClick("Hello by Gagan Sir")}&gt;Click Alert&lt;/button&gt;
+      &lt;button onClick={() =&gt; handleClick("Hello by Instructor")}&gt;Click Alert&lt;/button&gt;
       &lt;input type="text" placeholder="Type here..." onChange={handleInputChange} /&gt;
     &lt;/div&gt;
   );
@@ -591,7 +591,7 @@ export default function Counter() {
                 </div>
                 <div class="output-container">
                     <div class="output-header">📤 Expected Output / Browser UI Render:</div>
-                    <div class="output-box">Alert Popup: Notification: Hello by Gagan Sir
+                    <div class="output-box">Alert Popup: Notification: Hello by Instructor
 Console output: Current Typing Value: [User Typed Text]</div>
                 </div>
             </div>
@@ -619,7 +619,7 @@ Console output: Current Typing Value: [User Typed Text]</div>
         <div class="callout-box callout-blue">
             <h4 class="callout-title-blue">Core Concepts & Rules</h4>
             <ul>
-                <li>Prevents stale closure bugs: setCount(prevCount => prevCount + 1).</li><li>Updating Object State: setUser(prev => ({ ...prev, name: 'Gagan Sir' }));</li><li>Updating Array State: setItems(prev => [...prev, newItem]);</li><li>Removing Array Item: setItems(prev => prev.filter(item => item.id !== targetId));</li>
+                <li>Prevents stale closure bugs: setCount(prevCount => prevCount + 1).</li><li>Updating Object State: setUser(prev => ({ ...prev, name: 'Instructor' }));</li><li>Updating Array State: setItems(prev => [...prev, newItem]);</li><li>Removing Array Item: setItems(prev => prev.filter(item => item.id !== targetId));</li>
             </ul>
         </div>
         
@@ -634,7 +634,7 @@ Console output: Current Typing Value: [User Typed Text]</div>
             <div class="code-card">
                 <div class="card-header">
                     <span class="code-title">💻 Practical Code Example - Functional State Updates & Updating Objects/Arrays</span>
-                    <span class="author-tag">Created by Gagan Sir</span>
+                    
                 </div>
                 <div class="code-container">
                     <pre><code>import React, { useState } from "react";

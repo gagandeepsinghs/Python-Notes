@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 6: CI/CD, Interviews & Roadmap</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 Pro Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+
+        pre { background-color: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px; font-family: 'Consolas', monospace; }
+        code { font-family: 'Consolas', monospace; background-color: #f1f5f9; padding: 2px 5px; border-radius: 4px; color: #dc2626; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+        
+        /* Interview Card */
+        .qa-card { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-blue); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .qa-q { font-weight: bold; color: var(--accent-blue); margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Docker_Master_Notes.html" style="background-color: var(--accent-blue); color: white; text-align: center; margin-bottom: 20px; display: block; padding: 10px; border-radius: 5px; text-decoration: none;">← Back to Portal</a>
+        <h2>Unit 6: Career & Next</h2>
+        <a href="#partL">Part L: CI/CD & Cloud</a>
+        <a href="#partN">Part N: Interviews</a>
+        <a href="#partS">Part S: Golden Rules</a>
+        <a href="#partO">Part O: Roadmap</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 6: CI/CD, Interviews & 90-Day Roadmap</h1>
+
+        <section id="partL">
+            <h2>Part L: Registry, Docker Hub & CI/CD</h2>
+            
+            <h3>1. Push & Pull Images</h3>
+            <p>A common naming pattern is <code>registry/namespace/repository:tag</code>.</p>
+<pre><code>docker login
+docker build -t myapp:1.0 .
+docker tag myapp:1.0 USER/myapp:1.0
+docker push USER/myapp:1.0</code></pre>
+            <p>To pull on another machine: <code>docker pull USER/myapp:1.0</code></p>
+
+            <h3>2. CI/CD Pipeline Flow</h3>
+            <div class="visual-container">
+                <svg viewBox="0 0 700 80">
+                    <text x="50" y="45" font-size="12" text-anchor="middle">Git Push</text>
+                    <path d="M 80 40 L 100 40" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="120" y="45" font-size="12" text-anchor="middle">Test</text>
+                    <path d="M 140 40 L 160 40" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="180" y="45" font-size="12" text-anchor="middle">Build</text>
+                    <path d="M 200 40 L 220 40" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="240" y="45" font-size="12" text-anchor="middle">Scan</text>
+                    <path d="M 260 40 L 280 40" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="310" y="45" font-size="12" text-anchor="middle">Tag & Push</text>
+                    <path d="M 350 40 L 370 40" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="400" y="45" font-size="12" text-anchor="middle">Deploy</text>
+                    <path d="M 430 40 L 450 40" stroke="#000" marker-end="url(#arrow)"/>
+                    <text x="500" y="45" font-size="12" text-anchor="middle">Healthcheck</text>
+                </svg>
+            </div>
+
+            <h3>3. Docker vs Kubernetes</h3>
+            <p>Docker packages/runs containers; Kubernetes orchestrates container workloads across clusters. They solve different layers. Learn Docker first, then Kubernetes.</p>
+        </section>
+
+        <section id="partN">
+            <h2>Part N: Interview Preparation Scenarios</h2>
+            
+            <div class="qa-card">
+                <div class="qa-q">Scenario: App Works Locally but Not in Docker</div>
+                <p>Inspect environment variables, bind address (must be 0.0.0.0, not localhost inside container), dependencies, ports, filesystem paths and logs.</p>
+            </div>
+
+            <div class="qa-card">
+                <div class="qa-q">Scenario: Database Data Disappears</div>
+                <p>Verify that a named volume is mounted at the correct database data path. Do not rely on a container's writable layer for persistent production data.</p>
+            </div>
+
+            <div class="qa-card">
+                <div class="qa-q">Scenario: Browser Cannot Connect</div>
+                <p>Check <code>docker ps</code>, docker port, host/container port mapping, application listening address and logs.</p>
+            </div>
+            
+            <div class="qa-card">
+                <div class="qa-q">Scenario: DB Connection Refused</div>
+                <p>Check service name, network membership, credentials, port, logs and readiness. Do not assume <code>depends_on</code> means the DB is fully booted.</p>
+            </div>
+        </section>
+
+        <section id="partS">
+            <h2>Part S: Final Golden Rules</h2>
+            <ul>
+                <li><span class="highlight-red">Container ko VM mat samjho;</span> container process isolation provide karta hai.</li>
+                <li>Production data ko container writable layer par depend mat karo; persistent storage use karo.</li>
+                <li><span class="highlight-blue">Compose mein localhost ka matlab same container hota hai;</span> another service ke liye service name use karo.</li>
+                <li>Secrets Dockerfile mein hard-code mat karo.</li>
+                <li>Build context ko <code>.dockerignore</code> se control karo.</li>
+                <li>Logs + inspect + exec are your first debugging tools.</li>
+                <li>One Command to Remember: <code>docker COMMAND --help</code></li>
+            </ul>
+        </section>
+
+        <section id="partO">
+            <h2>Part O: 90-Day Roadmap</h2>
+            <div class="hinglish"><strong>Hinglish:</strong> Is roadmap ko follow karke aap Docker zero se pro ban sakte ho.</div>
+            <ul>
+                <li><strong>Days 1–15:</strong> Fundamentals + CLI (Run, ps, logs, exec, inspect).</li>
+                <li><strong>Days 16–30:</strong> Dockerfile + Images (Build context, layers, cache, tags, multi-stage).</li>
+                <li><strong>Days 31–45:</strong> Volumes + Networks (Bind mounts, bridge networks, port mapping).</li>
+                <li><strong>Days 46–60:</strong> Compose + Databases (Multi-container stacks, env vars).</li>
+                <li><strong>Days 61–75:</strong> Security + Optimization + CI/CD (Non-root, scanning, small images).</li>
+                <li><strong>Days 76–90:</strong> Cloud + Projects + Interviews (AWS/ECR/ECS, Kubernetes comparison).</li>
+            </ul>
+        </section>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 1: Grammar Rules 1–20</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .rule-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .rule-title { font-size: 1.3rem; font-weight: bold; color: var(--accent-blue); margin-bottom: 10px; }
+        .example-box { background: #f1f5f9; padding: 10px; border-left: 4px solid var(--accent-blue); margin-top: 10px; font-family: monospace; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Grammar_Master_Notes.html" style="background: var(--accent-blue); color: white; text-align: center; font-weight: bold; margin-bottom: 15px; padding: 10px; border-radius: 5px; display: block;">&larr; Back to Master</a>
+        <h2>Unit 1: Rules 1-20</h2>
+        <a href="#r1">Rule 1: Subject-Verb</a>
+        <a href="#r2">Rule 2-3: Each/Along with</a>
+        <a href="#r4">Rule 4-5: Either/One of</a>
+        <a href="#r6">Rule 6-10: Nouns & There</a>
+        <a href="#r11">Rule 11-13: Pronouns</a>
+        <a href="#r14">Rule 14-16: Quantities</a>
+        <a href="#r17">Rule 17-20: Pronoun Cases</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 1: Rules 1–20 (Agreement & Pronouns)</h1>
+
+        <div class="rule-card" id="r1">
+            <div class="rule-title">Rule 1: Subject–Verb Agreement</div>
+            <p><strong>English Rule:</strong> Singular subject takes singular verb; plural subject takes plural verb.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Singular subject ke saath singular verb, plural ke saath plural verb.</div>
+            <div class="example-box">Example: The boy plays. / The boys play.</div>
+            <div class="box-trick">Identify this pattern before selecting the option.</div>
+        </div>
+
+        <div class="rule-card" id="r2">
+            <div class="rule-title">Rule 2: Each/Every</div>
+            <p><strong>English Rule:</strong> Each and every normally take singular nouns and singular verbs.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Each/every ke baad generally singular noun + singular verb.</div>
+            <div class="example-box">Example: Each student <span class="highlight-red">has</span> a book.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 3: Along with / As well as</div>
+            <p><strong>English Rule:</strong> These phrases do not change the number of the main subject.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> As well as / along with ke baad wala noun verb ko control nahi karta.</div>
+            <div class="example-box">Example: The teacher, along with students, <span class="highlight-red">is</span> here.</div>
+        </div>
+
+        <div class="rule-card" id="r4">
+            <div class="rule-title">Rule 4: Either...or / Neither...nor</div>
+            <p><strong>English Rule:</strong> Verb generally agrees with the nearer subject.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Nearest subject ka number dekho.</div>
+            <div class="example-box">Example: Neither the teacher nor the students <span class="highlight-red">are</span> ready.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 5: One of + plural noun</div>
+            <p><strong>English Rule:</strong> One of is followed by a plural noun, but the verb is singular.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> One of ke baad plural noun; main subject 'one' hai.</div>
+            <div class="example-box">Example: One of my friends <span class="highlight-red">is</span> here.</div>
+        </div>
+
+        <div class="rule-card" id="r6">
+            <div class="rule-title">Rule 6: A number of / The number of</div>
+            <p><strong>English Rule:</strong> A number of takes plural verb; the number of takes singular verb.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> A number of = many; the number = count.</div>
+            <div class="example-box">Example: A number of students <span class="highlight-blue">are</span> absent. The number <span class="highlight-red">is</span> high.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 7: Collective nouns</div>
+            <p><strong>English Rule:</strong> A collective noun can take singular verb when the group acts as one unit.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Team/group ek unit ho to singular.</div>
+            <div class="example-box">Example: The team <span class="highlight-red">is</span> winning.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 8 & 9: News/Mathematics vs Scissors/Trousers</div>
+            <p><strong>Rule 8:</strong> Some -s nouns are singular in meaning. <span class="hinglish">News, mathematics, physics often singular hote hain.</span><br>
+            <strong>Rule 9:</strong> Paired nouns are plural; a pair of is singular. <span class="hinglish">Scissors/trousers plural; a pair singular.</span></p>
+            <div class="example-box">The news is shocking. | The scissors are sharp. A pair is here.</div>
+        </div>
+
+        <div class="rule-card" id="r10">
+            <div class="rule-title">Rule 10: There is/are</div>
+            <p><strong>English Rule:</strong> Verb agrees with the real subject following the construction.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> There ke baad actual subject dekho.</div>
+            <div class="example-box">Example: There <span class="highlight-red">are</span> two books.</div>
+        </div>
+
+        <div class="rule-card" id="r11">
+            <div class="rule-title">Rule 11: Indefinite pronouns</div>
+            <p><strong>English Rule:</strong> Everyone, someone, anybody, nobody, each, either, neither are generally singular.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Inke saath singular verb.</div>
+            <div class="example-box">Example: Everyone <span class="highlight-red">has</span> a duty.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 12: Many a</div>
+            <p><strong>English Rule:</strong> Many a + singular noun + singular verb.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Many a ke baad singular form.</div>
+            <div class="example-box">Example: Many a student <span class="highlight-red">has</span> tried.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 13: More than one</div>
+            <p><strong>English Rule:</strong> More than one + singular noun generally takes singular verb.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Meaning plural lag sakta hai, pattern singular hai.</div>
+            <div class="example-box">Example: More than one student <span class="highlight-red">has</span> failed.</div>
+        </div>
+
+        <div class="rule-card" id="r14">
+            <div class="rule-title">Rule 14: Percentages</div>
+            <p><strong>English Rule:</strong> Verb depends on the noun after 'of'.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Of ke baad noun countable/uncountable dekho.</div>
+            <div class="example-box">Example: 50% of the work <span class="highlight-red">is</span> done; 50% of students <span class="highlight-blue">are</span> ready.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 15: Time / Distance / Money</div>
+            <p><strong>English Rule:</strong> When treated as one unit, time/distance/money usually take singular verb.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Ek quantity/unit ho to singular.</div>
+            <div class="example-box">Example: Ten kilometres <span class="highlight-red">is</span> a long distance.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 16: The + adjective</div>
+            <p><strong>English Rule:</strong> The rich/poor/elderly can refer to a group and usually take plural verb.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> The + adjective group ko show kar sakta hai.</div>
+            <div class="example-box">Example: The rich <span class="highlight-blue">are</span> not always happy.</div>
+        </div>
+
+        <div class="rule-card" id="r17">
+            <div class="rule-title">Rule 17: Pronoun case</div>
+            <p><strong>English Rule:</strong> Use subject pronouns as subjects and object pronouns after verbs/prepositions.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> I/he/she/we/they subject; me/him/her/us/them object.</div>
+            <div class="example-box">Example: Ravi and <span class="highlight-red">I</span> went. He called <span class="highlight-blue">me</span>.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 18: Between you and me</div>
+            <p><strong>English Rule:</strong> After a preposition use object form.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Preposition ke baad object pronoun.</div>
+            <div class="example-box">Example: Between you and <span class="highlight-red">me</span>.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 19: Who vs Whom</div>
+            <p><strong>English Rule:</strong> Who is subject; whom is object in formal usage.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Who kaam karta hai; whom par action hota hai.</div>
+            <div class="example-box">Example: <span class="highlight-red">Who</span> called? <span class="highlight-blue">Whom</span> did you call?</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-title">Rule 20: Reflexive pronouns</div>
+            <p><strong>English Rule:</strong> Myself, himself etc. are used reflexively or for emphasis.</p>
+            <div class="hinglish"><strong>Hinglish:</strong> Myself ko normal I/me ki jagah mat use karo.</div>
+            <div class="example-box">Example: I did it <span class="highlight-red">myself</span>. He hurt <span class="highlight-red">himself</span>.</div>
+        </div>
+    </div>
+</body>
+</html>

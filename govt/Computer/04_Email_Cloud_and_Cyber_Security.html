@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 4: Email, Cloud & Cyber Security</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Exam Tip / Trick: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+
+        /* PYQ CSS */
+        .pyq-container { margin-top: 40px; border-top: 3px dashed var(--border-color); padding-top: 20px; }
+        .pyq-title { color: var(--accent-red); margin-bottom: 15px; font-size: 1.5rem; }
+        .question-card { background-color: #f8fafc; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .q-text { font-weight: bold; margin-bottom: 10px; color: var(--text-main); }
+        .q-exam { font-size: 0.85rem; background-color: var(--accent-red); color: white; padding: 3px 8px; border-radius: 4px; float: right; font-weight: bold;}
+        .options { list-style-type: none; margin-left: 0; }
+        .options li { padding: 10px; background-color: white; margin-bottom: 5px; border-radius: 4px; border: 1px solid var(--border-color); transition: 0.2s; }
+        .options li:hover { background-color: #e2e8f0; cursor: pointer; }
+        .btn-answer { background-color: var(--accent-blue); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .btn-answer:hover { background-color: #1e40af; }
+        .answer-panel { display: none; margin-top: 10px; padding: 15px; background-color: #ecfdf5; border-left: 5px solid var(--accent-green); border-radius: 4px; color: #064e3b; }
+        .answer-panel.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../index.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back</a>
+        <h2>Unit 4: Security</h2>
+        <a href="#ch22">22. Email</a>
+        <a href="#ch23">23. Cloud Computing</a>
+        <a href="#ch24">24. Cyber Security</a>
+        <a href="#ch25">25. Malware</a>
+        <a href="#ch26">26. Phishing & Spoofing</a>
+        <a href="#pyq">📝 Practice MCQs</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 4: Email, Cloud & Cyber Security</h1>
+
+        <section id="ch22">
+            <h2>Chapter 22: Email</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Email me sender, recipient, subject, body aur attachments ho sakte hain.</div>
+            <ul>
+                <li><strong>To</strong> = primary recipient; <strong>CC</strong> = visible copy; <strong>BCC</strong> = <span class="highlight-red">hidden copy</span>.</li>
+                <li><strong>Attachment</strong> adds a file to the message.</li>
+                <li><strong>Spam</strong> is unwanted bulk communication.</li>
+                <li><span class="highlight-blue">Phishing</span> emails try to trick users into revealing information or clicking malicious links.</li>
+            </ul>
+        </section>
+
+        <section id="ch23">
+            <h2>Chapter 23: Cloud Computing</h2>
+            <p><strong>English Definition:</strong> Cloud computing provides computing resources such as storage, processing and software over a network on demand.</p>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Cloud me resources local computer ke bajay remote data centers se Internet/network ke through milte hain.</div>
+            
+            <table>
+                <tr><th>Model</th><th>Provides</th><th>Example concept</th></tr>
+                <tr><td>IaaS</td><td>VMs/storage/network</td><td>Infrastructure</td></tr>
+                <tr><td>PaaS</td><td>App platform</td><td>Development environment</td></tr>
+                <tr><td>SaaS</td><td>Ready software</td><td>Web application</td></tr>
+            </table>
+            
+            <div class="box-trick">
+                <strong>Trick:</strong><br>
+                SaaS provides ready-to-use software (like Google Docs). IaaS provides raw infrastructure.
+            </div>
+        </section>
+
+        <section id="ch24">
+            <h2>Chapter 24: Cyber Security Fundamentals</h2>
+            <ul>
+                <li><strong>CIA triad:</strong> <span class="highlight-red">Confidentiality, Integrity, Availability</span>.</li>
+                <li><strong>Authentication</strong> verifies identity (Who are you?); <strong>authorization</strong> determines permissions (What can you access?).</li>
+                <li>Least privilege gives only required access.</li>
+            </ul>
+
+            <div class="visual-container">
+                <h3 style="margin-top: 0; color: var(--accent-blue);">Simplified Security Chain</h3>
+                <svg viewBox="0 0 400 350">
+                    <rect x="50" y="10" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="30" fill="#000" text-anchor="middle">Threat / suspicious message</text>
+                    <path d="M 200 40 L 200 60" stroke="#000" marker-end="url(#arrow)"/>
+                    
+                    <rect x="50" y="60" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="80" fill="#000" text-anchor="middle">Verify sender + URL</text>
+                    <path d="M 200 90 L 200 110" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="110" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="130" fill="#000" text-anchor="middle">Do not share credentials</text>
+                    <path d="M 200 140 L 200 160" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="160" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="180" fill="#000" text-anchor="middle">Use MFA + updated software</text>
+                    <path d="M 200 190 L 200 210" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="210" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="230" fill="#000" text-anchor="middle">Report/block if malicious</text>
+                    <path d="M 200 240 L 200 260" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="260" width="300" height="30" fill="#059669" stroke="#cbd5e1"/>
+                    <text x="200" y="280" fill="#fff" font-weight="bold" text-anchor="middle">Recover from backup if needed</text>
+                </svg>
+            </div>
+        </section>
+
+        <section id="ch25">
+            <h2>Chapter 25: Malware</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Virus, worm, trojan, ransomware, spyware etc. malware ke forms hain.</div>
+
+            <table>
+                <tr><th>Malware</th><th>Key idea</th></tr>
+                <tr><td>Virus</td><td>Attaches/replicates via host</td></tr>
+                <tr><td>Worm</td><td><span class="highlight-red">Self-spreads</span> across networks</td></tr>
+                <tr><td>Trojan</td><td><span class="highlight-blue">Disguised</span> as legitimate program</td></tr>
+                <tr><td>Ransomware</td><td><span class="highlight-red">Locks/encrypts</span> data & demands payment</td></tr>
+                <tr><td>Spyware</td><td>Secret monitoring/data theft</td></tr>
+            </table>
+        </section>
+
+        <section id="ch26">
+            <h2>Chapter 26: Phishing, Spoofing & Social Eng.</h2>
+            <ul>
+                <li><strong>Phishing:</strong> deceptive messages/links.</li>
+                <li><strong>Spear phishing:</strong> targeted phishing.</li>
+                <li><strong>Smishing:</strong> SMS-based phishing.</li>
+                <li><strong>Vishing:</strong> voice-call phishing.</li>
+                <li><strong>Spoofing:</strong> <span class="highlight-blue">impersonates</span> an address, identity, website or communication source.</li>
+            </ul>
+        </section>
+
+        <!-- PYQ Section -->
+        <section id="pyq" class="pyq-container">
+            <h2 class="pyq-title">📝 SSC Practice MCQs (Unit 4)</h2>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CGL</span>
+                <p class="q-text">Q1. Which protocol is commonly used to send email?</p>
+                <ul class="options">
+                    <li>A. SMTP</li>
+                    <li>B. HTTP</li>
+                    <li>C. FTP</li>
+                    <li>D. DNS</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans1')">Show Answer & Solution</button>
+                <div id="ans1" class="answer-panel">
+                    <strong>Answer: A. SMTP</strong><br>
+                    <strong>Solution:</strong> SMTP (Simple Mail Transfer Protocol) is used for sending email.
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="q-exam">SSC CHSL</span>
+                <p class="q-text">Q2. Which malware can self-propagate across networks?</p>
+                <ul class="options">
+                    <li>A. Worm</li>
+                    <li>B. Trojan</li>
+                    <li>C. Adware</li>
+                    <li>D. Cookie</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans2')">Show Answer & Solution</button>
+                <div id="ans2" class="answer-panel">
+                    <strong>Answer: A. Worm</strong><br>
+                    <strong>Solution:</strong> A worm can replicate and self-propagate across networks without needing a host file (unlike a virus).
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC MTS</span>
+                <p class="q-text">Q3. Which attack commonly uses deceptive messages and links?</p>
+                <ul class="options">
+                    <li>A. Phishing</li>
+                    <li>B. Defragmentation</li>
+                    <li>C. Formatting</li>
+                    <li>D. Indexing</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans3')">Show Answer & Solution</button>
+                <div id="ans3" class="answer-panel">
+                    <strong>Answer: A. Phishing</strong><br>
+                    <strong>Solution:</strong> Phishing is a social engineering attack that uses deceptive emails/messages to steal user data.
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CPO</span>
+                <p class="q-text">Q4. Which cloud model provides ready-to-use software?</p>
+                <ul class="options">
+                    <li>A. IaaS</li>
+                    <li>B. PaaS</li>
+                    <li>C. SaaS</li>
+                    <li>D. BIOS</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans4')">Show Answer & Solution</button>
+                <div id="ans4" class="answer-panel">
+                    <strong>Answer: C. SaaS</strong><br>
+                    <strong>Solution:</strong> SaaS (Software as a Service) provides ready-to-use applications over the internet (e.g., Google Workspace).
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC Selection Post</span>
+                <p class="q-text">Q5. What does MFA improve?</p>
+                <ul class="options">
+                    <li>A. Authentication security</li>
+                    <li>B. Printer speed</li>
+                    <li>C. Screen size</li>
+                    <li>D. Storage capacity</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans5')">Show Answer & Solution</button>
+                <div id="ans5" class="answer-panel">
+                    <strong>Answer: A. Authentication security</strong><br>
+                    <strong>Solution:</strong> MFA (Multi-Factor Authentication) requires multiple forms of verification, greatly improving authentication security.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const panel = document.getElementById(id);
+            if (panel.classList.contains('show')) {
+                panel.classList.remove('show');
+            } else {
+                panel.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>

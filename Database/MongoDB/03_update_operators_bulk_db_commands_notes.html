@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 03: Update Operators, Deletes, Bulk Writes & DB Commands — Created by Gagan Sir</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    background-color: rgb(248, 250, 252);
+    color: rgb(15, 23, 42);
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 300px;
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+.sidebar-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(249, 115, 22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-subtitle {
+    font-size: 12px;
+    color: rgb(148, 163, 184);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgb(51, 65, 85);
+}
+.nav-group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgb(148, 163, 184);
+    margin: 16px 0 8px 8px;
+    font-weight: 700;
+}
+.nav-item {
+    display: block;
+    padding: 10px 14px;
+    color: rgb(203, 213, 225);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.nav-item:hover {
+    background-color: rgb(30, 41, 59);
+    color: rgb(255, 255, 255);
+    transform: translateX(4px);
+}
+.nav-item.active {
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+.main-content {
+    margin-left: 300px;
+    flex: 1;
+    padding: 40px;
+    max-width: 1200px;
+}
+.header-banner {
+    background: linear-gradient(135deg, rgb(15, 23, 42) 0%, rgb(30, 41, 59) 100%);
+    color: rgb(255, 255, 255);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.badge-creator {
+    display: inline-block;
+    background-color: rgb(249, 115, 22);
+    color: rgb(255, 255, 255);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+.topic-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: rgb(255, 255, 255);
+    margin-bottom: 8px;
+}
+.topic-desc {
+    font-size: 15px;
+    color: rgb(203, 213, 225);
+    line-height: 1.6;
+}
+.card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 28px;
+    border: 1px solid rgb(226, 232, 240);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgb(241, 245, 249);
+}
+.card-num {
+    background-color: rgb(15, 23, 42);
+    color: rgb(255, 255, 255);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(15, 23, 42);
+}
+.bilingual-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.def-english {
+    background-color: rgb(240, 249, 255);
+    border-left: 4px solid rgb(3, 105, 161);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-hinglish {
+    background-color: rgb(254, 252, 232);
+    border-left: 4px solid rgb(180, 83, 9);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+}
+.def-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+.def-english .def-label { color: rgb(3, 105, 161); }
+.def-hinglish .def-label { color: rgb(180, 83, 9); }
+.def-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(30, 41, 59);
+}
+.code-container {
+    background-color: rgb(15, 23, 42);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    color: rgb(241, 245, 249);
+    line-height: 1.5;
+}
+.breakdown-box {
+    background-color: rgb(248, 250, 252);
+    border: 1px solid rgb(203, 213, 225);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+}
+.breakdown-header {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgb(15, 118, 110);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.breakdown-list {
+    list-style-type: none;
+}
+.breakdown-list li {
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: rgb(51, 65, 85);
+    padding-left: 16px;
+    position: relative;
+}
+.breakdown-list li::before {
+    content: '•';
+    color: rgb(15, 118, 110);
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+}
+.interview-box {
+    background-color: rgb(254, 242, 242);
+    border-left: 4px solid rgb(185, 28, 28);
+    padding: 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 20px;
+}
+.interview-header {
+    font-size: 13px;
+    font-weight: 800;
+    color: rgb(185, 28, 28);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+.interview-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgb(127, 29, 29);
+}
+.table-container {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgb(226, 232, 240);
+}
+th {
+    background-color: rgb(241, 245, 249);
+    color: rgb(15, 23, 42);
+    font-weight: 700;
+}
+tr:hover {
+    background-color: rgb(248, 250, 252);
+}
+
+/* Responsive Design for Modules */
+@media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; padding: 16px; overflow-y: visible; }
+    .main-content { margin-left: 0; padding: 20px; }
+}
+@media (max-width: 480px) {
+    .header-banner { padding: 20px; }
+    .topic-title { font-size: 20px !important; }
+    .card { padding: 16px; }
+    .table-container { overflow-x: auto; }
+}
+
+</style>
+</head>
+<body>
+<div class="sidebar">
+        <a href="master_notes_portal.html" style="display: block; text-align: center; text-decoration: none; margin-bottom: 10px; background-color: #3b82f6; color: white; padding: 10px; border-radius: 5px; cursor: pointer;">← Back to Portal</a>
+    <div class="sidebar-brand">🍃 MongoDB Notes</div>
+    <div class="sidebar-subtitle">Created by Gagan Sir</div>
+    <div class="nav-group-title">Modules Navigation</div>
+    <a class="nav-item " onclick="window.location.href='01_mongodb_foundations_shell_crud_notes.html'">01. Foundations & Basic CRUD</a>
+    <a class="nav-item " onclick="window.location.href='02_query_operators_arrays_cursors_notes.html'">02. Query Operators & Cursors</a>
+    <a class="nav-item active" onclick="window.location.href='03_update_operators_bulk_db_commands_notes.html'">03. Updates, Bulk & Commands</a>
+    <a class="nav-item " onclick="window.location.href='04_indexes_optimization_aggregation_pipeline_notes.html'">04. Indexes & Core Aggregation</a>
+    <a class="nav-item " onclick="window.location.href='05_advanced_aggregation_transactions_replica_notes.html'">05. Advanced Aggregation & Replica</a>
+    <a class="nav-item " onclick="window.location.href='06_sharding_security_backup_drivers_notes.html'">06. Sharding, Security & Drivers</a>
+    <a class="nav-item " onclick="window.location.href='07_web_apis_modeling_troubleshooting_notes.html'">07. Web APIs & Data Modeling</a>
+    <a class="nav-item " onclick="window.location.href='08_architecture_projects_interview_roadmap_notes.html'">08. Projects & Interview Bank</a>
+    <div class="nav-group-title" style="margin-top: 24px;">Master Navigation</div>
+    <a class="nav-item" onclick="window.location.href='00_master_notes_portal.html'">🌐 Interactive Master Portal</a>
+    <a class="nav-item" onclick="window.location.href='00_mongodb_master_notes.html'">📖 Full Master Manual</a>
+</div>
+<div class="main-content">
+    <div class="header-banner">
+        <div class="badge-creator">Created by Gagan Sir</div>
+        <div class="topic-title">Module 03: Update Operators, Deletes, Bulk Writes & DB Commands</div>
+        <div class="topic-desc">MongoDB Shell + MQL + Aggregation + Administration + Python & Node.js Drivers + Real-World Projects</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-num">15</div><div class="card-title">Update Operators</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Operator</th><th>Example</th><th>Use Case</th></tr></thead>
+                <tbody>
+                    <tr><td>$set</td><td>{$set: {city: 'Delhi'}}</td><td>Set or change field value</td></tr>
+                    <tr><td>$unset</td><td>{$unset: {temp: ''}}</td><td>Remove field from document</td></tr>
+                    <tr><td>$inc</td><td>{$inc: {age: 1}}</td><td>Increment / decrement number</td></tr>
+                    <tr><td>$mul</td><td>{$mul: {price: 1.1}}</td><td>Multiply number field</td></tr>
+                    <tr><td>$min</td><td>{$min: {score: 50}}</td><td>Update only if smaller</td></tr>
+                    <tr><td>$max</td><td>{$max: {score: 90}}</td><td>Update only if larger</td></tr>
+                    <tr><td>$rename</td><td>{$rename: {'old': 'new'}}</td><td>Rename field key</td></tr>
+                    <tr><td>$push</td><td>{$push: {skills: 'SQL'}}</td><td>Append item to array</td></tr>
+                    <tr><td>$addToSet</td><td>{$addToSet: {skills: 'SQL'}}</td><td>Append item only if unique</td></tr>
+                    <tr><td>$pop</td><td>{$pop: {skills: 1}}</td><td>Remove first (-1) or last (1) item</td></tr>
+                    <tr><td>$pull</td><td>{$pull: {skills: 'SQL'}}</td><td>Remove matching items from array</td></tr>
+                    <tr><td>$pullAll</td><td>{$pullAll: {skills: ['SQL','Python']}}</td><td>Remove all listed items</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">16</div><div class="card-title">Update One / Many / Replace</div></div>
+        <div class="code-container">
+db.students.updateOne(
+  { name: "Aman" },
+  { $set: { city: "Ludhiana" } }
+)
+
+db.students.updateMany(
+  { course: "MCA" },
+  { $inc: { age: 1 } }
+)
+
+db.students.replaceOne(
+  { name: "Aman" },
+  { name: "Aman", age: 23, course: "MCA" }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">17</div><div class="card-title">Upsert Pattern</div></div>
+        <div class="code-container">
+db.students.updateOne(
+  { email: "aman@example.com" },
+  { $set: { name: "Aman", age: 22 } },
+  { upsert: true }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">18</div><div class="card-title">Delete Commands</div></div>
+        <div class="code-container">
+db.students.deleteOne({ name: "Aman" })
+db.students.deleteMany({ course: "BCA" })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">19</div><div class="card-title">Atomic Find and Modify Helpers</div></div>
+        <div class="code-container">
+db.students.findOneAndUpdate(
+  { email: "aman@example.com" },
+  { $set: { verified: true } },
+  { returnDocument: "after" }
+)
+
+db.students.findOneAndDelete({ email: "old@example.com" })
+
+db.students.findOneAndReplace(
+  { email: "aman@example.com" },
+  { email: "aman@example.com", name: "Aman", age: 23 }
+)
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">20</div><div class="card-title">Bulk Write Operations</div></div>
+        <div class="code-container">
+db.students.bulkWrite([
+  { insertOne: { document: { name: "A" } } },
+  { updateOne: { filter: { name: "A" }, update: { $set: { age: 22 } } } },
+  { deleteOne: { filter: { name: "Old" } } }
+])
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">21</div><div class="card-title">Database Commands vs mongosh Helpers</div></div>
+        <div class="code-container">
+db.runCommand({ hello: 1 })
+db.adminCommand({ serverStatus: 1 })
+db.runCommand({ ping: 1 })
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">22</div><div class="card-title">Useful Database Commands Table</div></div>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Command</th><th>Example</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td>hello</td><td>db.runCommand({hello:1})</td><td>Server & connection info</td></tr>
+                    <tr><td>ping</td><td>db.runCommand({ping:1})</td><td>Test server responsiveness</td></tr>
+                    <tr><td>buildInfo</td><td>db.runCommand({buildInfo:1})</td><td>Build information</td></tr>
+                    <tr><td>connectionStatus</td><td>db.runCommand({connectionStatus:1})</td><td>Auth & connection status</td></tr>
+                    <tr><td>serverStatus</td><td>db.adminCommand({serverStatus:1})</td><td>Server statistics & metrics</td></tr>
+                    <tr><td>dbStats</td><td>db.runCommand({dbStats:1})</td><td>Database statistics</td></tr>
+                    <tr><td>collStats</td><td>db.runCommand({collStats:'students'})</td><td>Collection statistics</td></tr>
+                    <tr><td>listDatabases</td><td>db.adminCommand({listDatabases:1})</td><td>List databases</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><div class="card-num">23</div><div class="card-title">Collection Management</div></div>
+        <div class="code-container">
+db.createCollection("students")
+db.getCollection("students")
+db.students.renameCollection("learners")
+db.students.drop()
+db.dropDatabase()
+        </div>
+    </div>
+    
+</div>
+</body>
+</html>

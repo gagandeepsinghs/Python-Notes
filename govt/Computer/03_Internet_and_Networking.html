@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 3: Internet & Networking</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border-color); }
+        th, td { padding: 15px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--accent-blue); color: white; font-weight: bold;}
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 SSC Exam Tip / Trick: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        .visual-container { background-color: #f8fafc; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center; border: 1px solid var(--border-color); }
+        .visual-container svg { max-width: 100%; height: auto; }
+
+        /* PYQ CSS */
+        .pyq-container { margin-top: 40px; border-top: 3px dashed var(--border-color); padding-top: 20px; }
+        .pyq-title { color: var(--accent-red); margin-bottom: 15px; font-size: 1.5rem; }
+        .question-card { background-color: #f8fafc; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .q-text { font-weight: bold; margin-bottom: 10px; color: var(--text-main); }
+        .q-exam { font-size: 0.85rem; background-color: var(--accent-red); color: white; padding: 3px 8px; border-radius: 4px; float: right; font-weight: bold;}
+        .options { list-style-type: none; margin-left: 0; }
+        .options li { padding: 10px; background-color: white; margin-bottom: 5px; border-radius: 4px; border: 1px solid var(--border-color); transition: 0.2s; }
+        .options li:hover { background-color: #e2e8f0; cursor: pointer; }
+        .btn-answer { background-color: var(--accent-blue); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .btn-answer:hover { background-color: #1e40af; }
+        .answer-panel { display: none; margin-top: 10px; padding: 15px; background-color: #ecfdf5; border-left: 5px solid var(--accent-green); border-radius: 4px; color: #064e3b; }
+        .answer-panel.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../index.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back</a>
+        <h2>Unit 3: Internet & Net</h2>
+        <a href="#ch13">13. Database & SQL</a>
+        <a href="#ch14">14. Internet & WWW</a>
+        <a href="#ch15">15. Browser & Search</a>
+        <a href="#ch16">16. Networking Basics</a>
+        <a href="#ch17">17. Topologies</a>
+        <a href="#ch18">18. Network Devices</a>
+        <a href="#ch19">19. IP, MAC, DNS</a>
+        <a href="#ch20">20. OSI & TCP/IP</a>
+        <a href="#ch21">21. Protocols</a>
+        <a href="#pyq">📝 Practice MCQs</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 3: Internet & Networking</h1>
+
+        <section id="ch13">
+            <h2>Chapter 13: Database, DBMS & SQL</h2>
+            <div class="hinglish"><strong>Hinglish Explanation:</strong> Database data ko structured form me store karta hai. DBMS data ko insert, update, delete aur retrieve karne ke tools deta hai.</div>
+            <ul>
+                <li><strong>Table</strong> consists of rows/records and columns/fields.</li>
+                <li><strong>Primary key:</strong> uniquely identifies a row.</li>
+                <li><strong>Foreign key:</strong> creates a relationship with another table.</li>
+                <li><strong>SQL:</strong> is used to interact with relational databases. <span class="highlight-red">CRUD = Create, Read, Update, Delete.</span></li>
+            </ul>
+        </section>
+        
+        <section id="ch14">
+            <h2>Chapter 14: Internet & World Wide Web</h2>
+            <ul>
+                <li><strong>Internet:</strong> A global network of interconnected networks.</li>
+                <li><strong>WWW:</strong> <span class="highlight-red">Linked web resources</span> that use the Internet to be accessed.</li>
+                <li><strong>URL:</strong> identifies the location of a web resource.</li>
+                <li><strong>HTTPS:</strong> adds encryption through TLS.</li>
+            </ul>
+            <div class="visual-container">
+                <h3 style="margin-top: 0; color: var(--accent-blue);">How a Web Request Works</h3>
+                <svg viewBox="0 0 400 350">
+                    <rect x="50" y="10" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="30" fill="#000" text-anchor="middle">User enters URL</text>
+                    <path d="M 200 40 L 200 60" stroke="#000" marker-end="url(#arrow)"/>
+                    
+                    <rect x="50" y="60" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="80" fill="#000" text-anchor="middle">DNS resolves domain to IP</text>
+                    <path d="M 200 90 L 200 110" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="110" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="130" fill="#000" text-anchor="middle">Browser sends request</text>
+                    <path d="M 200 140 L 200 160" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="160" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="180" fill="#000" text-anchor="middle">Server processes request</text>
+                    <path d="M 200 190 L 200 210" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="210" width="300" height="30" fill="#f8fafc" stroke="#cbd5e1"/>
+                    <text x="200" y="230" fill="#000" text-anchor="middle">Response returns</text>
+                    <path d="M 200 240 L 200 260" stroke="#000" marker-end="url(#arrow)"/>
+
+                    <rect x="50" y="260" width="300" height="30" fill="#059669" stroke="#cbd5e1"/>
+                    <text x="200" y="280" fill="#fff" font-weight="bold" text-anchor="middle">Browser displays webpage</text>
+                </svg>
+            </div>
+        </section>
+
+        <section id="ch16">
+            <h2>Chapter 16: Networking Fundamentals</h2>
+            <ul>
+                <li><strong>PAN:</strong> Personal area network (around a person).</li>
+                <li><strong>LAN:</strong> Covers a small local area (Building/campus).</li>
+                <li><strong>MAN:</strong> City/metropolitan area.</li>
+                <li><strong>WAN:</strong> Covers <span class="highlight-red">large geographical areas</span> (e.g., The Internet).</li>
+                <li><strong>Bandwidth:</strong> data-carrying capacity; <strong>latency:</strong> delay.</li>
+            </ul>
+        </section>
+
+        <section id="ch17">
+            <h2>Chapter 17 & 18: Network Topologies & Devices</h2>
+            <table>
+                <tr><th>Topology</th><th>Key feature</th></tr>
+                <tr><td>Bus</td><td>Shared backbone</td></tr>
+                <tr><td>Star</td><td><span class="highlight-red">Central device</span></td></tr>
+                <tr><td>Ring</td><td>Loop</td></tr>
+                <tr><td>Mesh</td><td>Multiple paths</td></tr>
+            </table>
+
+            <h3>Devices</h3>
+            <ul>
+                <li><strong>Hub:</strong> <span class="highlight-blue">Broadcasts</span> incoming frames to all ports.</li>
+                <li><strong>Switch:</strong> Forwards frames using <span class="highlight-red">MAC addresses</span>.</li>
+                <li><strong>Router:</strong> Forwards packets between networks using <span class="highlight-red">IP information</span>.</li>
+                <li><strong>Modem:</strong> Converts/mediates signals for Internet access technologies.</li>
+            </ul>
+        </section>
+
+        <section id="ch19">
+            <h2>Chapter 19: IP Address, MAC, DNS & DHCP</h2>
+            <p><strong>English Definition:</strong> An IP address identifies a network interface for communication at the Internet Protocol layer; a MAC address identifies a network interface at the link layer.</p>
+            <ul>
+                <li><strong>IPv4:</strong> uses 32-bit addresses; <strong>IPv6:</strong> uses <span class="highlight-blue">128-bit</span> addresses.</li>
+                <li><strong>DNS:</strong> translates domain names to IP addresses.</li>
+                <li><strong>DHCP:</strong> dynamically assigns network configuration such as IP address.</li>
+                <li><strong>MAC address:</strong> is commonly represented in <span class="highlight-red">hexadecimal</span>.</li>
+            </ul>
+        </section>
+
+        <section id="ch20">
+            <h2>Chapter 20 & 21: OSI, TCP/IP & Protocols</h2>
+            <div class="box-trick">
+                <strong>OSI 7 Layers Trick (Top to Bottom):</strong> Application, Presentation, Session, Transport, Network, Data Link, Physical.
+            </div>
+            <table>
+                <tr><th>Protocol</th><th>Use</th></tr>
+                <tr><td>HTTP/HTTPS</td><td>Web (Application layer)</td></tr>
+                <tr><td>FTP</td><td>File transfer</td></tr>
+                <tr><td>SMTP</td><td><span class="highlight-red">Send email</span></td></tr>
+                <tr><td>POP3/IMAP</td><td><span class="highlight-blue">Receive/sync email</span></td></tr>
+                <tr><td>TCP</td><td>Connection-oriented and reliable</td></tr>
+                <tr><td>UDP</td><td>Connectionless with lower overhead</td></tr>
+            </table>
+        </section>
+
+        <!-- PYQ Section -->
+        <section id="pyq" class="pyq-container">
+            <h2 class="pyq-title">📝 SSC Practice MCQs (Unit 3)</h2>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CGL</span>
+                <p class="q-text">Q1. Which device connects different networks?</p>
+                <ul class="options">
+                    <li>A. Hub</li>
+                    <li>B. Router</li>
+                    <li>C. Keyboard</li>
+                    <li>D. Printer</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans1')">Show Answer & Solution</button>
+                <div id="ans1" class="answer-panel">
+                    <strong>Answer: B. Router</strong><br>
+                    <strong>Solution:</strong> A router connects different networks and forwards data packets using IP addresses.
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="q-exam">SSC CHSL</span>
+                <p class="q-text">Q2. What does DNS primarily do?</p>
+                <ul class="options">
+                    <li>A. Compress files</li>
+                    <li>B. Resolve domain names to IP</li>
+                    <li>C. Print documents</li>
+                    <li>D. Encrypt disks</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans2')">Show Answer & Solution</button>
+                <div id="ans2" class="answer-panel">
+                    <strong>Answer: B. Resolve domain names</strong><br>
+                    <strong>Solution:</strong> DNS (Domain Name System) acts like a phonebook, translating human-readable names (like google.com) to IP addresses.
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC MTS</span>
+                <p class="q-text">Q3. Which protocol is used for web browsing?</p>
+                <ul class="options">
+                    <li>A. HTTP/HTTPS</li>
+                    <li>B. SMTP</li>
+                    <li>C. POP3</li>
+                    <li>D. IMAP</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans3')">Show Answer & Solution</button>
+                <div id="ans3" class="answer-panel">
+                    <strong>Answer: A. HTTP/HTTPS</strong><br>
+                    <strong>Solution:</strong> HTTP and HTTPS are the standard protocols for accessing and displaying web resources.
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC CPO</span>
+                <p class="q-text">Q4. Which OSI layer is associated with IP?</p>
+                <ul class="options">
+                    <li>A. Physical</li>
+                    <li>B. Data Link</li>
+                    <li>C. Network</li>
+                    <li>D. Application</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans4')">Show Answer & Solution</button>
+                <div id="ans4" class="answer-panel">
+                    <strong>Answer: C. Network</strong><br>
+                    <strong>Solution:</strong> The Network Layer (Layer 3) handles IP addressing and routing.
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <span class="q-exam">SSC Selection Post</span>
+                <p class="q-text">Q5. Which topology uses a central device?</p>
+                <ul class="options">
+                    <li>A. Ring</li>
+                    <li>B. Bus</li>
+                    <li>C. Star</li>
+                    <li>D. Mesh</li>
+                </ul>
+                <button class="btn-answer" onclick="toggleAnswer('ans5')">Show Answer & Solution</button>
+                <div id="ans5" class="answer-panel">
+                    <strong>Answer: C. Star</strong><br>
+                    <strong>Solution:</strong> Star topology connects all devices to a central hub or switch.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const panel = document.getElementById(id);
+            if (panel.classList.contains('show')) {
+                panel.classList.remove('show');
+            } else {
+                panel.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>

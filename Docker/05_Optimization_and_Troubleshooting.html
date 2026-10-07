@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIT 5: Optimization & Troubleshooting</title>
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --accent-blue: #1e3a8a; 
+            --accent-red: #dc2626;
+            --accent-green: #059669;
+            --border-color: #cbd5e1;
+            --trick-bg: #fef9c3;
+            --trick-border: #eab308;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; }
+        .sidebar { width: 280px; background: var(--bg-sidebar); padding: 20px; height: 100vh; position: fixed; border-right: 1px solid var(--border-color); overflow-y: auto;}
+        .sidebar h2 { color: var(--accent-blue); margin-bottom: 20px; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-size: 1.5rem;}
+        .sidebar a { display: block; color: var(--text-main); text-decoration: none; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: 500;}
+        .sidebar a:hover { background: #e2e8f0; color: var(--accent-red); font-weight: bold;}
+        .main-content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        h1 { color: var(--accent-blue); text-align: center; margin-bottom: 30px; font-size: 2.5rem; text-transform: uppercase; border-bottom: 3px solid var(--accent-red); padding-bottom: 15px;}
+        h2 { color: var(--accent-blue); margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; font-size: 1.8rem;}
+        h3 { color: var(--accent-green); margin-top: 25px; font-size: 1.4rem;}
+        p, li { line-height: 1.8; margin-bottom: 12px; color: var(--text-main); font-size: 1.05rem;}
+        ul { margin-left: 20px; }
+        
+        .highlight-red { color: var(--accent-red); font-weight: bold; }
+        .highlight-blue { color: var(--accent-blue); font-weight: bold; }
+        
+        .box-trick { background-color: var(--trick-bg); border-left: 5px solid var(--trick-border); padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .box-trick::before { content: '💡 Pro Tip: '; font-weight: bold; color: #b45309; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        .hinglish { background-color: #f8fafc; padding: 10px; border-left: 4px solid var(--accent-green); margin-bottom: 15px; font-style: italic; color: #0f172a;}
+        
+        pre { background-color: var(--code-bg); color: var(--code-text); padding: 15px; border-radius: 8px; overflow-x: auto; margin-bottom: 15px; font-family: 'Consolas', monospace; }
+        code { font-family: 'Consolas', monospace; background-color: #f1f5f9; padding: 2px 5px; border-radius: 4px; color: #dc2626; }
+        pre code { background-color: transparent; color: inherit; padding: 0; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Docker_Master_Notes.html" style="background-color: var(--accent-blue); color: white; text-align: center; margin-bottom: 20px; display: block; padding: 10px; border-radius: 5px; text-decoration: none;">← Back to Portal</a>
+        <h2>Unit 5: Opt & Trouble</h2>
+        <a href="#partJ">Part J: Optimization</a>
+        <a href="#partK">Part K: Troubleshooting</a>
+    </div>
+    <div class="main-content">
+        <h1>Unit 5: Performance, Monitoring & Troubleshooting</h1>
+
+        <section id="partJ">
+            <h2>Part J: Performance, Monitoring & Optimization</h2>
+            
+            <h3>1. Image Optimization</h3>
+            <p>Use slim/alpine where appropriate, multi-stage builds, <code>.dockerignore</code>, cache-friendly ordering, remove package caches and avoid unnecessary runtime tools.</p>
+
+            <h3>2. Resource Monitoring & Limits</h3>
+            <p>CPU and memory limits can prevent one container from consuming uncontrolled resources. Monitor usage using:</p>
+<pre><code>docker stats
+docker top CONTAINER
+docker logs -f CONTAINER</code></pre>
+
+            <h3>3. Disk Usage & Cleanup</h3>
+            <div class="hinglish"><strong>Hinglish:</strong> <code>docker system df</code> se check karo kitni space use ho rahi hai. Prune commands se un-used data clean karo, par carefully!</div>
+<pre><code>docker system df
+docker system prune</code></pre>
+
+            <h3>4. Image Reproducibility</h3>
+            <p>Use deliberate image tags/versioning and deterministic dependency installation. Avoid blindly relying on <code>latest</code> for production.</p>
+        </section>
+
+        <section id="partK">
+            <h2>Part K: Complete Troubleshooting</h2>
+            
+            <h3>1. Master Debugging Method</h3>
+            <p>Follow this exact flow when things go wrong:</p>
+            <ol>
+                <li><code>docker ps -a</code> (Check if it exited)</li>
+                <li><code>docker logs CONTAINER</code> (Read the error)</li>
+                <li><code>docker inspect CONTAINER</code> (Check configuration)</li>
+                <li><code>docker exec -it CONTAINER sh</code> (Go inside and debug)</li>
+                <li>Check ports / network / volume</li>
+                <li>Reproduce</li>
+                <li>Fix Dockerfile/Compose</li>
+                <li>Rebuild and validate</li>
+            </ol>
+
+            <h3>2. Common Scenarios</h3>
+            <div class="box-trick"><strong>Port Already Allocated:</strong> Choose another host port (e.g., <code>-p 8081:80</code>).</div>
+            
+            <p><strong>Container Immediately Exits:</strong> Containers stay alive only while their main process is running. Run <code>docker logs</code> to see why the main process died.</p>
+            
+            <p><strong>Database Connection Failed:</strong></p>
+            <ul>
+                <li>Check both services.</li>
+                <li>Use the Compose <span class="highlight-red">service name</span> (e.g., <code>db</code>), not localhost.</li>
+                <li>Verify credentials/port.</li>
+                <li>Remember that <code>depends_on</code> does not necessarily mean the database application is ready to accept connections.</li>
+            </ul>
+
+            <p><strong>Code Changes Not Visible:</strong></p>
+            <div class="hinglish"><strong>Hinglish:</strong> Agar code image ke andar COPY kiya tha, toh rebuild karna padega. Development ke time 'bind mounts' use karo taaki host folder sync rahe.</div>
+
+            <p><strong>Build Context Too Large:</strong> Improve <code>.dockerignore</code>; exclude .git, virtual environments, caches, local secrets and unnecessary datasets.</p>
+        </section>
+
+    </div>
+</body>
+</html>
