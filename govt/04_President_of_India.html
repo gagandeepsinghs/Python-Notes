@@ -167,9 +167,106 @@
         }
     
         .hinglish-box strong, .mnemonic-box strong { color: #b91c1c !important; background-color: #fef08a !important; padding: 2px 4px; border-radius: 4px; }
-</style>
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 1001;
+            background: #1e293b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .sidebar-toggle:hover { background: #334155; }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                padding: 30px 24px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-toggle {
+                display: flex;
+            }
+            .sidebar {
+                transform: translateX(-110%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                width: 280px !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0 !important;
+                width: 100% !important;
+                padding: 70px 16px 30px 16px !important;
+                max-width: 100% !important;
+            }
+            body {
+                flex-direction: column;
+            }
+            h1 { font-size: 1.5rem !important; }
+            h2 { font-size: 1.3rem !important; }
+            h3 { font-size: 1.15rem !important; }
+            table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 0.9rem; }
+            th, td { padding: 8px 10px !important; white-space: nowrap; }
+            pre, code { font-size: 0.85rem !important; overflow-x: auto; }
+            pre { padding: 12px !important; }
+            .code-block, .code-container { overflow-x: auto; max-width: 100%; }
+            img, svg, .visual-container { max-width: 100% !important; height: auto !important; overflow: hidden; }
+            .visual-container { padding: 15px !important; }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 65px 10px 20px 10px !important;
+            }
+            h1 { font-size: 1.25rem !important; }
+            h2 { font-size: 1.15rem !important; }
+            p, li { font-size: 0.95rem !important; }
+            .sidebar { width: 260px !important; }
+            th, td { padding: 6px 8px !important; font-size: 0.8rem; }
+        }
+        /* ===== END MOBILE RESPONSIVE ===== */
+    </style>
 </head>
 <body>
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">&#9776;</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
         <div class="sidebar">
         <a href="javascript:void(0)" onclick="if(window.history.length > 1) { history.back(); } else { window.location.href='../govt_portal.html'; }" style="display:inline-block; margin-bottom: 15px; padding: 6px 12px; background-color: var(--bg-tertiary, #2c2c2c); color: var(--text-primary, #fff); text-decoration: none; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color, #444);">&larr; Back to Home</a>
         <h2>👑 President of India</h2>
@@ -219,5 +316,41 @@
             </div>
         </div>
     </div>
+
+    <script>
+    /* Mobile Sidebar Toggle */
+    (function() {
+        var toggle = document.getElementById('sidebarToggle');
+        var overlay = document.getElementById('sidebarOverlay');
+        var sidebar = document.querySelector('.sidebar');
+        if (!toggle || !sidebar) return;
+        
+        function openSidebar() {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            toggle.innerHTML = '&#10005;';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            toggle.innerHTML = '&#9776;';
+        }
+        toggle.addEventListener('click', function() {
+            if (sidebar.classList.contains('active')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+        overlay.addEventListener('click', closeSidebar);
+        
+        // Close sidebar when a navigation link is clicked (smooth UX)
+        sidebar.querySelectorAll('a[href^="#"]').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) closeSidebar();
+            });
+        });
+    })();
+    </script>
 </body>
 </html>
